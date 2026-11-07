@@ -1,0 +1,1 @@
+Sources/AsterCompanion/AsterCompanionApp.swift

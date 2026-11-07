@@ -1,0 +1,46 @@
+{
+  "schemaVersion": "1.0.0",
+  "timestamp": "2026-09-01T16:45:00Z",
+  "sourceEnvironment": {
+    "platform": "linux-codespace",
+    "hostType": "Ubuntu 24.04 LTS (x86_64)",
+    "agentId": "agent-19-ios-handoff"
+  },
+  "targetEnvironment": {
+    "platform": "darwin-arm64",
+    "xcodeVersionRequired": ">=16.0",
+    "architecture": "arm64"
+  },
+  "repository": {
+    "remoteUrl": "https://github.com/org/ios-app.git",
+    "branch": "feature/agentic-feature",
+    "commitHash": "a1b2c3d4e5f67890",
+    "hasUncommittedChanges": false
+  },
+  "buildTarget": {
+    "workspacePath": "MyApp.xcworkspace",
+    "scheme": "MyApp",
+    "configuration": "Debug",
+    "destination": {
+      "platform": "iOS Simulator",
+      "deviceName": "iPhone 16 Pro",
+      "osVersion": "18.0"
+    },
+    "signing": {
+      "method": "automatic"
+    }
+  },
+  "actions": [
+    "sync_repository",
+    "resolve_spm_dependencies",
+    "lint",
+    "build",
+    "test",
+    "export_xcresult"
+  ],
+  "artifactsExpected": [
+    "build/logs/build.log",
+    "build/reports/MyAppTests.xcresult.zip",
+    "build/derivedData/MyApp.app"
+  ]
+}

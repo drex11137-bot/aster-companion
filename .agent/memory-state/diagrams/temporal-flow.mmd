@@ -1,0 +1,65 @@
+sequenceDiagram
+    autonumber
+    title Antigravity Memory OS - Bitemporal Reconciliation & Historical Flow
+
+    actor Runtime as Tool Runtime / Developer
+    participant Bus as CandidateBus (inbox)
+    participant Compiler as MemoryCompiler (Gatekeeper)
+    participant Reconciler as MemoryReconciler
+    participant Canonical as Canonical Markdown (.agents/memory/*.md)
+    participant Log as Transaction Log (reconciliation_log.jsonl)
+    participant IndexWAL as IndexQueueManager (index_queue.jsonl)
+    participant VectorStore as MemSearch / Milvus Lite
+
+    Note over Runtime,Bus: Event Generation (Observed At: T1 = 2026-09-01)
+    Runtime->>Bus: Tool event: Python 3.11 required
+    Bus->>Bus: Compute SHA-256 ID, filter noise, stage in inbox
+    Bus->>Compiler: Ingest candidate for admission
+    Compiler->>Compiler: Evaluate 5 gates (Durability >= 3.0, Verified Prov)
+    Compiler->>Reconciler: Route to canonical target (ARCHITECTURE.md)
+    
+    Note over Reconciler,Canonical: Initial Insertion (Valid: 2026-09-01 -> None)
+    Reconciler->>Canonical: Append ADR-001 (Status: ACTIVE, valid_from: 2026-09-01)
+    Reconciler->>Log: Log Transaction TX-001 (action: ADD, snapshot before/after)
+    Reconciler->>IndexWAL: Enqueue index job (upsert, status: pending)
+    IndexWAL->>VectorStore: Sync embeddings & BM25
+
+    Note over Runtime,VectorStore: New Contradictory Reality (Observed At: T2 = 2026-09-04)
+    Runtime->>Bus: Tool event: Upgrade required: Python 3.12 (cand-python-312)
+    Bus->>Compiler: Ingest candidate (Durability 3.0, category: PROJECT)
+    Compiler->>Reconciler: Reconcile against ARCHITECTURE.md
+    
+    Note over Reconciler,Canonical: Conflict Analysis: Direct Version Contradiction
+    Reconciler->>Reconciler: classify_relationship() -> ConflictClassification.CONTRADICTION
+    Reconciler->>Canonical: Acquire file_lock(ARCHITECTURE.md)
+    
+    Note over Canonical: Non-Destructive In-Place Supersession
+    Reconciler->>Canonical: 1. Update ADR-001 with [SUPERSEDED on 2026-09-04 by id:cand-python-312]
+    Reconciler->>Canonical: 2. Inject bitemporal comment: valid_until=2026-09-04, superseded_at=RFC3339
+    Reconciler->>Canonical: 3. Append new entry cand-python-312 (Status: ACTIVE, valid_from=2026-09-04, supersedes=ADR-001)
+    
+    Reconciler->>Log: Append TX-002 to reconciliation_log.jsonl (action: SUPERSEDE, before/after snapshots)
+    Reconciler->>IndexWAL: Enqueue index job (operation: supersede, target: ARCHITECTURE.md)
+    IndexWAL->>VectorStore: Single-writer updates Milvus Lite & BM25 index
+
+    Note over Runtime,Canonical: Dual-Timeline Query Resolution (query_as_of)
+    alt Current Reality Query (valid_at: 2026-09-04, recorded_at: 2026-09-04)
+        Runtime->>Reconciler: query_as_of(valid_at="2026-09-04")
+        Reconciler-->>Runtime: Returns cand-python-312 (ACTIVE, Python 3.12)
+    else Historical Point-in-Time Query (valid_at: 2026-09-02, recorded_at: 2026-09-04)
+        Runtime->>Reconciler: query_as_of(valid_at="2026-09-02")
+        Reconciler-->>Runtime: Returns ADR-001 (SUPERSEDED today, but VALID on 2026-09-02)
+    else Audit / Point-in-Time Belief Query (valid_at: 2026-09-02, recorded_at: 2026-09-02)
+        Runtime->>Reconciler: query_as_of(valid_at="2026-09-02", recorded_at="2026-09-02")
+        Reconciler-->>Runtime: Returns ADR-001 (system belief prior to TX-002)
+    end
+
+    Note over Reconciler,Log: Transaction Rollback (reconciler.rollback("TX-002"))
+    opt Rollback Executed
+        Runtime->>Reconciler: rollback(tx_id="TX-002")
+        Reconciler->>Log: Read before_content snapshot for TX-002
+        Reconciler->>Canonical: atomic_write(target_file, before_content) under file_lock
+        Reconciler->>Log: Mark TX-002 reverted=True, append ROLLBACK record
+        Reconciler->>IndexWAL: Enqueue index rollback update
+        Reconciler-->>Runtime: Restored canonical state to pre-TX-002
+    end

@@ -1,0 +1,5091 @@
+{
+  "metadata": {
+    "timestamp": "2026-09-04T19:14:51.436301+00:00",
+    "total_interfaces": 194,
+    "evaluator": "Agent 2: Codebase & Symbol Forensics Specialist"
+  },
+  "interfaces": [
+    {
+      "type": "function",
+      "symbol": "run_cmd",
+      "file": "scripts/audit_inventory.py",
+      "line_start": 10,
+      "line_end": 30,
+      "arguments": [
+        "cmd",
+        "timeout"
+      ],
+      "docstring": ""
+    },
+    {
+      "type": "function",
+      "symbol": "probe_tool",
+      "file": "scripts/audit_inventory.py",
+      "line_start": 32,
+      "line_end": 64,
+      "arguments": [
+        "name",
+        "check_cmd",
+        "path_override"
+      ],
+      "docstring": ""
+    },
+    {
+      "type": "function",
+      "symbol": "sanitize_env",
+      "file": "scripts/audit_inventory.py",
+      "line_start": 66,
+      "line_end": 78,
+      "arguments": [
+        "env"
+      ],
+      "docstring": ""
+    },
+    {
+      "type": "function",
+      "symbol": "main",
+      "file": "scripts/audit_inventory.py",
+      "line_start": 80,
+      "line_end": 325,
+      "arguments": [],
+      "docstring": ""
+    },
+    {
+      "type": "class",
+      "symbol": "MemoryAuditor",
+      "file": "scripts/audit_memory.py",
+      "line_start": 68,
+      "line_end": 534,
+      "docstring": "",
+      "methods": [
+        {
+          "method_name": "__init__",
+          "line_start": 69,
+          "line_end": 87,
+          "arguments": [
+            "self",
+            "global_dir",
+            "project_dir"
+          ],
+          "docstring": ""
+        },
+        {
+          "method_name": "_collect_files",
+          "line_start": 89,
+          "line_end": 97,
+          "arguments": [
+            "self",
+            "base_dir"
+          ],
+          "docstring": ""
+        },
+        {
+          "method_name": "audit_secrets",
+          "line_start": 99,
+          "line_end": 131,
+          "arguments": [
+            "self"
+          ],
+          "docstring": "Scans all memory files for secret patterns and high entropy candidates."
+        },
+        {
+          "method_name": "audit_oversized_files",
+          "line_start": 133,
+          "line_end": 153,
+          "arguments": [
+            "self"
+          ],
+          "docstring": "Checks file size and line counts against compactness thresholds."
+        },
+        {
+          "method_name": "audit_cross_project_leakage",
+          "line_start": 155,
+          "line_end": 176,
+          "arguments": [
+            "self"
+          ],
+          "docstring": "Checks if global memory contains workspace-specific paths or project IDs."
+        },
+        {
+          "method_name": "audit_unsupported_assumptions",
+          "line_start": 178,
+          "line_end": 199,
+          "arguments": [
+            "self"
+          ],
+          "docstring": "Checks for speculative hedging language violating Policy Rule #2."
+        },
+        {
+          "method_name": "audit_duplicates",
+          "line_start": 201,
+          "line_end": 235,
+          "arguments": [
+            "self"
+          ],
+          "docstring": "Detects duplicated durable facts across memory files."
+        },
+        {
+          "method_name": "audit_contradictions",
+          "line_start": 237,
+          "line_end": 293,
+          "arguments": [
+            "self"
+          ],
+          "docstring": "Scans for contradictory assertions (e.g. mismatched version requirements or incompatible directives)."
+        },
+        {
+          "method_name": "audit_stale_entries",
+          "line_start": 295,
+          "line_end": 315,
+          "arguments": [
+            "self"
+          ],
+          "docstring": "Scans for broken file references, obsolete metadata, and non-existent targets."
+        },
+        {
+          "method_name": "audit_categorization",
+          "line_start": 317,
+          "line_end": 343,
+          "arguments": [
+            "self"
+          ],
+          "docstring": "Scans for entries placed in inappropriate files according to the 9 types."
+        },
+        {
+          "method_name": "audit_unindexed_files",
+          "line_start": 345,
+          "line_end": 383,
+          "arguments": [
+            "self"
+          ],
+          "docstring": "Scans for canonical memory files that are not registered in their respective INDEX.md."
+        },
+        {
+          "method_name": "run_full_audit",
+          "line_start": 385,
+          "line_end": 395,
+          "arguments": [
+            "self"
+          ],
+          "docstring": ""
+        },
+        {
+          "method_name": "audit_all",
+          "line_start": 397,
+          "line_end": 398,
+          "arguments": [
+            "self"
+          ],
+          "docstring": ""
+        },
+        {
+          "method_name": "generate_report",
+          "line_start": 400,
+          "line_end": 534,
+          "arguments": [
+            "self"
+          ],
+          "docstring": ""
+        }
+      ]
+    },
+    {
+      "type": "function",
+      "symbol": "shannon_entropy",
+      "file": "scripts/audit_memory.py",
+      "line_start": 57,
+      "line_end": 65,
+      "arguments": [
+        "data"
+      ],
+      "docstring": ""
+    },
+    {
+      "type": "function",
+      "symbol": "main",
+      "file": "scripts/audit_memory.py",
+      "line_start": 537,
+      "line_end": 548,
+      "arguments": [],
+      "docstring": ""
+    },
+    {
+      "type": "function",
+      "symbol": "backup_memory",
+      "file": "scripts/backup_memory.py",
+      "line_start": 13,
+      "line_end": 27,
+      "arguments": [],
+      "docstring": ""
+    },
+    {
+      "type": "function",
+      "symbol": "restore_memory",
+      "file": "scripts/backup_memory.py",
+      "line_start": 29,
+      "line_end": 43,
+      "arguments": [
+        "backup_file"
+      ],
+      "docstring": ""
+    },
+    {
+      "type": "function",
+      "symbol": "list_backups",
+      "file": "scripts/backup_memory.py",
+      "line_start": 45,
+      "line_end": 57,
+      "arguments": [],
+      "docstring": ""
+    },
+    {
+      "type": "class",
+      "symbol": "Candidate",
+      "file": "scripts/candidate_bus.py",
+      "line_start": 75,
+      "line_end": 107,
+      "docstring": "Structured candidate memory record.\nStaged in .agents/memory/inbox/candidates.jsonl before promotion.",
+      "methods": [
+        {
+          "method_name": "to_dict",
+          "line_start": 91,
+          "line_end": 92,
+          "arguments": [
+            "self"
+          ],
+          "docstring": ""
+        },
+        {
+          "method_name": "from_dict",
+          "line_start": 95,
+          "line_end": 107,
+          "arguments": [
+            "cls",
+            "data"
+          ],
+          "docstring": ""
+        }
+      ]
+    },
+    {
+      "type": "class",
+      "symbol": "StageResult",
+      "file": "scripts/candidate_bus.py",
+      "line_start": 111,
+      "line_end": 120,
+      "docstring": "Result of candidate staging operation.",
+      "methods": [
+        {
+          "method_name": "to_dict",
+          "line_start": 119,
+          "line_end": 120,
+          "arguments": [
+            "self"
+          ],
+          "docstring": ""
+        }
+      ]
+    },
+    {
+      "type": "class",
+      "symbol": "CandidateBus",
+      "file": "scripts/candidate_bus.py",
+      "line_start": 284,
+      "line_end": 705,
+      "docstring": "Candidate Memory Bus for experience capture, deduplication, and staging.\nStages candidates in .agents/memory/inbox/candidates.jsonl.",
+      "methods": [
+        {
+          "method_name": "__init__",
+          "line_start": 290,
+          "line_end": 313,
+          "arguments": [
+            "self",
+            "inbox_file",
+            "rejected_file",
+            "scanner",
+            "auto_scan_secrets"
+          ],
+          "docstring": ""
+        },
+        {
+          "method_name": "_ensure_inbox_dir",
+          "line_start": 315,
+          "line_end": 317,
+          "arguments": [
+            "self"
+          ],
+          "docstring": "Ensures the inbox directory exists."
+        },
+        {
+          "method_name": "scan_candidate_security",
+          "line_start": 323,
+          "line_end": 352,
+          "arguments": [
+            "self",
+            "candidate"
+          ],
+          "docstring": "Scans all candidate fields for secret material using secret_scanner.py.\nReturns (is_clean: bool, violation_summary: Optional[str])."
+        },
+        {
+          "method_name": "_record_rejected_secret",
+          "line_start": 354,
+          "line_end": 375,
+          "arguments": [
+            "self",
+            "candidate",
+            "reason"
+          ],
+          "docstring": "Safely records rejected candidate metadata without logging the secret value."
+        },
+        {
+          "method_name": "stage_candidate",
+          "line_start": 381,
+          "line_end": 478,
+          "arguments": [
+            "self",
+            "content",
+            "category",
+            "source_type",
+            "provenance",
+            "metadata",
+            "confidence"
+          ],
+          "docstring": "Validates, checks for secrets, and stages a candidate in candidates.jsonl.\nEnforces strict SHA-256 idempotency."
+        },
+        {
+          "method_name": "capture_tool_event",
+          "line_start": 484,
+          "line_end": 578,
+          "arguments": [
+            "self",
+            "tool_name",
+            "args",
+            "output",
+            "error",
+            "exit_code",
+            "session_id",
+            "turn_id",
+            "metadata"
+          ],
+          "docstring": "Captures memory candidate from a tool execution event.\n- Filters out routine noise (ls, simple echo, status checks).\n- Extracts high-signal operational discoveries, failures, workarounds, or state mutations.\n- Attaches typed provenance and output hashes per Section 93."
+        },
+        {
+          "method_name": "capture_session_turn",
+          "line_start": 584,
+          "line_end": 656,
+          "arguments": [
+            "self",
+            "user_input",
+            "assistant_response",
+            "session_id",
+            "turn_id",
+            "turn_index",
+            "metadata"
+          ],
+          "docstring": "Captures memory candidate from a session turn.\n- Filters routine conversational noise (greetings, acknowledgments).\n- Identifies high-signal user preferences, corrections, or decisions.\n- Stages candidate with session turn provenance."
+        },
+        {
+          "method_name": "list_candidates",
+          "line_start": 662,
+          "line_end": 687,
+          "arguments": [
+            "self",
+            "category",
+            "status"
+          ],
+          "docstring": "Reads and filters candidates currently in inbox."
+        },
+        {
+          "method_name": "get_candidate",
+          "line_start": 689,
+          "line_end": 694,
+          "arguments": [
+            "self",
+            "candidate_id"
+          ],
+          "docstring": "Retrieves a specific candidate by candidate_id."
+        },
+        {
+          "method_name": "clear_inbox",
+          "line_start": 696,
+          "line_end": 705,
+          "arguments": [
+            "self"
+          ],
+          "docstring": "Clears all staged candidates from inbox (primarily for testing/maintenance)."
+        }
+      ]
+    },
+    {
+      "type": "function",
+      "symbol": "normalize_content",
+      "file": "scripts/candidate_bus.py",
+      "line_start": 127,
+      "line_end": 150,
+      "arguments": [
+        "content"
+      ],
+      "docstring": "Normalizes candidate text for deterministic hashing and deduplication.\n- Strips leading and trailing whitespace\n- Standardizes newline representations\n- Strips trailing whitespace per line\n- Collapses consecutive empty lines\n- Trims leading/trailing whitespace"
+    },
+    {
+      "type": "function",
+      "symbol": "compute_candidate_id",
+      "file": "scripts/candidate_bus.py",
+      "line_start": 153,
+      "line_end": 155,
+      "arguments": [
+        "normalized_content"
+      ],
+      "docstring": "Computes deterministic SHA-256 candidate ID from normalized content."
+    },
+    {
+      "type": "function",
+      "symbol": "is_tool_noise",
+      "file": "scripts/candidate_bus.py",
+      "line_start": 191,
+      "line_end": 247,
+      "arguments": [
+        "tool_name",
+        "args",
+        "output",
+        "exit_code",
+        "error"
+      ],
+      "docstring": "Determines if a tool execution event is routine operational noise.\nReturns (is_noise: bool, reason: str)."
+    },
+    {
+      "type": "function",
+      "symbol": "is_turn_noise",
+      "file": "scripts/candidate_bus.py",
+      "line_start": 250,
+      "line_end": 277,
+      "arguments": [
+        "user_input",
+        "assistant_response"
+      ],
+      "docstring": "Determines if a conversation turn is routine conversational noise.\nReturns (is_noise: bool, reason: str)."
+    },
+    {
+      "type": "function",
+      "symbol": "run_self_tests",
+      "file": "scripts/candidate_bus.py",
+      "line_start": 712,
+      "line_end": 833,
+      "arguments": [],
+      "docstring": "Executes thorough self-test of candidate bus, secret scanning, and idempotency."
+    },
+    {
+      "type": "function",
+      "symbol": "main",
+      "file": "scripts/candidate_bus.py",
+      "line_start": 836,
+      "line_end": 885,
+      "arguments": [],
+      "docstring": ""
+    },
+    {
+      "type": "function",
+      "symbol": "estimate_tokens",
+      "file": "scripts/compact_memory.py",
+      "line_start": 43,
+      "line_end": 47,
+      "arguments": [
+        "text"
+      ],
+      "docstring": "Estimates token count (~4 chars per token average)."
+    },
+    {
+      "type": "function",
+      "symbol": "get_budget_for_file",
+      "file": "scripts/compact_memory.py",
+      "line_start": 49,
+      "line_end": 56,
+      "arguments": [
+        "filename",
+        "parent_dir"
+      ],
+      "docstring": "Returns (max_lines, max_bytes) for a given filename."
+    },
+    {
+      "type": "function",
+      "symbol": "audit_file_budgets",
+      "file": "scripts/compact_memory.py",
+      "line_start": 58,
+      "line_end": 95,
+      "arguments": [
+        "file_path"
+      ],
+      "docstring": "Audits line count, byte size, and token estimate for a single file."
+    },
+    {
+      "type": "function",
+      "symbol": "check_chronological_sessions",
+      "file": "scripts/compact_memory.py",
+      "line_start": 97,
+      "line_end": 145,
+      "arguments": [
+        "sessions_dir"
+      ],
+      "docstring": "Validates that session files in sessions_dir are chronologically named and internally ordered."
+    },
+    {
+      "type": "function",
+      "symbol": "detect_repeated_facts",
+      "file": "scripts/compact_memory.py",
+      "line_start": 147,
+      "line_end": 191,
+      "arguments": [
+        "memory_files"
+      ],
+      "docstring": "Detects repeated bullet points / statements across memory files to suggest pointers."
+    },
+    {
+      "type": "function",
+      "symbol": "compact_current_md",
+      "file": "scripts/compact_memory.py",
+      "line_start": 193,
+      "line_end": 251,
+      "arguments": [
+        "file_path"
+      ],
+      "docstring": "Compacts CURRENT.md to keep it strictly within the 30-line budget."
+    },
+    {
+      "type": "function",
+      "symbol": "compact_markdown_file",
+      "file": "scripts/compact_memory.py",
+      "line_start": 253,
+      "line_end": 281,
+      "arguments": [
+        "file_path"
+      ],
+      "docstring": "Trims duplicate blank lines and trailing whitespace in markdown files."
+    },
+    {
+      "type": "function",
+      "symbol": "calculate_entropy",
+      "file": "scripts/compact_memory.py",
+      "line_start": 287,
+      "line_end": 296,
+      "arguments": [
+        "text"
+      ],
+      "docstring": ""
+    },
+    {
+      "type": "function",
+      "symbol": "gather_telemetry",
+      "file": "scripts/compact_memory.py",
+      "line_start": 298,
+      "line_end": 342,
+      "arguments": [
+        "target_dir",
+        "memory_files",
+        "file_audits"
+      ],
+      "docstring": ""
+    },
+    {
+      "type": "function",
+      "symbol": "run_compaction",
+      "file": "scripts/compact_memory.py",
+      "line_start": 344,
+      "line_end": 406,
+      "arguments": [
+        "target_dir",
+        "enforce"
+      ],
+      "docstring": "Runs a full audit/compaction pass on target_dir."
+    },
+    {
+      "type": "function",
+      "symbol": "print_human_report",
+      "file": "scripts/compact_memory.py",
+      "line_start": 408,
+      "line_end": 475,
+      "arguments": [
+        "report",
+        "verbose"
+      ],
+      "docstring": "Formats and prints the human-readable audit report."
+    },
+    {
+      "type": "function",
+      "symbol": "main",
+      "file": "scripts/compact_memory.py",
+      "line_start": 477,
+      "line_end": 520,
+      "arguments": [],
+      "docstring": ""
+    },
+    {
+      "type": "class",
+      "symbol": "TrustVerdict",
+      "file": "scripts/context_compiler.py",
+      "line_start": 61,
+      "line_end": 65,
+      "docstring": "",
+      "methods": []
+    },
+    {
+      "type": "class",
+      "symbol": "DisclosureLevel",
+      "file": "scripts/context_compiler.py",
+      "line_start": 68,
+      "line_end": 72,
+      "docstring": "",
+      "methods": []
+    },
+    {
+      "type": "class",
+      "symbol": "MemoryChunk",
+      "file": "scripts/context_compiler.py",
+      "line_start": 76,
+      "line_end": 117,
+      "docstring": "Represents a discrete canonical memory unit with provenance and trust metadata.",
+      "methods": [
+        {
+          "method_name": "__post_init__",
+          "line_start": 100,
+          "line_end": 107,
+          "arguments": [
+            "self"
+          ],
+          "docstring": ""
+        },
+        {
+          "method_name": "short_hash",
+          "line_start": 110,
+          "line_end": 111,
+          "arguments": [
+            "self"
+          ],
+          "docstring": ""
+        },
+        {
+          "method_name": "to_dict",
+          "line_start": 113,
+          "line_end": 117,
+          "arguments": [
+            "self"
+          ],
+          "docstring": ""
+        }
+      ]
+    },
+    {
+      "type": "class",
+      "symbol": "CompilationResult",
+      "file": "scripts/context_compiler.py",
+      "line_start": 121,
+      "line_end": 134,
+      "docstring": "Output package of context compilation.",
+      "methods": [
+        {
+          "method_name": "to_dict",
+          "line_start": 133,
+          "line_end": 134,
+          "arguments": [
+            "self"
+          ],
+          "docstring": ""
+        }
+      ]
+    },
+    {
+      "type": "class",
+      "symbol": "ContextCompiler",
+      "file": "scripts/context_compiler.py",
+      "line_start": 239,
+      "line_end": 801,
+      "docstring": "Progressive Memory Context Compiler and Token Budget Manager.\nAdheres strictly to Instruction.md Sections 19, 28, 29, and 30.",
+      "methods": [
+        {
+          "method_name": "__init__",
+          "line_start": 245,
+          "line_end": 248,
+          "arguments": [
+            "self",
+            "project_root",
+            "default_budget"
+          ],
+          "docstring": ""
+        },
+        {
+          "method_name": "git_sha",
+          "line_start": 251,
+          "line_end": 252,
+          "arguments": [
+            "self"
+          ],
+          "docstring": ""
+        },
+        {
+          "method_name": "evaluate_trust",
+          "line_start": 257,
+          "line_end": 315,
+          "arguments": [
+            "self",
+            "chunk"
+          ],
+          "docstring": "Evaluates and assigns structured Trust Verdicts:\n- CERTIFY: Evidence exists, is valid, applicable, verified, and current.\n- ADVISORY: Useful lead but insufficient confidence for blind application.\n- WARN: Stale, incomplete, conflicting, or partially verified, or prompt directives.\n- BLOCK: Secret leak detected, prompt injection attack, forbidden/revoked status, or untrusted."
+        },
+        {
+          "method_name": "render_l1",
+          "line_start": 320,
+          "line_end": 359,
+          "arguments": [
+            "self",
+            "chunk"
+          ],
+          "docstring": "L1: Compact preview (<200 chars, chunk hash, status, confidence, verdict).\nStrictly guarantees character length is under 200 characters."
+        },
+        {
+          "method_name": "render_l2",
+          "line_start": 361,
+          "line_end": 399,
+          "arguments": [
+            "self",
+            "chunk"
+          ],
+          "docstring": "L2: Full markdown section with source citation and metadata.\nDirectly implements Instruction.md Section 29 canonical output structure."
+        },
+        {
+          "method_name": "render_l3",
+          "line_start": 401,
+          "line_end": 435,
+          "arguments": [
+            "self",
+            "chunk"
+          ],
+          "docstring": "L3: Deep provenance pointer (Git SHA, file lines, execution turn, SHA256 digest).\nProvides complete cryptographic and temporal audit trail."
+        },
+        {
+          "method_name": "compile_chunks",
+          "line_start": 440,
+          "line_end": 637,
+          "arguments": [
+            "self",
+            "chunks",
+            "level",
+            "budget_tokens"
+          ],
+          "docstring": "Compiles candidate memory chunks into a compact memory context package.\nEnforces strict token budgets, progressive disclosure, and trust classification.\nNever dumps raw vector dumps or raw retrieval internals."
+        },
+        {
+          "method_name": "parse_memory_file",
+          "line_start": 642,
+          "line_end": 739,
+          "arguments": [
+            "self",
+            "file_path",
+            "default_scope"
+          ],
+          "docstring": "Parses canonical markdown memory files into structured MemoryChunk instances.\nSupports Architectural Decision Records (ADRs), Gotchas, and structured sections."
+        },
+        {
+          "method_name": "compile_query",
+          "line_start": 744,
+          "line_end": 801,
+          "arguments": [
+            "self",
+            "query",
+            "scopes",
+            "level",
+            "budget_tokens",
+            "max_results"
+          ],
+          "docstring": "Executes scoped memory search and compiles retrieved findings into a context package."
+        }
+      ]
+    },
+    {
+      "type": "function",
+      "symbol": "estimate_tokens",
+      "file": "scripts/context_compiler.py",
+      "line_start": 137,
+      "line_end": 146,
+      "arguments": [
+        "text"
+      ],
+      "docstring": "Conservative token estimator for LLM context budgets.\nCombines word/punctuation regex tokenization with character-length heuristics."
+    },
+    {
+      "type": "function",
+      "symbol": "get_git_sha",
+      "file": "scripts/context_compiler.py",
+      "line_start": 149,
+      "line_end": 163,
+      "arguments": [
+        "repo_dir"
+      ],
+      "docstring": "Resolves live repository Git commit SHA with graceful fallback."
+    },
+    {
+      "type": "function",
+      "symbol": "run_self_tests",
+      "file": "scripts/context_compiler.py",
+      "line_start": 807,
+      "line_end": 1195,
+      "arguments": [],
+      "docstring": "Comprehensive verification test suite testing:\n1. Progressive Disclosure L1 (<200 chars guarantee, hash, status, confidence, verdict).\n2. Progressive Disclosure L2 (Full markdown section, metadata, source citation).\n3. Progressive Disclosure L3 (Deep provenance pointer, Git SHA, line ranges, turn, hash).\n4. Structured Trust Verdicts (CERTIFY, ADVISORY, WARN, BLOCK).\n5. Strict Token Budget Enforcement (ceiling adherence, pruning, degradation).\n6. Security gatekeeper secret blocking.\n7. Live project repository memory parsing."
+    },
+    {
+      "type": "function",
+      "symbol": "main",
+      "file": "scripts/context_compiler.py",
+      "line_start": 1198,
+      "line_end": 1242,
+      "arguments": [],
+      "docstring": ""
+    },
+    {
+      "type": "function",
+      "symbol": "find_superseded_blocks",
+      "file": "scripts/detect_contradictions.py",
+      "line_start": 13,
+      "line_end": 40,
+      "arguments": [
+        "content"
+      ],
+      "docstring": ""
+    },
+    {
+      "type": "function",
+      "symbol": "format_superseded_entry",
+      "file": "scripts/detect_contradictions.py",
+      "line_start": 42,
+      "line_end": 58,
+      "arguments": [
+        "previous",
+        "current",
+        "reason",
+        "date_str",
+        "status",
+        "canonical_source"
+      ],
+      "docstring": "Formats an entry according to Section 43 (ACTIVE, SUPERSEDED, DEPRECATED, REVIEW) and Section 42."
+    },
+    {
+      "type": "function",
+      "symbol": "detect_version_contradiction",
+      "file": "scripts/detect_contradictions.py",
+      "line_start": 60,
+      "line_end": 69,
+      "arguments": [
+        "facts",
+        "line",
+        "path",
+        "idx"
+      ],
+      "docstring": ""
+    },
+    {
+      "type": "function",
+      "symbol": "detect_tool_contradiction",
+      "file": "scripts/detect_contradictions.py",
+      "line_start": 71,
+      "line_end": 80,
+      "arguments": [
+        "facts",
+        "line",
+        "path",
+        "idx"
+      ],
+      "docstring": ""
+    },
+    {
+      "type": "function",
+      "symbol": "detect_arch_contradiction",
+      "file": "scripts/detect_contradictions.py",
+      "line_start": 82,
+      "line_end": 91,
+      "arguments": [
+        "facts",
+        "line",
+        "path",
+        "idx"
+      ],
+      "docstring": ""
+    },
+    {
+      "type": "function",
+      "symbol": "scan_files_for_contradictions",
+      "file": "scripts/detect_contradictions.py",
+      "line_start": 93,
+      "line_end": 127,
+      "arguments": [
+        "file_paths",
+        "return_facts"
+      ],
+      "docstring": ""
+    },
+    {
+      "type": "function",
+      "symbol": "scan_files",
+      "file": "scripts/detect_contradictions.py",
+      "line_start": 129,
+      "line_end": 130,
+      "arguments": [
+        "file_paths"
+      ],
+      "docstring": ""
+    },
+    {
+      "type": "function",
+      "symbol": "main",
+      "file": "scripts/detect_contradictions.py",
+      "line_start": 132,
+      "line_end": 146,
+      "arguments": [],
+      "docstring": ""
+    },
+    {
+      "type": "class",
+      "symbol": "SourceTier",
+      "file": "scripts/evidence_reranker.py",
+      "line_start": 22,
+      "line_end": 32,
+      "docstring": "",
+      "methods": []
+    },
+    {
+      "type": "class",
+      "symbol": "TrustVerdict",
+      "file": "scripts/evidence_reranker.py",
+      "line_start": 69,
+      "line_end": 74,
+      "docstring": "",
+      "methods": []
+    },
+    {
+      "type": "class",
+      "symbol": "EvidenceSignals",
+      "file": "scripts/evidence_reranker.py",
+      "line_start": 78,
+      "line_end": 94,
+      "docstring": "",
+      "methods": [
+        {
+          "method_name": "to_dict",
+          "line_start": 93,
+          "line_end": 94,
+          "arguments": [
+            "self"
+          ],
+          "docstring": ""
+        }
+      ]
+    },
+    {
+      "type": "class",
+      "symbol": "EvidenceReranker",
+      "file": "scripts/evidence_reranker.py",
+      "line_start": 97,
+      "line_end": 392,
+      "docstring": "Multi-signal Evidence Reranker enforcing Relevance != Truth.",
+      "methods": [
+        {
+          "method_name": "__init__",
+          "line_start": 102,
+          "line_end": 103,
+          "arguments": [
+            "self",
+            "project_root"
+          ],
+          "docstring": ""
+        },
+        {
+          "method_name": "extract_signals",
+          "line_start": 105,
+          "line_end": 281,
+          "arguments": [
+            "self",
+            "snippet_item",
+            "section_meta_lines"
+          ],
+          "docstring": "Extracts multi-signal evidence metadata (Source Authority, Epistemic Confidence,\nTemporal Validity / Supersession) from snippet, headings, and section metadata."
+        },
+        {
+          "method_name": "calculate_rerank_score",
+          "line_start": 283,
+          "line_end": 344,
+          "arguments": [
+            "self",
+            "source_tier",
+            "source_authority",
+            "epistemic_confidence",
+            "temporal_status",
+            "temporal_penalty",
+            "is_superseded",
+            "normalized_relevance",
+            "truth_score"
+          ],
+          "docstring": "Calculates final rerank score enforcing strict disjoint authority tiers:\n- Tier 4 (Authoritative Current Fact): 70.0 - 100.0 [CERTIFY]\n- Tier 3 (Agent Observation):           50.0 - 68.0  [ADVISORY]\n- Tier 2 (Agent Inference):             35.0 - 48.0  [ADVISORY]\n- Tier 1 (Unverified Claim):            15.0 - 28.0  [UNVERIFIED]\n- Tier 0 (Superseded / Invalidated):     0.0 - 15.0  [SUPERSEDED]\n\nGuarantees:\nAn unverified or superseded record (max 28.0 and 15.0) can NEVER\noutrank an authoritative current fact (min 70.0), regardless of lexical relevance!"
+        },
+        {
+          "method_name": "rerank_results",
+          "line_start": 346,
+          "line_end": 392,
+          "arguments": [
+            "self",
+            "results",
+            "apply_reranker"
+          ],
+          "docstring": "Reranks a list of candidate memory snippets using multi-signal evidence scoring."
+        }
+      ]
+    },
+    {
+      "type": "function",
+      "symbol": "get_candidate_bus",
+      "file": "scripts/hooks/post_tool_use.py",
+      "line_start": 36,
+      "line_end": 46,
+      "arguments": [],
+      "docstring": ""
+    },
+    {
+      "type": "function",
+      "symbol": "_extract_error_from_output",
+      "file": "scripts/hooks/post_tool_use.py",
+      "line_start": 55,
+      "line_end": 83,
+      "arguments": [
+        "output"
+      ],
+      "docstring": "Inspects tool output for structured or unstructured error indicators."
+    },
+    {
+      "type": "function",
+      "symbol": "main",
+      "file": "scripts/hooks/post_tool_use.py",
+      "line_start": 86,
+      "line_end": 195,
+      "arguments": [],
+      "docstring": ""
+    },
+    {
+      "type": "function",
+      "symbol": "main",
+      "file": "scripts/hooks/pre_invocation.py",
+      "line_start": 14,
+      "line_end": 49,
+      "arguments": [],
+      "docstring": ""
+    },
+    {
+      "type": "function",
+      "symbol": "main",
+      "file": "scripts/hooks/pre_tool_use.py",
+      "line_start": 22,
+      "line_end": 86,
+      "arguments": [],
+      "docstring": ""
+    },
+    {
+      "type": "function",
+      "symbol": "main",
+      "file": "scripts/hooks/stop_hook.py",
+      "line_start": 12,
+      "line_end": 27,
+      "arguments": [],
+      "docstring": ""
+    },
+    {
+      "type": "class",
+      "symbol": "LearningLoopError",
+      "file": "scripts/learning_loop.py",
+      "line_start": 124,
+      "line_end": 126,
+      "docstring": "Base exception for Learning Loop operations.",
+      "methods": []
+    },
+    {
+      "type": "class",
+      "symbol": "SchemaMismatchError",
+      "file": "scripts/learning_loop.py",
+      "line_start": 129,
+      "line_end": 131,
+      "docstring": "Raised when persisted model feature schema or ordering does not match active code.",
+      "methods": []
+    },
+    {
+      "type": "class",
+      "symbol": "ModelVersionError",
+      "file": "scripts/learning_loop.py",
+      "line_start": 134,
+      "line_end": 136,
+      "docstring": "Raised when model version or corpus version is invalid or incompatible.",
+      "methods": []
+    },
+    {
+      "type": "class",
+      "symbol": "BenchmarkGateError",
+      "file": "scripts/learning_loop.py",
+      "line_start": 139,
+      "line_end": 141,
+      "docstring": "Raised when an unverified model fails the benchmark gate.",
+      "methods": []
+    },
+    {
+      "type": "class",
+      "symbol": "MemoryItem",
+      "file": "scripts/learning_loop.py",
+      "line_start": 148,
+      "line_end": 282,
+      "docstring": "Represents a candidate memory entry evaluated for decay and ranking.",
+      "methods": [
+        {
+          "method_name": "from_search_result",
+          "line_start": 168,
+          "line_end": 282,
+          "arguments": [
+            "cls",
+            "res",
+            "ledger_data",
+            "reference_time"
+          ],
+          "docstring": "Constructs a MemoryItem from a search_memory.py result dict and ledger."
+        }
+      ]
+    },
+    {
+      "type": "class",
+      "symbol": "DecayProfile",
+      "file": "scripts/learning_loop.py",
+      "line_start": 286,
+      "line_end": 296,
+      "docstring": "Detailed decay analysis for a memory item.",
+      "methods": []
+    },
+    {
+      "type": "class",
+      "symbol": "ReinforcementProfile",
+      "file": "scripts/learning_loop.py",
+      "line_start": 300,
+      "line_end": 309,
+      "docstring": "Detailed access and verification reinforcement profile.",
+      "methods": []
+    },
+    {
+      "type": "class",
+      "symbol": "ModelMetadata",
+      "file": "scripts/learning_loop.py",
+      "line_start": 313,
+      "line_end": 344,
+      "docstring": "Versioned model metadata traveling with feature weights.",
+      "methods": [
+        {
+          "method_name": "to_dict",
+          "line_start": 327,
+          "line_end": 328,
+          "arguments": [
+            "self"
+          ],
+          "docstring": ""
+        },
+        {
+          "method_name": "from_dict",
+          "line_start": 331,
+          "line_end": 344,
+          "arguments": [
+            "cls",
+            "data"
+          ],
+          "docstring": ""
+        }
+      ]
+    },
+    {
+      "type": "class",
+      "symbol": "CandidateRanking",
+      "file": "scripts/learning_loop.py",
+      "line_start": 348,
+      "line_end": 357,
+      "docstring": "Ranking assignment and score details for a single candidate.",
+      "methods": []
+    },
+    {
+      "type": "class",
+      "symbol": "ShadowComparisonReport",
+      "file": "scripts/learning_loop.py",
+      "line_start": 361,
+      "line_end": 413,
+      "docstring": "Comprehensive comparison between Baseline RRF and Shadow Learned ranking.",
+      "methods": [
+        {
+          "method_name": "to_dict",
+          "line_start": 379,
+          "line_end": 413,
+          "arguments": [
+            "self"
+          ],
+          "docstring": ""
+        }
+      ]
+    },
+    {
+      "type": "class",
+      "symbol": "MemoryDecayModel",
+      "file": "scripts/learning_loop.py",
+      "line_start": 419,
+      "line_end": 531,
+      "docstring": "Models memory decay curves distinguishing staleness, importance, historical value,\naccess frequency, scope, and authority.\n\nPrinciples:\n- Core governance facts do not decay simply because they are old.\n- Low-value episodic material is deprioritized quickly.\n- Candidates expire after TTL.\n- Temporary memories respect TTLs.\n- Superseded memories remain queryable historically with controlled penalty.",
+      "methods": [
+        {
+          "method_name": "__init__",
+          "line_start": 432,
+          "line_end": 433,
+          "arguments": [
+            "self",
+            "reference_time"
+          ],
+          "docstring": ""
+        },
+        {
+          "method_name": "get_current_time",
+          "line_start": 435,
+          "line_end": 436,
+          "arguments": [
+            "self"
+          ],
+          "docstring": ""
+        },
+        {
+          "method_name": "is_governance_exempt",
+          "line_start": 438,
+          "line_end": 446,
+          "arguments": [
+            "self",
+            "item"
+          ],
+          "docstring": "Determines if the memory represents core governance/policy immune to age decay."
+        },
+        {
+          "method_name": "compute_decay",
+          "line_start": 448,
+          "line_end": 531,
+          "arguments": [
+            "self",
+            "item"
+          ],
+          "docstring": ""
+        }
+      ]
+    },
+    {
+      "type": "class",
+      "symbol": "AccessReinforcementModel",
+      "file": "scripts/learning_loop.py",
+      "line_start": 537,
+      "line_end": 580,
+      "docstring": "Models access reinforcement where verified successful use strengthens retrieval priority.\n\nStrict Invariant per Section 43:\n- Retrieved != True.\n- Frequently Retrieved != Authoritative.\n- Access frequency is a retrieval signal, NOT an epistemic truth signal.\n- Bounded saturation prevents popularity feedback loops / echo chambers.",
+      "methods": [
+        {
+          "method_name": "__init__",
+          "line_start": 548,
+          "line_end": 549,
+          "arguments": [
+            "self"
+          ],
+          "docstring": ""
+        },
+        {
+          "method_name": "compute_reinforcement",
+          "line_start": 551,
+          "line_end": 580,
+          "arguments": [
+            "self",
+            "item"
+          ],
+          "docstring": ""
+        }
+      ]
+    },
+    {
+      "type": "class",
+      "symbol": "ReciprocalRankFusion",
+      "file": "scripts/learning_loop.py",
+      "line_start": 586,
+      "line_end": 649,
+      "docstring": "Principled, deterministic, explainable, and reproducible fusion layer.\nComputes baseline multi-signal rank fusion using Reciprocal Rank Fusion (RRF).",
+      "methods": [
+        {
+          "method_name": "__init__",
+          "line_start": 592,
+          "line_end": 593,
+          "arguments": [
+            "self",
+            "k"
+          ],
+          "docstring": ""
+        },
+        {
+          "method_name": "fuse",
+          "line_start": 595,
+          "line_end": 649,
+          "arguments": [
+            "self",
+            "candidates",
+            "signal_weights"
+          ],
+          "docstring": "Fuses 4 deterministic retrieval signals:\n1. lexical: upstream search match score\n2. authority: inherent source tier authority\n3. importance: durability / governance level\n4. freshness: recency of creation or update"
+        }
+      ]
+    },
+    {
+      "type": "class",
+      "symbol": "ModelManager",
+      "file": "scripts/learning_loop.py",
+      "line_start": 655,
+      "line_end": 725,
+      "docstring": "Enforces that feature schema version, model version, and training corpus version\ntravel together with weights.\nInvariant: Never allow a new feature ordering to reinterpret old weights silently.",
+      "methods": [
+        {
+          "method_name": "validate_model_schema",
+          "line_start": 663,
+          "line_end": 694,
+          "arguments": [
+            "model"
+          ],
+          "docstring": ""
+        },
+        {
+          "method_name": "load_model",
+          "line_start": 697,
+          "line_end": 712,
+          "arguments": [
+            "cls",
+            "filepath"
+          ],
+          "docstring": ""
+        },
+        {
+          "method_name": "save_model",
+          "line_start": 715,
+          "line_end": 725,
+          "arguments": [
+            "cls",
+            "model",
+            "filepath"
+          ],
+          "docstring": ""
+        }
+      ]
+    },
+    {
+      "type": "class",
+      "symbol": "LearningLedger",
+      "file": "scripts/learning_loop.py",
+      "line_start": 731,
+      "line_end": 787,
+      "docstring": "Persistently records access and verification counts for memory items.\nThread-safe and transactionally safe.",
+      "methods": [
+        {
+          "method_name": "__init__",
+          "line_start": 737,
+          "line_end": 740,
+          "arguments": [
+            "self",
+            "filepath"
+          ],
+          "docstring": ""
+        },
+        {
+          "method_name": "load",
+          "line_start": 742,
+          "line_end": 752,
+          "arguments": [
+            "self"
+          ],
+          "docstring": ""
+        },
+        {
+          "method_name": "save",
+          "line_start": 754,
+          "line_end": 765,
+          "arguments": [
+            "self"
+          ],
+          "docstring": ""
+        },
+        {
+          "method_name": "record_access",
+          "line_start": 767,
+          "line_end": 784,
+          "arguments": [
+            "self",
+            "memory_id",
+            "verified",
+            "refuted"
+          ],
+          "docstring": ""
+        },
+        {
+          "method_name": "get_record",
+          "line_start": 786,
+          "line_end": 787,
+          "arguments": [
+            "self",
+            "memory_id"
+          ],
+          "docstring": ""
+        }
+      ]
+    },
+    {
+      "type": "class",
+      "symbol": "ShadowRanker",
+      "file": "scripts/learning_loop.py",
+      "line_start": 793,
+      "line_end": 1030,
+      "docstring": "Executes learned rank adjustments strictly in SHADOW mode.\nCompares baseline RRF ranking with shadow ranking in ISOLATION.\nNever modifies the live search path.",
+      "methods": [
+        {
+          "method_name": "__init__",
+          "line_start": 800,
+          "line_end": 808,
+          "arguments": [
+            "self",
+            "model",
+            "decay_model",
+            "reinforce_model"
+          ],
+          "docstring": ""
+        },
+        {
+          "method_name": "extract_features",
+          "line_start": 810,
+          "line_end": 856,
+          "arguments": [
+            "self",
+            "item",
+            "normalized_baseline_rrf",
+            "reference_time"
+          ],
+          "docstring": "Extracts normalized feature vector for a candidate item."
+        },
+        {
+          "method_name": "compute_shadow_score",
+          "line_start": 858,
+          "line_end": 870,
+          "arguments": [
+            "self",
+            "features"
+          ],
+          "docstring": "Computes the learned shadow score strictly by named weight lookup.\nNever uses positional index mapping."
+        },
+        {
+          "method_name": "evaluate_shadow_ranking",
+          "line_start": 872,
+          "line_end": 1030,
+          "arguments": [
+            "self",
+            "query",
+            "baseline_ranked_tuples",
+            "reference_time"
+          ],
+          "docstring": "Runs shadow ranker comparing baseline RRF ranking with learned adjustments in isolation."
+        }
+      ]
+    },
+    {
+      "type": "class",
+      "symbol": "BenchmarkGate",
+      "file": "scripts/learning_loop.py",
+      "line_start": 1036,
+      "line_end": 1236,
+      "docstring": "Evaluates whether a learned ranking configuration satisfies explicit benchmark\ncriteria before it is ever permitted to affect live behavior.\n\nRequirements:\n1. Governance Immunity: Policy/rules facts must maintain retention >= 0.98.\n2. Access Boost: Verified successful memories outrank unverified ones.\n3. Superseded Demotion: Active decisions strictly outrank superseded decisions.\n4. Candidate Expiry: Candidate memories with expired TTL must have decay 0.0.\n5. Zero Governance Regressions: High authority items must not be demoted below low-value notes.",
+      "methods": [
+        {
+          "method_name": "__init__",
+          "line_start": 1049,
+          "line_end": 1050,
+          "arguments": [
+            "self",
+            "shadow_ranker"
+          ],
+          "docstring": ""
+        },
+        {
+          "method_name": "run_benchmark",
+          "line_start": 1052,
+          "line_end": 1236,
+          "arguments": [
+            "self"
+          ],
+          "docstring": ""
+        }
+      ]
+    },
+    {
+      "type": "class",
+      "symbol": "LearningLoop",
+      "file": "scripts/learning_loop.py",
+      "line_start": 1242,
+      "line_end": 1400,
+      "docstring": "Unified controller implementing:\n- Memory decay curves based on age, importance, access frequency, and authority.\n- Access reinforcement (frequently verified memories get priority boost).\n- Shadow ranker comparing baseline RRF ranking with learned adjustments in isolation.\n- Strict isolation: NEVER modifies live search path.\n- Feature schema and model versioning.",
+      "methods": [
+        {
+          "method_name": "__init__",
+          "line_start": 1252,
+          "line_end": 1275,
+          "arguments": [
+            "self",
+            "workspace_dir",
+            "model_path",
+            "ledger_path",
+            "reference_time"
+          ],
+          "docstring": ""
+        },
+        {
+          "method_name": "record_access",
+          "line_start": 1277,
+          "line_end": 1279,
+          "arguments": [
+            "self",
+            "memory_id",
+            "verified",
+            "refuted"
+          ],
+          "docstring": "Records an access or verification in the persistent ledger."
+        },
+        {
+          "method_name": "run_benchmark_gate",
+          "line_start": 1281,
+          "line_end": 1283,
+          "arguments": [
+            "self"
+          ],
+          "docstring": "Runs benchmark gate to evaluate whether learned ranking is certified."
+        },
+        {
+          "method_name": "query_with_shadow",
+          "line_start": 1285,
+          "line_end": 1378,
+          "arguments": [
+            "self",
+            "query",
+            "scopes",
+            "max_results",
+            "persist_eval"
+          ],
+          "docstring": "Executes query retrieval:\n1. Discovers and extracts candidate snippets via search_memory.py.\n2. Computes baseline deterministic RRF ranking.\n3. Runs learned ranking in SHADOW mode in strict isolation.\n4. Returns LIVE results (pure baseline RRF) alongside SHADOW comparison report.\n\nINVARIANT: Live search results returned to caller are 100% determined by baseline RRF.\nThe shadow ranker NEVER mutates the live path."
+        },
+        {
+          "method_name": "inspect_memory_decay",
+          "line_start": 1380,
+          "line_end": 1400,
+          "arguments": [
+            "self",
+            "memory_items"
+          ],
+          "docstring": "Calculates and formats decay profiles for a list of memory items."
+        }
+      ]
+    },
+    {
+      "type": "function",
+      "symbol": "format_shadow_comparison_table",
+      "file": "scripts/learning_loop.py",
+      "line_start": 1406,
+      "line_end": 1447,
+      "arguments": [
+        "report"
+      ],
+      "docstring": "Renders a GitHub Flavored Markdown table comparing baseline and shadow rankings."
+    },
+    {
+      "type": "function",
+      "symbol": "main",
+      "file": "scripts/learning_loop.py",
+      "line_start": 1453,
+      "line_end": 1563,
+      "arguments": [],
+      "docstring": ""
+    },
+    {
+      "type": "class",
+      "symbol": "LockTimeout",
+      "file": "scripts/lock_manager.py",
+      "line_start": 12,
+      "line_end": 13,
+      "docstring": "",
+      "methods": []
+    },
+    {
+      "type": "function",
+      "symbol": "file_lock",
+      "file": "scripts/lock_manager.py",
+      "line_start": 16,
+      "line_end": 40,
+      "arguments": [
+        "filepath",
+        "timeout"
+      ],
+      "docstring": ""
+    },
+    {
+      "type": "function",
+      "symbol": "atomic_write",
+      "file": "scripts/lock_manager.py",
+      "line_start": 42,
+      "line_end": 61,
+      "arguments": [
+        "filepath",
+        "content"
+      ],
+      "docstring": "Writes content to filepath atomically using a temporary file."
+    },
+    {
+      "type": "function",
+      "symbol": "safe_update_memory",
+      "file": "scripts/lock_manager.py",
+      "line_start": 63,
+      "line_end": 76,
+      "arguments": [
+        "filepath",
+        "update_fn",
+        "timeout"
+      ],
+      "docstring": "Acquires lock, reads content, calls update_fn(content), writes atomically."
+    },
+    {
+      "type": "function",
+      "symbol": "recover_and_cleanup",
+      "file": "scripts/lock_manager.py",
+      "line_start": 78,
+      "line_end": 95,
+      "arguments": [
+        "directory",
+        "max_age_seconds"
+      ],
+      "docstring": "Cleans up orphaned .tmp files and stale .lock files."
+    },
+    {
+      "type": "class",
+      "symbol": "BenchmarkRetriever",
+      "file": "scripts/memory_benchmark.py",
+      "line_start": 111,
+      "line_end": 329,
+      "docstring": "High-fidelity hybrid retrieval engine implementing:\n- Lane 1: BM25 / lexical scoring\n- Lane 2: Dense semantic n-gram TF-IDF cosine embedding similarity\n- Lane 3: Reciprocal Rank Fusion (RRF)\n- Lane 4: Metadata and evidence freshness reranking\n- Lane 5: Explicit abstention and thresholding",
+      "methods": [
+        {
+          "method_name": "__init__",
+          "line_start": 121,
+          "line_end": 132,
+          "arguments": [
+            "self",
+            "documents"
+          ],
+          "docstring": ""
+        },
+        {
+          "method_name": "lexical_score",
+          "line_start": 134,
+          "line_end": 162,
+          "arguments": [
+            "self",
+            "query",
+            "doc_idx",
+            "k1",
+            "b"
+          ],
+          "docstring": "BM25 lexical scoring."
+        },
+        {
+          "method_name": "semantic_score",
+          "line_start": 164,
+          "line_end": 209,
+          "arguments": [
+            "self",
+            "query",
+            "doc_idx"
+          ],
+          "docstring": "Dense semantic similarity model.\nUses character and subword n-gram vector representations with cosine similarity,\nplus synonym/conceptual expansion to handle paraphrases missed by lexical search."
+        },
+        {
+          "method_name": "search_lexical",
+          "line_start": 211,
+          "line_end": 218,
+          "arguments": [
+            "self",
+            "query",
+            "top_k"
+          ],
+          "docstring": ""
+        },
+        {
+          "method_name": "search_semantic",
+          "line_start": 220,
+          "line_end": 227,
+          "arguments": [
+            "self",
+            "query",
+            "top_k"
+          ],
+          "docstring": ""
+        },
+        {
+          "method_name": "search_hybrid",
+          "line_start": 229,
+          "line_end": 329,
+          "arguments": [
+            "self",
+            "query",
+            "top_k",
+            "rrf_k",
+            "apply_reranker",
+            "as_of",
+            "scope",
+            "include_candidates"
+          ],
+          "docstring": "Hybrid retrieval combining Lexical + Semantic via Reciprocal Rank Fusion (RRF)\nand Evidence-Aware Reranking (Instruction.md Sections 23-25)."
+        }
+      ]
+    },
+    {
+      "type": "class",
+      "symbol": "AcceptanceMatrixRunner",
+      "file": "scripts/memory_benchmark.py",
+      "line_start": 666,
+      "line_end": 1187,
+      "docstring": "Executes and certifies the 30 formal acceptance assertions (A001 - A030)\nper Instruction.md Section 111.",
+      "methods": [
+        {
+          "method_name": "__init__",
+          "line_start": 672,
+          "line_end": 676,
+          "arguments": [
+            "self",
+            "workspace_root"
+          ],
+          "docstring": ""
+        },
+        {
+          "method_name": "run_all",
+          "line_start": 678,
+          "line_end": 750,
+          "arguments": [
+            "self"
+          ],
+          "docstring": "Runs all 30 acceptance matrix tests."
+        },
+        {
+          "method_name": "test_a001",
+          "line_start": 752,
+          "line_end": 772,
+          "arguments": [
+            "self"
+          ],
+          "docstring": "A001: Canonical Markdown readable without MemSearch."
+        },
+        {
+          "method_name": "test_a002",
+          "line_start": 774,
+          "line_end": 796,
+          "arguments": [
+            "self"
+          ],
+          "docstring": "A002: Index removal does not destroy canonical memory."
+        },
+        {
+          "method_name": "test_a003",
+          "line_start": 798,
+          "line_end": 809,
+          "arguments": [
+            "self"
+          ],
+          "docstring": "A003: Semantic search retrieves paraphrased queries."
+        },
+        {
+          "method_name": "test_a004",
+          "line_start": 811,
+          "line_end": 817,
+          "arguments": [
+            "self"
+          ],
+          "docstring": "A004: Exact paths/commands retrievable via lexical."
+        },
+        {
+          "method_name": "test_a005",
+          "line_start": 819,
+          "line_end": 830,
+          "arguments": [
+            "self"
+          ],
+          "docstring": "A005: Hybrid retrieval benchmark (Recall@K, MRR)."
+        },
+        {
+          "method_name": "test_a006",
+          "line_start": 832,
+          "line_end": 842,
+          "arguments": [
+            "self"
+          ],
+          "docstring": "A006: Superseded memory not returned as current truth."
+        },
+        {
+          "method_name": "test_a007",
+          "line_start": 844,
+          "line_end": 853,
+          "arguments": [
+            "self"
+          ],
+          "docstring": "A007: Historical as-of queries recover old state."
+        },
+        {
+          "method_name": "test_a008",
+          "line_start": 855,
+          "line_end": 866,
+          "arguments": [
+            "self"
+          ],
+          "docstring": "A008: Stale evidence citation reduces trust."
+        },
+        {
+          "method_name": "test_a009",
+          "line_start": 868,
+          "line_end": 885,
+          "arguments": [
+            "self"
+          ],
+          "docstring": "A009: Missing citation prevents automatically promoted high-authority fact."
+        },
+        {
+          "method_name": "test_a010",
+          "line_start": 887,
+          "line_end": 897,
+          "arguments": [
+            "self"
+          ],
+          "docstring": "A010: Candidates excluded from authoritative search."
+        },
+        {
+          "method_name": "test_a011",
+          "line_start": 899,
+          "line_end": 914,
+          "arguments": [
+            "self"
+          ],
+          "docstring": "A011: Exact duplicate candidates do not duplicate records."
+        },
+        {
+          "method_name": "test_a012",
+          "line_start": 916,
+          "line_end": 932,
+          "arguments": [
+            "self"
+          ],
+          "docstring": "A012: Semantic duplicate candidates are detected."
+        },
+        {
+          "method_name": "test_a013",
+          "line_start": 934,
+          "line_end": 950,
+          "arguments": [
+            "self"
+          ],
+          "docstring": "A013: True conflicts create review/reconciliation path."
+        },
+        {
+          "method_name": "test_a014",
+          "line_start": 952,
+          "line_end": 961,
+          "arguments": [
+            "self"
+          ],
+          "docstring": "A014: Scope boundaries prevent project-to-project leakage."
+        },
+        {
+          "method_name": "test_a015",
+          "line_start": 963,
+          "line_end": 982,
+          "arguments": [
+            "self"
+          ],
+          "docstring": "A015: Secret scanning blocks credentials."
+        },
+        {
+          "method_name": "test_a016",
+          "line_start": 984,
+          "line_end": 1008,
+          "arguments": [
+            "self"
+          ],
+          "docstring": "A016: Automatic capture is idempotent."
+        },
+        {
+          "method_name": "test_a017",
+          "line_start": 1010,
+          "line_end": 1029,
+          "arguments": [
+            "self"
+          ],
+          "docstring": "A017: Indexing failures do not corrupt canonical memory."
+        },
+        {
+          "method_name": "test_a018",
+          "line_start": 1031,
+          "line_end": 1042,
+          "arguments": [
+            "self"
+          ],
+          "docstring": "A018: Index failures are observable."
+        },
+        {
+          "method_name": "test_a019",
+          "line_start": 1044,
+          "line_end": 1057,
+          "arguments": [
+            "self"
+          ],
+          "docstring": "A019: Concurrent indexing is serialized correctly."
+        },
+        {
+          "method_name": "test_a020",
+          "line_start": 1059,
+          "line_end": 1065,
+          "arguments": [
+            "self"
+          ],
+          "docstring": "A020: Embedding-model changes are detected."
+        },
+        {
+          "method_name": "test_a021",
+          "line_start": 1067,
+          "line_end": 1084,
+          "arguments": [
+            "self"
+          ],
+          "docstring": "A021: System can rebuild derived semantic index from canonical memory."
+        },
+        {
+          "method_name": "test_a022",
+          "line_start": 1086,
+          "line_end": 1093,
+          "arguments": [
+            "self"
+          ],
+          "docstring": "A022: System can operate in lexical fallback mode."
+        },
+        {
+          "method_name": "test_a023",
+          "line_start": 1095,
+          "line_end": 1110,
+          "arguments": [
+            "self"
+          ],
+          "docstring": "A023: Procedural candidates are not silently installed."
+        },
+        {
+          "method_name": "test_a024",
+          "line_start": 1112,
+          "line_end": 1124,
+          "arguments": [
+            "self"
+          ],
+          "docstring": "A024: Memory feedback distinguishes invisible from visible-but-unused results."
+        },
+        {
+          "method_name": "test_a025",
+          "line_start": 1126,
+          "line_end": 1132,
+          "arguments": [
+            "self"
+          ],
+          "docstring": "A025: Unknown queries cause abstention rather than fabricated recall."
+        },
+        {
+          "method_name": "test_a026",
+          "line_start": 1134,
+          "line_end": 1140,
+          "arguments": [
+            "self"
+          ],
+          "docstring": "A026: Current-state questions verify live state when evidence is mutable."
+        },
+        {
+          "method_name": "test_a027",
+          "line_start": 1142,
+          "line_end": 1149,
+          "arguments": [
+            "self"
+          ],
+          "docstring": "A027: Historical questions can retrieve historical memory."
+        },
+        {
+          "method_name": "test_a028",
+          "line_start": 1151,
+          "line_end": 1168,
+          "arguments": [
+            "self"
+          ],
+          "docstring": "A028: Final health report has zero contradictory statuses."
+        },
+        {
+          "method_name": "test_a029",
+          "line_start": 1170,
+          "line_end": 1178,
+          "arguments": [
+            "self"
+          ],
+          "docstring": "A029: Benchmark itself is deterministic where deterministic scoring is possible."
+        },
+        {
+          "method_name": "test_a030",
+          "line_start": 1180,
+          "line_end": 1187,
+          "arguments": [
+            "self"
+          ],
+          "docstring": "A030: Final implementation is documented well enough for fresh agent to reconstruct."
+        }
+      ]
+    },
+    {
+      "type": "function",
+      "symbol": "tokenize",
+      "file": "scripts/memory_benchmark.py",
+      "line_start": 106,
+      "line_end": 108,
+      "arguments": [
+        "text"
+      ],
+      "docstring": "Tokenizes text into normalized alphanumeric words."
+    },
+    {
+      "type": "function",
+      "symbol": "get_canonical_benchmark_corpus",
+      "file": "scripts/memory_benchmark.py",
+      "line_start": 336,
+      "line_end": 487,
+      "arguments": [],
+      "docstring": "Returns canonical test memory records derived directly from repository facts."
+    },
+    {
+      "type": "function",
+      "symbol": "get_benchmark_query_suite",
+      "file": "scripts/memory_benchmark.py",
+      "line_start": 490,
+      "line_end": 584,
+      "arguments": [],
+      "docstring": "14 distinct query evaluation categories testing retrieval performance\nper Instruction.md Section 73."
+    },
+    {
+      "type": "function",
+      "symbol": "compute_retrieval_metrics",
+      "file": "scripts/memory_benchmark.py",
+      "line_start": 591,
+      "line_end": 659,
+      "arguments": [
+        "retriever",
+        "queries",
+        "mode"
+      ],
+      "docstring": "Computes Recall@1, Recall@3, Recall@5, Recall@10, MRR, and NDCG@10.\nModes: 'lexical', 'semantic', 'hybrid', 'hybrid_reranked'."
+    },
+    {
+      "type": "function",
+      "symbol": "run_retrieval_benchmark_suite",
+      "file": "scripts/memory_benchmark.py",
+      "line_start": 1194,
+      "line_end": 1216,
+      "arguments": [],
+      "docstring": ""
+    },
+    {
+      "type": "function",
+      "symbol": "run_noise_stress_benchmark",
+      "file": "scripts/memory_benchmark.py",
+      "line_start": 1219,
+      "line_end": 1247,
+      "arguments": [],
+      "docstring": ""
+    },
+    {
+      "type": "function",
+      "symbol": "main",
+      "file": "scripts/memory_benchmark.py",
+      "line_start": 1250,
+      "line_end": 1275,
+      "arguments": [],
+      "docstring": ""
+    },
+    {
+      "type": "class",
+      "symbol": "MemoryCategory",
+      "file": "scripts/memory_compiler.py",
+      "line_start": 93,
+      "line_end": 103,
+      "docstring": "The 9 canonical memory categories in the Antigravity Memory OS.",
+      "methods": []
+    },
+    {
+      "type": "class",
+      "symbol": "AdmissionDecisionType",
+      "file": "scripts/memory_compiler.py",
+      "line_start": 106,
+      "line_end": 110,
+      "docstring": "The 3 admission decisions emitted by the Memory Compiler gatekeeper.",
+      "methods": []
+    },
+    {
+      "type": "class",
+      "symbol": "ProvenanceStatus",
+      "file": "scripts/memory_compiler.py",
+      "line_start": 113,
+      "line_end": 121,
+      "docstring": "Provenance freshness and verification states per Section 17.",
+      "methods": []
+    },
+    {
+      "type": "class",
+      "symbol": "CompilerThresholds",
+      "file": "scripts/memory_compiler.py",
+      "line_start": 125,
+      "line_end": 132,
+      "docstring": "Configurable thresholds for candidate scoring and admission gating.",
+      "methods": []
+    },
+    {
+      "type": "class",
+      "symbol": "CandidateScore",
+      "file": "scripts/memory_compiler.py",
+      "line_start": 136,
+      "line_end": 151,
+      "docstring": "Detailed score breakdown calculated per Section 10 formula.",
+      "methods": [
+        {
+          "method_name": "to_dict",
+          "line_start": 150,
+          "line_end": 151,
+          "arguments": [
+            "self"
+          ],
+          "docstring": ""
+        }
+      ]
+    },
+    {
+      "type": "class",
+      "symbol": "AdmissionDecision",
+      "file": "scripts/memory_compiler.py",
+      "line_start": 155,
+      "line_end": 171,
+      "docstring": "Admission decision emitted by the gatekeeper.",
+      "methods": [
+        {
+          "method_name": "to_dict",
+          "line_start": 170,
+          "line_end": 171,
+          "arguments": [
+            "self"
+          ],
+          "docstring": ""
+        }
+      ]
+    },
+    {
+      "type": "class",
+      "symbol": "MemoryCompiler",
+      "file": "scripts/memory_compiler.py",
+      "line_start": 174,
+      "line_end": 1286,
+      "docstring": "Candidate normalization, scoring, conflict analysis, and admission gating engine.\nImplements all responsibilities outlined in Instruction.md Section 10 and 11.",
+      "methods": [
+        {
+          "method_name": "__init__",
+          "line_start": 192,
+          "line_end": 201,
+          "arguments": [
+            "self",
+            "thresholds",
+            "workspace_dir",
+            "global_dir"
+          ],
+          "docstring": ""
+        },
+        {
+          "method_name": "read_candidates",
+          "line_start": 206,
+          "line_end": 237,
+          "arguments": [
+            "self",
+            "filepath"
+          ],
+          "docstring": "Reads raw candidate records from a JSONL file.\nDefaults to .agents/memory/inbox/candidates.jsonl."
+        },
+        {
+          "method_name": "normalize",
+          "line_start": 242,
+          "line_end": 332,
+          "arguments": [
+            "self",
+            "candidate"
+          ],
+          "docstring": "Normalizes candidate into standardized schema with all required attributes:\nid, content, category (one of 9), durability (0-5), novelty (0-1),\nevidence (0-1), redundancy (0-1), provenance, temporal state, scope."
+        },
+        {
+          "method_name": "classify",
+          "line_start": 337,
+          "line_end": 436,
+          "arguments": [
+            "self",
+            "candidate"
+          ],
+          "docstring": "Classifies candidate into one of the 9 memory categories:\nEPHEMERAL, SESSION, PROJECT, DOMAIN, TOOL, GLOBAL, DECISION, GOTCHA, PROCEDURE."
+        },
+        {
+          "method_name": "attach_provenance",
+          "line_start": 441,
+          "line_end": 493,
+          "arguments": [
+            "self",
+            "candidate",
+            "provenance"
+          ],
+          "docstring": "Attaches typed provenance and normalizes its fields per Section 16."
+        },
+        {
+          "method_name": "verify_provenance",
+          "line_start": 495,
+          "line_end": 528,
+          "arguments": [
+            "self",
+            "candidate"
+          ],
+          "docstring": "Validates whether provenance meets the strict verification threshold\nrequired for canonical promotion."
+        },
+        {
+          "method_name": "find_exact_duplicates",
+          "line_start": 533,
+          "line_end": 551,
+          "arguments": [
+            "self",
+            "candidate",
+            "existing_memories"
+          ],
+          "docstring": "Finds exact content duplicates via SHA-256 hash or normalized string match."
+        },
+        {
+          "method_name": "find_semantic_neighbors",
+          "line_start": 553,
+          "line_end": 585,
+          "arguments": [
+            "self",
+            "candidate",
+            "existing_memories",
+            "threshold"
+          ],
+          "docstring": "Finds semantic near-neighbors using word-level token overlap (Jaccard similarity)."
+        },
+        {
+          "method_name": "detect_conflict",
+          "line_start": 587,
+          "line_end": 621,
+          "arguments": [
+            "self",
+            "candidate",
+            "existing_memories"
+          ],
+          "docstring": "Detects potential contradictions or opposing facts between candidate\nand existing canonical records."
+        },
+        {
+          "method_name": "resolve_temporal_state",
+          "line_start": 626,
+          "line_end": 647,
+          "arguments": [
+            "self",
+            "candidate"
+          ],
+          "docstring": "Resolves validity dates, temporal status, and supersession links per Section 14."
+        },
+        {
+          "method_name": "calculate_scope",
+          "line_start": 649,
+          "line_end": 662,
+          "arguments": [
+            "self",
+            "candidate"
+          ],
+          "docstring": "Calculates scope: PROJECT, GLOBAL, DOMAIN, TOOL, SESSION, or EPHEMERAL."
+        },
+        {
+          "method_name": "calculate_confidence",
+          "line_start": 664,
+          "line_end": 677,
+          "arguments": [
+            "self",
+            "candidate"
+          ],
+          "docstring": "Calculates confidence score [0.0 - 1.0] from evidence, provenance, and hedging words."
+        },
+        {
+          "method_name": "calculate_score",
+          "line_start": 682,
+          "line_end": 715,
+          "arguments": [
+            "self",
+            "candidate"
+          ],
+          "docstring": "Computes candidate score per Section 10:\ncandidate_score = Novelty + Durability + Evidence - Redundancy"
+        },
+        {
+          "method_name": "validate_schema",
+          "line_start": 720,
+          "line_end": 749,
+          "arguments": [
+            "self",
+            "candidate"
+          ],
+          "docstring": "Validates candidate record against Schema v2.0.0 requirements per Section 16:\nRequired fields: content (str), category (valid canonical enum),\ndurability (0.0-5.0), id (str), provenance (dict)."
+        },
+        {
+          "method_name": "decide_admission",
+          "line_start": 751,
+          "line_end": 1059,
+          "arguments": [
+            "self",
+            "candidate"
+          ],
+          "docstring": "Enforces the 5-gate admission pipeline per Instruction.md Sections 14, 16, 23, and 84:\nGate 1: Secret Hygiene gate (via scripts.secret_scanner)\nGate 2: Durability threshold gate (>=3.0 for project canonical files)\nGate 3: Schema validation gate (schema v2.0.0 compliance)\nGate 4: Source authority & epistemic confidence gate\nGate 5: Redundancy / duplication gate"
+        },
+        {
+          "method_name": "prepare_write",
+          "line_start": 1064,
+          "line_end": 1130,
+          "arguments": [
+            "self",
+            "candidate",
+            "decision"
+          ],
+          "docstring": "Prepares target path, formatted Markdown content, and metadata\nWITHOUT executing unsafe side effects before validation."
+        },
+        {
+          "method_name": "compile_candidate",
+          "line_start": 1135,
+          "line_end": 1147,
+          "arguments": [
+            "self",
+            "candidate"
+          ],
+          "docstring": "Executes end-to-end compilation pipeline on a single candidate."
+        },
+        {
+          "method_name": "compile_inbox",
+          "line_start": 1149,
+          "line_end": 1239,
+          "arguments": [
+            "self",
+            "inbox_path",
+            "output_path",
+            "dry_run",
+            "limit"
+          ],
+          "docstring": "Processes all candidates from the candidate inbox JSONL.\nEmits admission decisions, generates summary, and records to output log."
+        },
+        {
+          "method_name": "_resolve_target_file",
+          "line_start": 1244,
+          "line_end": 1260,
+          "arguments": [
+            "self",
+            "category"
+          ],
+          "docstring": "Maps accepted memory category to canonical destination file."
+        },
+        {
+          "method_name": "_load_canonical_pool",
+          "line_start": 1262,
+          "line_end": 1286,
+          "arguments": [
+            "self"
+          ],
+          "docstring": "Loads entries from existing canonical Markdown files for duplicate/conflict analysis."
+        }
+      ]
+    },
+    {
+      "type": "function",
+      "symbol": "main",
+      "file": "scripts/memory_compiler.py",
+      "line_start": 1292,
+      "line_end": 1342,
+      "arguments": [],
+      "docstring": ""
+    },
+    {
+      "type": "class",
+      "symbol": "DimensionResult",
+      "file": "scripts/memory_doctor.py",
+      "line_start": 111,
+      "line_end": 122,
+      "docstring": "",
+      "methods": [
+        {
+          "method_name": "to_dict",
+          "line_start": 121,
+          "line_end": 122,
+          "arguments": [
+            "self"
+          ],
+          "docstring": ""
+        }
+      ]
+    },
+    {
+      "type": "class",
+      "symbol": "DiagnosticHealthReport",
+      "file": "scripts/memory_doctor.py",
+      "line_start": 126,
+      "line_end": 148,
+      "docstring": "",
+      "methods": [
+        {
+          "method_name": "to_dict",
+          "line_start": 137,
+          "line_end": 148,
+          "arguments": [
+            "self"
+          ],
+          "docstring": ""
+        }
+      ]
+    },
+    {
+      "type": "class",
+      "symbol": "MemoryDoctor",
+      "file": "scripts/memory_doctor.py",
+      "line_start": 151,
+      "line_end": 1221,
+      "docstring": "Comprehensive Antigravity Persistent Memory Doctor.\nExecutes a 6-dimension audit and provides deterministic predicates.",
+      "methods": [
+        {
+          "method_name": "__init__",
+          "line_start": 157,
+          "line_end": 170,
+          "arguments": [
+            "self",
+            "global_dir",
+            "project_dir",
+            "verbose"
+          ],
+          "docstring": ""
+        },
+        {
+          "method_name": "_collect_canonical_files",
+          "line_start": 172,
+          "line_end": 185,
+          "arguments": [
+            "self",
+            "base_dir"
+          ],
+          "docstring": "Collects all markdown files excluding sessions and candidate inboxes."
+        },
+        {
+          "method_name": "audit_canonical_integrity",
+          "line_start": 190,
+          "line_end": 397,
+          "arguments": [
+            "self"
+          ],
+          "docstring": ""
+        },
+        {
+          "method_name": "audit_secret_hygiene",
+          "line_start": 402,
+          "line_end": 523,
+          "arguments": [
+            "self"
+          ],
+          "docstring": ""
+        },
+        {
+          "method_name": "audit_deduplication_and_contradictions",
+          "line_start": 528,
+          "line_end": 623,
+          "arguments": [
+            "self"
+          ],
+          "docstring": ""
+        },
+        {
+          "method_name": "audit_derived_vector_index",
+          "line_start": 628,
+          "line_end": 764,
+          "arguments": [
+            "self"
+          ],
+          "docstring": ""
+        },
+        {
+          "method_name": "audit_ingestion_queue",
+          "line_start": 769,
+          "line_end": 868,
+          "arguments": [
+            "self"
+          ],
+          "docstring": ""
+        },
+        {
+          "method_name": "audit_telemetry_quality",
+          "line_start": 873,
+          "line_end": 939,
+          "arguments": [
+            "self",
+            "force_bench"
+          ],
+          "docstring": ""
+        },
+        {
+          "method_name": "_run_retrieval_benchmark",
+          "line_start": 941,
+          "line_end": 1079,
+          "arguments": [
+            "self"
+          ],
+          "docstring": "Executes a deterministic retrieval benchmark across 10 canonical queries\nmeasuring Recall@K, MRR, and NDCG@10 per Instruction Section 73."
+        },
+        {
+          "method_name": "run_full_doctor",
+          "line_start": 1084,
+          "line_end": 1179,
+          "arguments": [
+            "self",
+            "force_bench"
+          ],
+          "docstring": ""
+        },
+        {
+          "method_name": "apply_fixes",
+          "line_start": 1184,
+          "line_end": 1221,
+          "arguments": [
+            "self"
+          ],
+          "docstring": ""
+        }
+      ]
+    },
+    {
+      "type": "function",
+      "symbol": "format_human_report",
+      "file": "scripts/memory_doctor.py",
+      "line_start": 1227,
+      "line_end": 1294,
+      "arguments": [
+        "report",
+        "verbose"
+      ],
+      "docstring": ""
+    },
+    {
+      "type": "function",
+      "symbol": "main",
+      "file": "scripts/memory_doctor.py",
+      "line_start": 1297,
+      "line_end": 1348,
+      "arguments": [],
+      "docstring": ""
+    },
+    {
+      "type": "class",
+      "symbol": "MemoryEngine",
+      "file": "scripts/memory_engine.py",
+      "line_start": 372,
+      "line_end": 418,
+      "docstring": "Object-oriented wrapper for Antigravity Memory Engine.",
+      "methods": [
+        {
+          "method_name": "__init__",
+          "line_start": 374,
+          "line_end": 377,
+          "arguments": [
+            "self",
+            "workspace_dir",
+            "global_dir"
+          ],
+          "docstring": ""
+        },
+        {
+          "method_name": "_load_index",
+          "line_start": 379,
+          "line_end": 384,
+          "arguments": [
+            "self"
+          ],
+          "docstring": ""
+        },
+        {
+          "method_name": "store_memory",
+          "line_start": 386,
+          "line_end": 400,
+          "arguments": [
+            "self",
+            "scope",
+            "content",
+            "metadata"
+          ],
+          "docstring": ""
+        },
+        {
+          "method_name": "start_session",
+          "line_start": 402,
+          "line_end": 403,
+          "arguments": [
+            "self",
+            "topics",
+            "dry_run"
+          ],
+          "docstring": ""
+        },
+        {
+          "method_name": "end_session",
+          "line_start": 405,
+          "line_end": 406,
+          "arguments": [
+            "self",
+            "summary_text",
+            "discoveries",
+            "decisions",
+            "blockers",
+            "dry_run"
+          ],
+          "docstring": ""
+        },
+        {
+          "method_name": "promote_memory",
+          "line_start": 408,
+          "line_end": 409,
+          "arguments": [
+            "self",
+            "candidate_text",
+            "mem_type",
+            "durability",
+            "target_file",
+            "dry_run"
+          ],
+          "docstring": ""
+        },
+        {
+          "method_name": "audit_memory",
+          "line_start": 411,
+          "line_end": 412,
+          "arguments": [
+            "self"
+          ],
+          "docstring": ""
+        },
+        {
+          "method_name": "reorganize_memory",
+          "line_start": 414,
+          "line_end": 415,
+          "arguments": [
+            "self"
+          ],
+          "docstring": ""
+        },
+        {
+          "method_name": "search_memory",
+          "line_start": 417,
+          "line_end": 418,
+          "arguments": [
+            "self",
+            "query",
+            "scope"
+          ],
+          "docstring": ""
+        }
+      ]
+    },
+    {
+      "type": "function",
+      "symbol": "validate_content",
+      "file": "scripts/memory_engine.py",
+      "line_start": 46,
+      "line_end": 50,
+      "arguments": [
+        "content",
+        "path"
+      ],
+      "docstring": ""
+    },
+    {
+      "type": "function",
+      "symbol": "atomic_file_update",
+      "file": "scripts/memory_engine.py",
+      "line_start": 52,
+      "line_end": 84,
+      "arguments": [
+        "filepath",
+        "modify_func",
+        "dry_run"
+      ],
+      "docstring": "Strict transaction safety: read -> validate -> write temporary -> validate temporary -> atomic replace"
+    },
+    {
+      "type": "function",
+      "symbol": "extract_index_routing",
+      "file": "scripts/memory_engine.py",
+      "line_start": 86,
+      "line_end": 104,
+      "arguments": [
+        "index_path"
+      ],
+      "docstring": ""
+    },
+    {
+      "type": "function",
+      "symbol": "start_session",
+      "file": "scripts/memory_engine.py",
+      "line_start": 106,
+      "line_end": 165,
+      "arguments": [
+        "topics",
+        "dry_run"
+      ],
+      "docstring": ""
+    },
+    {
+      "type": "function",
+      "symbol": "end_session",
+      "file": "scripts/memory_engine.py",
+      "line_start": 167,
+      "line_end": 213,
+      "arguments": [
+        "summary_text",
+        "discoveries",
+        "decisions",
+        "blockers",
+        "dry_run"
+      ],
+      "docstring": ""
+    },
+    {
+      "type": "function",
+      "symbol": "promote_memory",
+      "file": "scripts/memory_engine.py",
+      "line_start": 215,
+      "line_end": 264,
+      "arguments": [
+        "candidate_text",
+        "mem_type",
+        "durability",
+        "target_file",
+        "dry_run"
+      ],
+      "docstring": ""
+    },
+    {
+      "type": "function",
+      "symbol": "audit_memory",
+      "file": "scripts/memory_engine.py",
+      "line_start": 266,
+      "line_end": 321,
+      "arguments": [],
+      "docstring": ""
+    },
+    {
+      "type": "function",
+      "symbol": "reorganize_memory",
+      "file": "scripts/memory_engine.py",
+      "line_start": 323,
+      "line_end": 334,
+      "arguments": [],
+      "docstring": ""
+    },
+    {
+      "type": "function",
+      "symbol": "search_memory",
+      "file": "scripts/memory_engine.py",
+      "line_start": 336,
+      "line_end": 370,
+      "arguments": [
+        "query",
+        "scope"
+      ],
+      "docstring": ""
+    },
+    {
+      "type": "function",
+      "symbol": "main",
+      "file": "scripts/memory_engine.py",
+      "line_start": 421,
+      "line_end": 474,
+      "arguments": [],
+      "docstring": ""
+    },
+    {
+      "type": "class",
+      "symbol": "FeedbackOutcome",
+      "file": "scripts/memory_feedback.py",
+      "line_start": 59,
+      "line_end": 67,
+      "docstring": "Strict feedback outcome labels per Instruction.md Section 40:\nNever pretend an inference is explicit human feedback.",
+      "methods": []
+    },
+    {
+      "type": "class",
+      "symbol": "FeedbackLedger",
+      "file": "scripts/memory_feedback.py",
+      "line_start": 85,
+      "line_end": 611,
+      "docstring": "Manages retrieval telemetry events, audit logs, and performance metric calculations.\nPersists to retrieval_ledger.jsonl under strict file locks.",
+      "methods": [
+        {
+          "method_name": "__init__",
+          "line_start": 91,
+          "line_end": 93,
+          "arguments": [
+            "self",
+            "ledger_path"
+          ],
+          "docstring": ""
+        },
+        {
+          "method_name": "record_event",
+          "line_start": 95,
+          "line_end": 171,
+          "arguments": [
+            "self",
+            "query_id",
+            "memory_id",
+            "was_visible",
+            "rank",
+            "used_in_action",
+            "outcome",
+            "helpful",
+            "wrong",
+            "stale",
+            "prevented_error",
+            "blocked_action",
+            "latency_ms",
+            "context_tokens",
+            "relevance_score",
+            "timestamp",
+            "metadata"
+          ],
+          "docstring": "Records a single retrieval feedback event per Section 39 and Section 40."
+        },
+        {
+          "method_name": "record_batch",
+          "line_start": 173,
+          "line_end": 234,
+          "arguments": [
+            "self",
+            "events"
+          ],
+          "docstring": "Atomically appends a batch of retrieval feedback events to the ledger."
+        },
+        {
+          "method_name": "read_records",
+          "line_start": 236,
+          "line_end": 276,
+          "arguments": [
+            "self",
+            "query_id",
+            "memory_id",
+            "outcome",
+            "was_visible",
+            "limit"
+          ],
+          "docstring": "Reads records from the JSONL ledger file with optional filtering."
+        },
+        {
+          "method_name": "clear_ledger",
+          "line_start": 278,
+          "line_end": 284,
+          "arguments": [
+            "self"
+          ],
+          "docstring": "Clears the ledger file safely."
+        },
+        {
+          "method_name": "is_item_relevant",
+          "line_start": 287,
+          "line_end": 313,
+          "arguments": [
+            "record"
+          ],
+          "docstring": "Determines binary relevance for MRR and recall calculations:\nA record is relevant if it was useful/correct and not wrong or stale."
+        },
+        {
+          "method_name": "get_graded_relevance",
+          "line_start": 316,
+          "line_end": 353,
+          "arguments": [
+            "record"
+          ],
+          "docstring": "Calculates graded relevance score in [0.0, 3.0] for NDCG computation."
+        },
+        {
+          "method_name": "compute_metrics",
+          "line_start": 355,
+          "line_end": 611,
+          "arguments": [
+            "self",
+            "records"
+          ],
+          "docstring": "Computes comprehensive retrieval metrics:\n1. MRR (Mean Reciprocal Rank)\n2. NDCG@10 (Normalized Discounted Cumulative Gain at rank 10)\n3. False Recall Rate (item-level, strict wrong/stale, query-level, abstention)\nPlus full visibility/usage breakdowns per Section 39 & 40."
+        }
+      ]
+    },
+    {
+      "type": "function",
+      "symbol": "validate_secret_hygiene",
+      "file": "scripts/memory_feedback.py",
+      "line_start": 73,
+      "line_end": 82,
+      "arguments": [
+        "data",
+        "context"
+      ],
+      "docstring": "Ensures no sensitive credentials, API keys, or private tokens leak into\ntelemetry records per Antigravity Zero Secrets Policy."
+    },
+    {
+      "type": "function",
+      "symbol": "generate_synthetic_telemetry",
+      "file": "scripts/memory_feedback.py",
+      "line_start": 614,
+      "line_end": 846,
+      "arguments": [
+        "num_queries"
+      ],
+      "docstring": "Generates a deterministic, realistic synthetic telemetry dataset representing\ndiverse memory retrieval scenarios per Section 39, 40, and 78.\nScenarios include:\n1. Perfect precision hits (rank 1 verified outcome)\n2. Ranked queries with near misses (rank 1 non-use, rank 2 verified use)\n3. Low-rank retrieval (rank 5 explicit feedback)\n4. Stale/wrong memory retrieval causing blocked action\n5. Abstention queries with correct abstention (no visible recall)\n6. Abstention queries with false recall (irrelevant recall on absent memory)\n7. Context-budget pruned items (was_visible=False, 'not shown' vs 'shown but unused')"
+    },
+    {
+      "type": "function",
+      "symbol": "format_markdown_metrics",
+      "file": "scripts/memory_feedback.py",
+      "line_start": 849,
+      "line_end": 927,
+      "arguments": [
+        "metrics_data",
+        "ledger_path"
+      ],
+      "docstring": "Renders a GitHub-flavored Markdown report of retrieval telemetry metrics."
+    },
+    {
+      "type": "function",
+      "symbol": "main",
+      "file": "scripts/memory_feedback.py",
+      "line_start": 930,
+      "line_end": 1038,
+      "arguments": [],
+      "docstring": ""
+    },
+    {
+      "type": "class",
+      "symbol": "IndexHealthState",
+      "file": "scripts/memory_index_queue.py",
+      "line_start": 58,
+      "line_end": 64,
+      "docstring": "",
+      "methods": []
+    },
+    {
+      "type": "class",
+      "symbol": "SingleWriterConflictError",
+      "file": "scripts/memory_index_queue.py",
+      "line_start": 67,
+      "line_end": 69,
+      "docstring": "Raised when another worker currently holds the single-writer index lease.",
+      "methods": []
+    },
+    {
+      "type": "class",
+      "symbol": "IndexQueueManager",
+      "file": "scripts/memory_index_queue.py",
+      "line_start": 72,
+      "line_end": 949,
+      "docstring": "Manages durable index queue, single-writer lease execution, event coalescing,\nMemSearch backend synchronization, and derived index health tracking.",
+      "methods": [
+        {
+          "method_name": "__init__",
+          "line_start": 78,
+          "line_end": 104,
+          "arguments": [
+            "self",
+            "queue_file",
+            "health_file",
+            "lease_file",
+            "dlq_file",
+            "backend",
+            "max_attempts"
+          ],
+          "docstring": ""
+        },
+        {
+          "method_name": "_read_all_dead_letter_jobs",
+          "line_start": 106,
+          "line_end": 123,
+          "arguments": [
+            "self"
+          ],
+          "docstring": "Reads all dead-letter jobs from dlq_file."
+        },
+        {
+          "method_name": "_write_all_dead_letter_jobs",
+          "line_start": 125,
+          "line_end": 129,
+          "arguments": [
+            "self",
+            "jobs"
+          ],
+          "docstring": "Atomically writes all dead-letter jobs to dlq_file."
+        },
+        {
+          "method_name": "_record_dead_letter",
+          "line_start": 131,
+          "line_end": 142,
+          "arguments": [
+            "self",
+            "job"
+          ],
+          "docstring": "Records a permanently failed job to the Dead-Letter Queue."
+        },
+        {
+          "method_name": "list_dead_letter",
+          "line_start": 144,
+          "line_end": 147,
+          "arguments": [
+            "self",
+            "limit"
+          ],
+          "docstring": "Returns recent entries from the Dead-Letter Queue."
+        },
+        {
+          "method_name": "requeue_dead_letter",
+          "line_start": 149,
+          "line_end": 189,
+          "arguments": [
+            "self",
+            "job_id"
+          ],
+          "docstring": "Moves dead-letter jobs back to the active queue for retry.\nIf job_id is provided, requeues only that specific job; otherwise requeues all."
+        },
+        {
+          "method_name": "_utc_now",
+          "line_start": 191,
+          "line_end": 192,
+          "arguments": [
+            "self"
+          ],
+          "docstring": ""
+        },
+        {
+          "method_name": "_read_all_jobs",
+          "line_start": 194,
+          "line_end": 211,
+          "arguments": [
+            "self"
+          ],
+          "docstring": "Reads all jobs from index_queue.jsonl."
+        },
+        {
+          "method_name": "_write_all_jobs",
+          "line_start": 213,
+          "line_end": 217,
+          "arguments": [
+            "self",
+            "jobs"
+          ],
+          "docstring": "Atomically writes all jobs to index_queue.jsonl."
+        },
+        {
+          "method_name": "compute_file_hash",
+          "line_start": 219,
+          "line_end": 230,
+          "arguments": [
+            "self",
+            "file_path",
+            "content"
+          ],
+          "docstring": "Computes SHA256 hash of file content."
+        },
+        {
+          "method_name": "compute_canonical_revision",
+          "line_start": 232,
+          "line_end": 260,
+          "arguments": [
+            "self"
+          ],
+          "docstring": "Computes composite revision hash across canonical markdown files in memory directory.\nUsed to detect if canonical memory has changed relative to indexed state."
+        },
+        {
+          "method_name": "get_canonical_files",
+          "line_start": 262,
+          "line_end": 278,
+          "arguments": [
+            "self"
+          ],
+          "docstring": "Discovers all canonical memory markdown files in workspace and global memory."
+        },
+        {
+          "method_name": "detect_dirty_canonical_files",
+          "line_start": 280,
+          "line_end": 327,
+          "arguments": [
+            "self"
+          ],
+          "docstring": "Detects canonical files that have unsynchronized modifications or deletions.\nCompares disk state against the backend manifest.\nPer Section 15 & 53."
+        },
+        {
+          "method_name": "sync_dirty_canonical_files",
+          "line_start": 329,
+          "line_end": 343,
+          "arguments": [
+            "self"
+          ],
+          "docstring": "Enqueues all dirty canonical files that do not currently have an identical pending queue job.\nReturns list of enqueued jobs."
+        },
+        {
+          "method_name": "enqueue",
+          "line_start": 345,
+          "line_end": 416,
+          "arguments": [
+            "self",
+            "source_path",
+            "event_type",
+            "priority",
+            "content",
+            "operation",
+            "target_path"
+          ],
+          "docstring": "Enqueues a file change event with atomic locking and coalescing of rapid successive updates.\nPer Section 31 & 33. Supports operation= and target_path= for DEF-009 compatibility."
+        },
+        {
+          "method_name": "_coalesce_pending_jobs",
+          "line_start": 418,
+          "line_end": 440,
+          "arguments": [
+            "self",
+            "pending_jobs"
+          ],
+          "docstring": "Groups pending jobs by source_path and selects only the latest job per path.\nReturns (jobs_to_execute, jobs_to_mark_coalesced)."
+        },
+        {
+          "method_name": "drain",
+          "line_start": 442,
+          "line_end": 469,
+          "arguments": [
+            "self",
+            "max_batch_size",
+            "lease_timeout",
+            "sync_dirty"
+          ],
+          "docstring": "Processes pending jobs from the queue into the MemSearch backend.\nEnforces single-writer execution using file lease lock (Section 32).\nCoalesces sequential updates before executing indexing (Section 31)."
+        },
+        {
+          "method_name": "_drain_under_lease",
+          "line_start": 471,
+          "line_end": 597,
+          "arguments": [
+            "self",
+            "max_batch_size"
+          ],
+          "docstring": "Internal drain logic executed strictly under single-writer lease lock."
+        },
+        {
+          "method_name": "rebuild",
+          "line_start": 602,
+          "line_end": 617,
+          "arguments": [
+            "self",
+            "target_dir",
+            "lease_timeout"
+          ],
+          "docstring": "Performs full or targeted rebuild of semantic index under single-writer lease lock.\nSets health state to REBUILDING during operation (Section 34)."
+        },
+        {
+          "method_name": "_rebuild_under_lease",
+          "line_start": 619,
+          "line_end": 708,
+          "arguments": [
+            "self",
+            "target_dir"
+          ],
+          "docstring": ""
+        },
+        {
+          "method_name": "_read_health",
+          "line_start": 710,
+          "line_end": 731,
+          "arguments": [
+            "self"
+          ],
+          "docstring": ""
+        },
+        {
+          "method_name": "_write_health",
+          "line_start": 733,
+          "line_end": 737,
+          "arguments": [
+            "self",
+            "health_data"
+          ],
+          "docstring": ""
+        },
+        {
+          "method_name": "_update_health_on_enqueue",
+          "line_start": 739,
+          "line_end": 747,
+          "arguments": [
+            "self"
+          ],
+          "docstring": "Transitions index health to STALE if canonical memory has new pending changes."
+        },
+        {
+          "method_name": "verify_index_integrity",
+          "line_start": 749,
+          "line_end": 856,
+          "arguments": [
+            "self"
+          ],
+          "docstring": "Diagnoses index corruption, wrong dimensions, missing collections,\nstale chunks, deleted source files, and embedding migrations.\nPer Instruction.md Sections 53, 98, and 99."
+        },
+        {
+          "method_name": "check_and_refresh_health",
+          "line_start": 858,
+          "line_end": 930,
+          "arguments": [
+            "self",
+            "recent_failures",
+            "drain_succeeded"
+          ],
+          "docstring": "Calculates and records derived health state:\nHEALTHY, STALE, DEGRADED, REBUILDING, FAILED, MISSING.\nPer Section 34, 53, 98, and 99."
+        },
+        {
+          "method_name": "get_health",
+          "line_start": 932,
+          "line_end": 934,
+          "arguments": [
+            "self"
+          ],
+          "docstring": "Returns the current index health record."
+        },
+        {
+          "method_name": "list_queue",
+          "line_start": 936,
+          "line_end": 939,
+          "arguments": [
+            "self",
+            "limit"
+          ],
+          "docstring": "Returns the most recent queue entries."
+        },
+        {
+          "method_name": "clear_completed",
+          "line_start": 941,
+          "line_end": 949,
+          "arguments": [
+            "self"
+          ],
+          "docstring": "Prunes completed and coalesced jobs to keep queue compact."
+        }
+      ]
+    },
+    {
+      "type": "function",
+      "symbol": "drain_queue",
+      "file": "scripts/memory_index_queue.py",
+      "line_start": 952,
+      "line_end": 975,
+      "arguments": [
+        "queue_file",
+        "health_file",
+        "lease_file",
+        "dlq_file",
+        "backend",
+        "max_batch_size",
+        "lease_timeout",
+        "sync_dirty"
+      ],
+      "docstring": "Convenience function to drain and synchronize the memory index queue into Milvus Lite.\nPer Instruction.md Sections 15, 31-34, 52, 53, 98, 99."
+    },
+    {
+      "type": "function",
+      "symbol": "parse_args",
+      "file": "scripts/memory_index_queue.py",
+      "line_start": 978,
+      "line_end": 997,
+      "arguments": [],
+      "docstring": ""
+    },
+    {
+      "type": "function",
+      "symbol": "main",
+      "file": "scripts/memory_index_queue.py",
+      "line_start": 1000,
+      "line_end": 1123,
+      "arguments": [],
+      "docstring": ""
+    },
+    {
+      "type": "class",
+      "symbol": "ReconciliationAction",
+      "file": "scripts/memory_reconciler.py",
+      "line_start": 90,
+      "line_end": 99,
+      "docstring": "",
+      "methods": []
+    },
+    {
+      "type": "class",
+      "symbol": "ConflictClassification",
+      "file": "scripts/memory_reconciler.py",
+      "line_start": 102,
+      "line_end": 109,
+      "docstring": "",
+      "methods": []
+    },
+    {
+      "type": "class",
+      "symbol": "CandidateMemory",
+      "file": "scripts/memory_reconciler.py",
+      "line_start": 113,
+      "line_end": 134,
+      "docstring": "",
+      "methods": [
+        {
+          "method_name": "to_dict",
+          "line_start": 133,
+          "line_end": 134,
+          "arguments": [
+            "self"
+          ],
+          "docstring": ""
+        }
+      ]
+    },
+    {
+      "type": "class",
+      "symbol": "CanonicalRecord",
+      "file": "scripts/memory_reconciler.py",
+      "line_start": 138,
+      "line_end": 164,
+      "docstring": "",
+      "methods": [
+        {
+          "method_name": "is_active",
+          "line_start": 163,
+          "line_end": 164,
+          "arguments": [
+            "self"
+          ],
+          "docstring": ""
+        }
+      ]
+    },
+    {
+      "type": "class",
+      "symbol": "ReconciliationResult",
+      "file": "scripts/memory_reconciler.py",
+      "line_start": 168,
+      "line_end": 184,
+      "docstring": "",
+      "methods": [
+        {
+          "method_name": "to_dict",
+          "line_start": 180,
+          "line_end": 184,
+          "arguments": [
+            "self"
+          ],
+          "docstring": ""
+        }
+      ]
+    },
+    {
+      "type": "class",
+      "symbol": "MemoryReconciler",
+      "file": "scripts/memory_reconciler.py",
+      "line_start": 191,
+      "line_end": 1426,
+      "docstring": "Autonomous Memory Reconciler implementing Section 12, 14, 15, and 84.",
+      "methods": [
+        {
+          "method_name": "__init__",
+          "line_start": 202,
+          "line_end": 232,
+          "arguments": [
+            "self",
+            "memory_dir",
+            "log_file",
+            "workspace_dir",
+            "index_queue_manager"
+          ],
+          "docstring": ""
+        },
+        {
+          "method_name": "scan_canonical_records",
+          "line_start": 238,
+          "line_end": 258,
+          "arguments": [
+            "self",
+            "target_file"
+          ],
+          "docstring": "Scans and parses canonical markdown files in memory_dir.\nExtracts structured records, headings, bitemporal tags, and status."
+        },
+        {
+          "method_name": "_parse_file_records",
+          "line_start": 260,
+          "line_end": 286,
+          "arguments": [
+            "self",
+            "file_path"
+          ],
+          "docstring": "Parses individual markdown records from a canonical memory file."
+        },
+        {
+          "method_name": "_parse_chunk",
+          "line_start": 288,
+          "line_end": 403,
+          "arguments": [
+            "self",
+            "file_path",
+            "lines",
+            "line_start",
+            "line_end"
+          ],
+          "docstring": "Parses a markdown section into a CanonicalRecord."
+        },
+        {
+          "method_name": "normalize_title",
+          "line_start": 409,
+          "line_end": 413,
+          "arguments": [
+            "self",
+            "t"
+          ],
+          "docstring": "Strips dates, ADR tags, and punctuation for semantic topic matching."
+        },
+        {
+          "method_name": "normalize_text",
+          "line_start": 415,
+          "line_end": 418,
+          "arguments": [
+            "self",
+            "text"
+          ],
+          "docstring": "Normalizes text for comparison."
+        },
+        {
+          "method_name": "classify_relationship",
+          "line_start": 420,
+          "line_end": 511,
+          "arguments": [
+            "self",
+            "candidate",
+            "existing"
+          ],
+          "docstring": "Distinguishes duplicate, refinement, complement, and true contradiction\nper Instruction.md Section 14."
+        },
+        {
+          "method_name": "_detect_direct_contradiction",
+          "line_start": 513,
+          "line_end": 554,
+          "arguments": [
+            "self",
+            "candidate",
+            "existing"
+          ],
+          "docstring": "Detects explicit version, architecture, or tool contradictions on the same entity."
+        },
+        {
+          "method_name": "_topics_overlap",
+          "line_start": 556,
+          "line_end": 562,
+          "arguments": [
+            "self",
+            "candidate",
+            "existing"
+          ],
+          "docstring": "Determines if candidate and existing record discuss the same topic/entity."
+        },
+        {
+          "method_name": "_has_negation_conflict",
+          "line_start": 564,
+          "line_end": 581,
+          "arguments": [
+            "self",
+            "candidate",
+            "existing"
+          ],
+          "docstring": "Checks if statements have opposing polarity (e.g. enable vs disable, deprecated vs supported)."
+        },
+        {
+          "method_name": "reconcile_candidate",
+          "line_start": 587,
+          "line_end": 785,
+          "arguments": [
+            "self",
+            "candidate_data",
+            "dry_run"
+          ],
+          "docstring": "Reconciles a candidate memory against canonical records in .agents/memory/."
+        },
+        {
+          "method_name": "reconcile_batch",
+          "line_start": 787,
+          "line_end": 795,
+          "arguments": [
+            "self",
+            "candidates",
+            "dry_run"
+          ],
+          "docstring": "Reconciles multiple candidate memories sequentially."
+        },
+        {
+          "method_name": "_apply_supersede",
+          "line_start": 801,
+          "line_end": 883,
+          "arguments": [
+            "self",
+            "target_file",
+            "old_record",
+            "candidate",
+            "tx_id",
+            "reason",
+            "operation"
+          ],
+          "docstring": "Marks superseded canonical facts with [SUPERSEDED on YYYY-MM-DD by id:XYZ]\nwithout destroying history, applies bitemporal semantics with RFC3339 timestamps,\nappends new record, enqueues index update, and logs transaction for full rollback."
+        },
+        {
+          "method_name": "_apply_update",
+          "line_start": 887,
+          "line_end": 930,
+          "arguments": [
+            "self",
+            "target_file",
+            "old_record",
+            "candidate",
+            "tx_id",
+            "reason",
+            "operation"
+          ],
+          "docstring": "Enriches an existing record with refined information."
+        },
+        {
+          "method_name": "_apply_add",
+          "line_start": 934,
+          "line_end": 979,
+          "arguments": [
+            "self",
+            "target_file",
+            "candidate",
+            "tx_id",
+            "classification",
+            "reason",
+            "operation"
+          ],
+          "docstring": "Adds a new fact or complement record to canonical memory."
+        },
+        {
+          "method_name": "_enqueue_index_update",
+          "line_start": 983,
+          "line_end": 1003,
+          "arguments": [
+            "self",
+            "target_file",
+            "operation"
+          ],
+          "docstring": "Enqueues canonical modification into IndexQueueManager (DEF-009)."
+        },
+        {
+          "method_name": "_format_new_record",
+          "line_start": 1005,
+          "line_end": 1046,
+          "arguments": [
+            "self",
+            "candidate"
+          ],
+          "docstring": "Formats a candidate memory entry for canonical storage."
+        },
+        {
+          "method_name": "_route_target_file",
+          "line_start": 1048,
+          "line_end": 1058,
+          "arguments": [
+            "self",
+            "mtype"
+          ],
+          "docstring": "Determines target markdown file in .agents/memory/ based on type."
+        },
+        {
+          "method_name": "_log_transaction",
+          "line_start": 1064,
+          "line_end": 1094,
+          "arguments": [
+            "self",
+            "tx_id",
+            "action",
+            "classification",
+            "candidate",
+            "target_file",
+            "superseded_ids",
+            "before_content",
+            "after_content",
+            "reason"
+          ],
+          "docstring": "Logs transaction to reconciliation_log.jsonl with full snapshot to support rollback."
+        },
+        {
+          "method_name": "rollback",
+          "line_start": 1096,
+          "line_end": 1168,
+          "arguments": [
+            "self",
+            "transaction_id"
+          ],
+          "docstring": "Performs atomic rollback of a reconciliation transaction per Section 84.\nRestores exact pre-transaction canonical state.\nIf transaction_id is None, rolls back the most recent active transaction."
+        },
+        {
+          "method_name": "get_transaction_history",
+          "line_start": 1170,
+          "line_end": 1175,
+          "arguments": [
+            "self"
+          ],
+          "docstring": "Returns all recorded transactions from reconciliation_log.jsonl."
+        },
+        {
+          "method_name": "query_as_of",
+          "line_start": 1181,
+          "line_end": 1217,
+          "arguments": [
+            "self",
+            "valid_at",
+            "recorded_at",
+            "target_file"
+          ],
+          "docstring": "Bitemporal query answering:\n- \"What is true now?\"\n- \"What was true at time T?\"\n- \"What did we believe at time T?\""
+        },
+        {
+          "method_name": "_convert_dict_to_candidate",
+          "line_start": 1223,
+          "line_end": 1286,
+          "arguments": [
+            "self",
+            "item",
+            "target_category"
+          ],
+          "docstring": "Converts raw candidate dict from candidates.jsonl into CandidateMemory."
+        },
+        {
+          "method_name": "drain_candidates",
+          "line_start": 1288,
+          "line_end": 1423,
+          "arguments": [
+            "self",
+            "inbox_file",
+            "dry_run",
+            "target_categories"
+          ],
+          "docstring": "Drains pending accepted candidates from .agents/memory/inbox/candidates.jsonl\ninto canonical memory files (DECISIONS.md, GOTCHAS.md, etc.) per DEF-006.\nUpdates candidate status to PROMOTED or REJECTED."
+        }
+      ]
+    },
+    {
+      "type": "function",
+      "symbol": "main",
+      "file": "scripts/memory_reconciler.py",
+      "line_start": 1433,
+      "line_end": 1507,
+      "arguments": [],
+      "docstring": ""
+    },
+    {
+      "type": "class",
+      "symbol": "SemanticRetrievalBackend",
+      "file": "scripts/memsearch_backend.py",
+      "line_start": 41,
+      "line_end": 66,
+      "docstring": "Abstract interface for semantic retrieval per Instruction.md Section 21.",
+      "methods": [
+        {
+          "method_name": "index",
+          "line_start": 44,
+          "line_end": 46,
+          "arguments": [
+            "self",
+            "file_path",
+            "content",
+            "metadata"
+          ],
+          "docstring": "Indexes or updates a single file in the semantic retrieval backend."
+        },
+        {
+          "method_name": "delete",
+          "line_start": 48,
+          "line_end": 50,
+          "arguments": [
+            "self",
+            "file_path"
+          ],
+          "docstring": "Removes a file and its indexed chunks from the semantic retrieval backend."
+        },
+        {
+          "method_name": "search",
+          "line_start": 52,
+          "line_end": 54,
+          "arguments": [
+            "self",
+            "query",
+            "top_k",
+            "score_threshold"
+          ],
+          "docstring": "Performs semantic search returning ranked chunks."
+        },
+        {
+          "method_name": "expand",
+          "line_start": 56,
+          "line_end": 58,
+          "arguments": [
+            "self",
+            "chunk_id_or_path"
+          ],
+          "docstring": "Expands a search match to inspect surrounding context."
+        },
+        {
+          "method_name": "health",
+          "line_start": 60,
+          "line_end": 62,
+          "arguments": [
+            "self"
+          ],
+          "docstring": "Returns health status of the semantic retrieval substrate."
+        },
+        {
+          "method_name": "rebuild",
+          "line_start": 64,
+          "line_end": 66,
+          "arguments": [
+            "self",
+            "paths"
+          ],
+          "docstring": "Rebuilds the entire index from scratch for specified or discovered files."
+        }
+      ]
+    },
+    {
+      "type": "class",
+      "symbol": "MemSearchBackend",
+      "file": "scripts/memsearch_backend.py",
+      "line_start": 69,
+      "line_end": 417,
+      "docstring": "Concrete adapter for MemSearch.\nDetects native CLI/library, with safe degraded fallback to prevent memory corruption.",
+      "methods": [
+        {
+          "method_name": "__init__",
+          "line_start": 75,
+          "line_end": 83,
+          "arguments": [
+            "self",
+            "index_dir"
+          ],
+          "docstring": ""
+        },
+        {
+          "method_name": "_purge_entities",
+          "line_start": 85,
+          "line_end": 131,
+          "arguments": [
+            "self",
+            "abs_path"
+          ],
+          "docstring": "Purges indexed entities/chunks for the given file from the underlying Milvus Lite vector store."
+        },
+        {
+          "method_name": "_check_python_pkg",
+          "line_start": 133,
+          "line_end": 138,
+          "arguments": [
+            "self"
+          ],
+          "docstring": ""
+        },
+        {
+          "method_name": "_load_manifest",
+          "line_start": 140,
+          "line_end": 149,
+          "arguments": [
+            "self"
+          ],
+          "docstring": ""
+        },
+        {
+          "method_name": "_save_manifest",
+          "line_start": 151,
+          "line_end": 158,
+          "arguments": [
+            "self"
+          ],
+          "docstring": ""
+        },
+        {
+          "method_name": "index",
+          "line_start": 160,
+          "line_end": 211,
+          "arguments": [
+            "self",
+            "file_path",
+            "content",
+            "metadata"
+          ],
+          "docstring": "Indexes file_path into backend."
+        },
+        {
+          "method_name": "delete",
+          "line_start": 213,
+          "line_end": 232,
+          "arguments": [
+            "self",
+            "file_path"
+          ],
+          "docstring": ""
+        },
+        {
+          "method_name": "search",
+          "line_start": 234,
+          "line_end": 321,
+          "arguments": [
+            "self",
+            "query",
+            "top_k",
+            "score_threshold"
+          ],
+          "docstring": ""
+        },
+        {
+          "method_name": "expand",
+          "line_start": 323,
+          "line_end": 356,
+          "arguments": [
+            "self",
+            "chunk_id_or_path"
+          ],
+          "docstring": ""
+        },
+        {
+          "method_name": "health",
+          "line_start": 358,
+          "line_end": 374,
+          "arguments": [
+            "self"
+          ],
+          "docstring": ""
+        },
+        {
+          "method_name": "rebuild",
+          "line_start": 376,
+          "line_end": 417,
+          "arguments": [
+            "self",
+            "paths"
+          ],
+          "docstring": ""
+        }
+      ]
+    },
+    {
+      "type": "function",
+      "symbol": "get_backend",
+      "file": "scripts/memsearch_backend.py",
+      "line_start": 420,
+      "line_end": 421,
+      "arguments": [],
+      "docstring": ""
+    },
+    {
+      "type": "class",
+      "symbol": "InvariantViolationError",
+      "file": "scripts/procedural_engine.py",
+      "line_start": 45,
+      "line_end": 47,
+      "docstring": "Raised when an operation violates Invariant 16 or security boundaries.",
+      "methods": []
+    },
+    {
+      "type": "class",
+      "symbol": "StepType",
+      "file": "scripts/procedural_engine.py",
+      "line_start": 50,
+      "line_end": 59,
+      "docstring": "Step classification types per Instruction.md Section 46.\nDistinguishes observed facts from inferred or advisory recommendations.",
+      "methods": []
+    },
+    {
+      "type": "class",
+      "symbol": "ProcedureStep",
+      "file": "scripts/procedural_engine.py",
+      "line_start": 63,
+      "line_end": 115,
+      "docstring": "Individual step in a candidate procedure with provenance per Section 46 & 47.",
+      "methods": [
+        {
+          "method_name": "is_observed",
+          "line_start": 80,
+          "line_end": 81,
+          "arguments": [
+            "self"
+          ],
+          "docstring": ""
+        },
+        {
+          "method_name": "to_dict",
+          "line_start": 83,
+          "line_end": 98,
+          "arguments": [
+            "self"
+          ],
+          "docstring": ""
+        },
+        {
+          "method_name": "from_dict",
+          "line_start": 101,
+          "line_end": 115,
+          "arguments": [
+            "cls",
+            "data"
+          ],
+          "docstring": ""
+        }
+      ]
+    },
+    {
+      "type": "class",
+      "symbol": "CandidateProcedure",
+      "file": "scripts/procedural_engine.py",
+      "line_start": 119,
+      "line_end": 262,
+      "docstring": "Candidate procedure distilled from episodic sessions.\nStaged in inbox/procedures/ as inert until policy admission.",
+      "methods": [
+        {
+          "method_name": "to_dict",
+          "line_start": 138,
+          "line_end": 153,
+          "arguments": [
+            "self"
+          ],
+          "docstring": ""
+        },
+        {
+          "method_name": "from_dict",
+          "line_start": 156,
+          "line_end": 172,
+          "arguments": [
+            "cls",
+            "data"
+          ],
+          "docstring": ""
+        },
+        {
+          "method_name": "to_markdown",
+          "line_start": 174,
+          "line_end": 262,
+          "arguments": [
+            "self"
+          ],
+          "docstring": "Format candidate procedure as structured Markdown for review.\nClearly separates and badges step types per Section 46."
+        }
+      ]
+    },
+    {
+      "type": "class",
+      "symbol": "ProceduralEngine",
+      "file": "scripts/procedural_engine.py",
+      "line_start": 265,
+      "line_end": 908,
+      "docstring": "Engine for mining recurring workflows from episodic sessions,\ndistinguishing step types, preserving provenance, and staging\ncandidates in inbox/procedures/ under Invariant 16 isolation.",
+      "methods": [
+        {
+          "method_name": "__init__",
+          "line_start": 272,
+          "line_end": 294,
+          "arguments": [
+            "self",
+            "workspace_root",
+            "sessions_dir",
+            "inbox_dir",
+            "forbidden_skills_dirs"
+          ],
+          "docstring": ""
+        },
+        {
+          "method_name": "assert_staging_allowed",
+          "line_start": 296,
+          "line_end": 326,
+          "arguments": [
+            "self",
+            "target_path"
+          ],
+          "docstring": "Enforce Invariant 16:\nNEVER writes directly to active .agents/skills/ or ~/.gemini/antigravity-cli/skills/.\nNo generated procedural skill becomes active without the required admission path."
+        },
+        {
+          "method_name": "parse_session_log",
+          "line_start": 328,
+          "line_end": 486,
+          "arguments": [
+            "self",
+            "file_path"
+          ],
+          "docstring": "Parse an episodic session log (YYYY-MM-DD-HHMM.md) to extract:\n- Metadata (date, workspace, branch, commit)\n- Raw actions, commands, and code blocks\n- Step distinction indicators (Section 46)\n- Tool provenance details (Section 47)\n- Candidate durable memories"
+        },
+        {
+          "method_name": "_summarize_command_name",
+          "line_start": 488,
+          "line_end": 495,
+          "arguments": [
+            "self",
+            "cmd"
+          ],
+          "docstring": ""
+        },
+        {
+          "method_name": "_truncate_phrase",
+          "line_start": 497,
+          "line_end": 501,
+          "arguments": [
+            "self",
+            "text",
+            "max_chars"
+          ],
+          "docstring": ""
+        },
+        {
+          "method_name": "mine_recurring_sequences",
+          "line_start": 503,
+          "line_end": 607,
+          "arguments": [
+            "self",
+            "min_support"
+          ],
+          "docstring": "Mines episodic session logs for recurring command & tool sequences.\nClusters workflows by command signatures and generates CandidateProcedure instances."
+        },
+        {
+          "method_name": "_generate_procedure_id",
+          "line_start": 609,
+          "line_end": 613,
+          "arguments": [
+            "self",
+            "cmd_seq",
+            "idx"
+          ],
+          "docstring": ""
+        },
+        {
+          "method_name": "_generate_procedure_title",
+          "line_start": 615,
+          "line_end": 627,
+          "arguments": [
+            "self",
+            "cmd_seq"
+          ],
+          "docstring": ""
+        },
+        {
+          "method_name": "_infer_domain",
+          "line_start": 629,
+          "line_end": 641,
+          "arguments": [
+            "self",
+            "cmd_seq"
+          ],
+          "docstring": ""
+        },
+        {
+          "method_name": "_enrich_procedure_with_inferred_steps",
+          "line_start": 643,
+          "line_end": 695,
+          "arguments": [
+            "self",
+            "steps",
+            "cmd_seq",
+            "domain"
+          ],
+          "docstring": ""
+        },
+        {
+          "method_name": "_mine_conceptual_workflows",
+          "line_start": 697,
+          "line_end": 761,
+          "arguments": [
+            "self",
+            "parsed_sessions",
+            "min_support"
+          ],
+          "docstring": ""
+        },
+        {
+          "method_name": "stage_candidate",
+          "line_start": 763,
+          "line_end": 799,
+          "arguments": [
+            "self",
+            "candidate"
+          ],
+          "docstring": "Stage candidate procedure in inbox_dir.\nReturns (markdown_file_path, json_file_path)."
+        },
+        {
+          "method_name": "_update_inbox_index",
+          "line_start": 801,
+          "line_end": 835,
+          "arguments": [
+            "self"
+          ],
+          "docstring": "Maintain an INDEX.md inside inbox/procedures/ listing candidate items."
+        },
+        {
+          "method_name": "list_staged_candidates",
+          "line_start": 837,
+          "line_end": 851,
+          "arguments": [
+            "self"
+          ],
+          "docstring": "List all candidate procedures currently staged in inbox."
+        },
+        {
+          "method_name": "verify_staging_isolation",
+          "line_start": 853,
+          "line_end": 895,
+          "arguments": [
+            "self"
+          ],
+          "docstring": "Verify Invariant 16 isolation:\n- Confirms active skills directories have NOT been written to or modified by procedural engine.\n- Confirms staged procedures reside solely in inbox_dir.\n- Confirms candidate status is inert (admitted: false)."
+        },
+        {
+          "method_name": "run_mining_pipeline",
+          "line_start": 897,
+          "line_end": 908,
+          "arguments": [
+            "self",
+            "min_support"
+          ],
+          "docstring": "Complete mining and staging pipeline:\n1. Mines episodic sessions for recurring workflows\n2. Distinguishes step types per Section 46\n3. Enforces Invariant 16 and stages candidates in inbox_dir\n4. Verifies staging isolation"
+        }
+      ]
+    },
+    {
+      "type": "function",
+      "symbol": "generate_cli_summary",
+      "file": "scripts/procedural_engine.py",
+      "line_start": 911,
+      "line_end": 937,
+      "arguments": [
+        "candidates"
+      ],
+      "docstring": "Generate concise human-readable summary of mined and staged candidate procedures."
+    },
+    {
+      "type": "function",
+      "symbol": "main",
+      "file": "scripts/procedural_engine.py",
+      "line_start": 940,
+      "line_end": 986,
+      "arguments": [],
+      "docstring": ""
+    },
+    {
+      "type": "class",
+      "symbol": "QueryRouter",
+      "file": "scripts/query_router.py",
+      "line_start": 101,
+      "line_end": 816,
+      "docstring": "Intelligent Query Intent and Scope Router with Explicit Abstention.",
+      "methods": [
+        {
+          "method_name": "__init__",
+          "line_start": 106,
+          "line_end": 114,
+          "arguments": [
+            "self",
+            "project_root",
+            "confidence_threshold"
+          ],
+          "docstring": ""
+        },
+        {
+          "method_name": "classify_intent",
+          "line_start": 116,
+          "line_end": 257,
+          "arguments": [
+            "self",
+            "query"
+          ],
+          "docstring": "Classifies query intent into one of 5 distinct categories:\n- present-state (\"What is X now?\")\n- historical as-of (\"What was X before?\")\n- procedural (\"How do I do X?\")\n- debugging (\"Why did X fail?\")\n- why/rationale (\"Why did we choose X?\")\nAlso resolves temporal orientation per Section 141."
+        },
+        {
+          "method_name": "determine_scope",
+          "line_start": 259,
+          "line_end": 374,
+          "arguments": [
+            "self",
+            "query",
+            "intent"
+          ],
+          "docstring": "Determines target scope automatically per Section 27:\n- project vs global vs tool vs domain\n- supports multi-scope candidate fan-out with scope provenance"
+        },
+        {
+          "method_name": "expand_query",
+          "line_start": 376,
+          "line_end": 417,
+          "arguments": [
+            "self",
+            "query",
+            "intent"
+          ],
+          "docstring": "Controlled Query Expansion per Section 140.\nExpands abbreviations, technical synonyms, and component hints without cost explosion."
+        },
+        {
+          "method_name": "calculate_match_confidence",
+          "line_start": 419,
+          "line_end": 593,
+          "arguments": [
+            "self",
+            "snippet_data",
+            "intent_data",
+            "target_scope",
+            "query"
+          ],
+          "docstring": "Calculates normalized confidence (0.0 - 1.0) based on:\n- raw lexical/semantic score from search_memory\n- query content term coverage (penalizes incidental single-word hits)\n- intent alignment (procedural steps vs rationale vs debugging vs active/superseded)\n- trustworthiness signals (Confidence: VERIFIED, canonical source citations)"
+        },
+        {
+          "method_name": "compile_context_package",
+          "line_start": 595,
+          "line_end": 658,
+          "arguments": [
+            "self",
+            "match"
+          ],
+          "docstring": "Builds a compact memory context package per Instruction.md Section 29."
+        },
+        {
+          "method_name": "route",
+          "line_start": 660,
+          "line_end": 662,
+          "arguments": [
+            "self",
+            "query"
+          ],
+          "docstring": "Convenience alias for route_and_query."
+        },
+        {
+          "method_name": "route_and_query",
+          "line_start": 664,
+          "line_end": 816,
+          "arguments": [
+            "self",
+            "query",
+            "scope_override",
+            "threshold_override"
+          ],
+          "docstring": "Full end-to-end routing pipeline:\n1. Classifies intent & temporal orientation\n2. Determines automatic target scope\n3. Executes controlled query expansion\n4. Performs scoped retrieval\n5. Ranks matches by intent alignment & verification trust\n6. Enforces explicit abstention per Section 30\n7. Compiles compact context package per Section 29"
+        }
+      ]
+    },
+    {
+      "type": "function",
+      "symbol": "format_markdown_report",
+      "file": "scripts/query_router.py",
+      "line_start": 819,
+      "line_end": 863,
+      "arguments": [
+        "res"
+      ],
+      "docstring": "Renders human-readable GitHub-flavored Markdown output."
+    },
+    {
+      "type": "function",
+      "symbol": "run_benchmarks",
+      "file": "scripts/query_router.py",
+      "line_start": 866,
+      "line_end": 899,
+      "arguments": [],
+      "docstring": "Runs self-verification benchmarks for intent classification, scope routing, and abstention."
+    },
+    {
+      "type": "function",
+      "symbol": "main",
+      "file": "scripts/query_router.py",
+      "line_start": 902,
+      "line_end": 929,
+      "arguments": [],
+      "docstring": ""
+    },
+    {
+      "type": "function",
+      "symbol": "execute_section128_demo",
+      "file": "scripts/run_section128_demo.py",
+      "line_start": 56,
+      "line_end": 274,
+      "arguments": [],
+      "docstring": ""
+    },
+    {
+      "type": "function",
+      "symbol": "str2bool",
+      "file": "scripts/search_memory.py",
+      "line_start": 109,
+      "line_end": 118,
+      "arguments": [
+        "v"
+      ],
+      "docstring": "Parses boolean strings from CLI flags."
+    },
+    {
+      "type": "function",
+      "symbol": "discover_memory_files",
+      "file": "scripts/search_memory.py",
+      "line_start": 121,
+      "line_end": 200,
+      "arguments": [
+        "scopes",
+        "project_root"
+      ],
+      "docstring": "Discovers all candidate memory files matching the requested scopes.\nReturns list of tuples (file_path, identified_scope)."
+    },
+    {
+      "type": "function",
+      "symbol": "get_file_sections",
+      "file": "scripts/search_memory.py",
+      "line_start": 203,
+      "line_end": 271,
+      "arguments": [
+        "file_path"
+      ],
+      "docstring": "Parses a markdown file into discrete sections based on headings (# or ##).\nReturns list of section dicts with heading, start_line, end_line, and content."
+    },
+    {
+      "type": "function",
+      "symbol": "find_enclosing_section",
+      "file": "scripts/search_memory.py",
+      "line_start": 274,
+      "line_end": 301,
+      "arguments": [
+        "file_path",
+        "line_num",
+        "sections_cache"
+      ],
+      "docstring": "Finds the markdown section containing line_num in file_path."
+    },
+    {
+      "type": "function",
+      "symbol": "extract_section_snippets",
+      "file": "scripts/search_memory.py",
+      "line_start": 304,
+      "line_end": 454,
+      "arguments": [
+        "file_path",
+        "query",
+        "is_regex",
+        "case_sensitive",
+        "scope"
+      ],
+      "docstring": "Reads a markdown file, searches for lexical matches with word boundary enforcement\nand stop word filtering, calculates relevance score, and extracts context snippets."
+    },
+    {
+      "type": "function",
+      "symbol": "run_dense_search",
+      "file": "scripts/search_memory.py",
+      "line_start": 457,
+      "line_end": 546,
+      "arguments": [
+        "query",
+        "files_with_scopes",
+        "top_k",
+        "sections_cache"
+      ],
+      "docstring": "Executes dense semantic retrieval via MemSearchBackend and resolves matches\nto bounded section items within the candidate scopes."
+    },
+    {
+      "type": "function",
+      "symbol": "reciprocal_rank_fusion",
+      "file": "scripts/search_memory.py",
+      "line_start": 549,
+      "line_end": 601,
+      "arguments": [
+        "dense_items",
+        "lexical_items",
+        "w_dense",
+        "w_lexical",
+        "rrf_k"
+      ],
+      "docstring": "Combines dense semantic matches and lexical keyword matches via Reciprocal Rank Fusion (RRF):\nRRF_score = (w_dense / (60 + rank_dense)) + (w_lexical / (60 + rank_lexical))"
+    },
+    {
+      "type": "function",
+      "symbol": "run_memory_search",
+      "file": "scripts/search_memory.py",
+      "line_start": 604,
+      "line_end": 723,
+      "arguments": [
+        "query",
+        "scopes",
+        "is_regex",
+        "case_sensitive",
+        "max_results",
+        "project_root",
+        "apply_reranker",
+        "hybrid",
+        "w_dense",
+        "w_lexical",
+        "rrf_k"
+      ],
+      "docstring": "Executes ranked memory search across designated scopes.\nWhen hybrid=True, fuses dense semantic retrieval from MemSearchBackend with lexical\nkeyword matches using Reciprocal Rank Fusion (RRF).\nWhen hybrid=False or is_regex=True, executes lexical/regex search."
+    },
+    {
+      "type": "function",
+      "symbol": "format_markdown_report",
+      "file": "scripts/search_memory.py",
+      "line_start": 726,
+      "line_end": 788,
+      "arguments": [
+        "search_data"
+      ],
+      "docstring": "Formats the search results into a clean, GitHub-flavored Markdown report.\nWraps snippets in quad backticks (````markdown) to prevent code-fence breakout (SEC-005)."
+    },
+    {
+      "type": "function",
+      "symbol": "main",
+      "file": "scripts/search_memory.py",
+      "line_start": 791,
+      "line_end": 869,
+      "arguments": [],
+      "docstring": ""
+    },
+    {
+      "type": "class",
+      "symbol": "ScanFinding",
+      "file": "scripts/secret_scanner.py",
+      "line_start": 47,
+      "line_end": 59,
+      "docstring": "Represents a single security finding/secret match.",
+      "methods": [
+        {
+          "method_name": "to_dict",
+          "line_start": 58,
+          "line_end": 59,
+          "arguments": [
+            "self"
+          ],
+          "docstring": ""
+        }
+      ]
+    },
+    {
+      "type": "class",
+      "symbol": "ScanResult",
+      "file": "scripts/secret_scanner.py",
+      "line_start": 63,
+      "line_end": 97,
+      "docstring": "Represents the complete result of scanning a text or file.",
+      "methods": [
+        {
+          "method_name": "is_clean",
+          "line_start": 72,
+          "line_end": 73,
+          "arguments": [
+            "self"
+          ],
+          "docstring": ""
+        },
+        {
+          "method_name": "summary_message",
+          "line_start": 76,
+          "line_end": 85,
+          "arguments": [
+            "self"
+          ],
+          "docstring": ""
+        },
+        {
+          "method_name": "to_dict",
+          "line_start": 87,
+          "line_end": 97,
+          "arguments": [
+            "self"
+          ],
+          "docstring": ""
+        }
+      ]
+    },
+    {
+      "type": "class",
+      "symbol": "SecretScanner",
+      "file": "scripts/secret_scanner.py",
+      "line_start": 178,
+      "line_end": 617,
+      "docstring": "Strict security scanner for candidate memories, notes, and session logs.",
+      "methods": [
+        {
+          "method_name": "__init__",
+          "line_start": 181,
+          "line_end": 184,
+          "arguments": [
+            "self",
+            "entropy_threshold",
+            "min_entropy_len"
+          ],
+          "docstring": ""
+        },
+        {
+          "method_name": "_init_rules",
+          "line_start": 186,
+          "line_end": 428,
+          "arguments": [
+            "self"
+          ],
+          "docstring": "Initialize scanning regular expressions grouped by security category."
+        },
+        {
+          "method_name": "_is_safe_placeholder",
+          "line_start": 430,
+          "line_end": 450,
+          "arguments": [
+            "self",
+            "matched_text",
+            "line_content"
+          ],
+          "docstring": "Check if matched text is an obvious placeholder, template variable, or doc example."
+        },
+        {
+          "method_name": "scan_line",
+          "line_start": 452,
+          "line_end": 510,
+          "arguments": [
+            "self",
+            "line",
+            "line_num"
+          ],
+          "docstring": "Scan a single line of text across all rule categories."
+        },
+        {
+          "method_name": "scan_text",
+          "line_start": 512,
+          "line_end": 554,
+          "arguments": [
+            "self",
+            "text",
+            "target_name"
+          ],
+          "docstring": "Scan full text string for secrets and security violations."
+        },
+        {
+          "method_name": "scan_file",
+          "line_start": 556,
+          "line_end": 598,
+          "arguments": [
+            "self",
+            "file_path"
+          ],
+          "docstring": "Scan an individual file on disk."
+        },
+        {
+          "method_name": "scan_directory",
+          "line_start": 600,
+          "line_end": 617,
+          "arguments": [
+            "self",
+            "dir_path",
+            "recursive"
+          ],
+          "docstring": "Scan all markdown, text, and json files in a directory."
+        }
+      ]
+    },
+    {
+      "type": "function",
+      "symbol": "calculate_entropy",
+      "file": "scripts/secret_scanner.py",
+      "line_start": 100,
+      "line_end": 123,
+      "arguments": [
+        "text"
+      ],
+      "docstring": "Calculate enhanced Shannon entropy of a string."
+    },
+    {
+      "type": "function",
+      "symbol": "redact_secret",
+      "file": "scripts/secret_scanner.py",
+      "line_start": 126,
+      "line_end": 136,
+      "arguments": [
+        "secret_str"
+      ],
+      "docstring": "Redact secret leaving only prefix/suffix for identification."
+    },
+    {
+      "type": "function",
+      "symbol": "redact_line",
+      "file": "scripts/secret_scanner.py",
+      "line_start": 139,
+      "line_end": 144,
+      "arguments": [
+        "line",
+        "matched_str"
+      ],
+      "docstring": "Return line content with the matched secret redacted."
+    },
+    {
+      "type": "function",
+      "symbol": "scan_text",
+      "file": "scripts/secret_scanner.py",
+      "line_start": 624,
+      "line_end": 626,
+      "arguments": [
+        "text",
+        "target_name"
+      ],
+      "docstring": "Convenience function to scan a text string with default scanner."
+    },
+    {
+      "type": "function",
+      "symbol": "scan_file",
+      "file": "scripts/secret_scanner.py",
+      "line_start": 629,
+      "line_end": 631,
+      "arguments": [
+        "file_path"
+      ],
+      "docstring": "Convenience function to scan a file with default scanner."
+    },
+    {
+      "type": "function",
+      "symbol": "scan_directory",
+      "file": "scripts/secret_scanner.py",
+      "line_start": 634,
+      "line_end": 636,
+      "arguments": [
+        "dir_path",
+        "recursive"
+      ],
+      "docstring": "Convenience function to scan a directory with default scanner."
+    },
+    {
+      "type": "function",
+      "symbol": "cli_main",
+      "file": "scripts/secret_scanner.py",
+      "line_start": 639,
+      "line_end": 698,
+      "arguments": [],
+      "docstring": "Command-line entry point for secret scanner."
+    },
+    {
+      "type": "function",
+      "symbol": "get_git_info",
+      "file": "scripts/session_manager.py",
+      "line_start": 40,
+      "line_end": 87,
+      "arguments": [
+        "workspace_path"
+      ],
+      "docstring": "Retrieve git root, branch, commit, and status."
+    },
+    {
+      "type": "function",
+      "symbol": "scan_secrets",
+      "file": "scripts/session_manager.py",
+      "line_start": 90,
+      "line_end": 117,
+      "arguments": [
+        "content"
+      ],
+      "docstring": "Scan content for sensitive tokens, private keys, passwords."
+    },
+    {
+      "type": "function",
+      "symbol": "load_file_if_exists",
+      "file": "scripts/session_manager.py",
+      "line_start": 120,
+      "line_end": 127,
+      "arguments": [
+        "path"
+      ],
+      "docstring": ""
+    },
+    {
+      "type": "function",
+      "symbol": "get_latest_session_log",
+      "file": "scripts/session_manager.py",
+      "line_start": 130,
+      "line_end": 139,
+      "arguments": [
+        "sessions_dir"
+      ],
+      "docstring": "Return (filename, content) of the latest session log in sessions_dir."
+    },
+    {
+      "type": "function",
+      "symbol": "parse_current_md",
+      "file": "scripts/session_manager.py",
+      "line_start": 142,
+      "line_end": 170,
+      "arguments": [
+        "content"
+      ],
+      "docstring": "Parse CURRENT.md fields."
+    },
+    {
+      "type": "function",
+      "symbol": "detect_interruption",
+      "file": "scripts/session_manager.py",
+      "line_start": 173,
+      "line_end": 197,
+      "arguments": [
+        "current_data",
+        "last_log",
+        "git_info"
+      ],
+      "docstring": "Detect if previous session was interrupted.\nReasons:\n- CURRENT.md has an in-progress objective, but last session log does not mention completion.\n- Dirty uncommitted changes exist from a prior working state."
+    },
+    {
+      "type": "function",
+      "symbol": "detect_stale_and_contradictions",
+      "file": "scripts/session_manager.py",
+      "line_start": 200,
+      "line_end": 240,
+      "arguments": [
+        "workspace_path"
+      ],
+      "docstring": "Scan memory files for stale file paths, branch mismatches, and contradictions."
+    },
+    {
+      "type": "function",
+      "symbol": "start_session",
+      "file": "scripts/session_manager.py",
+      "line_start": 243,
+      "line_end": 339,
+      "arguments": [
+        "workspace_path"
+      ],
+      "docstring": "Phase 8: /start-session workflow."
+    },
+    {
+      "type": "function",
+      "symbol": "end_session",
+      "file": "scripts/session_manager.py",
+      "line_start": 342,
+      "line_end": 494,
+      "arguments": [
+        "workspace_path",
+        "completed_items",
+        "unresolved_items",
+        "decisions_made",
+        "discoveries",
+        "next_steps",
+        "candidate_memories",
+        "new_objective"
+      ],
+      "docstring": "Phase 9 & 10: /end-session workflow."
+    },
+    {
+      "type": "function",
+      "symbol": "main",
+      "file": "scripts/session_manager.py",
+      "line_start": 497,
+      "line_end": 517,
+      "arguments": [],
+      "docstring": ""
+    },
+    {
+      "type": "function",
+      "symbol": "worker",
+      "file": "scripts/test_concurrency.py",
+      "line_start": 11,
+      "line_end": 23,
+      "arguments": [
+        "worker_id",
+        "num_updates"
+      ],
+      "docstring": ""
+    },
+    {
+      "type": "function",
+      "symbol": "simulate_crash",
+      "file": "scripts/test_concurrency.py",
+      "line_start": 25,
+      "line_end": 38,
+      "arguments": [],
+      "docstring": ""
+    },
+    {
+      "type": "function",
+      "symbol": "main",
+      "file": "scripts/test_concurrency.py",
+      "line_start": 40,
+      "line_end": 75,
+      "arguments": [],
+      "docstring": ""
+    },
+    {
+      "type": "class",
+      "symbol": "TestContradictions",
+      "file": "scripts/test_detect_contradictions.py",
+      "line_start": 6,
+      "line_end": 54,
+      "docstring": "",
+      "methods": [
+        {
+          "method_name": "setUp",
+          "line_start": 7,
+          "line_end": 8,
+          "arguments": [
+            "self"
+          ],
+          "docstring": ""
+        },
+        {
+          "method_name": "tearDown",
+          "line_start": 10,
+          "line_end": 11,
+          "arguments": [
+            "self"
+          ],
+          "docstring": ""
+        },
+        {
+          "method_name": "test_version_contradiction",
+          "line_start": 13,
+          "line_end": 21,
+          "arguments": [
+            "self"
+          ],
+          "docstring": ""
+        },
+        {
+          "method_name": "test_tool_contradiction",
+          "line_start": 23,
+          "line_end": 31,
+          "arguments": [
+            "self"
+          ],
+          "docstring": ""
+        },
+        {
+          "method_name": "test_arch_contradiction",
+          "line_start": 33,
+          "line_end": 41,
+          "arguments": [
+            "self"
+          ],
+          "docstring": ""
+        },
+        {
+          "method_name": "test_superseded_entry",
+          "line_start": 43,
+          "line_end": 54,
+          "arguments": [
+            "self"
+          ],
+          "docstring": ""
+        }
+      ]
+    },
+    {
+      "type": "class",
+      "symbol": "TestQueryRouter",
+      "file": "scripts/test_query_router.py",
+      "line_start": 19,
+      "line_end": 103,
+      "docstring": "",
+      "methods": [
+        {
+          "method_name": "setUp",
+          "line_start": 20,
+          "line_end": 21,
+          "arguments": [
+            "self"
+          ],
+          "docstring": ""
+        },
+        {
+          "method_name": "test_intent_present_state",
+          "line_start": 23,
+          "line_end": 30,
+          "arguments": [
+            "self"
+          ],
+          "docstring": ""
+        },
+        {
+          "method_name": "test_intent_historical_as_of",
+          "line_start": 32,
+          "line_end": 39,
+          "arguments": [
+            "self"
+          ],
+          "docstring": ""
+        },
+        {
+          "method_name": "test_intent_procedural",
+          "line_start": 41,
+          "line_end": 47,
+          "arguments": [
+            "self"
+          ],
+          "docstring": ""
+        },
+        {
+          "method_name": "test_intent_debugging",
+          "line_start": 49,
+          "line_end": 55,
+          "arguments": [
+            "self"
+          ],
+          "docstring": ""
+        },
+        {
+          "method_name": "test_intent_why_rationale",
+          "line_start": 57,
+          "line_end": 63,
+          "arguments": [
+            "self"
+          ],
+          "docstring": ""
+        },
+        {
+          "method_name": "test_scope_determination_section_27",
+          "line_start": 65,
+          "line_end": 77,
+          "arguments": [
+            "self"
+          ],
+          "docstring": ""
+        },
+        {
+          "method_name": "test_query_expansion_section_140",
+          "line_start": 79,
+          "line_end": 84,
+          "arguments": [
+            "self"
+          ],
+          "docstring": ""
+        },
+        {
+          "method_name": "test_abstention_section_30_on_run_tests",
+          "line_start": 86,
+          "line_end": 91,
+          "arguments": [
+            "self"
+          ],
+          "docstring": ""
+        },
+        {
+          "method_name": "test_abstention_on_fabricated_query",
+          "line_start": 93,
+          "line_end": 96,
+          "arguments": [
+            "self"
+          ],
+          "docstring": ""
+        },
+        {
+          "method_name": "test_successful_resolution_adr",
+          "line_start": 98,
+          "line_end": 103,
+          "arguments": [
+            "self"
+          ],
+          "docstring": ""
+        }
+      ]
+    },
+    {
+      "type": "function",
+      "symbol": "validate",
+      "file": "scripts/validate_memory.py",
+      "line_start": 33,
+      "line_end": 134,
+      "arguments": [
+        "memory_root"
+      ],
+      "docstring": ""
+    },
+    {
+      "type": "function",
+      "symbol": "verify_isolation",
+      "file": "scripts/verify_subagent_memory.py",
+      "line_start": 5,
+      "line_end": 33,
+      "arguments": [],
+      "docstring": ""
+    },
+    {
+      "type": "function",
+      "symbol": "get_live_cli_version",
+      "file": "scripts/version_sync.py",
+      "line_start": 70,
+      "line_end": 73,
+      "arguments": [],
+      "docstring": "Query live Antigravity CLI binary for its version string (backwards-compatible helper)."
+    },
+    {
+      "type": "function",
+      "symbol": "get_live_tool_version",
+      "file": "scripts/version_sync.py",
+      "line_start": 76,
+      "line_end": 111,
+      "arguments": [
+        "tool_key"
+      ],
+      "docstring": "Query live system binary for a specific tool's version and location."
+    },
+    {
+      "type": "function",
+      "symbol": "get_all_live_tool_versions",
+      "file": "scripts/version_sync.py",
+      "line_start": 114,
+      "line_end": 116,
+      "arguments": [],
+      "docstring": "Query all configured CLI tools for their live versions."
+    },
+    {
+      "type": "function",
+      "symbol": "extract_current_recorded_version",
+      "file": "scripts/version_sync.py",
+      "line_start": 119,
+      "line_end": 124,
+      "arguments": [
+        "content"
+      ],
+      "docstring": "Extract current recorded Antigravity CLI version from ENVIRONMENT.md (backwards-compatible helper)."
+    },
+    {
+      "type": "function",
+      "symbol": "extract_recorded_tool_versions",
+      "file": "scripts/version_sync.py",
+      "line_start": 127,
+      "line_end": 166,
+      "arguments": [
+        "content"
+      ],
+      "docstring": "Extract all recorded CLI tool versions from ENVIRONMENT.md."
+    },
+    {
+      "type": "function",
+      "symbol": "sync_environment_version",
+      "file": "scripts/version_sync.py",
+      "line_start": 169,
+      "line_end": 348,
+      "arguments": [
+        "env_file_path",
+        "dry_run"
+      ],
+      "docstring": "Detects CLI toolchain version drift and updates ENVIRONMENT.md with:\n- Current observed versions and paths in specifications\n- Incremental history rows marking superseded previous versions\n- Formal ## Superseded records without wiping historical entries."
+    },
+    {
+      "type": "function",
+      "symbol": "main",
+      "file": "scripts/version_sync.py",
+      "line_start": 351,
+      "line_end": 379,
+      "arguments": [],
+      "docstring": ""
+    }
+  ]
+}

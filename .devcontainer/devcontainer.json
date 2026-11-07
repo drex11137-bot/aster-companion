@@ -1,0 +1,116 @@
+{
+  "name": "Antigravity Engineering Workstation (Ubuntu 24.04)",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": "..",
+    "args": {
+      "UBUNTU_VERSION": "24.04"
+    }
+  },
+  "remoteUser": "codespace",
+  "containerUser": "codespace",
+  "overrideCommand": false,
+  "features": {
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {
+      "version": "latest",
+      "enableOnDataRoot": true
+    },
+    "ghcr.io/devcontainers/features/sshd:1": {
+      "version": "latest"
+    }
+  },
+  "containerEnv": {
+    "ANDROID_HOME": "/usr/local/android-sdk",
+    "ANDROID_SDK_ROOT": "/usr/local/android-sdk",
+    "GHIDRA_HOME": "/usr/local/ghidra",
+    "CODEQL_HOME": "/usr/local/codeql",
+    "JAVA_HOME": "/usr/lib/jvm/java-21-openjdk-amd64",
+    "DEBIAN_FRONTEND": "noninteractive",
+    "WIRESHARK_NO_DUMPCAP": "1",
+    "PATH": "/usr/local/android-sdk/cmdline-tools/latest/bin:/usr/local/android-sdk/platform-tools:/usr/local/android-sdk/build-tools/34.0.0:/usr/local/ghidra/support:/usr/local/codeql:/usr/local/jadx/bin:/workspaces/codespaces-blank/tools/bin:/workspaces/codespaces-blank/tools/scripts:/home/codespace/.local/bin:/home/codespace/.gemini/antigravity-cli/bin:${containerEnv:PATH}"
+  },
+  "remoteEnv": {
+    "ANDROID_HOME": "/usr/local/android-sdk",
+    "ANDROID_SDK_ROOT": "/usr/local/android-sdk",
+    "GHIDRA_HOME": "/usr/local/ghidra",
+    "CODEQL_HOME": "/usr/local/codeql",
+    "JAVA_HOME": "/usr/lib/jvm/java-21-openjdk-amd64",
+    "PATH": "/usr/local/android-sdk/cmdline-tools/latest/bin:/usr/local/android-sdk/platform-tools:/usr/local/android-sdk/build-tools/34.0.0:/usr/local/ghidra/support:/usr/local/codeql:/usr/local/jadx/bin:/workspaces/codespaces-blank/tools/bin:/workspaces/codespaces-blank/tools/scripts:/home/codespace/.local/bin:/home/codespace/.gemini/antigravity-cli/bin:${containerEnv:PATH}"
+  },
+  "mounts": [
+    "source=android-sdk-cache,target=/usr/local/android-sdk,type=volume",
+    "source=codespace-cache,target=/home/codespace/.cache,type=volume",
+    "source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind"
+  ],
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "bash",
+        "terminal.integrated.profiles.linux": {
+          "bash": {
+            "path": "/bin/bash",
+            "icon": "terminal-bash"
+          }
+        },
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.codeActionsOnSave": {
+          "source.fixAll.eslint": "explicit"
+        },
+        "files.trimTrailingWhitespace": true,
+        "files.insertFinalNewline": true,
+        "java.home": "/usr/lib/jvm/java-21-openjdk-amd64",
+        "java.configuration.runtimes": [
+          {
+            "name": "JavaSE-17",
+            "path": "/usr/lib/jvm/java-17-openjdk-amd64"
+          },
+          {
+            "name": "JavaSE-21",
+            "path": "/usr/lib/jvm/java-21-openjdk-amd64",
+            "default": true
+          }
+        ],
+        "android.sdk.path": "/usr/local/android-sdk",
+        "eslint.validate": [
+          "javascript",
+          "javascriptreact",
+          "typescript",
+          "typescriptreact",
+          "html",
+          "json"
+        ],
+        "security.workspace.trust.enabled": true,
+        "security.workspace.trust.startupPrompt": "never",
+        "python.defaultInterpreterPath": "/usr/bin/python3"
+      },
+      "extensions": [
+        "Google.google-antigravity",
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "SonarSource.sonarlint-vscode",
+        "Semgrep.semgrep",
+        "GitHub.vscode-codeql",
+        "ms-azuretools.vscode-docker",
+        "ms-kubernetes-tools.vscode-kubernetes-tools",
+        "github.vscode-github-actions",
+        "github.vscode-pull-request-github",
+        "bradlc.vscode-tailwindcss",
+        "AndroidGradleTools.android-ide-extension",
+        "levkosyk.vscode-android-tools",
+        "Surendrajat.apklab",
+        "JetBrains.hexana-wasm",
+        "sweetpad.sweetpad",
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "ms-vscode.cpptools",
+        "vscjava.vscode-java-pack",
+        "redhat.vscode-yaml",
+        "tamasfe.even-better-toml"
+      ]
+    }
+  },
+  "forwardPorts": [3000, 5000, 8000, 8080, 8443, 9090, 5037],
+  "postCreateCommand": "bash .devcontainer/scripts/bootstrap.sh",
+  "postStartCommand": "bash .devcontainer/scripts/verify-toolchain.sh || true"
+}

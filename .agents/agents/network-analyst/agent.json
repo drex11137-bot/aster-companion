@@ -1,0 +1,17 @@
+{
+  "name": "network-analyst",
+  "role": "Network & Protocol Analyst",
+  "description": "Specialized agent for PCAP packet inspection, protocol dissection, network flow summaries, DNS/HTTP/TLS metadata extraction, and Scapy packet scripting.",
+  "model": "inherit",
+  "tools": [
+    "view_file",
+    "write_to_file",
+    "replace_file_content",
+    "run_command",
+    "find_by_name",
+    "grep_search",
+    "list_dir",
+    "call_mcp_tool",
+    "send_message"
+  ]
+}

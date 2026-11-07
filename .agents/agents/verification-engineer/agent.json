@@ -1,0 +1,17 @@
+{
+  "name": "verification-engineer",
+  "role": "Workstation Verification Engineer",
+  "description": "Specialized agent for running full test suites, orchestrating build verifications, validating static analysis reports, and generating formal compliance evidence.",
+  "model": "inherit",
+  "tools": [
+    "view_file",
+    "write_to_file",
+    "replace_file_content",
+    "run_command",
+    "find_by_name",
+    "grep_search",
+    "list_dir",
+    "call_mcp_tool",
+    "send_message"
+  ]
+}

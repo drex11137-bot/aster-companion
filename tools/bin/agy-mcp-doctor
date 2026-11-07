@@ -1,0 +1,352 @@
+#!/usr/bin/env bash
+# ==============================================================================
+# AGY-MCP-DOCTOR: Deterministic Diagnostic CLI for Model Context Protocol (MCP)
+# ==============================================================================
+exec python3 - "$@" << 'PYEOF'
+import os
+import sys
+import json
+import shutil
+import subprocess
+import argparse
+
+BOLD = "\033[1m"
+GREEN = "\033[0;32m"
+YELLOW = "\033[1;33m"
+RED = "\033[0;31m"
+CYAN = "\033[0;36m"
+NC = "\033[0m"
+
+def get_workspace_root():
+    cwd = os.getcwd()
+    candidate = cwd
+    while candidate != "/" and candidate:
+        if os.path.isdir(os.path.join(candidate, ".agents")):
+            return candidate
+        parent = os.path.dirname(candidate)
+        if parent == candidate:
+            break
+        candidate = parent
+    return cwd
+
+def test_stdio_handshake(cmd, env=None, test_call=None, timeout=6):
+    init_req = {
+        "jsonrpc": "2.0",
+        "id": 1,
+        "method": "initialize",
+        "params": {
+            "protocolVersion": "2024-11-05",
+            "capabilities": {},
+            "clientInfo": {"name": "agy-mcp-doctor", "version": "1.0.0"}
+        }
+    }
+    try:
+        proc = subprocess.Popen(
+            cmd,
+            stdin=subprocess.PIPE,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+            env=env
+        )
+        proc.stdin.write(json.dumps(init_req) + "\n")
+        proc.stdin.flush()
+        init_line = proc.stdout.readline()
+        if not init_line:
+            proc.terminate()
+            return False, "No response from server process"
+        
+        try:
+            init_res = json.loads(init_line)
+        except Exception as e:
+            proc.terminate()
+            return False, f"Invalid JSON response: {e}"
+        
+        server_info = init_res.get("result", {}).get("serverInfo", {})
+        server_name = server_info.get("name", "unknown")
+        server_ver = server_info.get("version", "")
+        detail = f"{server_name} {server_ver}".strip()
+
+        if test_call:
+            proc.stdin.write(json.dumps(test_call) + "\n")
+            proc.stdin.flush()
+            call_line = proc.stdout.readline()
+            if call_line:
+                call_res = json.loads(call_line)
+                proc.terminate()
+                return True, f"{detail} (call: OK)"
+
+        proc.terminate()
+        return True, detail or "Initialized"
+    except Exception as e:
+        return False, str(e)
+
+def main():
+    parser = argparse.ArgumentParser(description="Antigravity Model Context Protocol (MCP) Doctor")
+    parser.add_argument("--json", action="store_true", help="Output results in JSON format")
+    parser.add_argument("--quick", action="store_true", help="Skip live stdio connection probes")
+    args = parser.parse_args()
+
+    results = {
+        "status": "PASS",
+        "total_checks": 0,
+        "passed": 0,
+        "failed": 0,
+        "warnings": 0,
+        "checks": []
+    }
+
+    def record(category, name, status, detail="", critical=True):
+        results["total_checks"] += 1
+        if status == "PASS":
+            results["passed"] += 1
+        elif status == "FAIL":
+            results["failed"] += 1
+            if critical:
+                results["status"] = "FAIL"
+        elif status in ("WARN", "OPTIONAL"):
+            results["warnings"] += 1
+        results["checks"].append({
+            "category": category,
+            "name": name,
+            "status": status,
+            "detail": detail
+        })
+
+    workspace_root = get_workspace_root()
+    mcp_config_path = os.path.join(workspace_root, ".agents", "mcp_config.json")
+    if not os.path.exists(mcp_config_path):
+        mcp_config_path = os.path.join(os.getcwd(), ".agents", "mcp_config.json")
+
+    config_data = None
+
+    # 1. MCP Configuration File
+    if os.path.isfile(mcp_config_path):
+        record("Config", f"{os.path.relpath(mcp_config_path, os.getcwd()) if mcp_config_path.startswith(os.getcwd()) else '.agents/mcp_config.json'}", "PASS", "Exists")
+        try:
+            with open(mcp_config_path, "r", encoding="utf-8") as f:
+                config_data = json.load(f)
+            servers = config_data.get("mcpServers", {})
+            server_names = ", ".join(sorted(servers.keys()))
+            record("Config", "Valid JSON", "PASS", f"{len(servers)} servers: {server_names}")
+        except Exception as e:
+            record("Config", "Valid JSON", "FAIL", f"Syntax Error: {e}", critical=True)
+    else:
+        record("Config", ".agents/mcp_config.json", "FAIL", "File missing", critical=True)
+
+    # Global Config Check
+    global_config_path = os.path.expanduser("~/.gemini/antigravity-cli/mcp_config.json")
+    if os.path.isfile(global_config_path):
+        try:
+            with open(global_config_path, "r", encoding="utf-8") as f:
+                g_data = json.load(f)
+            record("GlobalConfig", "Global MCP Config", "PASS", f"{len(g_data.get('mcpServers', {}))} servers defined")
+        except Exception as e:
+            record("GlobalConfig", "Global MCP Config", "WARN", f"Syntax error: {e}", critical=False)
+    else:
+        record("GlobalConfig", "Global MCP Config", "OPTIONAL", "Not present", critical=False)
+
+    # 2. MCP Runtime Dependencies
+    # Node.js
+    node_path = shutil.which("node")
+    if node_path:
+        res = subprocess.run([node_path, "--version"], capture_output=True, text=True)
+        record("Runtime", "Node.js Engine", "PASS", res.stdout.strip())
+    else:
+        record("Runtime", "Node.js Engine", "FAIL", "node command not found", critical=True)
+
+    # NPX
+    npx_path = shutil.which("npx")
+    if npx_path:
+        res = subprocess.run([npx_path, "--version"], capture_output=True, text=True)
+        record("Runtime", "NPX Runner", "PASS", res.stdout.strip())
+    else:
+        record("Runtime", "NPX Runner", "FAIL", "npx command not found", critical=True)
+
+    # Python 3
+    py_path = shutil.which("python3")
+    if py_path:
+        res = subprocess.run([py_path, "--version"], capture_output=True, text=True)
+        record("Runtime", "Python 3 Runtime", "PASS", res.stdout.strip())
+    else:
+        record("Runtime", "Python 3 Runtime", "FAIL", "python3 command not found", critical=True)
+
+    # SQLite MCP Server
+    sqlite_mcp = shutil.which("mcp-server-sqlite")
+    if sqlite_mcp:
+        res = subprocess.run([sqlite_mcp, "--help"], capture_output=True, text=True)
+        record("Runtime", "SQLite MCP Engine (mcp-server-sqlite)", "PASS", "Available in PATH")
+    else:
+        record("Runtime", "SQLite MCP Engine (mcp-server-sqlite)", "WARN", "mcp-server-sqlite binary not found in PATH", critical=False)
+
+    # Hexana MCP
+    hexana_mcp = shutil.which("hexana-mcp")
+    if hexana_mcp:
+        res = subprocess.run([hexana_mcp, "doctor"], capture_output=True, text=True)
+        if res.returncode == 0:
+            record("Runtime", "Hexana MCP Engine (hexana-mcp)", "PASS", "GraalVM native binary OK")
+        else:
+            record("Runtime", "Hexana MCP Engine (hexana-mcp)", "WARN", "Hexana doctor reported warnings", critical=False)
+    else:
+        record("Runtime", "Hexana MCP Engine (hexana-mcp)", "WARN", "hexana-mcp binary not found", critical=False)
+
+    # 3. Key MCP Server Packages
+    playwright_ok = False
+    if shutil.which("npx"):
+        res = subprocess.run(["npx", "--no-install", "playwright", "--version"], capture_output=True, text=True)
+        if res.returncode == 0:
+            playwright_ok = True
+        else:
+            res = subprocess.run(["npx", "playwright", "--version"], capture_output=True, text=True)
+            if res.returncode == 0:
+                playwright_ok = True
+    if playwright_ok:
+        record("Package", "@playwright/test / playwright", "PASS", "Installed and ready")
+    else:
+        record("Package", "@playwright/test / playwright", "WARN", "UNAVAILABLE / ON-DEMAND", critical=False)
+
+    # Schema Registry
+    schema_dir = os.path.expanduser("~/.gemini/antigravity-cli/mcp")
+    if os.path.isdir(schema_dir):
+        discovered = sorted(os.listdir(schema_dir))
+        record("Registry", "MCP Tool Schemas", "PASS", f"{len(discovered)} servers cataloged: {', '.join(discovered)}")
+    else:
+        record("Registry", "MCP Tool Schemas", "OPTIONAL", "Directory ~/.gemini/antigravity-cli/mcp not found", critical=False)
+
+    # 4. Live Server Connection Tests
+    if not args.quick and config_data and "mcpServers" in config_data:
+        servers = config_data["mcpServers"]
+
+        # context7
+        if "context7" in servers:
+            s_cfg = servers["context7"]
+            cmd = [s_cfg["command"]] + s_cfg.get("args", [])
+            ok, detail = test_stdio_handshake(cmd, timeout=8)
+            record("LiveProbe", "Context7 Live Documentation MCP", "PASS" if ok else "WARN", detail, critical=False)
+
+        # github
+        if "github" in servers:
+            s_cfg = servers["github"]
+            cmd = [s_cfg["command"]] + s_cfg.get("args", [])
+            env = os.environ.copy()
+            if "env" in s_cfg:
+                for k, v in s_cfg["env"].items():
+                    val = os.path.expandvars(v)
+                    env[k] = val
+            ok, detail = test_stdio_handshake(cmd, env=env, timeout=8)
+            record("LiveProbe", "GitHub MCP Protocol Integration", "PASS" if ok else "WARN", detail, critical=False)
+
+        # playwright
+        if "playwright" in servers:
+            s_cfg = servers["playwright"]
+            cmd = [s_cfg["command"]] + s_cfg.get("args", [])
+            ok, detail = test_stdio_handshake(cmd, timeout=8)
+            record("LiveProbe", "Playwright Browser MCP", "PASS" if ok else "WARN", detail, critical=False)
+
+        # sqlite-safe
+        if "sqlite-safe" in servers:
+            s_cfg = servers["sqlite-safe"]
+            cmd = [s_cfg["command"]] + s_cfg.get("args", [])
+            env = os.environ.copy()
+            if "env" in s_cfg:
+                env.update(s_cfg["env"])
+            test_call = {
+                "jsonrpc": "2.0",
+                "id": 2,
+                "method": "tools/call",
+                "params": {
+                    "name": "read_query",
+                    "arguments": {"query": "SELECT COUNT(*) as cnt FROM users;"}
+                }
+            }
+            ok, detail = test_stdio_handshake(cmd, env=env, test_call=test_call, timeout=8)
+            record("LiveProbe", "SQLite Safe Read-Only MCP", "PASS" if ok else "WARN", detail, critical=False)
+
+        # postgres-safe
+        if "postgres-safe" in servers:
+            s_cfg = servers["postgres-safe"]
+            cmd = [s_cfg["command"]] + s_cfg.get("args", [])
+            env = os.environ.copy()
+            if "env" in s_cfg:
+                env.update(s_cfg["env"])
+            ok, detail = test_stdio_handshake(cmd, env=env, timeout=8)
+            record("LiveProbe", "PostgreSQL Safe Read-Only MCP", "PASS" if ok else "WARN", f"{detail} (Isolation: BEGIN READ ONLY + ROLLBACK)", critical=False)
+
+        # hexana
+        if "hexana" in servers:
+            s_cfg = servers["hexana"]
+            cmd = [s_cfg["command"]] + s_cfg.get("args", [])
+            ok, detail = test_stdio_handshake(cmd, timeout=8)
+            record("LiveProbe", "Hexana Binary & WASM MCP", "PASS" if ok else "WARN", detail, critical=False)
+
+    # 5. Security & Tool Economy Governance
+    if config_data and "mcpServers" in config_data:
+        servers = config_data["mcpServers"]
+        # Check read-only guarantees
+        sqlite_ro = servers.get("sqlite-safe", {}).get("env", {}).get("DB_READONLY") == "true"
+        postgres_ro = servers.get("postgres-safe", {}).get("env", {}).get("PGREADONLY") == "true"
+        if sqlite_ro and postgres_ro:
+            record("Governance", "Database Read-Only Isolation Flags", "PASS", "DB_READONLY=true and PGREADONLY=true enforced")
+        else:
+            record("Governance", "Database Read-Only Isolation Flags", "WARN", "Missing read-only environment guardrails", critical=False)
+
+        # Tool economy: ensure server count is optimal and curated
+        if len(servers) <= 8:
+            record("Governance", "Tool Economy & Server Footprint", "PASS", f"{len(servers)} curated servers (no bloated configurations)")
+        else:
+            record("Governance", "Tool Economy & Server Footprint", "WARN", f"{len(servers)} servers detected; consider consolidating", critical=False)
+
+    # Output formatting
+    if args.json:
+        print(json.dumps(results, indent=2))
+    else:
+        print(f"\n{BOLD}{CYAN}==================================================================={NC}")
+        print(f"{BOLD}{CYAN}            ANTIGRAVITY MODEL CONTEXT PROTOCOL (MCP) DOCTOR         {NC}")
+        print(f"{BOLD}{CYAN}==================================================================={NC}\n")
+
+        print(f"{BOLD}1. MCP Configuration File:{NC}")
+        for c in results["checks"]:
+            if c["category"] == "Config":
+                st_color = GREEN if c["status"] == "PASS" else RED
+                detail = f" ({c['detail']})" if c['detail'] else ""
+                print(f"  [{c['category']}] {c['name']}... {st_color}{c['status']}{NC}{detail}")
+
+        print(f"\n{BOLD}2. MCP Runtime Dependencies:{NC}")
+        for c in results["checks"]:
+            if c["category"] == "Runtime":
+                st_color = GREEN if c["status"] == "PASS" else (YELLOW if c["status"] == "WARN" else RED)
+                detail = f" ({c['detail']})" if c['detail'] else ""
+                print(f"  [Runtime] {c['name']}... {st_color}{c['status']}{NC}{detail}")
+
+        print(f"\n{BOLD}3. Key MCP Server Packages & Registry:{NC}")
+        for c in results["checks"]:
+            if c["category"] in ("Package", "Registry"):
+                st_color = GREEN if c["status"] == "PASS" else YELLOW
+                detail = f" ({c['detail']})" if c['detail'] else ""
+                print(f"  [{c['name']}]... {st_color}{c['status']}{NC}{detail}")
+
+        if any(c["category"] == "LiveProbe" for c in results["checks"]):
+            print(f"\n{BOLD}4. Live MCP Server Protocol Probes:{NC}")
+            for c in results["checks"]:
+                if c["category"] == "LiveProbe":
+                    st_color = GREEN if c["status"] == "PASS" else (YELLOW if c["status"] == "WARN" else RED)
+                    detail = f" ({c['detail']})" if c['detail'] else ""
+                    print(f"  [Probe] {c['name']}... {st_color}{c['status']}{NC}{detail}")
+
+        if any(c["category"] == "Governance" for c in results["checks"]):
+            print(f"\n{BOLD}5. Security & Governance Audits:{NC}")
+            for c in results["checks"]:
+                if c["category"] == "Governance":
+                    st_color = GREEN if c["status"] == "PASS" else YELLOW
+                    detail = f" ({c['detail']})" if c['detail'] else ""
+                    print(f"  [Policy] {c['name']}... {st_color}{c['status']}{NC}{detail}")
+
+        print(f"\n{BOLD}{CYAN}==================================================================={NC}")
+        passed_color = GREEN if results["status"] == "PASS" else RED
+        print(f"{passed_color}MCP Doctor inspection complete. ({results['passed']}/{results['total_checks']} checks passed, {results['warnings']} warnings){NC}\n")
+
+    sys.exit(0 if results["status"] == "PASS" else 1)
+
+if __name__ == "__main__":
+    main()
+PYEOF

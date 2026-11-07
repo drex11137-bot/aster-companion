@@ -1,0 +1,725 @@
+{
+  "metadata": {
+    "timestamp": "2026-09-01T16:47:00Z",
+    "generated_by": "agent-env-baseline (Agent 1)",
+    "target_specification": "instruction.md Section 3 & Section 42"
+  },
+  "system": {
+    "kernel": {
+      "command": "uname -a",
+      "exit_code": 0,
+      "stdout": "Linux codespaces-211a33 6.8.0-1052-azure #58~22.04.1-Ubuntu SMP Thu Mar 26 05:02:21 UTC 2026 x86_64 x86_64 x86_64 GNU/Linux",
+      "stderr": ""
+    },
+    "machine_arch": {
+      "command": "uname -m",
+      "exit_code": 0,
+      "stdout": "x86_64",
+      "stderr": ""
+    },
+    "os_release": {
+      "command": "cat /etc/os-release",
+      "exit_code": 0,
+      "stdout": "PRETTY_NAME=\"Ubuntu 24.04.4 LTS\"\nNAME=\"Ubuntu\"\nVERSION_ID=\"24.04\"\nVERSION=\"24.04.4 LTS (Noble Numbat)\"\nVERSION_CODENAME=noble\nID=ubuntu\nID_LIKE=debian\nHOME_URL=\"https://www.ubuntu.com/\"\nSUPPORT_URL=\"https://help.ubuntu.com/\"\nBUG_REPORT_URL=\"https://bugs.launchpad.net/ubuntu/\"\nPRIVACY_POLICY_URL=\"https://www.ubuntu.com/legal/terms-and-policies/privacy-policy\"\nUBUNTU_CODENAME=noble\nLOGO=ubuntu-logo",
+      "stderr": ""
+    },
+    "identity": {
+      "command": "id",
+      "exit_code": 0,
+      "stdout": "uid=1000(codespace) gid=1000(codespace) groups=1000(codespace),985(pipx),986(python),987(oryx),988(golang),989(docker),990(sdkman),991(rvm),992(php),993(conda),994(nvs),995(nvm),996(hugo),1001(ssh)",
+      "stderr": ""
+    },
+    "working_directory": {
+      "command": "pwd",
+      "exit_code": 0,
+      "stdout": "/workspaces/codespaces-blank",
+      "stderr": ""
+    },
+    "disk_usage": {
+      "command": "df -h",
+      "exit_code": 0,
+      "stdout": "Filesystem      Size  Used Avail Use% Mounted on\noverlay          32G   21G  9.6G  68% /\ntmpfs            64M     0   64M   0% /dev\nshm              64M     0   64M   0% /dev/shm\n/dev/root        29G   16G   14G  53% /vscode\n/dev/loop4       32G   21G  9.6G  68% /workspaces\n/dev/sda1       118G  6.0G  106G   6% /tmp",
+      "stderr": ""
+    },
+    "memory": {
+      "command": "free -h",
+      "exit_code": 0,
+      "stdout": "total        used        free      shared  buff/cache   available\nMem:            15Gi       6.6Gi       450Mi        65Mi       9.0Gi       9.0Gi\nSwap:             0B          0B          0B",
+      "stderr": ""
+    },
+    "cpu_cores": {
+      "command": "nproc",
+      "exit_code": 0,
+      "stdout": "4",
+      "stderr": ""
+    },
+    "uptime": {
+      "command": "uptime",
+      "exit_code": 0,
+      "stdout": "16:47:19 up  1:24,  0 user,  load average: 18.05, 7.36, 3.37",
+      "stderr": ""
+    },
+    "hostname": {
+      "command": "hostname",
+      "exit_code": 0,
+      "stdout": "codespaces-211a33",
+      "stderr": ""
+    }
+  },
+  "environment_variables": {
+    "PATH": "/home/codespace/.gemini/antigravity-cli/bin:/home/codespace/.local/bin:/usr/local/rvm/gems/ruby-3.4.7/bin:/usr/local/rvm/gems/ruby-3.4.7@global/bin:/usr/local/rvm/rubies/ruby-3.4.7/bin:/home/codespace/.vscode-remote/data/User/globalStorage/github.copilot-chat/debugCommand:/home/codespace/.vscode-remote/data/User/globalStorage/github.copilot-chat/copilotCli:/vscode/bin/linux-x64/a5b500951314efd502d07465bd138dfbd714a960/bin/remote-cli:/home/codespace/.local/bin:/home/codespace/.dotnet:/home/codespace/nvm/current/bin:/home/codespace/.php/current/bin:/home/codespace/.python/current/bin:/home/codespace/java/current/bin:/home/codespace/.ruby/current/bin:/home/codespace/.local/bin:/usr/local/python/current/bin:/usr/local/py-utils/bin:/usr/local/jupyter:/usr/local/oryx:/usr/local/go/bin:/go/bin:/usr/local/sdkman/bin:/usr/local/sdkman/candidates/java/current/bin:/usr/local/sdkman/candidates/gradle/current/bin:/usr/local/sdkman/candidates/maven/current/bin:/usr/local/sdkman/candidates/ant/current/bin:/usr/local/rvm/gems/default/bin:/usr/local/rvm/gems/default@global/bin:/usr/local/rvm/rubies/default/bin:/usr/local/share/rbenv/bin:/usr/local/php/current/bin:/opt/conda/bin:/usr/local/nvs:/usr/local/share/nvm/versions/node/v24.14.0/bin:/usr/local/hugo/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/share/dotnet:/home/codespace/.dotnet/tools:/usr/local/rvm/bin:/tmp/android-sdk/cmdline-tools/latest/bin:/tmp/android-sdk/platform-tools",
+    "PATH_ENTRIES": [
+      "/home/codespace/.gemini/antigravity-cli/bin",
+      "/home/codespace/.local/bin",
+      "/usr/local/rvm/gems/ruby-3.4.7/bin",
+      "/usr/local/rvm/gems/ruby-3.4.7@global/bin",
+      "/usr/local/rvm/rubies/ruby-3.4.7/bin",
+      "/home/codespace/.vscode-remote/data/User/globalStorage/github.copilot-chat/debugCommand",
+      "/home/codespace/.vscode-remote/data/User/globalStorage/github.copilot-chat/copilotCli",
+      "/vscode/bin/linux-x64/a5b500951314efd502d07465bd138dfbd714a960/bin/remote-cli",
+      "/home/codespace/.local/bin",
+      "/home/codespace/.dotnet",
+      "/home/codespace/nvm/current/bin",
+      "/home/codespace/.php/current/bin",
+      "/home/codespace/.python/current/bin",
+      "/home/codespace/java/current/bin",
+      "/home/codespace/.ruby/current/bin",
+      "/home/codespace/.local/bin",
+      "/usr/local/python/current/bin",
+      "/usr/local/py-utils/bin",
+      "/usr/local/jupyter",
+      "/usr/local/oryx",
+      "/usr/local/go/bin",
+      "/go/bin",
+      "/usr/local/sdkman/bin",
+      "/usr/local/sdkman/candidates/java/current/bin",
+      "/usr/local/sdkman/candidates/gradle/current/bin",
+      "/usr/local/sdkman/candidates/maven/current/bin",
+      "/usr/local/sdkman/candidates/ant/current/bin",
+      "/usr/local/rvm/gems/default/bin",
+      "/usr/local/rvm/gems/default@global/bin",
+      "/usr/local/rvm/rubies/default/bin",
+      "/usr/local/share/rbenv/bin",
+      "/usr/local/php/current/bin",
+      "/opt/conda/bin",
+      "/usr/local/nvs",
+      "/usr/local/share/nvm/versions/node/v24.14.0/bin",
+      "/usr/local/hugo/bin",
+      "/usr/local/sbin",
+      "/usr/local/bin",
+      "/usr/sbin",
+      "/usr/bin",
+      "/sbin",
+      "/bin",
+      "/usr/share/dotnet",
+      "/home/codespace/.dotnet/tools",
+      "/usr/local/rvm/bin",
+      "/tmp/android-sdk/cmdline-tools/latest/bin",
+      "/tmp/android-sdk/platform-tools"
+    ],
+    "ANDROID_HOME": "/tmp/android-sdk",
+    "ANDROID_SDK_ROOT": "/tmp/android-sdk",
+    "JAVA_HOME": "/usr/local/sdkman/candidates/java/current",
+    "GRADLE_HOME": "/usr/local/sdkman/candidates/gradle/current",
+    "GOROOT": "/usr/local/go",
+    "GOPATH": "/go",
+    "NVM_DIR": "/usr/local/share/nvm",
+    "SDKMAN_DIR": "/usr/local/sdkman",
+    "PIPX_HOME": "/usr/local/py-utils",
+    "PIPX_BIN_DIR": "/usr/local/py-utils/bin",
+    "CODESPACES": "true",
+    "CODESPACE_NAME": "super-duper-yodel-wrwwxp6pvrwv2x6g",
+    "GITHUB_USER": "drex11137-bot",
+    "GITHUB_REPOSITORY": "github/codespaces-blank",
+    "ALL_VARS_FILTERED": {
+      "ANDROID_HOME": "/tmp/android-sdk",
+      "ANDROID_SDK_ROOT": "/tmp/android-sdk",
+      "ANTIGRAVITY_AGENT": "1",
+      "ANTIGRAVITY_AGENTAPI_EXE": "/home/codespace/.local/bin/agy",
+      "ANTIGRAVITY_CONVERSATION_ID": "7df16028-087a-457c-ad80-4391c850641d",
+      "ANTIGRAVITY_LS_ADDRESS": "localhost:42581",
+      "ANTIGRAVITY_LS_VERSION": "cli-1.1.23",
+      "ANTIGRAVITY_PROJECT_ID": "default-cli-project",
+      "ANTIGRAVITY_SOURCE_METADATA": "{\"tool\":{\"conversationId\":\"7df16028-087a-457c-ad80-4391c850641d\", \"stepIndex\":52, \"toolCall\":{\"id\":\"call_220324\", \"name\":\"run_command\", \"argumentsJson\":\"{\\\"CommandLine\\\":\\\"python3 -c \\\\\\\"\\\\nimport os, sys, subprocess, json, shutil, platform\\\\n\\\\ndef run_cmd(cmd, timeout=10):\\\\n    try:\\\\n        res = subprocess.run(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, timeout=timeout)\\\\n        return {\\\\n            'command': cmd,\\\\n            'exit_code': res.returncode,\\\\n            'stdout': res.stdout.strip(),\\\\n            'stderr': res.stderr.strip()\\\\n        }\\\\n    except subprocess.TimeoutExpired:\\\\n        return {'command': cmd, 'exit_code': -1, 'stdout': '', 'stderr': 'Command timed out after %ds' % timeout}\\\\n    except Exception as e:\\\\n        return {'command': cmd, 'exit_code': -1, 'stdout': '', 'stderr': str(e)}\\\\n\\\\nbaseline = {\\\\n    'metadata': {\\\\n        'timestamp': '2026-09-01T16:47:00Z',\\\\n        'generated_by': 'agent-env-baseline (Agent 1)',\\\\n        'target_specification': 'instruction.md Section 3 \\\\u0026 Section 42'\\\\n    },\\\\n    'system': {\\\\n        'kernel': run_cmd('uname -a'),\\\\n        'machine_arch': run_cmd('uname -m'),\\\\n        'os_release': run_cmd('cat /etc/os-release'),\\\\n        'identity': run_cmd('id'),\\\\n        'working_directory': run_cmd('pwd'),\\\\n        'disk_usage': run_cmd('df -h'),\\\\n        'memory': run_cmd('free -h'),\\\\n        'cpu_cores': run_cmd('nproc'),\\\\n        'uptime': run_cmd('uptime'),\\\\n        'hostname': run_cmd('hostname')\\\\n    },\\\\n    'environment_variables': {\\\\n        'PATH': os.environ.get('PATH', ''),\\\\n        'PATH_ENTRIES': os.environ.get('PATH', '').split(':'),\\\\n        'ANDROID_HOME': os.environ.get('ANDROID_HOME'),\\\\n        'ANDROID_SDK_ROOT': os.environ.get('ANDROID_SDK_ROOT'),\\\\n        'JAVA_HOME': os.environ.get('JAVA_HOME'),\\\\n        'GRADLE_HOME': os.environ.get('GRADLE_HOME'),\\\\n        'GOROOT': os.environ.get('GOROOT'),\\\\n        'GOPATH': os.environ.get('GOPATH'),\\\\n        'NVM_DIR': os.environ.get('NVM_DIR'),\\\\n        'SDKMAN_DIR': os.environ.get('SDKMAN_DIR'),\\\\n        'PIPX_HOME': os.environ.get('PIPX_HOME'),\\\\n        'PIPX_BIN_DIR': os.environ.get('PIPX_BIN_DIR'),\\\\n        'CODESPACES': os.environ.get('CODESPACES'),\\\\n        'CODESPACE_NAME': os.environ.get('CODESPACE_NAME'),\\\\n        'GITHUB_USER': os.environ.get('GITHUB_USER'),\\\\n        'GITHUB_REPOSITORY': os.environ.get('GITHUB_REPOSITORY'),\\\\n        'ALL_VARS_FILTERED': {k: os.environ[k] for k in sorted(os.environ.keys()) if not any(s in k.lower() for s in ['token', 'secret', 'key', 'password', 'auth', 'nonce', 'ipc'])}\\\\n    },\\\\n    'core_toolchain': {\\\\n        'git': run_cmd('git --version'),\\\\n        'gh': run_cmd('gh --version'),\\\\n        'code': run_cmd('code --version'),\\\\n        'node': run_cmd('node --version'),\\\\n        'npm': run_cmd('npm --version'),\\\\n        'pnpm': run_cmd('pnpm --version'),\\\\n        'yarn': run_cmd('yarn --version'),\\\\n        'corepack': run_cmd('corepack --version'),\\\\n        'python3': run_cmd('python3 --version'),\\\\n        'pip3': run_cmd('pip3 --version'),\\\\n        'pipx': run_cmd('pipx --version'),\\\\n        'conda': run_cmd('conda --version'),\\\\n        'java': run_cmd('java -version'),\\\\n        'javac': run_cmd('javac --version'),\\\\n        'gradle': run_cmd('gradle --version'),\\\\n        'mvn': run_cmd('mvn --version'),\\\\n        'gcc': run_cmd('gcc --version'),\\\\n        'g++': run_cmd('g++ --version'),\\\\n        'clang': run_cmd('clang --version'),\\\\n        'clang++': run_cmd('clang++ --version'),\\\\n        'llvm_config': run_cmd('llvm-config --version'),\\\\n        'cmake': run_cmd('cmake --version'),\\\\n        'make': run_cmd('make --version'),\\\\n        'docker': run_cmd('docker --version'),\\\\n        'docker_compose': run_cmd('docker compose version'),\\\\n        'agy': run_cmd('agy --version'),\\\\n        'agy_models': run_cmd('agy models')\\\\n    },\\\\n    'domain_toolchains': {\\\\n        'general_utilities': {\\\\n            'curl': run_cmd('curl --version'),\\\\n            'wget': run_cmd('wget --version'),\\\\n            'jq': run_cmd('jq --version'),\\\\n            'yq': run_cmd('yq --version'),\\\\n            'tree': run_cmd('tree --version'),\\\\n            'zip': run_cmd('zip -v'),\\\\n            'unzip': run_cmd('unzip -v'),\\\\n            'tar': run_cmd('tar --version'),\\\\n            'file': run_cmd('file --version'),\\\\n            'xz': run_cmd('xz --version')\\\\n        },\\\\n        'binary_analysis': {\\\\n            'readelf': run_cmd('readelf --version'),\\\\n            'objdump': run_cmd('objdump --version'),\\\\n            'nm': run_cmd('nm --version'),\\\\n            'strings': run_cmd('strings --version'),\\\\n            'strip': run_cmd('strip --version'),\\\\n            'gdb': run_cmd('gdb --version'),\\\\n            'lldb': run_cmd('lldb --version'),\\\\n            'radare2': run_cmd('radare2 -v'),\\\\n            'ghidra': run_cmd('ghidra --version')\\\\n        },\\\\n        'security_analysis': {\\\\n            'bandit': run_cmd('bandit --version'),\\\\n            'cppcheck': run_cmd('cppcheck --version'),\\\\n            'semgrep': run_cmd('semgrep --version'),\\\\n            'trivy': run_cmd('trivy --version'),\\\\n            'codeql': run_cmd('codeql --version')\\\\n        },\\\\n        'cloud_and_containers': {\\\\n            'docker_info': run_cmd('docker info'),\\\\n            'kubectl': run_cmd('kubectl version --client'),\\\\n            'helm': run_cmd('helm version'),\\\\n            'minikube': run_cmd('minikube version')\\\\n        },\\\\n        'android_mobile': {\\\\n            'adb': run_cmd('adb --version'),\\\\n            'sdkmanager': run_cmd('sdkmanager --version')\\\\n        },\\\\n        'runtimes_additional': {\\\\n            'go': run_cmd('go version'),\\\\n            'ruby': run_cmd('ruby --version'),\\\\n            'php': run_cmd('php --version'),\\\\n            'dotnet': run_cmd('dotnet --info')\\\\n        }\\\\n    },\\\\n    'vscode_extensions': run_cmd('code --list-extensions --show-versions'),\\\\n    'mcp_configuration': {\\\\n        'global_mcp_config_path': '/home/codespace/.gemini/antigravity-cli/mcp_config.json',\\\\n        'global_mcp_servers': json.load(open('/home/codespace/.gemini/antigravity-cli/mcp_config.json')) if os.path.exists('/home/codespace/.gemini/antigravity-cli/mcp_config.json') else None,\\\\n        'installed_mcp_tool_dirs': os.listdir('/home/codespace/.gemini/antigravity-cli/mcp') if os.path.exists('/home/codespace/.gemini/antigravity-cli/mcp') else []\\\\n    },\\\\n    'antigravity_configuration': {\\\\n        'builtin_skills': os.listdir('/home/codespace/.gemini/antigravity-cli/builtin/skills') if os.path.exists('/home/codespace/.gemini/antigravity-cli/builtin/skills') else [],\\\\n        'project_skills': os.listdir('/workspaces/codespaces-blank/.agents/skills') if os.path.exists('/workspaces/codespaces-blank/.agents/skills') else [],\\\\n        'memory_structure': os.listdir('/home/codespace/.gemini/antigravity-cli/memory') if os.path.exists('/home/codespace/.gemini/antigravity-cli/memory') else []\\\\n    },\\\\n    'repository_state': {\\\\n        'git_status': run_cmd('git status --short'),\\\\n        'git_branch': run_cmd('git branch --show-current'),\\\\n        'git_log': run_cmd('git log -5 --oneline')\\\\n    }\\\\n}\\\\n\\\\nos.makedirs('/workspaces/codespaces-blank/.environment-baseline', exist_ok=True)\\\\nwith open('/workspaces/codespaces-blank/.environment-baseline/baseline-inventory.json', 'w') as f:\\\\n    json.dump(baseline, f, indent=2)\\\\n\\\\nprint('SUCCESS: Created /workspaces/codespaces-blank/.environment-baseline/baseline-inventory.json')\\\\n\\\\\\\"\\\",\\\"Cwd\\\":\\\"/workspaces/codespaces-blank\\\",\\\"RunPersistent\\\":false,\\\"WaitMsBeforeAsync\\\":5000,\\\"toolAction\\\":\\\"Generating baseline-inventory.json\\\",\\\"toolSummary\\\":\\\"Generate baseline-inventory.json\\\"}\", \"thinkingSignature\":\"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\"}}}",
+      "ANTIGRAVITY_TRAJECTORY_ID": "a51b9e23-3fd2-442a-ba37-e626329f4424",
+      "BROWSER": "/vscode/bin/linux-x64/a5b500951314efd502d07465bd138dfbd714a960/bin/helpers/browser.sh",
+      "CLOUDENV_ENVIRONMENT_ID": "31ced9f4-06aa-4a80-a097-424d9ff96598",
+      "CODESPACES": "true",
+      "CODESPACE_NAME": "super-duper-yodel-wrwwxp6pvrwv2x6g",
+      "CODESPACE_VSCODE_FOLDER": "/workspaces/codespaces-blank",
+      "COLORTERM": "truecolor",
+      "CONDA_DIR": "/opt/conda",
+      "CONDA_SCRIPT": "/opt/conda/etc/profile.d/conda.sh",
+      "ContainerVersion": "13",
+      "DEBIAN_FLAVOR": "focal-scm",
+      "DEBUGINFOD_URLS": "https://debuginfod.ubuntu.com ",
+      "DOCKER_BUILDKIT": "1",
+      "DOTNET_ROOT": "/usr/share/dotnet",
+      "DOTNET_RUNNING_IN_CONTAINER": "true",
+      "DOTNET_SKIP_FIRST_TIME_EXPERIENCE": "1",
+      "DOTNET_USE_POLLING_FILE_WATCHER": "true",
+      "DYNAMIC_INSTALL_ROOT_DIR": "/opt",
+      "ENABLE_DYNAMIC_INSTALL": "true",
+      "FEATURE_SPARK_POST_COMMIT_CREATE_ITERATION": "true",
+      "GEM_HOME": "/usr/local/rvm/gems/ruby-3.4.7",
+      "GEM_PATH": "/usr/local/rvm/gems/ruby-3.4.7:/usr/local/rvm/gems/ruby-3.4.7@global",
+      "GITHUB_API_URL": "https://api.github.com",
+      "GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN": "app.github.dev",
+      "GITHUB_GRAPHQL_URL": "https://api.github.com/graphql",
+      "GITHUB_REPOSITORY": "github/codespaces-blank",
+      "GITHUB_SERVER_URL": "https://github.com",
+      "GITHUB_USER": "drex11137-bot",
+      "GIT_ASKPASS": "/vscode/bin/linux-x64/a5b500951314efd502d07465bd138dfbd714a960/extensions/git/dist/askpass.sh",
+      "GIT_EDITOR": "code --wait",
+      "GIT_PAGER": "cat",
+      "GOPATH": "/go",
+      "GOROOT": "/usr/local/go",
+      "GRADLE_HOME": "/usr/local/sdkman/candidates/gradle/current",
+      "HOME": "/home/codespace",
+      "HOSTNAME": "codespaces-211a33",
+      "HUGO_DIR": "/usr/local/hugo/bin",
+      "HUGO_ROOT": "/home/codespace/.hugo",
+      "INTERNAL_VSCS_TARGET_URL": "https://uksouth.online.visualstudio.com",
+      "IRBRC": "/usr/local/rvm/rubies/ruby-3.4.7/.irbrc",
+      "JAVA_HOME": "/usr/local/sdkman/candidates/java/current",
+      "JAVA_ROOT": "/home/codespace/java",
+      "JUPYTERLAB_PATH": "/home/codespace/.local/bin",
+      "LANG": "C.UTF-8",
+      "LESSCLOSE": "/usr/bin/lesspipe %s %s",
+      "LESSOPEN": "| /usr/bin/lesspipe %s",
+      "LS_COLORS": "rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=00:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.avif=01;35:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:*~=00;90:*#=00;90:*.bak=00;90:*.crdownload=00;90:*.dpkg-dist=00;90:*.dpkg-new=00;90:*.dpkg-old=00;90:*.dpkg-tmp=00;90:*.old=00;90:*.orig=00;90:*.part=00;90:*.rej=00;90:*.rpmnew=00;90:*.rpmorig=00;90:*.rpmsave=00;90:*.swp=00;90:*.tmp=00;90:*.ucf-dist=00;90:*.ucf-new=00;90:*.ucf-old=00;90:",
+      "MAVEN_HOME": "/usr/local/sdkman/candidates/maven/current",
+      "MAVEN_ROOT": "/home/codespace/.maven",
+      "MY_RUBY_HOME": "/usr/local/rvm/rubies/ruby-3.4.7",
+      "NODE_ROOT": "/home/codespace/nvm",
+      "NPM_GLOBAL": "/home/codespace/.npm-global",
+      "NUGET_XMLDOC_MODE": "skip",
+      "NVM_BIN": "/usr/local/share/nvm/versions/node/v24.14.0/bin",
+      "NVM_CD_FLAGS": "",
+      "NVM_DIR": "/usr/local/share/nvm",
+      "NVM_INC": "/usr/local/share/nvm/versions/node/v24.14.0/include/node",
+      "NVM_SYMLINK_CURRENT": "true",
+      "NVS_DIR": "/usr/local/nvs",
+      "NVS_HOME": "/usr/local/nvs",
+      "NVS_OS": "linux",
+      "NVS_ROOT": "/usr/local/nvs",
+      "NVS_USE_XZ": "1",
+      "OLDPWD": "/",
+      "ORYX_DIR": "/usr/local/oryx",
+      "ORYX_ENV_TYPE": "vsonline-present",
+      "ORYX_PREFER_USER_INSTALLED_SDKS": "true",
+      "ORYX_SDK_STORAGE_BASE_URL": "https://oryx-cdn.microsoft.io",
+      "PAGER": "cat",
+      "PATH": "/home/codespace/.gemini/antigravity-cli/bin:/home/codespace/.local/bin:/usr/local/rvm/gems/ruby-3.4.7/bin:/usr/local/rvm/gems/ruby-3.4.7@global/bin:/usr/local/rvm/rubies/ruby-3.4.7/bin:/home/codespace/.vscode-remote/data/User/globalStorage/github.copilot-chat/debugCommand:/home/codespace/.vscode-remote/data/User/globalStorage/github.copilot-chat/copilotCli:/vscode/bin/linux-x64/a5b500951314efd502d07465bd138dfbd714a960/bin/remote-cli:/home/codespace/.local/bin:/home/codespace/.dotnet:/home/codespace/nvm/current/bin:/home/codespace/.php/current/bin:/home/codespace/.python/current/bin:/home/codespace/java/current/bin:/home/codespace/.ruby/current/bin:/home/codespace/.local/bin:/usr/local/python/current/bin:/usr/local/py-utils/bin:/usr/local/jupyter:/usr/local/oryx:/usr/local/go/bin:/go/bin:/usr/local/sdkman/bin:/usr/local/sdkman/candidates/java/current/bin:/usr/local/sdkman/candidates/gradle/current/bin:/usr/local/sdkman/candidates/maven/current/bin:/usr/local/sdkman/candidates/ant/current/bin:/usr/local/rvm/gems/default/bin:/usr/local/rvm/gems/default@global/bin:/usr/local/rvm/rubies/default/bin:/usr/local/share/rbenv/bin:/usr/local/php/current/bin:/opt/conda/bin:/usr/local/nvs:/usr/local/share/nvm/versions/node/v24.14.0/bin:/usr/local/hugo/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/share/dotnet:/home/codespace/.dotnet/tools:/usr/local/rvm/bin:/tmp/android-sdk/cmdline-tools/latest/bin:/tmp/android-sdk/platform-tools",
+      "PHP_PATH": "/usr/local/php/current",
+      "PHP_ROOT": "/home/codespace/.php",
+      "PIPX_BIN_DIR": "/usr/local/py-utils/bin",
+      "PIPX_HOME": "/usr/local/py-utils",
+      "PROMPT_DIRTRIM": "4",
+      "PWD": "/workspaces/codespaces-blank",
+      "PYTHONIOENCODING": "UTF-8",
+      "PYTHON_PATH": "/usr/local/python/current",
+      "PYTHON_ROOT": "/home/codespace/.python",
+      "RAILS_DEVELOPMENT_HOSTS": ".githubpreview.dev,.preview.app.github.dev,.app.github.dev",
+      "RUBY_HOME": "/usr/local/rvm/rubies/default",
+      "RUBY_ROOT": "/home/codespace/.ruby",
+      "RUBY_VERSION": "ruby-3.4.7",
+      "RVM_PATH": "/usr/local/rvm",
+      "SDKMAN_BROKER_API": "https://broker.sdkman.io",
+      "SDKMAN_CANDIDATES_API": "https://api.sdkman.io/2",
+      "SDKMAN_CANDIDATES_DIR": "/usr/local/sdkman/candidates",
+      "SDKMAN_DIR": "/usr/local/sdkman",
+      "SDKMAN_PLATFORM": "linuxx64",
+      "SHELL": "/bin/bash",
+      "SHELL_LOGGED_IN": "true",
+      "SHLVL": "2",
+      "TERM": "dumb",
+      "TERM_PROGRAM": "vscode",
+      "TERM_PROGRAM_VERSION": "1.133.0",
+      "USER": "codespace",
+      "VSCODE_GIT_ASKPASS_EXTRA_ARGS": "",
+      "VSCODE_GIT_ASKPASS_MAIN": "/vscode/bin/linux-x64/a5b500951314efd502d07465bd138dfbd714a960/extensions/git/dist/askpass-main.js",
+      "VSCODE_GIT_ASKPASS_NODE": "/vscode/bin/linux-x64/a5b500951314efd502d07465bd138dfbd714a960/node",
+      "VSCODE_PYTHON_AUTOACTIVATE_GUARD": "1",
+      "_": "/home/codespace/.python/current/bin/python3",
+      "rvm_bin_path": "/usr/local/rvm/bin",
+      "rvm_path": "/usr/local/rvm",
+      "rvm_prefix": "/usr/local",
+      "rvm_version": "1.29.12 (latest)"
+    }
+  },
+  "core_toolchain": {
+    "git": {
+      "command": "git --version",
+      "exit_code": 0,
+      "stdout": "git version 2.53.0",
+      "stderr": ""
+    },
+    "gh": {
+      "command": "gh --version",
+      "exit_code": 0,
+      "stdout": "gh version 2.88.0 (2026-03-10)\nhttps://github.com/cli/cli/releases/tag/v2.88.0",
+      "stderr": ""
+    },
+    "code": {
+      "command": "code --version",
+      "exit_code": 0,
+      "stdout": "1.133.0\na5b500951314efd502d07465bd138dfbd714a960\nx64",
+      "stderr": ""
+    },
+    "node": {
+      "command": "node --version",
+      "exit_code": 0,
+      "stdout": "v24.14.0",
+      "stderr": ""
+    },
+    "npm": {
+      "command": "npm --version",
+      "exit_code": 0,
+      "stdout": "11.9.0",
+      "stderr": ""
+    },
+    "pnpm": {
+      "command": "pnpm --version",
+      "exit_code": 0,
+      "stdout": "11.25.0",
+      "stderr": ""
+    },
+    "yarn": {
+      "command": "yarn --version",
+      "exit_code": 0,
+      "stdout": "1.22.22",
+      "stderr": ""
+    },
+    "corepack": {
+      "command": "corepack --version",
+      "exit_code": 0,
+      "stdout": "0.34.6",
+      "stderr": ""
+    },
+    "python3": {
+      "command": "python3 --version",
+      "exit_code": 0,
+      "stdout": "Python 3.12.1",
+      "stderr": ""
+    },
+    "pip3": {
+      "command": "pip3 --version",
+      "exit_code": 0,
+      "stdout": "pip 26.0.1 from /usr/local/python/3.12.1/lib/python3.12/site-packages/pip (python 3.12)",
+      "stderr": ""
+    },
+    "pipx": {
+      "command": "pipx --version",
+      "exit_code": 0,
+      "stdout": "1.8.0",
+      "stderr": ""
+    },
+    "conda": {
+      "command": "conda --version",
+      "exit_code": -1,
+      "stdout": "",
+      "stderr": "Command timed out after 10s"
+    },
+    "java": {
+      "command": "java -version",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "openjdk version \"17.0.12\" 2024-07-16\nOpenJDK Runtime Environment Temurin-17.0.12+7 (build 17.0.12+7)\nOpenJDK 64-Bit Server VM Temurin-17.0.12+7 (build 17.0.12+7, mixed mode, sharing)"
+    },
+    "javac": {
+      "command": "javac --version",
+      "exit_code": 0,
+      "stdout": "javac 17.0.12",
+      "stderr": ""
+    },
+    "gradle": {
+      "command": "gradle --version",
+      "exit_code": -1,
+      "stdout": "",
+      "stderr": "Command timed out after 10s"
+    },
+    "mvn": {
+      "command": "mvn --version",
+      "exit_code": -1,
+      "stdout": "",
+      "stderr": "Command timed out after 10s"
+    },
+    "gcc": {
+      "command": "gcc --version",
+      "exit_code": 0,
+      "stdout": "gcc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nCopyright (C) 2023 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.",
+      "stderr": ""
+    },
+    "g++": {
+      "command": "g++ --version",
+      "exit_code": 0,
+      "stdout": "g++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nCopyright (C) 2023 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.",
+      "stderr": ""
+    },
+    "clang": {
+      "command": "clang --version",
+      "exit_code": 0,
+      "stdout": "Ubuntu clang version 18.1.3 (1ubuntu1)\nTarget: x86_64-pc-linux-gnu\nThread model: posix\nInstalledDir: /usr/bin",
+      "stderr": ""
+    },
+    "clang++": {
+      "command": "clang++ --version",
+      "exit_code": 0,
+      "stdout": "Ubuntu clang version 18.1.3 (1ubuntu1)\nTarget: x86_64-pc-linux-gnu\nThread model: posix\nInstalledDir: /usr/bin",
+      "stderr": ""
+    },
+    "llvm_config": {
+      "command": "llvm-config --version",
+      "exit_code": 0,
+      "stdout": "18.1.3",
+      "stderr": ""
+    },
+    "cmake": {
+      "command": "cmake --version",
+      "exit_code": 0,
+      "stdout": "cmake version 3.28.3\n\nCMake suite maintained and supported by Kitware (kitware.com/cmake).",
+      "stderr": ""
+    },
+    "make": {
+      "command": "make --version",
+      "exit_code": 0,
+      "stdout": "GNU Make 4.3\nBuilt for x86_64-pc-linux-gnu\nCopyright (C) 1988-2020 Free Software Foundation, Inc.\nLicense GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>\nThis is free software: you are free to change and redistribute it.\nThere is NO WARRANTY, to the extent permitted by law.",
+      "stderr": ""
+    },
+    "docker": {
+      "command": "docker --version",
+      "exit_code": 0,
+      "stdout": "Docker version 29.3.0-1, build 5927d80c76b3ce5cf782be818922966e8a0d87a3",
+      "stderr": ""
+    },
+    "docker_compose": {
+      "command": "docker compose version",
+      "exit_code": 0,
+      "stdout": "Docker Compose version v2.40.3",
+      "stderr": ""
+    },
+    "agy": {
+      "command": "agy --version",
+      "exit_code": 0,
+      "stdout": "1.1.23",
+      "stderr": ""
+    },
+    "agy_models": {
+      "command": "agy models",
+      "exit_code": -1,
+      "stdout": "",
+      "stderr": "Command timed out after 10s"
+    }
+  },
+  "domain_toolchains": {
+    "general_utilities": {
+      "curl": {
+        "command": "curl --version",
+        "exit_code": 0,
+        "stdout": "curl 8.5.0 (x86_64-pc-linux-gnu) libcurl/8.5.0 OpenSSL/3.0.13 zlib/1.3 brotli/1.1.0 zstd/1.5.5 libidn2/2.3.7 libpsl/0.21.2 (+libidn2/2.3.7) libssh/0.10.6/openssl/zlib nghttp2/1.59.0 librtmp/2.3 OpenLDAP/2.6.10\nRelease-Date: 2023-12-06, security patched: 8.5.0-2ubuntu10.7\nProtocols: dict file ftp ftps gopher gophers http https imap imaps ldap ldaps mqtt pop3 pop3s rtmp rtsp scp sftp smb smbs smtp smtps telnet tftp\nFeatures: alt-svc AsynchDNS brotli GSS-API HSTS HTTP2 HTTPS-proxy IDN IPv6 Kerberos Largefile libz NTLM PSL SPNEGO SSL threadsafe TLS-SRP UnixSockets zstd",
+        "stderr": ""
+      },
+      "wget": {
+        "command": "wget --version",
+        "exit_code": 0,
+        "stdout": "GNU Wget 1.21.4 built on linux-gnu.\n\n-cares +digest -gpgme +https +ipv6 +iri +large-file -metalink +nls \n+ntlm +opie +psl +ssl/openssl \n\nWgetrc: \n    /etc/wgetrc (system)\nLocale: \n    /usr/share/locale \nCompile: \n    gcc -DHAVE_CONFIG_H -DSYSTEM_WGETRC=\"/etc/wgetrc\" \n    -DLOCALEDIR=\"/usr/share/locale\" -I. -I../../src -I../lib \n    -I../../lib -Wdate-time -D_FORTIFY_SOURCE=3 -DHAVE_LIBSSL -DNDEBUG \n    -g -O2 -fno-omit-frame-pointer -mno-omit-leaf-frame-pointer \n    -ffile-prefix-map=/build/wget-LWnKWI/wget-1.21.4=. -flto=auto \n    -ffat-lto-objects -fstack-protector-strong -fstack-clash-protection \n    -Wformat -Werror=format-security -fcf-protection \n    -fdebug-prefix-map=/build/wget-LWnKWI/wget-1.21.4=/usr/src/wget-1.21.4-1ubuntu4.1 \n    -DNO_SSLv2 -D_FILE_OFFSET_BITS=64 -g -Wall \nLink: \n    gcc -DHAVE_LIBSSL -DNDEBUG -g -O2 -fno-omit-frame-pointer \n    -mno-omit-leaf-frame-pointer \n    -ffile-prefix-map=/build/wget-LWnKWI/wget-1.21.4=. -flto=auto \n    -ffat-lto-objects -fstack-protector-strong -fstack-clash-protection \n    -Wformat -Werror=format-security -fcf-protection \n    -fdebug-prefix-map=/build/wget-LWnKWI/wget-1.21.4=/usr/src/wget-1.21.4-1ubuntu4.1 \n    -DNO_SSLv2 -D_FILE_OFFSET_BITS=64 -g -Wall -Wl,-Bsymbolic-functions \n    -flto=auto -ffat-lto-objects -Wl,-z,relro -Wl,-z,now -lpcre2-8 \n    -luuid -lidn2 -lssl -lcrypto -lz -lpsl ../lib/libgnu.a \n\nCopyright (C) 2015 Free Software Foundation, Inc.\nLicense GPLv3+: GNU GPL version 3 or later\n<http://www.gnu.org/licenses/gpl.html>.\nThis is free software: you are free to change and redistribute it.\nThere is NO WARRANTY, to the extent permitted by law.\n\nOriginally written by Hrvoje Niksic <hniksic@xemacs.org>.\nPlease send bug reports and questions to <bug-wget@gnu.org>.",
+        "stderr": ""
+      },
+      "jq": {
+        "command": "jq --version",
+        "exit_code": 0,
+        "stdout": "jq-1.7",
+        "stderr": ""
+      },
+      "yq": {
+        "command": "yq --version",
+        "exit_code": 127,
+        "stdout": "",
+        "stderr": "/bin/sh: 1: yq: not found"
+      },
+      "tree": {
+        "command": "tree --version",
+        "exit_code": 0,
+        "stdout": "tree v2.1.1 \u00a9 1996 - 2023 by Steve Baker, Thomas Moore, Francesc Rocher, Florian Sesser, Kyosuke Tokoro",
+        "stderr": ""
+      },
+      "zip": {
+        "command": "zip -v",
+        "exit_code": 0,
+        "stdout": "Copyright (c) 1990-2008 Info-ZIP - Type 'zip \"-L\"' for software license.\nThis is Zip 3.0 (July 5th 2008), by Info-ZIP.\nCurrently maintained by E. Gordon.  Please send bug reports to\nthe authors using the web page at www.info-zip.org; see README for details.\n\nLatest sources and executables are at ftp://ftp.info-zip.org/pub/infozip,\nas of above date; see http://www.info-zip.org/ for other sites.\n\nCompiled with gcc 13.3.0 for Unix (Linux ELF).\n\nZip special compilation options:\n\tUSE_EF_UT_TIME       (store Universal Time)\n\tBZIP2_SUPPORT        (bzip2 library version 1.0.8, 13-Jul-2019)\n\t    bzip2 code and library copyright (c) Julian R Seward\n\t    (See the bzip2 license for terms of use)\n\tSYMLINK_SUPPORT      (symbolic links supported)\n\tLARGE_FILE_SUPPORT   (can read and write large files on file system)\n\tZIP64_SUPPORT        (use Zip64 to store large files in archives)\n\tUNICODE_SUPPORT      (store and read UTF-8 Unicode paths)\n\tSTORE_UNIX_UIDs_GIDs (store UID/GID sizes/values using new extra field)\n\tUIDGID_NOT_16BIT     (old Unix 16-bit UID/GID extra field not used)\n\t[encryption, version 2.91 of 05 Jan 2007] (modified for Zip 3)\n\nEncryption notice:\n\tThe encryption code of this program is not copyrighted and is\n\tput in the public domain.  It was originally written in Europe\n\tand, to the best of our knowledge, can be freely distributed\n\tin both source and object forms from any country, including\n\tthe USA under License Exception TSU of the U.S. Export\n\tAdministration Regulations (section 740.13(e)) of 6 June 2002.\n\nZip environment options:\n             ZIP:  [none]\n          ZIPOPT:  [none]",
+        "stderr": ""
+      },
+      "unzip": {
+        "command": "unzip -v",
+        "exit_code": 0,
+        "stdout": "UnZip 6.00 of 20 April 2009, by Debian. Original by Info-ZIP.\n\nLatest sources and executables are at ftp://ftp.info-zip.org/pub/infozip/ ;\nsee ftp://ftp.info-zip.org/pub/infozip/UnZip.html for other sites.\n\nCompiled with gcc 13.2.0 for Unix (Linux ELF).\n\nUnZip special compilation options:\n        ACORN_FTYPE_NFS\n        COPYRIGHT_CLEAN (PKZIP 0.9x unreducing method not supported)\n        SET_DIR_ATTRIB\n        SYMLINKS (symbolic links supported, if RTL and file system permit)\n        TIMESTAMP\n        UNIXBACKUP\n        USE_EF_UT_TIME\n        USE_UNSHRINK (PKZIP/Zip 1.x unshrinking method supported)\n        USE_DEFLATE64 (PKZIP 4.x Deflate64(tm) supported)\n        UNICODE_SUPPORT [wide-chars, char coding: UTF-8] (handle UTF-8 paths)\n        LARGE_FILE_SUPPORT (large files over 2 GiB supported)\n        ZIP64_SUPPORT (archives using Zip64 for large files supported)\n        USE_BZIP2 (PKZIP 4.6+, using bzip2 lib version 1.0.8, 13-Jul-2019)\n        VMS_TEXT_CONV\n        WILD_STOP_AT_DIR\n        [decryption, version 2.11 of 05 Jan 2007]\n\nUnZip and ZipInfo environment options:\n           UNZIP:  [none]\n        UNZIPOPT:  [none]\n         ZIPINFO:  [none]\n      ZIPINFOOPT:  [none]",
+        "stderr": ""
+      },
+      "tar": {
+        "command": "tar --version",
+        "exit_code": 0,
+        "stdout": "tar (GNU tar) 1.35\nCopyright (C) 2023 Free Software Foundation, Inc.\nLicense GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl.html>.\nThis is free software: you are free to change and redistribute it.\nThere is NO WARRANTY, to the extent permitted by law.\n\nWritten by John Gilmore and Jay Fenlason.",
+        "stderr": ""
+      },
+      "file": {
+        "command": "file --version",
+        "exit_code": 0,
+        "stdout": "file-5.45\nmagic file from /etc/magic:/usr/share/misc/magic",
+        "stderr": ""
+      },
+      "xz": {
+        "command": "xz --version",
+        "exit_code": 0,
+        "stdout": "xz (XZ Utils) 5.8.2\nliblzma 5.8.2",
+        "stderr": ""
+      }
+    },
+    "binary_analysis": {
+      "readelf": {
+        "command": "readelf --version",
+        "exit_code": 0,
+        "stdout": "GNU readelf (GNU Binutils for Ubuntu) 2.42\nCopyright (C) 2024 Free Software Foundation, Inc.\nThis program is free software; you may redistribute it under the terms of\nthe GNU General Public License version 3 or (at your option) any later version.\nThis program has absolutely no warranty.",
+        "stderr": ""
+      },
+      "objdump": {
+        "command": "objdump --version",
+        "exit_code": 0,
+        "stdout": "GNU objdump (GNU Binutils for Ubuntu) 2.42\nCopyright (C) 2024 Free Software Foundation, Inc.\nThis program is free software; you may redistribute it under the terms of\nthe GNU General Public License version 3 or (at your option) any later version.\nThis program has absolutely no warranty.",
+        "stderr": ""
+      },
+      "nm": {
+        "command": "nm --version",
+        "exit_code": 0,
+        "stdout": "GNU nm (GNU Binutils for Ubuntu) 2.42\nCopyright (C) 2024 Free Software Foundation, Inc.\nThis program is free software; you may redistribute it under the terms of\nthe GNU General Public License version 3 or (at your option) any later version.\nThis program has absolutely no warranty.",
+        "stderr": ""
+      },
+      "strings": {
+        "command": "strings --version",
+        "exit_code": 0,
+        "stdout": "GNU strings (GNU Binutils for Ubuntu) 2.42\nCopyright (C) 2024 Free Software Foundation, Inc.\nThis program is free software; you may redistribute it under the terms of\nthe GNU General Public License version 3 or (at your option) any later version.\nThis program has absolutely no warranty.",
+        "stderr": ""
+      },
+      "strip": {
+        "command": "strip --version",
+        "exit_code": 0,
+        "stdout": "GNU strip (GNU Binutils for Ubuntu) 2.42\nCopyright (C) 2024 Free Software Foundation, Inc.\nThis program is free software; you may redistribute it under the terms of\nthe GNU General Public License version 3 or (at your option) any later version.\nThis program has absolutely no warranty.",
+        "stderr": ""
+      },
+      "gdb": {
+        "command": "gdb --version",
+        "exit_code": 0,
+        "stdout": "GNU gdb (Ubuntu 15.0.50.20240403-0ubuntu1) 15.0.50.20240403-git\nCopyright (C) 2024 Free Software Foundation, Inc.\nLicense GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>\nThis is free software: you are free to change and redistribute it.\nThere is NO WARRANTY, to the extent permitted by law.",
+        "stderr": ""
+      },
+      "lldb": {
+        "command": "lldb --version",
+        "exit_code": 0,
+        "stdout": "lldb version 18.1.3",
+        "stderr": ""
+      },
+      "radare2": {
+        "command": "radare2 -v",
+        "exit_code": 127,
+        "stdout": "",
+        "stderr": "/bin/sh: 1: radare2: not found"
+      },
+      "ghidra": {
+        "command": "ghidra --version",
+        "exit_code": 127,
+        "stdout": "",
+        "stderr": "/bin/sh: 1: ghidra: not found"
+      }
+    },
+    "security_analysis": {
+      "bandit": {
+        "command": "bandit --version",
+        "exit_code": -1,
+        "stdout": "",
+        "stderr": "Command timed out after 10s"
+      },
+      "cppcheck": {
+        "command": "cppcheck --version",
+        "exit_code": 0,
+        "stdout": "Cppcheck 2.13.0",
+        "stderr": ""
+      },
+      "semgrep": {
+        "command": "semgrep --version",
+        "exit_code": 127,
+        "stdout": "",
+        "stderr": "/bin/sh: 1: semgrep: not found"
+      },
+      "trivy": {
+        "command": "trivy --version",
+        "exit_code": 0,
+        "stdout": "Version: 0.74.0",
+        "stderr": ""
+      },
+      "codeql": {
+        "command": "codeql --version",
+        "exit_code": 127,
+        "stdout": "",
+        "stderr": "/bin/sh: 1: codeql: not found"
+      }
+    },
+    "cloud_and_containers": {
+      "docker_info": {
+        "command": "docker info",
+        "exit_code": 0,
+        "stdout": "Client:\n Version:    29.3.0-1\n Context:    default\n Debug Mode: false\n Plugins:\n  buildx: Docker Buildx (Docker Inc.)\n    Version:  v0.32.1\n    Path:     /usr/libexec/docker/cli-plugins/docker-buildx\n  compose: Docker Compose (Docker Inc.)\n    Version:  v2.40.3\n    Path:     /usr/libexec/docker/cli-plugins/docker-compose\n\nServer:\n Containers: 1\n  Running: 0\n  Paused: 0\n  Stopped: 1\n Images: 1\n Server Version: 29.3.0-1\n Storage Driver: overlayfs\n  driver-type: io.containerd.snapshotter.v1\n Logging Driver: json-file\n Cgroup Driver: cgroupfs\n Cgroup Version: 2\n Plugins:\n  Volume: local\n  Network: bridge host ipvlan macvlan null overlay\n  Log: awslogs fluentd gcplogs gelf journald json-file local splunk syslog\n CDI spec directories:\n  /etc/cdi\n  /var/run/cdi\n Swarm: inactive\n Runtimes: io.containerd.runc.v2 runc\n Default Runtime: runc\n Init Binary: docker-init\n containerd version: dea7da592f5d1d2b7755e3a161be07f43fad8f75\n runc version: 8bd78a9977e604c4d5f67a7415d7b8b8c109cdc4\n init version: \n Security Options:\n  apparmor\n  seccomp\n   Profile: builtin\n  cgroupns\n Kernel Version: 6.8.0-1052-azure\n Operating System: Ubuntu 24.04.4 LTS (containerized)\n OSType: linux\n Architecture: x86_64\n CPUs: 4\n Total Memory: 15.62GiB\n Name: codespaces-211a33\n ID: 6d4d5b05-bfea-42a4-89a3-cd3c94e20ae8\n Docker Root Dir: /var/lib/docker\n Debug Mode: false\n Username: codespacesdev\n Experimental: false\n Insecure Registries:\n  ::1/128\n  127.0.0.0/8\n Live Restore Enabled: false\n Firewall Backend: iptables",
+        "stderr": ""
+      },
+      "kubectl": {
+        "command": "kubectl version --client",
+        "exit_code": 0,
+        "stdout": "Client Version: v1.35.2\nKustomize Version: v5.7.1",
+        "stderr": ""
+      },
+      "helm": {
+        "command": "helm version",
+        "exit_code": 0,
+        "stdout": "version.BuildInfo{Version:\"v4.1.1\", GitCommit:\"5caf0044d4ef3d62a955440272999e139aafbbed\", GitTreeState:\"clean\", GoVersion:\"go1.25.7\", KubeClientVersion:\"v1.35\"}",
+        "stderr": ""
+      },
+      "minikube": {
+        "command": "minikube version",
+        "exit_code": 0,
+        "stdout": "minikube version: v1.38.1\ncommit: c93a4cb9311efc66b90d33ea03f75f2c4120e9b0",
+        "stderr": ""
+      }
+    },
+    "android_mobile": {
+      "adb": {
+        "command": "adb --version",
+        "exit_code": 0,
+        "stdout": "Android Debug Bridge version 1.0.41\nVersion 34.0.4-debian\nInstalled as /usr/lib/android-sdk/platform-tools/adb\nRunning on Linux 6.8.0-1052-azure (x86_64)",
+        "stderr": ""
+      },
+      "sdkmanager": {
+        "command": "sdkmanager --version",
+        "exit_code": -1,
+        "stdout": "",
+        "stderr": "Command timed out after 10s"
+      }
+    },
+    "runtimes_additional": {
+      "go": {
+        "command": "go version",
+        "exit_code": 0,
+        "stdout": "go version go1.26.1 linux/amd64",
+        "stderr": ""
+      },
+      "ruby": {
+        "command": "ruby --version",
+        "exit_code": 0,
+        "stdout": "ruby 3.4.7 (2025-10-08 revision 7a5688e2a2) +PRISM [x86_64-linux]",
+        "stderr": ""
+      },
+      "php": {
+        "command": "php --version",
+        "exit_code": 0,
+        "stdout": "PHP 8.4.15 (cli) (built: Mar 11 2026 12:08:03) (NTS)\nCopyright (c) The PHP Group\nZend Engine v4.4.15, Copyright (c) Zend Technologies\n    with Xdebug v3.5.0, Copyright (c) 2002-2025, by Derick Rethans",
+        "stderr": ""
+      },
+      "dotnet": {
+        "command": "dotnet --info",
+        "exit_code": 0,
+        "stdout": ".NET SDK:\n Version:           10.0.200\n Commit:            40cd698e5c\n Workload version:  10.0.200-manifests.c7707153\n MSBuild version:   18.3.0-release-26119-122+40cd698e5\n\nRuntime Environment:\n OS Name:     ubuntu\n OS Version:  24.04\n OS Platform: Linux\n RID:         linux-x64\n Base Path:   /usr/share/dotnet/sdk/10.0.200/\n\n.NET workloads installed:\nThere are no installed workloads to display.\nConfigured to use workload sets when installing new manifests.\nNo workload sets are installed. Run \"dotnet workload restore\" to install a workload set.\n\nHost:\n  Version:      10.0.4\n  Architecture: x64\n  Commit:       80d3e14f5e\n\n.NET SDKs installed:\n  10.0.200 [/usr/share/dotnet/sdk]\n\n.NET runtimes installed:\n  Microsoft.AspNetCore.App 9.0.14 [/usr/share/dotnet/shared/Microsoft.AspNetCore.App]\n  Microsoft.AspNetCore.App 10.0.4 [/usr/share/dotnet/shared/Microsoft.AspNetCore.App]\n  Microsoft.NETCore.App 9.0.14 [/usr/share/dotnet/shared/Microsoft.NETCore.App]\n  Microsoft.NETCore.App 10.0.4 [/usr/share/dotnet/shared/Microsoft.NETCore.App]\n\nOther architectures found:\n  None\n\nEnvironment variables:\n  DOTNET_ROOT                              [/usr/share/dotnet]\n  DOTNET_RUNNING_IN_CONTAINER              [true]\n  DOTNET_SKIP_FIRST_TIME_EXPERIENCE        [1]\n  DOTNET_USE_POLLING_FILE_WATCHER          [true]\n\nglobal.json file:\n  Not found\n\nLearn more:\n  https://aka.ms/dotnet/info\n\nDownload .NET:\n  https://aka.ms/dotnet/download",
+        "stderr": ""
+      }
+    }
+  },
+  "vscode_extensions": {
+    "command": "code --list-extensions --show-versions",
+    "exit_code": 0,
+    "stdout": "Extensions installed on Codespaces: super-duper yodel:\ndbaeumer.vscode-eslint@3.0.34\nesbenp.prettier-vscode@12.4.0\ngithub.codespaces@1.18.16\ngithub.github-vscode-theme@6.3.5\ngithub.vscode-codeql@1.17.8\ngithub.vscode-pull-request-github@0.162.0\ngoogle.google-antigravity@1.1.0\njetbrains.hexana-wasm@0.10.0\nms-azuretools.vscode-containers@2.5.0\nms-python.debugpy@2026.6.0\nms-python.python@2026.4.0\nms-python.vscode-pylance@2026.3.1\nms-python.vscode-python-envs@1.36.0\nsemgrep.semgrep@1.17.0\nsonarsource.sonarlint-vscode@5.9.1\nsweetpad.sweetpad@0.2.15\nvadimcn.vscode-lldb@1.12.3",
+    "stderr": ""
+  },
+  "mcp_configuration": {
+    "global_mcp_config_path": "/home/codespace/.gemini/antigravity-cli/mcp_config.json",
+    "global_mcp_servers": {
+      "mcpServers": {
+        "mcp-android-adb": {
+          "command": "ssh",
+          "args": [
+            "phone",
+            "python",
+            "/data/data/com.termux/files/home/mcp-android-adb/mcp_android_adb.py"
+          ]
+        },
+        "hexstrike-mcp": {
+          "command": "ssh",
+          "args": [
+            "phone",
+            "python",
+            "/data/data/com.termux/files/home/hexstrike/hexstrike_mcp.py"
+          ]
+        }
+      }
+    },
+    "installed_mcp_tool_dirs": [
+      "hexstrike-mcp",
+      "postgres-safe",
+      "github",
+      "mcp-android-adb",
+      "tavily",
+      "context7"
+    ]
+  },
+  "antigravity_configuration": {
+    "builtin_skills": [
+      "generative_ui",
+      "migrate-workflows",
+      "antigravity_guide",
+      "permissioned-github",
+      "agy-customizations"
+    ],
+    "project_skills": [
+      "memory-search",
+      "api-engineering",
+      "memory-promote",
+      "memory-audit",
+      "android-reverse-engineering",
+      "memory-end",
+      "backend-engineering",
+      "android-engineering",
+      "memory-start",
+      "frontend-engineering",
+      "web-engineering",
+      "memory-reorganize"
+    ],
+    "memory_structure": [
+      "POLICY.md",
+      "USER.md",
+      "domains",
+      "INDEX.md",
+      "sessions",
+      "ENVIRONMENT.md",
+      "README.md",
+      "projects",
+      "tools",
+      "GENERAL.md"
+    ]
+  },
+  "repository_state": {
+    "git_status": {
+      "command": "git status --short",
+      "exit_code": 0,
+      "stdout": "?? .agents/\n?? .devcontainer/\n?? .gitignore\n?? .vscode/\n?? README.md\n?? docs/\n?? fixtures/\n?? instruction.md\n?? scripts/\n?? skills/\n?? test_env/\n?? tests/\n?? tools/",
+      "stderr": ""
+    },
+    "git_branch": {
+      "command": "git branch --show-current",
+      "exit_code": 0,
+      "stdout": "main",
+      "stderr": ""
+    },
+    "git_log": {
+      "command": "git log -5 --oneline",
+      "exit_code": 128,
+      "stdout": "",
+      "stderr": "fatal: your current branch 'main' does not have any commits yet"
+    }
+  }
+}

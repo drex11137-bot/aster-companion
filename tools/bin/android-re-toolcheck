@@ -1,0 +1,96 @@
+#!/usr/bin/env bash
+#
+# android-re-toolcheck - Android Reverse Engineering Toolchain Status Inspector
+# Inspects and reports availability and versions of reverse engineering tools per Section 10 of instruction.md
+#
+
+set -uo pipefail
+
+# ANSI color codes
+GREEN='\033[0;32m'
+RED='\033[0;31m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
+CYAN='\033[0;36m'
+BOLD='\033[1m'
+NC='\033[0m' # No Color
+
+JSON_OUTPUT=false
+if [[ "${1:-}" == "--json" ]]; then
+    JSON_OUTPUT=true
+fi
+
+TOOLS=(
+    "ADB:adb:adb version | head -n 1"
+    "APKTOOL:apktool:apktool -version | head -n 1"
+    "JADX:jadx:jadx --version | head -n 1"
+    "APKSIGNER:apksigner:apksigner --version | head -n 1"
+    "ZIPALIGN:zipalign:zipalign 2>&1 | head -n 1"
+    "SMALI:smali:smali --version 2>&1 | head -n 1"
+    "BAKSMALI:baksmali:baksmali --version 2>&1 | head -n 1"
+    "FRIDA:frida:frida --version | head -n 1"
+    "FRIDA-PS:frida-ps:frida-ps --version | head -n 1"
+    "FRIDA-TRACE:frida-trace:frida-trace --version | head -n 1"
+    "UBER-APK-SIGNER:uber-apk-signer:uber-apk-signer --version | head -n 1"
+    "QUARK:quark:quark --version 2>&1 | grep -o 'quark, version .*' || echo 'quark installed'"
+)
+
+TOTAL=0
+PASSED=0
+FAILED=0
+
+declare -a JSON_RESULTS=()
+
+if [ "$JSON_OUTPUT" = false ]; then
+    echo -e "${BOLD}${CYAN}======================================================${NC}"
+    echo -e "${BOLD}${CYAN} Android Reverse Engineering Toolchain Status Checker ${NC}"
+    echo -e "${BOLD}${CYAN}======================================================${NC}"
+    printf "%-18s %-10s %-32s %-s\n" "TOOL" "STATUS" "PATH" "VERSION / INFO"
+    echo "--------------------------------------------------------------------------------"
+fi
+
+for entry in "${TOOLS[@]}"; do
+    IFS=":" read -r NAME BIN CMD <<< "$entry"
+    TOTAL=$((TOTAL + 1))
+    
+    BIN_PATH=$(command -v "$BIN" 2>/dev/null || true)
+    
+    if [ -n "$BIN_PATH" ] && [ -x "$BIN_PATH" ]; then
+        RAW_INFO=$(eval "$CMD" 2>/dev/null | tr '\r\n' ' ' | sed 's/[[:space:]]*$//' || echo "installed")
+        VERSION_INFO=$(echo "$RAW_INFO" | sed 's/"/\\"/g')
+        STATUS="PASS"
+        PASSED=$((PASSED + 1))
+        
+        if [ "$JSON_OUTPUT" = false ]; then
+            printf "%-18s ${GREEN}%-10s${NC} %-32s %-s\n" "$NAME" "[$STATUS]" "$BIN_PATH" "$RAW_INFO"
+        else
+            JSON_RESULTS+=("{\"tool\":\"$NAME\",\"binary\":\"$BIN\",\"status\":\"PASS\",\"path\":\"$BIN_PATH\",\"version\":\"$VERSION_INFO\"}")
+        fi
+    else
+        STATUS="FAIL"
+        FAILED=$((FAILED + 1))
+        if [ "$JSON_OUTPUT" = false ]; then
+            printf "%-18s ${RED}%-10s${NC} %-32s %-s\n" "$NAME" "[$STATUS]" "NOT FOUND" "N/A"
+        else
+            JSON_RESULTS+=("{\"tool\":\"$NAME\",\"binary\":\"$BIN\",\"status\":\"FAIL\",\"path\":null,\"version\":null}")
+        fi
+    fi
+done
+
+if [ "$JSON_OUTPUT" = false ]; then
+    echo "--------------------------------------------------------------------------------"
+    echo -e "Summary: Total: ${TOTAL} | ${GREEN}Passed: ${PASSED}${NC} | ${RED}Failed: ${FAILED}${NC}"
+    if [ "$FAILED" -eq 0 ]; then
+        echo -e "${BOLD}${GREEN}✔ All Android RE tools are operational.${NC}"
+    else
+        echo -e "${BOLD}${RED}✘ Some tools are missing or failed verification.${NC}"
+    fi
+    echo -e "${BOLD}${CYAN}======================================================${NC}"
+else
+    echo "{\"total\":$TOTAL,\"passed\":$PASSED,\"failed\":$FAILED,\"tools\":[$(IFS=,; echo "${JSON_RESULTS[*]}")]}"
+fi
+
+if [ "$FAILED" -gt 0 ]; then
+    exit 1
+fi
+exit 0

@@ -1,0 +1,43 @@
+{
+  "name": "aster-companion-backend",
+  "version": "1.1.0",
+  "private": true,
+  "description": "Aster Companion backend core, memory engine, integrations, and proactive intelligence",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "tsx watch src/index.ts",
+    "test": "vitest run tests/voice_broker.test.ts tests/frame_ingest.test.ts tests/action_dispatcher.test.ts tests/proactivity_engine.test.ts tests/proactive/",
+    "test:all": "vitest run",
+    "test:proactive": "vitest run tests/proactive/",
+    "test:security": "vitest run tests/rls_adversarial.test.ts",
+    "test:security:py": "python3 tests/run_security_suite.py"
+  },
+  "keywords": [
+    "aster-companion",
+    "proactive-assistance",
+    "memory-engine",
+    "pgvector"
+  ],
+  "author": "Aster Companion Team",
+  "license": "Apache-2.0",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.49.1",
+    "@types/pg": "^8.23.1",
+    "dotenv": "^16.4.7",
+    "pg": "^8.23.1",
+    "ws": "^8.18.1",
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.9",
+    "@types/ws": "^8.5.14",
+    "tsx": "^4.19.3",
+    "typescript": "^5.8.2",
+    "vitest": "^3.0.7"
+  }
+}

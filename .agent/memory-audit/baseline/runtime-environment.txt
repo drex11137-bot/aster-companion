@@ -1,0 +1,7 @@
+Python: Python 3.12.1
+Node: v24.14.0
+OS: Linux codespaces-211a33 6.8.0-1052-azure #58~22.04.1-Ubuntu SMP Thu Mar 26 05:02:21 UTC 2026 x86_64 x86_64 x86_64 GNU/Linux
+User: codespace
+CWD: /workspaces/codespaces-blank
+MemSearch CLI: /home/codespace/.local/bin/memsearch
+MemSearch Version: memsearch, version 0.4.19

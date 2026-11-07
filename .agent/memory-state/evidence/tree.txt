@@ -1,0 +1,667 @@
+/workspaces/codespaces-blank
+├── .agent
+│   ├── memory-audit
+│   │   ├── CERTIFICATION.md
+│   │   ├── COMPONENT_MATRIX.md
+│   │   ├── DEFECT_LEDGER.md
+│   │   ├── ENVIRONMENT_REPORT.md
+│   │   ├── FINAL_AUDIT.md
+│   │   ├── INDEX_HEALTH_REPORT.md
+│   │   ├── REPAIR_LOG.md
+│   │   ├── REQUIREMENTS_MATRIX.md
+│   │   ├── RETRIEVAL_REPORT.md
+│   │   ├── SECURITY_REPORT.md
+│   │   ├── VERIFICATION_REPORT.md
+│   │   ├── audit
+│   │   │   ├── ADR-003-memory-os-phase2.md
+│   │   │   ├── COMPONENT_MATRIX.md
+│   │   │   ├── DATAFLOW_AUDIT.md
+│   │   │   ├── DEFECT_LEDGER.md
+│   │   │   ├── FORENSIC_AUDIT.md
+│   │   │   ├── INTEGRATION_AUDIT.md
+│   │   │   ├── REQUIREMENTS_MATRIX.md
+│   │   │   ├── SECURITY_AUDIT.md
+│   │   │   └── TEMPORAL_AUDIT.md
+│   │   ├── baseline
+│   │   │   ├── command-inventory.txt
+│   │   │   ├── dependency-state.txt
+│   │   │   ├── git-diff.txt
+│   │   │   ├── git-head.txt
+│   │   │   ├── git-status.txt
+│   │   │   ├── hook-state.txt
+│   │   │   ├── repository-tree.txt
+│   │   │   └── runtime-environment.txt
+│   │   ├── repair
+│   │   │   └── repair-plan.md
+│   │   └── verification
+│   │       ├── ACCEPTANCE_REPORT.md
+│   │       ├── ADVERSARIAL_REPORT.md
+│   │       ├── evidence
+│   │       │   ├── acceptance_matrix_results.json
+│   │       │   └── section128_demo_output.json
+│   │       ├── failures
+│   │       ├── memory-doctor-report.json
+│   │       ├── outputs
+│   │       └── verdict
+│   └── memory-state
+│       ├── diagrams
+│       │   ├── candidate-lifecycle.mmd
+│       │   ├── component-architecture.mmd
+│       │   ├── container-architecture.mmd
+│       │   ├── hooks-flow.mmd
+│       │   ├── index-flow.mmd
+│       │   ├── read-flow.mmd
+│       │   ├── recovery-flow.mmd
+│       │   ├── system-context.mmd
+│       │   ├── temporal-flow.mmd
+│       │   └── write-flow.mmd
+│       ├── evidence
+│       │   ├── memsearch-stats.txt
+│       │   ├── tests.txt
+│       │   └── tree.txt
+│       ├── machine
+│       ├── screenshots
+│       └── staging
+│           └── 04_ingestion_reconciliation.md
+├── .agent-state
+│   ├── blockers.md
+│   ├── completed-work.md
+│   ├── current-state.md
+│   ├── decisions.md
+│   └── verification.md
+├── .agents
+│   ├── agents
+│   │   ├── adversarial-reviewer
+│   │   │   ├── AGENT.md
+│   │   │   └── agent.json
+│   │   ├── android-engineer
+│   │   │   ├── AGENT.md
+│   │   │   └── agent.json
+│   │   ├── backend-engineer
+│   │   │   ├── AGENT.md
+│   │   │   └── agent.json
+│   │   ├── binary-analyst
+│   │   │   ├── AGENT.md
+│   │   │   └── agent.json
+│   │   ├── environment-auditor
+│   │   │   ├── AGENT.md
+│   │   │   └── agent.json
+│   │   ├── network-analyst
+│   │   │   ├── AGENT.md
+│   │   │   └── agent.json
+│   │   ├── security-auditor
+│   │   │   ├── AGENT.md
+│   │   │   └── agent.json
+│   │   ├── verification-engineer
+│   │   │   ├── AGENT.md
+│   │   │   └── agent.json
+│   │   └── web-engineer
+│   │       ├── AGENT.md
+│   │       └── agent.json
+│   ├── backups
+│   │   └── memory_backup_20260901_161622.tar.gz
+│   ├── hooks.json
+│   ├── mcp_config.json
+│   ├── memory
+│   │   ├── .memsearch
+│   │   │   ├── manifest.json
+│   │   │   └── milvus.db
+│   │   │       ├── .database-staging
+│   │   │       ├── LOCK
+│   │   │       ├── collections
+│   │   │       │   └── memsearch_chunks
+│   │   │       │       ├── manifest.json
+│   │   │       │       ├── manifest.json.prev
+│   │   │       │       ├── partitions
+│   │   │       │       │   └── _default
+│   │   │       │       │       ├── data
+│   │   │       │       │       │   └── data_000001_000016.parquet
+│   │   │       │       │       └── indexes
+│   │   │       │       │           └── data_000001_000016.embedding.flat.idx
+│   │   │       │       ├── schema.json
+│   │   │       │       └── wal
+│   │   │       └── databases
+│   │   ├── ARCHITECTURE.md
+│   │   ├── ARCHITECTURE.md.lock
+│   │   ├── CURRENT.md
+│   │   ├── DECISIONS.md
+│   │   ├── DECISIONS.md.lock
+│   │   ├── GOTCHAS.md
+│   │   ├── GOTCHAS.md.lock
+│   │   ├── INDEX.md
+│   │   ├── PROCEDURES.md
+│   │   ├── PROCEDURES.md.lock
+│   │   ├── admission_decisions.jsonl
+│   │   ├── admission_decisions.jsonl.lock
+│   │   ├── inbox
+│   │   │   ├── admission_decisions.jsonl
+│   │   │   ├── admission_decisions.jsonl.lock
+│   │   │   ├── candidates.jsonl
+│   │   │   ├── candidates.jsonl.lock
+│   │   │   └── procedures
+│   │   │       ├── INDEX.md
+│   │   │       ├── proc-20260903-python3-01.json
+│   │   │       ├── proc-20260903-python3-01.md
+│   │   │       ├── proc-20260903-session-memory-audit.json
+│   │   │       ├── proc-20260903-session-memory-audit.md
+│   │   │       ├── proc-20260904-python3-01.json
+│   │   │       ├── proc-20260904-python3-01.md
+│   │   │       ├── proc-20260904-session-memory-audit.json
+│   │   │       └── proc-20260904-session-memory-audit.md
+│   │   ├── index_health.json
+│   │   ├── index_queue.jsonl
+│   │   ├── index_queue.jsonl.lock
+│   │   ├── index_writer.lease.lock
+│   │   ├── learning_ledger.json
+│   │   ├── models
+│   │   │   └── shadow_ranker_v1.json
+│   │   ├── retrieval_ledger.jsonl
+│   │   ├── retrieval_ledger.jsonl.lock
+│   │   ├── sessions
+│   │   │   ├── 2026-09-01-1546.md
+│   │   │   ├── 2026-09-01-1617.md
+│   │   │   ├── 2026-09-02-1015.md
+│   │   │   └── 2026-09-02-1430.md
+│   │   ├── shadow_eval
+│   │   │   ├── shadow_eval_ADR_20260903_172221.json
+│   │   │   ├── shadow_eval_memory_20260903_172200.json
+│   │   │   └── shadow_eval_memory_20260904_074249.json
+│   │   └── telemetry.json
+│   ├── memory-upgrade
+│   │   ├── ACCEPTANCE.md
+│   │   ├── FUTURE_AI_HANDOFF.md
+│   │   ├── SPEC.md
+│   │   ├── audit
+│   │   │   ├── BASELINE.md
+│   │   │   └── DEFECT_MATRIX.md
+│   │   ├── benchmarks
+│   │   ├── decisions
+│   │   │   ├── ADR-002-memory-os.md
+│   │   │   ├── ADR-003-memory-os-phase2.md
+│   │   │   ├── reconciliation_log.jsonl
+│   │   │   └── reconciliation_log.jsonl.lock
+│   │   └── evidence
+│   │       ├── acceptance_matrix_results.json
+│   │       └── adversarial_report.md
+│   ├── rules
+│   │   ├── database_mcp_policy.md
+│   │   ├── memory.md
+│   │   └── performance.md
+│   └── skills
+│       ├── android-engineering
+│       │   └── SKILL.md
+│       ├── android-reverse-engineering
+│       │   └── SKILL.md
+│       ├── api-engineering
+│       │   └── SKILL.md
+│       ├── backend-engineering
+│       │   └── SKILL.md
+│       ├── binary-analysis
+│       │   └── SKILL.md
+│       ├── container-engineering
+│       │   └── SKILL.md
+│       ├── cybersecurity-review
+│       │   └── SKILL.md
+│       ├── dependency-audit
+│       │   └── SKILL.md
+│       ├── frontend-engineering
+│       │   └── SKILL.md
+│       ├── kubernetes-engineering
+│       │   └── SKILL.md
+│       ├── memory-audit
+│       │   └── SKILL.md
+│       ├── memory-end
+│       │   └── SKILL.md
+│       ├── memory-promote
+│       │   └── SKILL.md
+│       ├── memory-reorganize
+│       │   └── SKILL.md
+│       ├── memory-search
+│       │   └── SKILL.md
+│       ├── memory-start
+│       │   └── SKILL.md
+│       ├── native-development
+│       │   └── SKILL.md
+│       ├── network-analysis
+│       │   └── SKILL.md
+│       ├── reverse-engineering
+│       │   └── SKILL.md
+│       ├── verification
+│       │   └── SKILL.md
+│       ├── wasm-engineering
+│       │   └── SKILL.md
+│       └── web-engineering
+│           └── SKILL.md
+├── .devcontainer
+│   ├── Dockerfile
+│   ├── devcontainer.json
+│   └── scripts
+│       ├── bootstrap.sh
+│       ├── doctor.sh
+│       ├── test-reproducibility.sh
+│       ├── verify-android.sh
+│       ├── verify-binary-stack.sh
+│       ├── verify-mcp.sh
+│       ├── verify-network-stack.sh
+│       ├── verify-security-stack.sh
+│       └── verify-toolchain.sh
+├── .environment-audit
+│   ├── baseline
+│   │   ├── inventory-report.md
+│   │   └── system-inventory.json
+│   ├── evidence
+│   ├── failures
+│   └── reports
+│       ├── adversarial-redteam-review.md
+│       ├── android-stack-verification.md
+│       ├── binary-analysis-verification.md
+│       ├── cybersecurity-sast-verification.md
+│       ├── devcontainer-reproducibility-audit.md
+│       ├── failure-injection-verification.md
+│       ├── final-acceptance-report.md
+│       ├── final-regression-baseline.md
+│       ├── hooks-security-audit.md
+│       ├── ide-extensions-audit.md
+│       ├── mcp-diagnostics-report.md
+│       ├── network-analysis-verification.md
+│       ├── phase1-evaluation.md
+│       ├── phase1-gap-matrix.md
+│       ├── skills-audit-report.md
+│       ├── wasm-stack-verification.md
+│       └── web-browser-verification.md
+├── .environment-baseline
+│   ├── README.md
+│   └── baseline-inventory.json
+├── .gitignore
+├── .gitleaks.toml
+├── .pytest_cache
+│   ├── .gitignore
+│   ├── CACHEDIR.TAG
+│   ├── README.md
+│   └── v
+│       └── cache
+│           ├── lastfailed
+│           └── nodeids
+├── .semgrepignore
+├── .vscode
+│   ├── extensions.json
+│   ├── launch.json
+│   ├── settings.json
+│   └── tasks.json
+├── 2026-09-03.quark.log
+├── 2026-09-04.quark.log
+├── :memory:.ses
+├── AGENTS.md
+├── KNOWN_LIMITATIONS.md
+├── Medicine and Dentistry-CCMAS 2023-FINAL.pdf
+├── README.md
+├── RSU_MBBS_Preclinical_Holiday_Master_Plan_INDEPENDENT_FINAL_2026.pdf
+├── booksihave.pdf
+├── cyber-runner
+│   ├── cyber-runner.html
+│   ├── index.html
+│   ├── package-lock.json
+│   ├── package.json
+│   ├── screenshots
+│   │   ├── 01_title_screen.png
+│   │   ├── 02_gameplay_running.png
+│   │   ├── 03_gameplay_jumping.png
+│   │   ├── 04_gameplay_sliding.png
+│   │   ├── 05_gameover_screen.png
+│   │   └── 06_mobile_layout.png
+│   ├── server.js
+│   └── tests
+│       └── playwright-bot.spec.js
+├── cyber-runner.html
+├── docs
+│   ├── FORENSIC_AUDIT_REPORT.md
+│   ├── GAP_ANALYSIS_MATRIX.md
+│   ├── MEMORY_ARCHITECTURE.md
+│   ├── MEMORY_OPERATIONS.md
+│   ├── SUBAGENT_MEMORY_HANDOFF.md
+│   ├── VERIFY_MEMORY_SYSTEM.md
+│   ├── architecture.md
+│   ├── audit
+│   │   ├── 01_env_cli_capabilities.md
+│   │   ├── 02_hierarchy_schema_audit.md
+│   │   ├── 03_security_gate_audit.md
+│   │   ├── 04_skills_discoverability_audit.md
+│   │   └── AUDIT_REPORT.md
+│   ├── compatibility-matrix.md
+│   ├── database_mcp_guidelines.md
+│   ├── engineering-environment.md
+│   ├── ios-macos-handoff.md
+│   ├── operations.md
+│   ├── schemas
+│   │   ├── ios-handoff.schema.json
+│   │   └── sample-handoff.json
+│   ├── test_reports
+│   │   ├── 01_multi_repo_isolation.md
+│   │   ├── 02_session_recovery.md
+│   │   ├── 03_context_efficiency.md
+│   │   ├── 04_adversarial_falsification.md
+│   │   ├── 05_core_cli_verification.md
+│   │   ├── 06_native_cpp_verification.md
+│   │   ├── 07_web_frontend_verification.md
+│   │   ├── 08_backend_openapi_verification.md
+│   │   ├── 09_database_mcp_verification.md
+│   │   ├── 10_browser_e2e_verification.md
+│   │   ├── 11_wasm_verification.md
+│   │   ├── 12_android_sdk_verification.md
+│   │   ├── 13_android_re_verification.md
+│   │   ├── 14_binary_analysis_verification.md
+│   │   ├── 15_ghidra_verification.md
+│   │   ├── 16_hexana_verification.md
+│   │   ├── 17_cybersecurity_sast_verification.md
+│   │   ├── 18_supplychain_secrets_verification.md
+│   │   ├── 19_network_analysis_verification.md
+│   │   ├── 20_ios_handoff_verification.md
+│   │   ├── 21_vscode_extensions_verification.md
+│   │   ├── 22_antigravity_platform_verification.md
+│   │   └── 23_adversarial_verification_report.md
+│   └── toolchain-matrix.md
+├── fixtures
+│   ├── android
+│   │   ├── .gradle
+│   │   │   ├── 8.6
+│   │   │   │   ├── checksums
+│   │   │   │   │   ├── checksums.lock
+│   │   │   │   │   ├── md5-checksums.bin
+│   │   │   │   │   └── sha1-checksums.bin
+│   │   │   │   ├── dependencies-accessors
+│   │   │   │   │   └── gc.properties
+│   │   │   │   ├── executionHistory
+│   │   │   │   │   ├── executionHistory.bin
+│   │   │   │   │   └── executionHistory.lock
+│   │   │   │   ├── fileChanges
+│   │   │   │   │   └── last-build.bin
+│   │   │   │   ├── fileHashes
+│   │   │   │   │   ├── fileHashes.bin
+│   │   │   │   │   ├── fileHashes.lock
+│   │   │   │   │   └── resourceHashesCache.bin
+│   │   │   │   ├── gc.properties
+│   │   │   │   └── vcsMetadata
+│   │   │   ├── 9.4.0
+│   │   │   │   ├── checksums
+│   │   │   │   │   ├── checksums.lock
+│   │   │   │   │   ├── md5-checksums.bin
+│   │   │   │   │   └── sha1-checksums.bin
+│   │   │   │   ├── executionHistory
+│   │   │   │   │   ├── executionHistory.bin
+│   │   │   │   │   └── executionHistory.lock
+│   │   │   │   ├── expanded
+│   │   │   │   ├── fileChanges
+│   │   │   │   │   └── last-build.bin
+│   │   │   │   ├── fileHashes
+│   │   │   │   │   ├── fileHashes.bin
+│   │   │   │   │   └── fileHashes.lock
+│   │   │   │   ├── gc.properties
+│   │   │   │   └── vcsMetadata
+│   │   │   ├── android-dotgradle -> /tmp/android-dotgradle
+│   │   │   ├── buildOutputCleanup
+│   │   │   │   ├── buildOutputCleanup.lock
+│   │   │   │   ├── cache.properties
+│   │   │   │   └── outputFiles.bin
+│   │   │   └── vcs-1
+│   │   │       └── gc.properties
+│   │   ├── app
+│   │   │   ├── build.gradle
+│   │   │   ├── proguard-rules.pro
+│   │   │   └── src
+│   │   │       ├── main
+│   │   │       │   ├── AndroidManifest.xml
+│   │   │       │   ├── java
+│   │   │       │   │   └── com
+│   │   │       │   │       └── example
+│   │   │       │   │           └── minandroid
+│   │   │       │   │               └── MainActivity.java
+│   │   │       │   └── res
+│   │   │       │       ├── layout
+│   │   │       │       │   └── activity_main.xml
+│   │   │       │       └── values
+│   │   │       │           └── strings.xml
+│   │   │       └── test
+│   │   │           └── java
+│   │   │               └── com
+│   │   │                   └── example
+│   │   │                       └── minandroid
+│   │   │                           └── ExampleUnitTest.java
+│   │   ├── build.gradle
+│   │   ├── gradle
+│   │   │   └── wrapper
+│   │   │       ├── gradle-wrapper.jar
+│   │   │       └── gradle-wrapper.properties
+│   │   ├── gradle.properties
+│   │   ├── gradlew
+│   │   ├── gradlew.bat
+│   │   ├── local.properties
+│   │   ├── re_test
+│   │   │   ├── apktool_decoded
+│   │   │   │   ├── AndroidManifest.xml
+│   │   │   │   ├── apktool.yml
+│   │   │   │   ├── original
+│   │   │   │   │   └── AndroidManifest.xml
+│   │   │   │   ├── res
+│   │   │   │   │   ├── layout
+│   │   │   │   │   │   └── activity_main.xml
+│   │   │   │   │   └── values
+│   │   │   │   │       ├── ids.xml
+│   │   │   │   │       ├── public.xml
+│   │   │   │   │       └── strings.xml
+│   │   │   │   ├── smali
+│   │   │   │   │   └── com
+│   │   │   │   │       └── example
+│   │   │   │   │           └── minandroid
+│   │   │   │   │               ├── R$id.smali
+│   │   │   │   │               ├── R$layout.smali
+│   │   │   │   │               ├── R$string.smali
+│   │   │   │   │               └── R.smali
+│   │   │   │   ├── smali_classes2
+│   │   │   │   │   └── com
+│   │   │   │   │       └── example
+│   │   │   │   │           └── minandroid
+│   │   │   │   │               └── MainActivity.smali
+│   │   │   │   └── unknown
+│   │   │   │       └── META-INF
+│   │   │   │           └── com
+│   │   │   │               └── android
+│   │   │   ├── jadx_decompiled
+│   │   │   │   ├── resources
+│   │   │   │   └── sources
+│   │   │   │       └── com
+│   │   │   │           └── example
+│   │   │   │               └── minandroid
+│   │   │   │                   ├── MainActivity.java
+│   │   │   │                   └── R.java
+│   │   │   ├── repacked_aligned.apk
+│   │   │   ├── repacked_signed.apk
+│   │   │   ├── repacked_signed.apk.idsig
+│   │   │   └── repacked_unsigned.apk
+│   │   └── settings.gradle
+│   ├── c_native
+│   │   ├── CMakeLists.txt
+│   │   ├── main.c
+│   │   ├── main_cpp.cpp
+│   │   ├── test_clang
+│   │   ├── test_clang_hardened
+│   │   ├── test_clangpp
+│   │   ├── test_gcc
+│   │   ├── test_gcc_hardened
+│   │   └── test_gpp
+│   ├── database
+│   │   ├── init_schema.sql
+│   │   └── test.db
+│   ├── network
+│   │   ├── generate_sample_pcap.py
+│   │   └── sample.pcap
+│   ├── security
+│   │   ├── openapi.json
+│   │   ├── sample_binary
+│   │   ├── vulnerable_app.py
+│   │   ├── vulnerable_native.c
+│   │   ├── vulnerable_web.js
+│   │   └── yara_rules.yar
+│   ├── wasm
+│   │   ├── add.c
+│   │   ├── add.disassembled.wat
+│   │   ├── add.opt.wasm
+│   │   ├── add.wasm
+│   │   ├── add.wat
+│   │   ├── add_c.o
+│   │   └── add_c.wasm
+│   └── web
+│       ├── .prettierignore
+│       ├── .prettierrc
+│       ├── e2e_test.js
+│       ├── eslint.config.mjs
+│       ├── index.html
+│       ├── package-lock.json
+│       ├── package.json
+│       ├── pnpm-lock.yaml
+│       ├── server.js
+│       ├── test-results
+│       │   └── .last-run.json
+│       └── test_screenshot.png
+├── futhercourseoutlinedata.pdf
+├── ghidra_output_test_gcc
+│   ├── ghidra_analysis.log
+│   ├── test_gcc.decompiled.c
+│   └── test_gcc.summary.txt
+├── instruction.md
+├── playwright.config.js
+├── scripts
+│   ├── audit_inventory.py
+│   ├── audit_memory.py
+│   ├── audit_skills.py
+│   ├── backup_memory.py
+│   ├── candidate_bus.py
+│   ├── chrome.sh
+│   ├── compact_memory.py
+│   ├── context_compiler.py
+│   ├── detect_contradictions.py
+│   ├── evidence_reranker.py
+│   ├── hooks
+│   │   ├── legacy
+│   │   │   ├── README.md
+│   │   │   ├── post_tool_tracker.py
+│   │   │   ├── pre_invocation_memory.py
+│   │   │   ├── pre_tool_security_gate.py
+│   │   │   └── stop_session_guard.py
+│   │   ├── post_tool_use.py
+│   │   ├── pre_invocation.py
+│   │   ├── pre_tool_use.py
+│   │   ├── stop_guard.py -> stop_hook.py
+│   │   └── stop_hook.py
+│   ├── learning_loop.py
+│   ├── lock_manager.py
+│   ├── memory_benchmark.py
+│   ├── memory_compiler.py
+│   ├── memory_doctor.py
+│   ├── memory_engine.py
+│   ├── memory_feedback.py
+│   ├── memory_index_queue.py
+│   ├── memory_reconciler.py
+│   ├── memsearch_backend.py
+│   ├── procedural_engine.py
+│   ├── query_router.py
+│   ├── run_section128_demo.py
+│   ├── search_memory.py
+│   ├── secret_scanner.py
+│   ├── session_manager.py
+│   ├── test_concurrency.py
+│   ├── test_detect_contradictions.py
+│   ├── test_query_router.py
+│   ├── validate_memory.py
+│   ├── verify_subagent_memory.py
+│   └── version_sync.py
+├── skills
+│   ├── memory-audit.md
+│   ├── memory-end.md
+│   ├── memory-promote.md
+│   ├── memory-reorganize.md
+│   ├── memory-search.md
+│   └── memory-start.md
+├── test-results
+│   └── .last-run.json
+├── test_env
+│   ├── project-a
+│   │   └── .agents
+│   │       └── memory
+│   │           └── INDEX.md
+│   └── project-b
+│       └── .agents
+│           └── memory
+│               └── INDEX.md
+├── tests
+│   ├── e2e
+│   │   └── web.spec.js
+│   ├── run_all_tests.sh
+│   ├── test_adversarial_attacks.py
+│   ├── test_candidate_bus.py
+│   ├── test_chaos_recovery.py
+│   ├── test_compact_memory.py
+│   ├── test_context_efficiency.py
+│   ├── test_database.py
+│   ├── test_evidence_reranker.py
+│   ├── test_ios_handoff.py
+│   ├── test_isolation.py
+│   ├── test_learning_loop.py
+│   ├── test_lifecycle_hooks.py
+│   ├── test_memory_audit.py
+│   ├── test_memory_compiler.py
+│   ├── test_memory_feedback.py
+│   ├── test_memory_index_queue.py
+│   ├── test_memory_os_adversarial.py
+│   ├── test_memory_reconciler.py
+│   ├── test_memory_search.py
+│   ├── test_memory_system.py
+│   ├── test_negative_fixtures.py
+│   ├── test_procedural_engine.py
+│   ├── test_secret_scanner.py
+│   └── test_session_lifecycle.py
+├── tools
+│   ├── bin
+│   │   ├── agy-agent-doctor
+│   │   ├── agy-android-doctor
+│   │   ├── agy-binary-doctor
+│   │   ├── agy-env-doctor
+│   │   ├── agy-mcp-doctor
+│   │   ├── agy-memory-doctor
+│   │   ├── agy-network-doctor
+│   │   ├── agy-security-doctor
+│   │   ├── agy-wasm-doctor
+│   │   ├── agy-web-doctor
+│   │   ├── android-re-toolcheck
+│   │   ├── codeql-analyze -> ../scripts/codeql-analyze.sh
+│   │   ├── codeql-create-db -> ../scripts/codeql-create-db.sh
+│   │   ├── codeql-verify -> ../scripts/codeql-verify.sh
+│   │   ├── security:scan
+│   │   ├── security:scan-changed
+│   │   ├── security:scan-fast
+│   │   ├── security:scan-full
+│   │   └── semgrep-scan -> ../scripts/semgrep-scan.sh
+│   └── scripts
+│       ├── agy-agent-doctor
+│       ├── agy-android-doctor
+│       ├── agy-binary-doctor
+│       ├── agy-env-doctor
+│       ├── agy-mcp-doctor
+│       ├── agy-network-doctor
+│       ├── agy-security-doctor
+│       ├── agy-wasm-doctor
+│       ├── agy-web-doctor
+│       ├── android-re-toolcheck
+│       ├── codeql-analyze.sh
+│       ├── codeql-create-db.sh
+│       ├── codeql-verify.sh
+│       ├── ghidra-analyze.sh
+│       ├── ghidra_scripts
+│       │   └── DecompileAndSummarize.java
+│       ├── hexana-analyze.sh
+│       ├── network-toolcheck.sh
+│       ├── pcap-http-report.sh
+│       ├── pcap-summary.sh
+│       └── semgrep-scan.sh
+└── trivy.yaml
+
+181 directories, 484 files

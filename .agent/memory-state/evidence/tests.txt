@@ -1,0 +1,373 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.1, pytest-9.1.1, pluggy-1.6.0 -- /home/codespace/.python/current/bin/python3
+cachedir: .pytest_cache
+rootdir: /workspaces/codespaces-blank
+plugins: anyio-4.12.1
+collecting ... collected 293 items
+
+tests/test_adversarial_attacks.py::TestAdversarialAttacks::test_circular_references PASSED [  0%]
+tests/test_adversarial_attacks.py::TestAdversarialAttacks::test_corrupted_json_markdown PASSED [  0%]
+tests/test_adversarial_attacks.py::TestAdversarialAttacks::test_rapid_process_kills PASSED [  1%]
+tests/test_adversarial_attacks.py::TestAdversarialAttacks::test_simultaneous_concurrent_memory_writes PASSED [  1%]
+tests/test_adversarial_attacks.py::TestAdversarialAttacks::test_symlink_escapes PASSED [  1%]
+tests/test_adversarial_attacks.py::TestAdversarialAttacks::test_synthetic_high_entropy_keys PASSED [  2%]
+tests/test_candidate_bus.py::TestCandidateBus::test_capture_file_mutation PASSED [  2%]
+tests/test_candidate_bus.py::TestCandidateBus::test_capture_session_turn_preference PASSED [  2%]
+tests/test_candidate_bus.py::TestCandidateBus::test_capture_tool_failure_gotcha PASSED [  3%]
+tests/test_candidate_bus.py::TestCandidateBus::test_deterministic_candidate_id PASSED [  3%]
+tests/test_candidate_bus.py::TestCandidateBus::test_filter_conversational_noise PASSED [  3%]
+tests/test_candidate_bus.py::TestCandidateBus::test_filter_routine_ls_commands PASSED [  4%]
+tests/test_candidate_bus.py::TestCandidateBus::test_filter_simple_echo_commands PASSED [  4%]
+tests/test_candidate_bus.py::TestCandidateBus::test_filter_status_checks PASSED [  4%]
+tests/test_candidate_bus.py::TestCandidateBus::test_idempotent_duplicate_staging PASSED [  5%]
+tests/test_candidate_bus.py::TestCandidateBus::test_non_simple_echo_is_not_noise PASSED [  5%]
+tests/test_candidate_bus.py::TestCandidateBus::test_normalize_content_whitespace PASSED [  5%]
+tests/test_candidate_bus.py::TestCandidateBus::test_secret_detection_blocks_staging PASSED [  6%]
+tests/test_candidate_bus.py::TestCandidateBus::test_stage_candidate_success PASSED [  6%]
+tests/test_chaos_recovery.py::TestChaosRecovery::test_interrupted_session_recovery PASSED [  6%]
+tests/test_chaos_recovery.py::TestChaosRecovery::test_secret_injection_blocked PASSED [  7%]
+tests/test_chaos_recovery.py::TestChaosRecovery::test_stale_memory_repo_override PASSED [  7%]
+tests/test_compact_memory.py::TestCompactionAuditor::test_audit_file_budgets_byte_exceeded PASSED [  7%]
+tests/test_compact_memory.py::TestCompactionAuditor::test_audit_file_budgets_line_exceeded PASSED [  8%]
+tests/test_compact_memory.py::TestCompactionAuditor::test_audit_file_budgets_within_budget PASSED [  8%]
+tests/test_compact_memory.py::TestCompactionAuditor::test_audit_index_md_line_exceeded PASSED [  8%]
+tests/test_compact_memory.py::TestCompactionAuditor::test_chronological_internal_timestamps_out_of_order PASSED [  9%]
+tests/test_compact_memory.py::TestCompactionAuditor::test_chronological_sessions_invalid_order PASSED [  9%]
+tests/test_compact_memory.py::TestCompactionAuditor::test_chronological_sessions_valid PASSED [  9%]
+tests/test_compact_memory.py::TestCompactionAuditor::test_cli_execution_audit_fail PASSED [ 10%]
+tests/test_compact_memory.py::TestCompactionAuditor::test_cli_execution_audit_pass PASSED [ 10%]
+tests/test_compact_memory.py::TestCompactionAuditor::test_cli_execution_enforce_compaction PASSED [ 10%]
+tests/test_compact_memory.py::TestCompactionAuditor::test_cli_execution_json_flag PASSED [ 11%]
+tests/test_compact_memory.py::TestCompactionAuditor::test_compact_current_md PASSED [ 11%]
+tests/test_compact_memory.py::TestCompactionAuditor::test_compact_markdown_file_whitespace PASSED [ 11%]
+tests/test_compact_memory.py::TestCompactionAuditor::test_detect_repeated_facts_and_pointers PASSED [ 12%]
+tests/test_compact_memory.py::TestCompactionAuditor::test_estimate_tokens PASSED [ 12%]
+tests/test_compact_memory.py::TestCompactionAuditor::test_run_compaction_full_pass PASSED [ 12%]
+tests/test_compact_memory.py::TestCompactionAuditor::test_run_compaction_single_file PASSED [ 13%]
+tests/test_context_efficiency.py::TestContextEfficiency::test_context_efficiency PASSED [ 13%]
+tests/test_database.py::TestDatabaseToolingAndMCP::test_client_binaries_installed 
+tests/test_database.py::TestDatabaseToolingAndMCP::test_client_binaries_installed PASSED [ 13%]
+tests/test_database.py::TestDatabaseToolingAndMCP::test_guidelines_documentation_exists PASSED [ 14%]
+tests/test_database.py::TestDatabaseToolingAndMCP::test_mcp_config_database_servers PASSED [ 14%]
+tests/test_database.py::TestDatabaseToolingAndMCP::test_sqlite_fixture_database_exists PASSED [ 15%]
+tests/test_database.py::TestDatabaseToolingAndMCP::test_sqlite_relational_queries PASSED [ 15%]
+tests/test_database.py::TestDatabaseToolingAndMCP::test_sqlite_schema_tables PASSED [ 15%]
+tests/test_evidence_reranker.py::TestEvidenceReranker::test_agent_inference_never_outranks_executed_test PASSED [ 16%]
+tests/test_evidence_reranker.py::TestEvidenceReranker::test_end_to_end_search_memory_with_reranking PASSED [ 16%]
+tests/test_evidence_reranker.py::TestEvidenceReranker::test_epistemic_confidence_separation_from_source PASSED [ 16%]
+tests/test_evidence_reranker.py::TestEvidenceReranker::test_relevance_not_equal_truth_superseded_vs_authoritative PASSED [ 17%]
+tests/test_evidence_reranker.py::TestEvidenceReranker::test_relevance_not_equal_truth_unverified_vs_authoritative PASSED [ 17%]
+tests/test_evidence_reranker.py::TestEvidenceReranker::test_source_tier_weights PASSED [ 17%]
+tests/test_evidence_reranker.py::TestEvidenceReranker::test_superseded_penalty PASSED [ 18%]
+tests/test_ios_handoff.py::TestIOSMacOSHandoffVerification::test_01_documentation_exists_and_contains_required_sections PASSED [ 18%]
+tests/test_ios_handoff.py::TestIOSMacOSHandoffVerification::test_02_sweetpad_native_binary_darwin_boundary PASSED [ 18%]
+tests/test_ios_handoff.py::TestIOSMacOSHandoffVerification::test_03_xcode_tools_unavailable_on_linux PASSED [ 19%]
+tests/test_ios_handoff.py::TestIOSMacOSHandoffVerification::test_04_handoff_schema_and_sample_validity PASSED [ 19%]
+tests/test_ios_handoff.py::TestIOSMacOSHandoffVerification::test_05_anti_hallucination_guidelines_present PASSED [ 19%]
+tests/test_isolation.py::TestMultiRepoIsolation::test_isolation_boundary PASSED [ 20%]
+tests/test_learning_loop.py::TestMemoryDecayModel::test_candidate_memory_expires PASSED [ 20%]
+tests/test_learning_loop.py::TestMemoryDecayModel::test_custom_ttl_expiration PASSED [ 20%]
+tests/test_learning_loop.py::TestMemoryDecayModel::test_episodic_material_deprioritized PASSED [ 21%]
+tests/test_learning_loop.py::TestMemoryDecayModel::test_governance_fact_immunity PASSED [ 21%]
+tests/test_learning_loop.py::TestMemoryDecayModel::test_importance_multiplier_extends_half_life PASSED [ 21%]
+tests/test_learning_loop.py::TestMemoryDecayModel::test_spaced_access_reinforcement_on_decay PASSED [ 22%]
+tests/test_learning_loop.py::TestMemoryDecayModel::test_superseded_memory_retention PASSED [ 22%]
+tests/test_learning_loop.py::TestAccessReinforcementModel::test_epistemic_truth_signal_separation PASSED [ 22%]
+tests/test_learning_loop.py::TestAccessReinforcementModel::test_refutation_penalty PASSED [ 23%]
+tests/test_learning_loop.py::TestAccessReinforcementModel::test_verified_use_strengthens_priority PASSED [ 23%]
+tests/test_learning_loop.py::TestReciprocalRankFusion::test_deterministic_and_reproducible_ranking PASSED [ 23%]
+tests/test_learning_loop.py::TestModelManagerAndVersioning::test_feature_ordering_named_mapping_invariant PASSED [ 24%]
+tests/test_learning_loop.py::TestModelManagerAndVersioning::test_missing_or_unknown_features_rejection PASSED [ 24%]
+tests/test_learning_loop.py::TestModelManagerAndVersioning::test_schema_metadata_travels_with_weights PASSED [ 24%]
+tests/test_learning_loop.py::TestModelManagerAndVersioning::test_schema_mismatch_rejection PASSED [ 25%]
+tests/test_learning_loop.py::TestShadowRankerAndIsolation::test_shadow_comparison_metrics PASSED [ 25%]
+tests/test_learning_loop.py::TestShadowRankerAndIsolation::test_strict_live_path_isolation PASSED [ 25%]
+tests/test_learning_loop.py::TestBenchmarkGate::test_benchmark_gate_all_pass PASSED [ 26%]
+tests/test_learning_loop.py::TestLearningLedgerPersistence::test_ledger_record_and_reload PASSED [ 26%]
+tests/test_lifecycle_hooks.py::TestPreInvocationHook::test_clean_invocation_with_objective PASSED [ 26%]
+tests/test_lifecycle_hooks.py::TestPreInvocationHook::test_idempotence_and_caching PASSED [ 27%]
+tests/test_lifecycle_hooks.py::TestPreInvocationHook::test_malformed_inputs_never_crash PASSED [ 27%]
+tests/test_lifecycle_hooks.py::TestPreToolUseSecurityGate::test_allow_clean_tool_calls PASSED [ 27%]
+tests/test_lifecycle_hooks.py::TestPreToolUseSecurityGate::test_allow_safe_placeholders PASSED [ 28%]
+tests/test_lifecycle_hooks.py::TestPreToolUseSecurityGate::test_cache_validation_size_and_mtime PASSED [ 28%]
+tests/test_lifecycle_hooks.py::TestPreToolUseSecurityGate::test_fail_closed_on_unexpected_exception PASSED [ 29%]
+tests/test_lifecycle_hooks.py::TestPreToolUseSecurityGate::test_idempotent_hash_caching PASSED [ 29%]
+tests/test_lifecycle_hooks.py::TestPreToolUseSecurityGate::test_intercept_manage_task_secrets PASSED [ 29%]
+tests/test_lifecycle_hooks.py::TestPreToolUseSecurityGate::test_intercept_notebook_edit_secrets PASSED [ 30%]
+tests/test_lifecycle_hooks.py::TestPreToolUseSecurityGate::test_intercept_replace_file_content_secrets PASSED [ 30%]
+tests/test_lifecycle_hooks.py::TestPreToolUseSecurityGate::test_intercept_run_command_secrets PASSED [ 30%]
+tests/test_lifecycle_hooks.py::TestPreToolUseSecurityGate::test_intercept_write_to_file_secrets PASSED [ 31%]
+tests/test_lifecycle_hooks.py::TestPreToolUseSecurityGate::test_malformed_inputs_never_crash PASSED [ 31%]
+tests/test_lifecycle_hooks.py::TestPostToolUseHook::test_error_in_output_captured_to_candidate_bus PASSED [ 31%]
+tests/test_lifecycle_hooks.py::TestPostToolUseHook::test_failure_exit_code_captured_to_candidate_bus PASSED [ 32%]
+tests/test_lifecycle_hooks.py::TestPostToolUseHook::test_json_syntax_error_captured_to_candidate_bus PASSED [ 32%]
+tests/test_lifecycle_hooks.py::TestPostToolUseHook::test_malformed_inputs_never_crash PASSED [ 32%]
+tests/test_lifecycle_hooks.py::TestPostToolUseHook::test_routine_noise_not_staged_to_candidate_bus PASSED [ 33%]
+tests/test_lifecycle_hooks.py::TestPostToolUseHook::test_valid_post_tool_execution PASSED [ 33%]
+tests/test_lifecycle_hooks.py::TestStopHook::test_malformed_inputs_never_crash PASSED [ 33%]
+tests/test_lifecycle_hooks.py::TestStopHook::test_valid_stop_execution PASSED [ 34%]
+tests/test_lifecycle_hooks.py::TestHookPerformance::test_internal_execution_latency PASSED [ 34%]
+tests/test_lifecycle_hooks.py::TestHookPerformance::test_post_tool_use_latency_guard FAILED [ 34%]
+tests/test_memory_audit.py::TestMemoryAudit::test_clean_memory_health PASSED [ 35%]
+tests/test_memory_audit.py::TestMemoryAudit::test_contradiction_detection PASSED [ 35%]
+tests/test_memory_audit.py::TestMemoryAudit::test_cross_project_leakage_detection PASSED [ 35%]
+tests/test_memory_audit.py::TestMemoryAudit::test_duplicate_facts_detection PASSED [ 36%]
+tests/test_memory_audit.py::TestMemoryAudit::test_oversized_file_detection PASSED [ 36%]
+tests/test_memory_audit.py::TestMemoryAudit::test_secret_detection PASSED [ 36%]
+tests/test_memory_audit.py::TestMemoryAudit::test_unsupported_assumptions_detection PASSED [ 37%]
+tests/test_memory_compiler.py::TestMemoryCompiler::test_admission_gate_accept PASSED [ 37%]
+tests/test_memory_compiler.py::TestMemoryCompiler::test_admission_gate_hold_session_scope PASSED [ 37%]
+tests/test_memory_compiler.py::TestMemoryCompiler::test_admission_gate_hold_when_unverified_provenance PASSED [ 38%]
+tests/test_memory_compiler.py::TestMemoryCompiler::test_admission_gate_reject_ephemeral PASSED [ 38%]
+tests/test_memory_compiler.py::TestMemoryCompiler::test_admission_gate_reject_high_redundancy PASSED [ 38%]
+tests/test_memory_compiler.py::TestMemoryCompiler::test_admission_gate_reject_secrets PASSED [ 39%]
+tests/test_memory_compiler.py::TestMemoryCompiler::test_candidate_score_formula PASSED [ 39%]
+tests/test_memory_compiler.py::TestMemoryCompiler::test_candidate_score_with_high_redundancy PASSED [ 39%]
+tests/test_memory_compiler.py::TestMemoryCompiler::test_compile_inbox_lifecycle PASSED [ 40%]
+tests/test_memory_compiler.py::TestMemoryCompiler::test_detect_conflict PASSED [ 40%]
+tests/test_memory_compiler.py::TestMemoryCompiler::test_find_exact_duplicates PASSED [ 40%]
+tests/test_memory_compiler.py::TestMemoryCompiler::test_find_semantic_neighbors PASSED [ 41%]
+tests/test_memory_compiler.py::TestMemoryCompiler::test_heuristic_classification PASSED [ 41%]
+tests/test_memory_compiler.py::TestMemoryCompiler::test_missing_provenance PASSED [ 41%]
+tests/test_memory_compiler.py::TestMemoryCompiler::test_normalize_all_nine_categories PASSED [ 42%]
+tests/test_memory_compiler.py::TestMemoryCompiler::test_prepare_write_accepted_decision PASSED [ 42%]
+tests/test_memory_compiler.py::TestMemoryCompiler::test_prepare_write_held_does_not_commit PASSED [ 43%]
+tests/test_memory_compiler.py::TestMemoryCompiler::test_unverified_provenance_marked_status PASSED [ 43%]
+tests/test_memory_compiler.py::TestMemoryCompiler::test_verified_provenance_fresh_git_file PASSED [ 43%]
+tests/test_memory_feedback.py::TestFeedbackLedger::test_empty_ledger_handles_gracefully PASSED [ 44%]
+tests/test_memory_feedback.py::TestFeedbackLedger::test_false_recall_rate_and_abstention PASSED [ 44%]
+tests/test_memory_feedback.py::TestFeedbackLedger::test_mrr_calculation_exact PASSED [ 44%]
+tests/test_memory_feedback.py::TestFeedbackLedger::test_ndcg10_calculation_exact PASSED [ 45%]
+tests/test_memory_feedback.py::TestFeedbackLedger::test_outcome_validation PASSED [ 45%]
+tests/test_memory_feedback.py::TestFeedbackLedger::test_record_single_event_success PASSED [ 45%]
+tests/test_memory_feedback.py::TestFeedbackLedger::test_secret_scanner_blocks_leaks PASSED [ 46%]
+tests/test_memory_feedback.py::TestFeedbackLedger::test_synthetic_telemetry_batch PASSED [ 46%]
+tests/test_memory_feedback.py::TestFeedbackLedger::test_visibility_vs_usage_distinction_section_39 PASSED [ 46%]
+tests/test_memory_index_queue.py::test_durable_queue_enqueue PASSED      [ 47%]
+tests/test_memory_index_queue.py::test_coalescing_rapid_sequential_updates PASSED [ 47%]
+tests/test_memory_index_queue.py::test_duplicate_event_deduplication PASSED [ 47%]
+tests/test_memory_index_queue.py::test_single_writer_lease_lock_enforcement PASSED [ 48%]
+tests/test_memory_index_queue.py::test_index_health_state_transitions PASSED [ 48%]
+tests/test_memory_index_queue.py::test_cli_commands PASSED               [ 48%]
+tests/test_memory_index_queue.py::test_dead_letter_queue_mechanics PASSED [ 49%]
+tests/test_memory_index_queue.py::test_drain_queue_convenience_function PASSED [ 49%]
+tests/test_memory_index_queue.py::test_section_99_corruption_diagnostics PASSED [ 49%]
+tests/test_memory_index_queue.py::test_section_53_consistency_stale_and_degraded PASSED [ 50%]
+tests/test_memory_os_adversarial.py::TestSecretInjectionAttacks::test_aws_key_injection_rejection PASSED [ 50%]
+tests/test_memory_os_adversarial.py::TestSecretInjectionAttacks::test_crypto_private_key_injection_rejection PASSED [ 50%]
+tests/test_memory_os_adversarial.py::TestSecretInjectionAttacks::test_github_pat_injection_rejection PASSED [ 51%]
+tests/test_memory_os_adversarial.py::TestSecretInjectionAttacks::test_high_entropy_token_and_connection_uri_rejection PASSED [ 51%]
+tests/test_memory_os_adversarial.py::TestSecretInjectionAttacks::test_redaction_guarantees PASSED [ 51%]
+tests/test_memory_os_adversarial.py::TestSecretInjectionAttacks::test_write_boundaries_prevent_persistence PASSED [ 52%]
+tests/test_memory_os_adversarial.py::TestPromptInjectionMemoryPoisoning::test_authority_hierarchy_invariance PASSED [ 52%]
+tests/test_memory_os_adversarial.py::TestPromptInjectionMemoryPoisoning::test_delimiter_escape_and_breakout_resilience PASSED [ 52%]
+tests/test_memory_os_adversarial.py::TestPromptInjectionMemoryPoisoning::test_instruction_override_payload_treated_as_passive_data PASSED [ 53%]
+tests/test_memory_os_adversarial.py::TestNoiseStressTest::test_noise_stress_scaling_100_and_1000_distractors PASSED [ 53%]
+tests/test_memory_os_adversarial.py::TestIndexCorruptionRecovery::test_corrupted_garbage_index_resilience PASSED [ 53%]
+tests/test_memory_os_adversarial.py::TestIndexCorruptionRecovery::test_missing_index_search_and_rebuild PASSED [ 54%]
+tests/test_memory_os_adversarial.py::TestIndexCorruptionRecovery::test_truncated_zero_byte_index_recovery PASSED [ 54%]
+tests/test_memory_os_adversarial.py::TestPremiseCheckMemSearchAdapter::test_clean_lexical_fallback_on_adapter_connection_error PASSED [ 54%]
+tests/test_memory_os_adversarial.py::TestPremiseCheckMemSearchAdapter::test_clean_lexical_fallback_on_adapter_corruption PASSED [ 55%]
+tests/test_memory_os_adversarial.py::TestPremiseCheckMemSearchAdapter::test_clean_lexical_fallback_on_adapter_timeout PASSED [ 55%]
+tests/test_memory_os_adversarial.py::TestPremiseCheckMemSearchAdapter::test_standalone_zero_dependency_baseline PASSED [ 55%]
+tests/test_memory_os_adversarial.py::TestPremiseCheckMemSearchAdapter::test_write_path_independence_from_adapter PASSED [ 56%]
+tests/test_memory_reconciler.py::TestMemoryReconciler::test_canonical_records_scanning PASSED [ 56%]
+tests/test_memory_reconciler.py::TestMemoryReconciler::test_duplicate_detection_noop PASSED [ 56%]
+tests/test_memory_reconciler.py::TestMemoryReconciler::test_complement_detection_scope_difference PASSED [ 57%]
+tests/test_memory_reconciler.py::TestMemoryReconciler::test_refinement_detection_and_enrichment PASSED [ 57%]
+tests/test_memory_reconciler.py::TestMemoryReconciler::test_true_contradiction_and_supersession PASSED [ 58%]
+tests/test_memory_reconciler.py::TestMemoryReconciler::test_version_contradiction_supersession PASSED [ 58%]
+tests/test_memory_reconciler.py::TestMemoryReconciler::test_transaction_logging_and_atomic_rollback PASSED [ 58%]
+tests/test_memory_reconciler.py::TestMemoryReconciler::test_secret_scanner_rejection PASSED [ 59%]
+tests/test_memory_reconciler.py::TestMemoryReconciler::test_ephemeral_durability_discard PASSED [ 59%]
+tests/test_memory_reconciler.py::TestMemoryReconciler::test_bitemporal_time_travel_query PASSED [ 59%]
+tests/test_memory_reconciler.py::TestMemoryReconciler::test_index_queue_notification_on_mutation PASSED [ 60%]
+tests/test_memory_reconciler.py::TestMemoryReconciler::test_drain_pending_accepted_candidates PASSED [ 60%]
+tests/test_memory_reconciler.py::TestMemoryReconciler::test_bitemporal_rfc3339_supersession PASSED [ 60%]
+tests/test_memory_search.py::TestMemorySearch::test_discover_memory_files_all PASSED [ 61%]
+tests/test_memory_search.py::TestMemorySearch::test_discover_memory_files_scoped PASSED [ 61%]
+tests/test_memory_search.py::TestMemorySearch::test_invalid_regex_handling PASSED [ 61%]
+tests/test_memory_search.py::TestMemorySearch::test_json_serializability PASSED [ 62%]
+tests/test_memory_search.py::TestMemorySearch::test_keyword_search_ranking PASSED [ 62%]
+tests/test_memory_search.py::TestMemorySearch::test_markdown_report_generation PASSED [ 62%]
+tests/test_memory_search.py::TestMemorySearch::test_multi_scope_search PASSED [ 63%]
+tests/test_memory_search.py::TestMemorySearch::test_regex_search PASSED  [ 63%]
+tests/test_memory_system.py::TestIndexFormattingAndLoading::test_global_index_exists_and_budget PASSED [ 63%]
+tests/test_memory_system.py::TestIndexFormattingAndLoading::test_global_index_table_structure_and_columns PASSED [ 64%]
+tests/test_memory_system.py::TestIndexFormattingAndLoading::test_project_index_exists_and_budget PASSED [ 64%]
+tests/test_memory_system.py::TestIndexFormattingAndLoading::test_project_index_table_structure_and_columns PASSED [ 64%]
+tests/test_memory_system.py::TestIndexFormattingAndLoading::test_selective_loading_logic PASSED [ 65%]
+tests/test_memory_system.py::TestPolicyAdherence::test_all_13_policy_rules_in_policy_md PASSED [ 65%]
+tests/test_memory_system.py::TestPolicyAdherence::test_authority_hierarchy_rule PASSED [ 65%]
+tests/test_memory_system.py::TestPolicyAdherence::test_date_stamping_adherence PASSED [ 66%]
+tests/test_memory_system.py::TestPolicyAdherence::test_line_budgets_across_all_core_files PASSED [ 66%]
+tests/test_memory_system.py::TestSkillExecution::test_skill_audit_memory_execution FAILED [ 66%]
+tests/test_memory_system.py::TestSkillExecution::test_skill_end_session_lifecycle PASSED [ 67%]
+tests/test_memory_system.py::TestSkillExecution::test_skill_end_session_secret_blocking PASSED [ 67%]
+tests/test_memory_system.py::TestSkillExecution::test_skill_promote_memory_discard_ephemeral PASSED [ 67%]
+tests/test_memory_system.py::TestSkillExecution::test_skill_promote_memory_invalid_type_rejection PASSED [ 68%]
+tests/test_memory_system.py::TestSkillExecution::test_skill_promote_memory_secret_rejection PASSED [ 68%]
+tests/test_memory_system.py::TestSkillExecution::test_skill_promote_memory_valid_project_routing PASSED [ 68%]
+tests/test_memory_system.py::TestSkillExecution::test_skill_reorganize_memory_execution PASSED [ 69%]
+tests/test_memory_system.py::TestSkillExecution::test_skill_search_memory_workflows PASSED [ 69%]
+tests/test_memory_system.py::TestSkillExecution::test_skill_start_session_fresh PASSED [ 69%]
+tests/test_memory_system.py::TestSkillExecution::test_skill_start_session_interrupted PASSED [ 70%]
+tests/test_memory_system.py::TestSecretRejectionComprehensive::test_allow_safe_placeholders_and_prose PASSED [ 70%]
+tests/test_memory_system.py::TestSecretRejectionComprehensive::test_reject_anthropic_api_keys PASSED [ 70%]
+tests/test_memory_system.py::TestSecretRejectionComprehensive::test_reject_aws_access_keys_and_secrets PASSED [ 71%]
+tests/test_memory_system.py::TestSecretRejectionComprehensive::test_reject_github_tokens PASSED [ 71%]
+tests/test_memory_system.py::TestSecretRejectionComprehensive::test_reject_gitlab_tokens PASSED [ 72%]
+tests/test_memory_system.py::TestSecretRejectionComprehensive::test_reject_google_api_keys PASSED [ 72%]
+tests/test_memory_system.py::TestSecretRejectionComprehensive::test_reject_high_entropy_tokens PASSED [ 72%]
+tests/test_memory_system.py::TestSecretRejectionComprehensive::test_reject_jwt_and_bearer_tokens PASSED [ 73%]
+tests/test_memory_system.py::TestSecretRejectionComprehensive::test_reject_openai_api_keys PASSED [ 73%]
+tests/test_memory_system.py::TestSecretRejectionComprehensive::test_reject_passwords_in_uris_and_variables PASSED [ 73%]
+tests/test_memory_system.py::TestSecretRejectionComprehensive::test_reject_private_keys PASSED [ 74%]
+tests/test_memory_system.py::TestSecretRejectionComprehensive::test_reject_session_cookies PASSED [ 74%]
+tests/test_memory_system.py::TestSecretRejectionComprehensive::test_reject_slack_tokens_and_webhooks PASSED [ 74%]
+tests/test_memory_system.py::TestSecretRejectionComprehensive::test_reject_stripe_and_huggingface_tokens PASSED [ 75%]
+tests/test_memory_system.py::TestContradictionDetection::test_coherent_memory_without_contradictions PASSED [ 75%]
+tests/test_memory_system.py::TestContradictionDetection::test_detect_python_version_contradiction PASSED [ 75%]
+tests/test_memory_system.py::TestContradictionDetection::test_format_and_parse_superseded_entry PASSED [ 76%]
+tests/test_memory_system.py::TestClassificationAndDurabilityPromotion::test_full_durability_scale_routing PASSED [ 76%]
+tests/test_memory_system.py::TestClassificationAndDurabilityPromotion::test_nine_knowledge_types_validation PASSED [ 76%]
+tests/test_memory_system.py::TestMultiRepositoryIsolation::test_repo_isolation_boundaries PASSED [ 77%]
+tests/test_memory_system.py::TestSessionRecoveryAndInterruption::test_chronological_session_files PASSED [ 77%]
+tests/test_memory_system.py::TestSessionRecoveryAndInterruption::test_interrupted_session_recovery_flow PASSED [ 77%]
+tests/test_negative_fixtures.py::TestFailureInjectionMCP::test_01_invalid_mcp_json_syntax_rejected PASSED [ 78%]
+tests/test_negative_fixtures.py::TestFailureInjectionMCP::test_02_mcp_doctor_detects_malformed_config PASSED [ 78%]
+tests/test_negative_fixtures.py::TestFailureInjectionPathAndBinaries::test_03_env_doctor_detects_missing_required_binaries PASSED [ 78%]
+tests/test_negative_fixtures.py::TestFailureInjectionPathAndBinaries::test_04_network_doctor_detects_missing_binaries PASSED [ 79%]
+tests/test_negative_fixtures.py::TestFailureInjectionPathAndBinaries::test_05_wasm_doctor_detects_missing_binaries PASSED [ 79%]
+tests/test_negative_fixtures.py::TestFailureInjectionPCAP::test_06_corrupted_pcap_capinfos_rejection PASSED [ 79%]
+tests/test_negative_fixtures.py::TestFailureInjectionPCAP::test_07_corrupted_pcap_tshark_rejection PASSED [ 80%]
+tests/test_negative_fixtures.py::TestFailureInjectionPCAP::test_08_truncated_pcap_detection PASSED [ 80%]
+tests/test_negative_fixtures.py::TestFailureInjectionPCAP::test_09_corrupted_pcap_network_doctor_failure PASSED [ 80%]
+tests/test_negative_fixtures.py::TestFailureInjectionAndroidSDK::test_10_missing_android_sdk_detected_by_doctor PASSED [ 81%]
+tests/test_negative_fixtures.py::TestFailureInjectionAndroidSDK::test_11_invalid_android_sdk_env_doctor_handling PASSED [ 81%]
+tests/test_negative_fixtures.py::TestFailureInjectionCompilers::test_12_malformed_c_syntax_compilation_failure PASSED [ 81%]
+tests/test_negative_fixtures.py::TestFailureInjectionCompilers::test_13_malformed_cpp_syntax_compilation_failure PASSED [ 82%]
+tests/test_negative_fixtures.py::TestFailureInjectionCompilers::test_14_broken_cmake_configure_failure PASSED [ 82%]
+tests/test_negative_fixtures.py::TestFailureInjectionSecurityGate::test_15_pre_tool_use_blocks_aws_access_key PASSED [ 82%]
+tests/test_negative_fixtures.py::TestFailureInjectionSecurityGate::test_16_pre_tool_use_blocks_github_pat PASSED [ 83%]
+tests/test_negative_fixtures.py::TestFailureInjectionSecurityGate::test_17_pre_tool_use_blocks_private_key PASSED [ 83%]
+tests/test_negative_fixtures.py::TestFailureInjectionSecurityGate::test_18_pre_tool_use_allows_clean_payload PASSED [ 83%]
+tests/test_negative_fixtures.py::TestFailureInjectionWASM::test_19_malformed_wat_syntax_failure PASSED [ 84%]
+tests/test_negative_fixtures.py::TestFailureInjectionWASM::test_20_corrupted_wasm_binary_validation_failure PASSED [ 84%]
+tests/test_negative_fixtures.py::TestFailureInjectionAgentPlatform::test_21_malformed_hooks_json_detection PASSED [ 84%]
+tests/test_negative_fixtures.py::TestFailureInjectionAgentPlatform::test_22_missing_agents_md_detection PASSED [ 85%]
+tests/test_procedural_engine.py::TestProceduralEngine::test_invariant_16_enforcement PASSED [ 85%]
+tests/test_procedural_engine.py::TestProceduralEngine::test_mining_recurring_sequences PASSED [ 86%]
+tests/test_procedural_engine.py::TestProceduralEngine::test_secret_scanner_rejection PASSED [ 86%]
+tests/test_procedural_engine.py::TestProceduralEngine::test_session_log_parsing_and_distinctions PASSED [ 86%]
+tests/test_procedural_engine.py::TestProceduralEngine::test_staging_and_isolation PASSED [ 87%]
+tests/test_secret_scanner.py::TestSecretScanner::test_additional_tokens PASSED [ 87%]
+tests/test_secret_scanner.py::TestSecretScanner::test_allow_safe_placeholders PASSED [ 87%]
+tests/test_secret_scanner.py::TestSecretScanner::test_clean_memory_content_passes PASSED [ 88%]
+tests/test_secret_scanner.py::TestSecretScanner::test_cli_execution_with_clean_and_dirty_text PASSED [ 88%]
+tests/test_secret_scanner.py::TestSecretScanner::test_detect_anthropic_key PASSED [ 88%]
+tests/test_secret_scanner.py::TestSecretScanner::test_detect_aws_access_key_and_secret PASSED [ 89%]
+tests/test_secret_scanner.py::TestSecretScanner::test_detect_basic_auth_header PASSED [ 89%]
+tests/test_secret_scanner.py::TestSecretScanner::test_detect_bearer_header PASSED [ 89%]
+tests/test_secret_scanner.py::TestSecretScanner::test_detect_certificate_request PASSED [ 90%]
+tests/test_secret_scanner.py::TestSecretScanner::test_detect_connect_sid_cookie PASSED [ 90%]
+tests/test_secret_scanner.py::TestSecretScanner::test_detect_cookie_session_header PASSED [ 90%]
+tests/test_secret_scanner.py::TestSecretScanner::test_detect_ec_private_key_header PASSED [ 91%]
+tests/test_secret_scanner.py::TestSecretScanner::test_detect_github_tokens PASSED [ 91%]
+tests/test_secret_scanner.py::TestSecretScanner::test_detect_gitlab_tokens PASSED [ 91%]
+tests/test_secret_scanner.py::TestSecretScanner::test_detect_google_gemini_key PASSED [ 92%]
+tests/test_secret_scanner.py::TestSecretScanner::test_detect_google_oauth_token PASSED [ 92%]
+tests/test_secret_scanner.py::TestSecretScanner::test_detect_hardcoded_password_assignment PASSED [ 92%]
+tests/test_secret_scanner.py::TestSecretScanner::test_detect_high_entropy_generic_secret PASSED [ 93%]
+tests/test_secret_scanner.py::TestSecretScanner::test_detect_huggingface_token PASSED [ 93%]
+tests/test_secret_scanner.py::TestSecretScanner::test_detect_jwt_token PASSED [ 93%]
+tests/test_secret_scanner.py::TestSecretScanner::test_detect_openai_project_key PASSED [ 94%]
+tests/test_secret_scanner.py::TestSecretScanner::test_detect_openai_standard_key PASSED [ 94%]
+tests/test_secret_scanner.py::TestSecretScanner::test_detect_openssh_private_key_header PASSED [ 94%]
+tests/test_secret_scanner.py::TestSecretScanner::test_detect_putty_private_key PASSED [ 95%]
+tests/test_secret_scanner.py::TestSecretScanner::test_detect_rsa_private_key_header PASSED [ 95%]
+tests/test_secret_scanner.py::TestSecretScanner::test_detect_slack_token_and_webhook PASSED [ 95%]
+tests/test_secret_scanner.py::TestSecretScanner::test_detect_stripe_key PASSED [ 96%]
+tests/test_secret_scanner.py::TestSecretScanner::test_detect_uri_with_password PASSED [ 96%]
+tests/test_secret_scanner.py::TestSecretScanner::test_redact_secret_utility PASSED [ 96%]
+tests/test_secret_scanner.py::TestSecretScanner::test_scan_file_and_directory PASSED [ 97%]
+tests/test_secret_scanner.py::TestSecretScanner::test_shannon_entropy PASSED [ 97%]
+tests/test_session_lifecycle.py::TestSessionLifecycle::test_end_session_workflow PASSED [ 97%]
+tests/test_session_lifecycle.py::TestSessionLifecycle::test_global_skills_exist_and_valid PASSED [ 98%]
+tests/test_session_lifecycle.py::TestSessionLifecycle::test_interruption_detection PASSED [ 98%]
+tests/test_session_lifecycle.py::TestSessionLifecycle::test_project_skills_exist_and_valid PASSED [ 98%]
+tests/test_session_lifecycle.py::TestSessionLifecycle::test_security_rejection_in_end_session PASSED [ 99%]
+tests/test_session_lifecycle.py::TestSessionLifecycle::test_session_recovery_integration PASSED [ 99%]
+tests/test_session_lifecycle.py::TestSessionLifecycle::test_start_session_workflow PASSED [100%]
+
+=================================== FAILURES ===================================
+_____________ TestHookPerformance.test_post_tool_use_latency_guard _____________
+
+self = <test_lifecycle_hooks.TestHookPerformance testMethod=test_post_tool_use_latency_guard>
+
+    def test_post_tool_use_latency_guard(self):
+        """Verify post_tool_use hook executes well within the 30ms non-blocking budget."""
+        sys.path.insert(0, str(HOOKS_DIR))
+        import post_tool_use
+        import io
+    
+        input_data = {
+            "toolCall": {"name": "run_command", "args": {"CommandLine": "cargo test"}},
+            "output": "Compiling target...",
+            "exit_code": 0
+        }
+        latencies = []
+        for _ in range(50):
+            sys.stdin = io.StringIO(json.dumps(input_data))
+            sys.stdout = io.StringIO()
+            t0 = time.perf_counter()
+            post_tool_use.main()
+            latencies.append((time.perf_counter() - t0) * 1000.0)
+    
+        sys.stdout = sys.__stdout__
+        avg_latency = sum(latencies) / len(latencies)
+        p95_latency = sorted(latencies)[int(len(latencies) * 0.95)]
+        max_latency = max(latencies)
+    
+>       self.assertLess(avg_latency, 5.0, f"Average post_tool_use latency {avg_latency:.3f}ms exceeds 5ms threshold")
+E       AssertionError: 7.026983599989762 not less than 5.0 : Average post_tool_use latency 7.027ms exceeds 5ms threshold
+
+tests/test_lifecycle_hooks.py:568: AssertionError
+_____________ TestSkillExecution.test_skill_audit_memory_execution _____________
+
+self = <test_memory_system.TestSkillExecution testMethod=test_skill_audit_memory_execution>
+
+    def test_skill_audit_memory_execution(self):
+        passed = memory_engine.audit_memory()
+>       self.assertTrue(passed, "audit_memory should pass on clean repository memory")
+E       AssertionError: False is not true : audit_memory should pass on clean repository memory
+
+tests/test_memory_system.py:333: AssertionError
+----------------------------- Captured stdout call -----------------------------
+============================================================
+ANTIGRAVITY MEMORY AUDIT (/audit-memory)
+============================================================
+## MEMORY HEALTH
+Secrets: PASS
+Duplicates: 58
+Stale entries: 0
+Contradictions: 0
+Oversized files: 2
+Cross-project leakage: PASS
+Overall status: NEEDS_MAINTENANCE
+============================================================
+============================= slowest 10 durations =============================
+106.02s call     tests/test_memory_index_queue.py::test_index_health_state_transitions
+44.67s call     tests/test_memory_index_queue.py::test_single_writer_lease_lock_enforcement
+42.61s call     tests/test_memory_index_queue.py::test_coalescing_rapid_sequential_updates
+37.59s call     tests/test_negative_fixtures.py::TestFailureInjectionAndroidSDK::test_10_missing_android_sdk_detected_by_doctor
+33.83s call     tests/test_memory_index_queue.py::test_drain_queue_convenience_function
+25.71s call     tests/test_memory_search.py::TestMemorySearch::test_json_serializability
+20.91s call     tests/test_negative_fixtures.py::TestFailureInjectionAndroidSDK::test_11_invalid_android_sdk_env_doctor_handling
+20.08s call     tests/test_memory_search.py::TestMemorySearch::test_markdown_report_generation
+19.22s call     tests/test_context_efficiency.py::TestContextEfficiency::test_context_efficiency
+19.11s call     tests/test_memory_search.py::TestMemorySearch::test_multi_scope_search
+=========================== short test summary info ============================
+FAILED tests/test_lifecycle_hooks.py::TestHookPerformance::test_post_tool_use_latency_guard
+FAILED tests/test_memory_system.py::TestSkillExecution::test_skill_audit_memory_execution
+========= 2 failed, 291 passed, 4 subtests passed in 489.46s (0:08:09) =========

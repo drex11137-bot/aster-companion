@@ -1,0 +1,82 @@
+stateDiagram-v2
+    title Antigravity Memory OS - Candidate Lifecycle & State Machine
+
+    [*] --> Observation: Tool Event / Session Turn
+    
+    state "1. Observation" as Observation {
+        [*] --> CaptureEvent
+        CaptureEvent --> NoiseFilter: Hook Interception (post_tool_use / session)
+        NoiseFilter --> ToolNoise: Routine Read / Echo / Status Check
+        NoiseFilter --> ValidEvent: High-Signal Event / Mutation / Failure
+        ToolNoise --> [*]: Discard (FILTERED_NOISE)
+    }
+
+    Observation --> CANDIDATE: Emit Candidate Record
+
+    state CANDIDATE {
+        [*] --> ComputeSHA256: normalize_content()
+        ComputeSHA256 --> IdempotencyCheck: Lock inbox (file_lock)
+        IdempotencyCheck --> StagedInbox: New candidate_id
+        IdempotencyCheck --> AlreadyExists: Existing candidate_id
+        AlreadyExists --> [*]: Deduplicated (ALREADY_EXISTS)
+        StagedInbox --> StoredInJSONL: Append to candidates.jsonl (status=STAGED)
+    }
+
+    CANDIDATE --> VALIDATING: Ingest via memory_compiler.py
+
+    state VALIDATING {
+        [*] --> Gate1_SecretHygiene: scan_text()
+        Gate1_SecretHygiene --> REJECTED: Gate 1 Fail (Secret Detected)
+        
+        Gate1_SecretHygiene --> Gate2_Durability: Clean
+        Gate2_Durability --> REJECTED: Durability <= 1.0 (EPHEMERAL)
+        Gate2_Durability --> DEFERRED: Durability == 2.0 (SESSION -> notes.md)
+        Gate2_Durability --> DEFERRED: Durability < 3.0 (Sub-threshold)
+        
+        Gate2_Durability --> Gate3_Schema: Durability >= 3.0
+        Gate3_Schema --> REJECTED: Invalid Schema v2.0.0
+        
+        Gate3_Schema --> Gate4_SourceAuthority: Valid Schema
+        Gate4_SourceAuthority --> DEFERRED: Unverified Provenance / Speculative
+        
+        Gate4_SourceAuthority --> Gate5_Redundancy: Verified Provenance
+        Gate5_Redundancy --> REJECTED: Redundancy >= 0.75 / Exact Duplicate
+        
+        Gate5_Redundancy --> ScoreCheck: Redundancy < 0.75
+        ScoreCheck --> DEFERRED: Score < 3.0 (Novelty+Durability+Evidence-Redundancy)
+        ScoreCheck --> ACCEPTED: Score >= 3.0 (All Gates Passed)
+    }
+
+    state ACCEPTED {
+        [*] --> ReconcileWithCanonical: Pass to memory_reconciler.py
+        ReconcileWithCanonical --> ConflictCheck: scan_canonical_records()
+        ConflictCheck --> DuplicateFound: Sim > 0.88 / Core Hash Match
+        ConflictCheck --> ContradictionFound: Version / Polarity / Architecture Clash
+        ConflictCheck --> RefinementFound: Additive Detail to Active Record
+        ConflictCheck --> NewFactFound: No Conflict / Complement Scope
+    }
+
+    DuplicateFound --> ACTIVE: NOOP (Existing canonical record preserved)
+    RefinementFound --> ACTIVE: UPDATE (Enrich canonical with ### Refinement)
+    NewFactFound --> ACTIVE: ADD (Append formatted record with bitemporal comment)
+    ContradictionFound --> SUPERSEDED: Mark Old Record [SUPERSEDED on YYYY-MM-DD by id:XYZ]
+    ContradictionFound --> ACTIVE: Append New Record with supersedes=[old_id]
+
+    state ACTIVE {
+        [*] --> CanonicalMarkdown: Written to target .md under file_lock
+        CanonicalMarkdown --> EnqueueIndexWAL: IndexQueueManager.enqueue(target_path)
+        EnqueueIndexWAL --> IndexStale: WAL status=pending (Index Health: STALE)
+        IndexStale --> IndexSynced: Worker Syncs to MemSearch / Milvus Lite
+    }
+
+    ACTIVE --> STALE: Provenance Expires / Codebase Drifts / Index Out of Sync
+    STALE --> VALIDATING: Re-verification via memory_doctor / compiler
+    STALE --> ACTIVE: Re-verified & Re-indexed
+
+    ACTIVE --> CONTESTED: Opposing Evidence Discovered / Inconclusive Contest
+    CONTESTED --> VALIDATING: Empirical Arbiter / Benchmark Run
+    CONTESTED --> SUPERSEDED: Resolution Adopted
+
+    SUPERSEDED --> [*]: Retained Forever (Non-Destructive History)
+    REJECTED --> [*]: Logged to rejected_secrets / admission_decisions (Discarded)
+    DEFERRED --> [*]: Staged in inbox / session logs pending corroboration

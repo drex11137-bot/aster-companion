@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+exec /workspaces/codespaces-blank/tools/scripts/semgrep-scan.sh security:scan "$@"

@@ -1,0 +1,43 @@
+INFO:memsearch_backend:Starting rebuild of MemSearch index...
+INFO:memsearch_backend:Indexed file into MemSearch backend: /tmp/tmpowz_2601/ARCHITECTURE.md (hash: 397cf8f7)
+================================================================================
+ANTIGRAVITY MEMORY OS — ACCEPTANCE TEST MATRIX (A001 - A030)
+Per Instruction.md Sections 72-79 & Section 111
+================================================================================
+[A001] [92mPASS[0m Canonical Markdown readable without MemSearch                (0.46ms)
+[A002] [92mPASS[0m Removing semantic index does not destroy canonical memory    (0.86ms)
+[A003] [92mPASS[0m Semantic search retrieves paraphrased queries missed by lexical search (1.5ms)
+[A004] [92mPASS[0m Exact paths/commands retrievable via lexical search          (0.08ms)
+[A005] [92mPASS[0m Hybrid retrieval outperforms lexical baseline on evaluation corpus (16.0ms)
+[A006] [92mPASS[0m Superseded memory is not returned as current authoritative truth (1.09ms)
+[A007] [92mPASS[0m Historical as-of queries recover superseded information      (1.07ms)
+[A008] [92mPASS[0m A stale evidence citation reduces trust                      (0.0ms)
+[A009] [92mPASS[0m Missing citation prevents automatically promoted high-authority fact (0.0ms)
+[A010] [92mPASS[0m Candidate memories never appear in authoritative retrieval unless requested (2.24ms)
+[A011] [92mPASS[0m Exact duplicate candidates do not create duplicate durable records (0.0ms)
+[A012] [92mPASS[0m Semantic duplicate candidates are detected                   (0.0ms)
+[A013] [92mPASS[0m True conflicts create a review/reconciliation path           (0.0ms)
+[A014] [92mPASS[0m Scope boundaries prevent project-to-project leakage          (1.88ms)
+[A015] [92mPASS[0m Secret-scanning remains enforced                             (0.13ms)
+[A016] [92mPASS[0m Automatic capture is idempotent                              (20.66ms)
+[A017] [92mPASS[0m Indexing failures do not corrupt canonical memory            (0.47ms)
+[A018] [92mPASS[0m Index failures are observable                                (95.4ms)
+[A019] [92mPASS[0m Concurrent indexing is serialized correctly via file locks   (0.41ms)
+[A020] [92mPASS[0m Embedding-model changes are detected                         (0.0ms)
+[A021] [92mPASS[0m System can rebuild derived semantic index from canonical memory (1.42ms)
+[A022] [92mPASS[0m System can operate in lexical fallback mode                  (0.11ms)
+[A023] [92mPASS[0m Procedural candidates are not silently installed             (0.0ms)
+[A024] [92mPASS[0m Memory feedback distinguishes invisible from visible-but-unused results (0.01ms)
+[A025] [92mPASS[0m Unknown queries trigger abstention rather than fabricated recall (1.26ms)
+[A026] [92mPASS[0m Current-state questions verify live state when evidence is mutable (0.01ms)
+[A027] [92mPASS[0m Historical questions retrieve historical memory              (1.15ms)
+[A028] [92mPASS[0m Final health report has zero contradictory statuses          (0.01ms)
+[A029] [92mPASS[0m The benchmark itself is deterministic where deterministic scoring is possible (28.11ms)
+[A030] [92mPASS[0m Final implementation is documented for fresh agent architecture reconstruction (0.05ms)
+================================================================================
+MATRIX SUMMARY: 30/30 Passed (100.0% Pass Rate)
+================================================================================
+
+[INFO] Acceptance Matrix JSON results recorded to:
+       /workspaces/codespaces-blank/.agents/memory-upgrade/evidence/acceptance_matrix_results.json
+

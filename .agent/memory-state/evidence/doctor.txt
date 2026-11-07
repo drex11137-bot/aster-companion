@@ -1,0 +1,84 @@
+
+[1m[0;36m========================================================================================[0m
+[1m[0;36m                 ANTIGRAVITY PERSISTENT MEMORY DOCTOR HEALTH REPORT                     [0m
+[1m[0;36m========================================================================================[0m
+Timestamp:      2026-09-04T19:19:20.863112+00:00
+Overall Status: [0;31m[1mCRITICAL[0m (CRITICAL DEFECTS DETECTED: Blocking security issue, active contradiction, or schema corruption.)
+Healthy Pred:   [0;31m[1mFalse[0m
+
+[1m1. DETERMINISTIC HEALTH PREDICATES (Instruction.md Section 51):[0m
+  - canonical_valid              : [0;31m[FAIL][0m
+  - no_blocking_security         : [0;32m[PASS][0m
+  - no_index_corruption          : [0;32m[PASS][0m
+  - no_schema_corruption         : [0;32m[PASS][0m
+  - no_contradiction             : [0;32m[PASS][0m
+  - required_indexes_current     : [0;32m[PASS][0m
+
+[1m2. 6-DIMENSION HEALTH AUDIT SUMMARY:[0m
+  Dimension                              | Status | Score  | Summary
+  ---------------------------------------+--------+--------+-------------------------------
+  Canonical Markdown Integrity           | [0;31mFAIL  [0m | 0.70   | FAIL: 1 critical schema/bounds error(s), 1 warning
+  Secret Hygiene                         | [0;32mPASS  [0m | 1.00   | PASS: Zero secrets detected across 17 files (1493 
+  Deduplication & Contradiction Coherence | [0;32mPASS  [0m | 1.00   | PASS: Zero contradictions, zero unmanaged duplicat
+  Derived Vector Index Health            | [1;33mWARN  [0m | 0.85   | WARN: Derived vector index is STALE (3 modified ch
+  Ingestion Queue & Inbox Backlog        | [1;33mWARN  [0m | 0.60   | WARN: High candidate backlog! 210 candidates stage
+  Telemetry Quality                      | [0;32mPASS  [0m | 0.96   | PASS: High retrieval telemetry quality (MRR: 0.95,
+
+[1m3. SECTION 105 UNIFIED DIAGNOSTIC CHECKLIST:[0m
+  - Is Canonical Memory Healthy     : [1;33mNO (Schema defects)[0m
+  - Is Index Healthy                : [1;33mSTALE[0m
+  - Is Capture Working              : [0;32mYES (CandidateBus event staging active)[0m
+  - Is Promotion Working            : [0;32mYES (/promote-memory available)[0m
+  - Are Candidates Accumulating     : [0;32mYES (210 staged)[0m
+  - Are There Unresolved Conflicts  : [1;33mNO[0m
+  - Is Memsearch Available          : [0;32mYES (Native CLI & Milvus Lite)[0m
+  - Active Embedding Model          : [1;33mbge-m3 (ONNX)[0m
+  - Is Index Stale                  : [0;32mYES[0m
+  - Are Any Scopes Leaking          : [1;33mNO[0m
+  - Are There Security Findings     : [0;32mNO (0 findings)[0m
+
+[1m4. DETAILED DIMENSION METRICS & FINDINGS:[0m
+
+  [1m[Canonical Markdown Integrity] - [0;31mFAIL[0m
+    Summary: FAIL: 1 critical schema/bounds error(s), 1 warning(s) across 17 files.
+    Metrics: total_canonical_files=17, unindexed_files_count=0, bounds_violations_count=2, schema_errors_count=0, broken_references_count=0
+    [1mFindings (2):[0m
+      - [1;33m[BOUNDS_EXCEEDED][0m File exceeds compactness limits (302 lines, max 250; 17956 bytes, max 16384 bytes).
+      - [0;31m[BOUNDS_EXCEEDED][0m File exceeds compactness limits (798 lines, max 250; 45811 bytes, max 16384 bytes).
+
+  [1m[Secret Hygiene] - [0;32mPASS[0m
+    Summary: PASS: Zero secrets detected across 17 files (1493 lines). Gitleaks & regex clean.
+    Metrics: gitleaks_status=AVAILABLE, gitleaks_findings=0, regex_scanner_findings=0, scanned_files_count=17, scanned_lines_count=1493, pre_ingestion_blocked_secrets=0
+
+  [1m[Deduplication & Contradiction Coherence] - [0;32mPASS[0m
+    Summary: PASS: Zero contradictions, zero unmanaged duplicate facts. Coherence verified (1 superseded records intact).
+    Metrics: active_contradictions_count=0, duplicate_facts_count=0, superseded_records_count=1, total_unique_facts_indexed=138
+
+  [1m[Derived Vector Index Health] - [1;33mWARN[0m
+    Summary: WARN: Derived vector index is STALE (3 modified chunks, 0 unindexed files). Canonical memory is healthy.
+    Metrics: index_state=STALE, canonical_revision=48c4b547a6a371df, indexed_revision=2026-09-04T19:19:18Z, last_success=2026-09-04T19:19:18Z, last_failure=None, failed_sources=[], embedding_provider=onnx, embedding_model=bge-m3 (ONNX), schema_version=1.0.0, synced_chunks=14, stale_chunks=3, unindexed_files_count=0, total_indexed_files=17, milvus_lite_available=True, memsearch_cli_available=True, backend_mode=native
+    [1;33m[1mNOTICE (Section 34): Canonical memory is healthy, but derived semantic index is stale.[0m
+    [1mFindings (3):[0m
+      - [1;33m[STALE_INDEX_ENTRY][0m Index hash (82654bfc) differs from canonical hash (7be67507).
+      - [1;33m[STALE_INDEX_ENTRY][0m Index hash (45088dad) differs from canonical hash (a1fbd7ef).
+      - [1;33m[STALE_INDEX_ENTRY][0m Index hash (53299cd4) differs from canonical hash (0d7d28af).
+
+  [1m[Ingestion Queue & Inbox Backlog] - [1;33mWARN[0m
+    Summary: WARN: High candidate backlog! 210 candidates staged awaiting triage (oldest 0.1h ago).
+    Metrics: inbox_path=/workspaces/codespaces-blank/.agents/memory/inbox, total_candidates=343, staged_backlog_count=210, promoted_count=130, rejected_count=2, staged_procedures_count=4, oldest_backlog_age_hours=0.1
+
+  [1m[Telemetry Quality] - [0;32mPASS[0m
+    Summary: PASS: High retrieval telemetry quality (MRR: 0.95, NDCG@10: 0.96, Recall@5: 1.00, Latency: 6.1ms).
+    Metrics: query_count=10, mrr=0.95, ndcg_10=0.963, recall_1=0.9, recall_3=1.0, recall_5=1.0, recall_10=1.0, miss_count=0, miss_rate=0.0, avg_latency_ms=6.13, low_margin_count=2, benchmark_timestamp=2026-09-04T06:42:54.236672+00:00
+
+[1m5. ACTIONABLE NEXT INSPECTION POINTER (Section 105):[0m
+  👉 [1m[0;36mINSPECT NEXT: Run 'python3 scripts/memory_doctor.py --fix' or backend.rebuild() to sync vector index.[0m
+
+[1m6. RECOMMENDED REMEDIATION STEPS:[0m
+  1. Compact 'ARCHITECTURE.md' per Phase 15 via compact_memory.py.
+  2. Compact 'PROCEDURES.md' per Phase 15 via compact_memory.py.
+  3. Synchronize vector index chunks: execute backend.rebuild() or 'agy-memory-doctor --fix'.
+  4. Execute /promote-memory or candidate_bus triage to process staged items.
+
+[1m[0;36m========================================================================================[0m
+

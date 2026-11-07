@@ -1,0 +1,174 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Run Environment Doctor (agy-env-doctor)",
+      "type": "shell",
+      "command": "agy-env-doctor",
+      "group": {
+        "kind": "test",
+        "isDefault": false
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared",
+        "clear": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Run Android Doctor (agy-android-doctor)",
+      "type": "shell",
+      "command": "agy-android-doctor",
+      "group": "test",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Run Security Doctor (agy-security-doctor)",
+      "type": "shell",
+      "command": "agy-security-doctor",
+      "group": "test",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Run Binary Doctor (agy-binary-doctor)",
+      "type": "shell",
+      "command": "agy-binary-doctor",
+      "group": "test",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Run Network Doctor (agy-network-doctor)",
+      "type": "shell",
+      "command": "agy-network-doctor",
+      "group": "test",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Run MCP Doctor (agy-mcp-doctor)",
+      "type": "shell",
+      "command": "agy-mcp-doctor",
+      "group": "test",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Run Agent Doctor (agy-agent-doctor)",
+      "type": "shell",
+      "command": "agy-agent-doctor",
+      "group": "test",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Run Web Doctor (agy-web-doctor)",
+      "type": "shell",
+      "command": "agy-web-doctor",
+      "group": "test",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Run Full Test Suite",
+      "type": "shell",
+      "command": "pytest tests/ -v",
+      "group": {
+        "kind": "test",
+        "isDefault": true
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Build Android Debug APK",
+      "type": "shell",
+      "command": "if [ -f ./gradlew ]; then ./gradlew assembleDebug --no-daemon; elif command -v gradle >/dev/null 2>&1; then gradle assembleDebug --no-daemon; else echo 'Gradle wrapper or build script not found in current directory'; fi",
+      "group": {
+        "kind": "build",
+        "isDefault": false
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Run Web Verification",
+      "type": "shell",
+      "command": "if [ -f fixtures/web/e2e_test.js ]; then node fixtures/web/e2e_test.js; elif [ -f package.json ]; then npm test --if-present; else echo 'No web test suite found'; fi",
+      "group": "test",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Build: C/C++ (CMake + Ninja)",
+      "type": "shell",
+      "command": "if [ -f CMakeLists.txt ]; then cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Debug && ninja -C build; elif [ -f fixtures/c_native/CMakeLists.txt ]; then cmake -B fixtures/c_native/build -S fixtures/c_native -G Ninja -DCMAKE_BUILD_TYPE=Debug && ninja -C fixtures/c_native/build; else echo 'No CMakeLists.txt found'; fi",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": ["$gcc"]
+    },
+    {
+      "label": "Build: WebAssembly (wat2wasm)",
+      "type": "shell",
+      "command": "mkdir -p dist/wasm && for f in $(find . -maxdepth 3 -name '*.wat' ! -path '*/node_modules/*'); do wat2wasm \"$f\" -o \"dist/wasm/$(basename \"$f\" .wat).wasm\" 2>/dev/null && echo \"Compiled $f\" || true; done",
+      "group": "build",
+      "problemMatcher": []
+    },
+    {
+      "label": "Security: Semgrep Static Scan",
+      "type": "shell",
+      "command": "semgrep scan --config auto || true",
+      "group": "test",
+      "problemMatcher": []
+    },
+    {
+      "label": "Security: Gitleaks Secret Scan",
+      "type": "shell",
+      "command": "gitleaks detect --source . --no-git -v || true",
+      "group": "test",
+      "problemMatcher": []
+    },
+    {
+      "label": "Verify: Workstation Diagnostic (verify-toolchain)",
+      "type": "shell",
+      "command": "if [ -f .devcontainer/scripts/verify-toolchain.sh ]; then bash .devcontainer/scripts/verify-toolchain.sh; else agy-env-doctor; fi",
+      "group": "test",
+      "problemMatcher": []
+    }
+  ]
+}

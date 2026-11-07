@@ -1,0 +1,258 @@
+#!/usr/bin/env python3
+"""
+==============================================================================
+ANTIGRAVITY WEBASSEMBLY DOMAIN DOCTOR (agy-wasm-doctor)
+Deterministic Diagnostic CLI for WebAssembly Toolchain & Wasmtime Runtime Stack
+==============================================================================
+"""
+
+import os
+import sys
+import shutil
+import subprocess
+import json
+import argparse
+
+GREEN = "\033[92m"
+YELLOW = "\033[93m"
+RED = "\033[91m"
+CYAN = "\033[96m"
+BOLD = "\033[1m"
+RESET = "\033[0m"
+
+
+def get_command_version(cmd, args=["--version"]):
+    try:
+        res = subprocess.run([cmd] + args, capture_output=True, text=True, timeout=5)
+        out = (res.stdout.strip() or res.stderr.strip()).split("\n")[0]
+        return out
+    except Exception as e:
+        return "Available"
+
+
+def check_tool(name, binary_name, version_args=["--version"], optional=False):
+    path = shutil.which(binary_name)
+    if not path and binary_name == "wasmtime":
+        user_wasmtime = os.path.expanduser("~/.wasmtime/bin/wasmtime")
+        if os.path.exists(user_wasmtime):
+            path = user_wasmtime
+
+    if path and os.path.exists(path):
+        ver = get_command_version(path, version_args)
+        return {
+            "name": name,
+            "binary": binary_name,
+            "status": "PASS",
+            "path": path,
+            "version": ver,
+            "optional": optional,
+        }
+    else:
+        status = "OPTIONAL_MISSING" if optional else "FAIL"
+        return {
+            "name": name,
+            "binary": binary_name,
+            "status": status,
+            "path": None,
+            "version": "N/A",
+            "optional": optional,
+        }
+
+
+def run_fixture_verification(fixture_dir="/workspaces/codespaces-blank/fixtures/wasm"):
+    wat_path = os.path.join(fixture_dir, "add.wat")
+    wasm_path = os.path.join(fixture_dir, "add.wasm")
+    opt_wasm_path = os.path.join(fixture_dir, "add.opt.wasm")
+
+    results = []
+
+    # 1. Check WAT file
+    if not os.path.exists(wat_path):
+        results.append(("WAT Fixture Exists", False, f"Missing {wat_path}"))
+        return results
+    results.append(("WAT Fixture Exists", True, wat_path))
+
+    # 2. Assemble WAT to WASM (wat2wasm)
+    wat2wasm = shutil.which("wat2wasm")
+    if wat2wasm:
+        try:
+            subprocess.run([wat2wasm, wat_path, "-o", wasm_path], check=True, capture_output=True)
+            results.append(("wat2wasm Assembler", True, f"Generated {wasm_path}"))
+        except Exception as e:
+            results.append(("wat2wasm Assembler", False, str(e)))
+    else:
+        results.append(("wat2wasm Assembler", False, "wat2wasm binary not found"))
+
+    # 3. Validate WASM (wasm-validate)
+    wasm_validate = shutil.which("wasm-validate")
+    if wasm_validate and os.path.exists(wasm_path):
+        try:
+            subprocess.run([wasm_validate, wasm_path], check=True, capture_output=True)
+            results.append(("wasm-validate Integrity", True, f"Validated {wasm_path}"))
+        except Exception as e:
+            results.append(("wasm-validate Integrity", False, str(e)))
+    else:
+        results.append(("wasm-validate Integrity", False, "wasm-validate not found or wasm missing"))
+
+    # 4. Disassemble WASM to WAT (wasm2wat)
+    wasm2wat = shutil.which("wasm2wat")
+    if wasm2wat and os.path.exists(wasm_path):
+        try:
+            res = subprocess.run([wasm2wat, wasm_path], check=True, capture_output=True, text=True)
+            if '(export "add"' in res.stdout or "(func" in res.stdout:
+                results.append(("wasm2wat Disassembler", True, "Successfully disassembled with correct export"))
+            else:
+                results.append(("wasm2wat Disassembler", False, "Disassembly did not contain expected exports"))
+        except Exception as e:
+            results.append(("wasm2wat Disassembler", False, str(e)))
+    else:
+        results.append(("wasm2wat Disassembler", False, "wasm2wat not found or wasm missing"))
+
+    # 5. Optimize WASM (wasm-opt)
+    wasm_opt = shutil.which("wasm-opt")
+    if wasm_opt and os.path.exists(wasm_path):
+        try:
+            subprocess.run([wasm_opt, "-O3", wasm_path, "-o", opt_wasm_path], check=True, capture_output=True)
+            results.append(("wasm-opt Binaryen Optimizer", True, f"Optimized {opt_wasm_path}"))
+        except Exception as e:
+            results.append(("wasm-opt Binaryen Optimizer", False, str(e)))
+    else:
+        results.append(("wasm-opt Binaryen Optimizer", False, "wasm-opt not found"))
+
+    # 6. Execute with Wasmtime CLI
+    wasmtime_bin = shutil.which("wasmtime") or (os.path.expanduser("~/.wasmtime/bin/wasmtime") if os.path.exists(os.path.expanduser("~/.wasmtime/bin/wasmtime")) else None)
+    if wasmtime_bin and os.path.exists(wasm_path):
+        try:
+            res = subprocess.run([wasmtime_bin, "run", "--invoke", "add", wasm_path, "17", "25"], capture_output=True, text=True, timeout=5)
+            lines = res.stdout.strip().split("\n")
+            last_line = lines[-1].strip() if lines else ""
+            if last_line == "42":
+                results.append(("Wasmtime Invocation", True, "add(17, 25) = 42"))
+            else:
+                results.append(("Wasmtime Invocation", False, f"Unexpected output: {res.stdout.strip()} {res.stderr.strip()}"))
+        except Exception as e:
+            results.append(("Wasmtime Invocation", False, str(e)))
+    else:
+        results.append(("Wasmtime Invocation", False, "wasmtime not available"))
+
+    # 7. Execute with Node.js WebAssembly runtime
+    node_bin = shutil.which("node")
+    if node_bin and os.path.exists(wasm_path):
+        try:
+            js_code = f"""
+            const fs = require('fs');
+            const assert = require('assert');
+            const bytes = fs.readFileSync('{wasm_path}');
+            WebAssembly.instantiate(bytes).then(res => {{
+                const add = res.instance.exports.add;
+                assert.strictEqual(add(17, 25), 42);
+                console.log('PASS:17+25=42');
+            }}).catch(err => {{
+                console.error(err);
+                process.exit(1);
+            }});
+            """
+            res = subprocess.run([node_bin, "-e", js_code], capture_output=True, text=True, timeout=5)
+            if "PASS:17+25=42" in res.stdout:
+                results.append(("Node.js WASM Engine", True, "Evaluated add(17, 25) = 42 in V8"))
+            else:
+                results.append(("Node.js WASM Engine", False, f"{res.stderr.strip()}"))
+        except Exception as e:
+            results.append(("Node.js WASM Engine", False, str(e)))
+    else:
+        results.append(("Node.js WASM Engine", False, "Node.js not available"))
+
+    return results
+
+
+def main():
+    parser = argparse.ArgumentParser(description="Antigravity WebAssembly Domain Doctor")
+    parser.add_argument("--json", action="store_true", help="Output results in JSON format")
+    parser.add_argument("--test-fixture", action="store_true", help="Run comprehensive fixture lifecycle verification")
+    args = parser.parse_args()
+
+    # Define toolchain items to inspect
+    tool_specs = [
+        ("wat2wasm (WABT Assembler)", "wat2wasm", ["--version"], False),
+        ("wasm2wat (WABT Disassembler)", "wasm2wat", ["--version"], False),
+        ("wasm-validate (WABT Validator)", "wasm-validate", ["--version"], False),
+        ("wasm-opt (Binaryen Optimizer)", "wasm-opt", ["--version"], False),
+        ("wasmtime (Bytecode Alliance Runtime)", "wasmtime", ["--version"], False),
+        ("wasm-tools (CLI Multi-tool)", "wasm-tools", ["--version"], False),
+        ("wasm-objdump (Object Inspection)", "wasm-objdump", ["--version"], False),
+        ("wasm-decompile (Decompiler)", "wasm-decompile", ["--version"], False),
+        ("wasm-interp (WABT Interpreter)", "wasm-interp", ["--version"], False),
+        ("wasm-strip (Section Stripper)", "wasm-strip", ["--version"], False),
+        ("wasmer (Wasmer Runtime)", "wasmer", ["--version"], True),
+    ]
+
+    tool_results = [check_tool(*spec) for spec in tool_specs]
+    fixture_results = run_fixture_verification()
+
+    passed_tools = [r for r in tool_results if r["status"] == "PASS"]
+    failed_tools = [r for r in tool_results if r["status"] == "FAIL"]
+    fixture_passed = [r for r in fixture_results if r[1]]
+    fixture_failed = [r for r in fixture_results if not r[1]]
+
+    all_passed = len(failed_tools) == 0 and len(fixture_failed) == 0
+
+    if args.json:
+        payload = {
+            "domain": "wasm",
+            "overall_status": "PASS" if all_passed else "FAIL",
+            "tools": tool_results,
+            "fixture_verifications": [
+                {"name": name, "status": "PASS" if ok else "FAIL", "details": det}
+                for name, ok, det in fixture_results
+            ],
+            "stats": {
+                "tools_total": len(tool_results),
+                "tools_passed": len(passed_tools),
+                "tools_failed": len(failed_tools),
+                "fixtures_total": len(fixture_results),
+                "fixtures_passed": len(fixture_passed),
+                "fixtures_failed": len(fixture_failed),
+            }
+        }
+        print(json.dumps(payload, indent=2))
+        sys.exit(0 if all_passed else 1)
+
+    # Terminal Formatted Output
+    print(f"\n{BOLD}{CYAN}=============================================================================={RESET}")
+    print(f"{BOLD}{CYAN}         ANTIGRAVITY WEBASSEMBLY DOMAIN DOCTOR (agy-wasm-doctor)              {RESET}")
+    print(f"{BOLD}{CYAN}=============================================================================={RESET}\n")
+
+    print(f"{BOLD}1. WebAssembly Toolchain & Runtime Binaries:{RESET}")
+    print(f"{'COMPONENT':<35} | {'STATUS':<12} | {'VERSION / DETAILS'}")
+    print("-" * 80)
+
+    for r in tool_results:
+        if r["status"] == "PASS":
+            status_str = f"{GREEN}PASS{RESET}"
+        elif r["status"] == "OPTIONAL_MISSING":
+            status_str = f"{YELLOW}OPTIONAL{RESET}"
+        else:
+            status_str = f"{RED}FAIL{RESET}"
+        det = f"{r['version']} ({r['path']})" if r['path'] else "Not installed"
+        print(f"{r['name']:<35} | {status_str:<21} | {det}")
+
+    print(f"\n{BOLD}2. Fixture Lifecycle & Runtime Execution Verification:{RESET}")
+    print(f"{'TEST STAGE':<35} | {'STATUS':<12} | {'RESULT'}")
+    print("-" * 80)
+
+    for name, ok, det in fixture_results:
+        status_str = f"{GREEN}PASS{RESET}" if ok else f"{RED}FAIL{RESET}"
+        print(f"{name:<35} | {status_str:<21} | {det}")
+
+    print("-" * 80)
+    if all_passed:
+        print(f"{GREEN}{BOLD}[OK] WebAssembly toolchain and runtime stack are fully operational.{RESET}\n")
+        sys.exit(0)
+    else:
+        print(f"{RED}{BOLD}[!] WebAssembly toolchain has failures or missing required tools.{RESET}\n")
+        sys.exit(1)
+
+
+if __name__ == "__main__":
+    main()
+

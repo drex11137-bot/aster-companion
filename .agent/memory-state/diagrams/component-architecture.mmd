@@ -1,0 +1,61 @@
+C4Component
+    title Antigravity Memory OS - C4 L3 Component Architecture Diagram
+    
+    Container_Boundary(lifecycle_boundary, "Platform Lifecycle Hooks Boundary") {
+        Component(pre_inv, "PreInvocationHook", "scripts/hooks/pre_invocation.py", "Checks interrupted session state; injects ephemeral context reminders.")
+        Component(pre_tool, "PreToolUseSecurityGate", "scripts/hooks/pre_tool_use.py", "Fail-closed gatekeeper inspecting tool arguments before execution.")
+        Component(sec_scan, "SecretScanner", "scripts/secret_scanner.py", "Scans text for API keys, tokens, high-entropy secrets, and credentials.")
+        Component(post_tool, "PostToolUseHook", "scripts/hooks/post_tool_use.py", "Filters routine noise and captures tool errors/gotchas into CandidateBus.")
+        Component(stop_guard, "StopGuardHook", "scripts/hooks/stop_hook.py", "Validates working session state and verifies clean shutdown.")
+    }
+    
+    Container_Boundary(ingestion_boundary, "Experience Capture, Ingestion & Reconciliation") {
+        Component(cand_bus, "CandidateBus", "scripts/candidate_bus.py", "Stages candidate memories with deterministic SHA-256 IDs into inbox/candidates.jsonl.")
+        Component(mem_compiler, "MemoryCompiler", "scripts/memory_compiler.py", "5-stage admission gate: Security, Evidence (threshold >= 0.70), Dedup, Temporal, Type.")
+        Component(mem_reconciler, "MemoryReconciler", "scripts/memory_reconciler.py", "Detects contradictions, marks supersession lineage, writes atomically via <file>.lock.")
+        Component(idx_queue, "IndexQueueManager", "scripts/memory_index_queue.py", "Append-only WAL (index_queue.jsonl) with single-writer lease lock and auto-drain.")
+        Component(proc_engine, "ProceduralEngine", "scripts/procedural_engine.py", "Mines repeated workflows and stages procedure templates into inbox/procedures/.")
+    }
+    
+    Container_Boundary(storage_boundary, "Authoritative Canonical Storage (.agents/memory/)") {
+        ComponentDb(doc_current, "CURRENT.md", "Working Memory (Tier 1)", "Active task objective, blockers, <30 lines strictly enforced.")
+        ComponentDb(doc_episodes, "sessions/*.md", "Episodic Memory (Tier 2)", "Chronological session transcripts and execution records.")
+        ComponentDb(doc_decisions, "DECISIONS.md", "Architectural Decisions (Tier 3)", "ADRs and design choices with bitemporal valid_from/until metadata.")
+        ComponentDb(doc_gotchas, "GOTCHAS.md", "Operational Gotchas (Tier 3)", "Pitfalls, environment quirks, and bug mitigations.")
+        ComponentDb(doc_arch, "ARCHITECTURE.md", "System Architecture (Tier 3)", "Subsystem definitions and invariant requirements.")
+        ComponentDb(doc_procedures, "PROCEDURES.md", "Procedural Memory (Tier 7)", "Curated standard operating procedures and workflows.")
+    }
+    
+    Container_Boundary(retrieval_boundary, "Search, Routing & Compilation Pipeline") {
+        Component(q_router, "QueryRouter", "scripts/query_router.py", "Classifies query intent (5 types), extracts scope, and triggers explicit abstention.")
+        Component(memsearch_facade, "MemSearchBackend", "scripts/memsearch_backend.py", "Facade over Milvus Lite, ONNX MiniLM-L6-v2 embeddings, and fallback BM25.")
+        Component(hybrid_search, "HybridSearchEngine", "scripts/search_memory.py", "Reciprocal Rank Fusion (RRF) combining dense vector and lexical BM25 results.")
+        Component(ev_reranker, "EvidenceReranker", "scripts/evidence_reranker.py", "Applies evidence thresholding, half-life decay bias, and MMR diversity filtering.")
+        Component(ctx_compiler, "ContextCompiler", "scripts/context_compiler.py", "Assembles L1/L2/L3 progressive context, enforces token budgets, and adds trust banners.")
+    }
+    
+    Container_Boundary(telemetry_boundary, "Feedback, Telemetry & Diagnostics") {
+        Component(learn_loop, "LearningLoop", "scripts/learning_loop.py", "Updates access counters, applies decay models, and evaluates shadow ranker.")
+        Component(mem_feedback, "MemoryFeedback", "scripts/memory_feedback.py", "Records user feedback and retrieval evaluations in retrieval_ledger.jsonl.")
+        Component(mem_doctor, "MemoryDoctor", "scripts/memory_doctor.py", "CLI agy-memory-doctor inspecting 6 health dimensions with --fix repair.")
+    }
+    
+    Rel(pre_tool, sec_scan, "Delegates content scanning before tool execution")
+    Rel(post_tool, cand_bus, "Pushes tool failure gotchas & experience items")
+    Rel(cand_bus, mem_compiler, "Submits candidate queue for admission filtering")
+    Rel(mem_compiler, sec_scan, "Gate 1: Verifies secret-free content")
+    Rel(mem_compiler, mem_reconciler, "Passes certified candidates for reconciliation")
+    Rel(mem_reconciler, doc_decisions, "Atomically commits verified decisions")
+    Rel(mem_reconciler, doc_gotchas, "Atomically commits verified gotchas")
+    Rel(mem_reconciler, doc_arch, "Atomically commits architecture notes")
+    Rel(mem_reconciler, doc_procedures, "Atomically commits verified procedures")
+    Rel(mem_reconciler, idx_queue, "Enqueues write mutations for derived indexing")
+    Rel(idx_queue, memsearch_facade, "Worker batches index updates into vector/BM25 stores")
+    Rel(q_router, hybrid_search, "Dispatches routed query with scope constraints")
+    Rel(hybrid_search, memsearch_facade, "Retrieves top-K dense embeddings and BM25 matches")
+    Rel(hybrid_search, ev_reranker, "Sends raw candidate results for reranking")
+    Rel(ev_reranker, ctx_compiler, "Provides MMR-diversified, trust-ranked memories")
+    Rel(ctx_compiler, doc_current, "Inspects current active objective for budget calculation")
+    Rel(mem_feedback, learn_loop, "Supplies NDCG/MRR signals to reinforce frequently accessed memories")
+    Rel(mem_doctor, storage_boundary, "Audits canonical format, file lengths, and lock files")
+    Rel(mem_doctor, memsearch_facade, "Checks Milvus Lite connection and collection consistency")

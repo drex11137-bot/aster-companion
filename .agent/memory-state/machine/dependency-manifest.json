@@ -1,0 +1,396 @@
+{
+  "schema_version": "1.0.0",
+  "generated_at": "2026-09-04T19:15:00Z",
+  "platform": {
+    "os": "Ubuntu 24.04.4 LTS (Noble Numbat)",
+    "kernel": "6.8.0-1052-azure",
+    "architecture": "x86_64",
+    "cpu_model": "AMD EPYC 9V74 80-Core Processor (4 vCPUs allocated)",
+    "evidence": "OBSERVED_EXECUTION: uname -a, /etc/os-release, lscpu"
+  },
+  "runtimes": [
+    {
+      "name": "python3",
+      "path": "/home/codespace/.python/current/bin/python3",
+      "version": "3.12.1",
+      "scope": "workstation_base_runtime",
+      "evidence": "OBSERVED_EXECUTION"
+    },
+    {
+      "name": "python3 (.venv-memsearch)",
+      "path": "/workspaces/codespaces-blank/.venv-memsearch/bin/python3",
+      "version": "3.12.1",
+      "scope": "isolated_memsearch_runtime",
+      "managed_by": "uv 0.12.8",
+      "evidence": "OBSERVED_EXECUTION"
+    },
+    {
+      "name": "node",
+      "path": "/home/codespace/nvm/current/bin/node",
+      "version": "v24.14.0",
+      "scope": "javascript_runtime_mcp_servers",
+      "evidence": "OBSERVED_EXECUTION"
+    },
+    {
+      "name": "npm",
+      "path": "/home/codespace/nvm/current/bin/npm",
+      "version": "11.9.0",
+      "scope": "package_manager_mcp_exec",
+      "evidence": "OBSERVED_EXECUTION"
+    },
+    {
+      "name": "pip",
+      "path": "/home/codespace/.python/current/bin/pip",
+      "version": "26.2.1",
+      "scope": "python_package_installer",
+      "evidence": "OBSERVED_EXECUTION"
+    },
+    {
+      "name": "uv",
+      "path": "/home/codespace/.cargo/bin/uv",
+      "version": "0.12.8",
+      "scope": "fast_python_resolver_venv_builder",
+      "evidence": "OBSERVED_EXECUTION"
+    }
+  ],
+  "memory_engine_and_vector_substrate": [
+    {
+      "package": "memsearch",
+      "version": "0.4.19",
+      "environment": ".venv-memsearch & /home/codespace/.local/bin/memsearch",
+      "purpose": "Core semantic vector indexing and retrieval CLI & library",
+      "scope": "runtime",
+      "used_by": [
+        "scripts/memsearch_backend.py",
+        "scripts/memory_index_queue.py",
+        "scripts/search_memory.py",
+        "tools/bin/agy-memory-doctor"
+      ],
+      "evidence": "OBSERVED_EXECUTION"
+    },
+    {
+      "package": "milvus-lite",
+      "version": "3.2.1",
+      "environment": ".venv-memsearch",
+      "purpose": "Embedded local Milvus vector database backend with flock singleton locking",
+      "scope": "runtime",
+      "used_by": [
+        "memsearch.store.MilvusStore",
+        "~/.memsearch/milvus.db",
+        ".agents/memory/.memsearch/milvus.db"
+      ],
+      "evidence": "OBSERVED_EXECUTION"
+    },
+    {
+      "package": "pymilvus",
+      "version": "3.0.1",
+      "environment": ".venv-memsearch",
+      "purpose": "Milvus client SDK for vector search and collection management",
+      "scope": "runtime",
+      "used_by": [
+        "memsearch",
+        "scripts/memsearch_backend.py"
+      ],
+      "evidence": "OBSERVED_EXECUTION"
+    },
+    {
+      "package": "onnxruntime",
+      "version": "1.29.0",
+      "environment": ".venv-memsearch",
+      "purpose": "CPU-optimized ONNX model inference runtime for local vector embeddings",
+      "scope": "runtime",
+      "used_by": [
+        "bge-m3 ONNX model runner",
+        "memsearch"
+      ],
+      "evidence": "OBSERVED_EXECUTION"
+    },
+    {
+      "package": "faiss-cpu",
+      "version": "1.15.0",
+      "environment": ".venv-memsearch",
+      "purpose": "In-memory dense vector similarity search fallback library",
+      "scope": "runtime",
+      "used_by": [
+        "memsearch fallback substrate"
+      ],
+      "evidence": "OBSERVED_EXECUTION"
+    },
+    {
+      "package": "tokenizers",
+      "version": "0.23.2",
+      "environment": ".venv-memsearch",
+      "purpose": "Fast tokenization library for bge-m3 dense/sparse embedding encoding",
+      "scope": "runtime",
+      "used_by": [
+        "memsearch.embedding.onnx"
+      ],
+      "evidence": "OBSERVED_EXECUTION"
+    },
+    {
+      "package": "huggingface-hub",
+      "version": "1.30.0",
+      "environment": ".venv-memsearch",
+      "purpose": "HuggingFace artifact client for caching bge-m3 ONNX weights",
+      "scope": "runtime",
+      "used_by": [
+        "memsearch"
+      ],
+      "evidence": "OBSERVED_EXECUTION"
+    },
+    {
+      "package": "watchdog",
+      "version": "6.0.0",
+      "environment": ".venv-memsearch",
+      "purpose": "Filesystem event listener for automated debounce memory indexing",
+      "scope": "optional",
+      "used_by": [
+        "memsearch watch mode"
+      ],
+      "evidence": "OBSERVED_EXECUTION"
+    },
+    {
+      "package": "pydantic",
+      "version": "2.13.5 (.venv-memsearch) / 2.13.4 (base)",
+      "environment": "both",
+      "purpose": "Data validation and memory record schema enforcement",
+      "scope": "runtime",
+      "used_by": [
+        "scripts/candidate_bus.py",
+        "scripts/memory_compiler.py",
+        "scripts/memsearch_backend.py"
+      ],
+      "evidence": "OBSERVED_EXECUTION"
+    },
+    {
+      "package": "bge-m3",
+      "version": "BAAI/bge-m3 (ONNX int8)",
+      "dimension": 1024,
+      "environment": "Local ONNX Substrate via memsearch",
+      "purpose": "Dense 1024-dimensional semantic embedding model",
+      "scope": "runtime",
+      "used_by": [
+        "memsearch embedding pipeline",
+        "scripts/search_memory.py"
+      ],
+      "evidence": "OBSERVED_EXECUTION"
+    }
+  ],
+  "agent_framework_and_cli": [
+    {
+      "package": "agy (antigravity)",
+      "version": "1.1.26",
+      "path": "/home/codespace/.local/bin/agy",
+      "purpose": "Master AI pair-programming assistant CLI and orchestrator",
+      "scope": "runtime",
+      "used_by": [
+        "Interactive workstation session",
+        "Subagent orchestration"
+      ],
+      "evidence": "OBSERVED_EXECUTION"
+    },
+    {
+      "package": "mcp",
+      "version": "1.27.2",
+      "environment": "base python",
+      "purpose": "Official Python Model Context Protocol specification & server bindings",
+      "scope": "runtime",
+      "used_by": [
+        "Antigravity MCP bridges"
+      ],
+      "evidence": "OBSERVED_EXECUTION"
+    },
+    {
+      "package": "GitPython",
+      "version": "3.1.46",
+      "environment": "base python",
+      "purpose": "Git repository object model and status introspection",
+      "scope": "runtime",
+      "used_by": [
+        "scripts/memory_doctor.py",
+        "scripts/hooks/pre_invocation.py"
+      ],
+      "evidence": "OBSERVED_EXECUTION"
+    }
+  ],
+  "mcp_servers": [
+    {
+      "server_id": "sqlite-safe",
+      "package": "@modelcontextprotocol/server-sqlite",
+      "version": "2025.4.25",
+      "command": "node",
+      "scope": "runtime",
+      "configuration": "DB_READONLY: true",
+      "evidence": "CONFIGURATION & OBSERVED_EXECUTION"
+    },
+    {
+      "server_id": "postgres-safe",
+      "package": "@modelcontextprotocol/server-postgres",
+      "version": "latest",
+      "command": "node",
+      "scope": "runtime",
+      "configuration": "PGREADONLY: true",
+      "evidence": "CONFIGURATION & OBSERVED_EXECUTION"
+    },
+    {
+      "server_id": "playwright",
+      "package": "@executeautomation/playwright-mcp-server",
+      "version": "latest",
+      "command": "node",
+      "scope": "runtime",
+      "configuration": "isolated browser automation",
+      "evidence": "CONFIGURATION & OBSERVED_EXECUTION"
+    },
+    {
+      "server_id": "context7",
+      "package": "@upsonic/context7",
+      "version": "latest",
+      "command": "node",
+      "scope": "runtime",
+      "configuration": "live API & framework documentation",
+      "evidence": "CONFIGURATION & OBSERVED_EXECUTION"
+    },
+    {
+      "server_id": "chrome-devtools",
+      "package": "chrome-devtools-mcp",
+      "version": "latest",
+      "command": "node",
+      "scope": "runtime",
+      "configuration": "Chrome DevTools Protocol integration",
+      "evidence": "CONFIGURATION & OBSERVED_EXECUTION"
+    },
+    {
+      "server_id": "github",
+      "package": "github-mcp-server",
+      "version": "Go 1.24.0 binary",
+      "command": "/home/codespace/.local/share/mise/installs/go/1.24.0/bin/github-mcp-server",
+      "scope": "runtime",
+      "configuration": "GitHub API repository & PR inspection",
+      "evidence": "CONFIGURATION & OBSERVED_EXECUTION"
+    },
+    {
+      "server_id": "hexana",
+      "package": "hexana-mcp",
+      "version": "latest",
+      "command": "hexana-mcp stdio",
+      "scope": "runtime",
+      "configuration": "WebAssembly and binary analysis engine",
+      "evidence": "CONFIGURATION & OBSERVED_EXECUTION"
+    },
+    {
+      "server_id": "tavily",
+      "package": "tavily",
+      "version": "latest",
+      "command": "node",
+      "scope": "runtime",
+      "configuration": "Tavily web search and research API",
+      "evidence": "CONFIGURATION & OBSERVED_EXECUTION"
+    }
+  ],
+  "security_and_sast": [
+    {
+      "package": "gitleaks",
+      "version": "8.18.4",
+      "scope": "runtime_gatekeeper",
+      "purpose": "Deterministic secret scanner enforcing Zero-Secrets Policy on file writes and tool use",
+      "used_by": [
+        "scripts/hooks/pre_tool_use.py",
+        "scripts/memory_compiler.py",
+        "tools/bin/agy-memory-doctor"
+      ],
+      "evidence": "OBSERVED_EXECUTION"
+    },
+    {
+      "package": "semgrep",
+      "version": "1.98.0+",
+      "scope": "dev/test",
+      "purpose": "AST pattern-matching static code analysis",
+      "used_by": [
+        "tools/scripts/semgrep-scan.sh"
+      ],
+      "evidence": "OBSERVED_EXECUTION"
+    },
+    {
+      "package": "trivy",
+      "version": "0.50.0+",
+      "scope": "dev/test",
+      "purpose": "Container vulnerability and software supply chain scanning",
+      "used_by": [
+        "trivy.yaml"
+      ],
+      "evidence": "CONFIGURATION"
+    },
+    {
+      "package": "bandit",
+      "version": "1.7.8+",
+      "scope": "dev/test",
+      "purpose": "Python AST security flaw scanning",
+      "used_by": [
+        "docs/operations.md"
+      ],
+      "evidence": "OBSERVED_EXECUTION"
+    }
+  ],
+  "native_binaries": [
+    {
+      "binary": "git",
+      "version": "2.53.0",
+      "scope": "core_vcs",
+      "evidence": "OBSERVED_EXECUTION"
+    },
+    {
+      "binary": "gh",
+      "version": "2.88.0",
+      "scope": "github_cli",
+      "evidence": "OBSERVED_EXECUTION"
+    },
+    {
+      "binary": "rg (ripgrep)",
+      "version": "14.1.0",
+      "scope": "lexical_search",
+      "evidence": "OBSERVED_EXECUTION"
+    },
+    {
+      "binary": "fd",
+      "version": "9.0.0",
+      "scope": "file_finder",
+      "evidence": "OBSERVED_EXECUTION"
+    },
+    {
+      "binary": "jq",
+      "version": "1.7.1",
+      "scope": "json_parser",
+      "evidence": "OBSERVED_EXECUTION"
+    },
+    {
+      "binary": "cmake",
+      "version": "3.28.3",
+      "scope": "build_system",
+      "evidence": "OBSERVED_EXECUTION"
+    },
+    {
+      "binary": "ninja",
+      "version": "1.11.1",
+      "scope": "build_runner",
+      "evidence": "OBSERVED_EXECUTION"
+    },
+    {
+      "binary": "gcc",
+      "version": "13.3.0",
+      "scope": "c_compiler",
+      "evidence": "OBSERVED_EXECUTION"
+    },
+    {
+      "binary": "clang",
+      "version": "18.1.3",
+      "scope": "llvm_c_compiler",
+      "evidence": "OBSERVED_EXECUTION"
+    },
+    {
+      "binary": "adb",
+      "version": "35.0.1 (Android Debug Bridge)",
+      "scope": "android_toolchain",
+      "evidence": "OBSERVED_EXECUTION"
+    }
+  ]
+}

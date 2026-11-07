@@ -1,0 +1,84 @@
+sequenceDiagram
+    autonumber
+    actor User as User / Calling Agent
+    participant Runtime as Antigravity Runtime (agy)
+    participant PreInv as PreInvocation Hook (pre_invocation.py)
+    participant LLM as Frontier Model (Gemini)
+    participant PreTool as PreToolUse Hook (pre_tool_use.py)
+    participant Tool as Tool Engine (run_command, write_to_file, etc.)
+    participant PostTool as PostToolUse Hook (post_tool_use.py)
+    participant Bus as CandidateBus (inbox/candidates.jsonl)
+    participant StopHook as Stop Hook (stop_hook.py)
+    participant MemoryEngine as Memory OS Engine & MemSearch
+
+    Note over User,MemoryEngine: PHASE 1: SESSION START & INITIALIZATION
+    User->>Runtime: Submit Prompt / Start Session
+    critical [REQUIRED | SYNC | NON-BLOCKING] PreInvocation Hook
+        Runtime->>PreInv: JSON {conversationId, workspacePaths} on stdin
+        PreInv->>PreInv: Check session idempotence cache in /tmp/
+        PreInv->>PreInv: Read CURRENT.md (max 1KB) for active objective
+        PreInv-->>Runtime: {"injectSteps": [{"ephemeralMessage": "Antigravity Memory Directive..."}]}
+    end
+
+    Note over User,MemoryEngine: PHASE 2: AGENT INVOCATION & REASONING
+    critical [REQUIRED | SYNC | BLOCKING] Model Invocation
+        Runtime->>LLM: Pass Context + Injected Ephemeral Directive
+        LLM-->>Runtime: Propose Tool Call (e.g. run_command, write_to_file)
+    end
+
+    Note over User,MemoryEngine: PHASE 3: PRE-TOOL SECURITY GATEKEEPING
+    opt Matcher: write_to_file|replace_file_content|run_command|manage_task|notebook_edit
+        critical [REQUIRED | SYNC | BLOCKING] PreToolUse Security Gate
+            Runtime->>PreTool: JSON {toolCall: {name, args}, stepIdx} on stdin
+            PreTool->>PreTool: SHA-256 content hash check in ~/.cache/antigravity/security_cache/
+            alt Cache Hit (Clean)
+                PreTool-->>Runtime: {"decision": "allow"}
+            else Cache Miss -> Scan Execution
+                PreTool->>PreTool: secret_scanner.scan_text(content)
+                alt Secret / Token Detected
+                    PreTool-->>Runtime: {"decision": "deny", "reason": "Security violation: Secret detected..."}
+                    Runtime-->>LLM: Abort Tool Call with Security Deny Error
+                else Content Clean
+                    PreTool->>PreTool: Write cache flag (TTL 86400s)
+                    PreTool-->>Runtime: {"decision": "allow"}
+                end
+            end
+        end
+    end
+
+    Note over User,MemoryEngine: PHASE 4: TOOL OPERATION & EXECUTION
+    critical [REQUIRED | SYNC | BLOCKING] Tool Execution
+        Runtime->>Tool: Execute native / MCP tool command
+        Tool-->>Runtime: Return execution result, exit code, stdout/stderr
+    end
+
+    Note over User,MemoryEngine: PHASE 5: POST-TOOL CAPTURE & STAGING
+    critical [REQUIRED | SYNC | BEST-EFFORT] PostToolUse Audit
+        Runtime->>PostTool: JSON {toolCall, exit_code, output, error, conversationId} on stdin
+        PostTool->>PostTool: Syntax audit (.json load, .py compile)
+        PostTool->>PostTool: Latency guard check (< 25ms internal budget)
+        opt High-Signal Event / Error / Gotcha
+            critical [OPTIONAL | SYNC | BEST-EFFORT] Candidate Experience Capture
+                PostTool->>Bus: CandidateBus.capture_tool_event()
+                Bus->>Bus: Generate deterministic SHA-256 candidate ID
+                Bus->>Bus: Append JSONL record to .agents/memory/inbox/candidates.jsonl
+            end
+        end
+        PostTool-->>Runtime: Return {} on stdout
+    end
+
+    Note over User,MemoryEngine: PHASE 6: TERMINATION & STOP GUARD
+    LLM-->>Runtime: Decision to Stop (terminationReason: "model_stop")
+    critical [REQUIRED | SYNC | BLOCKING] Stop Hook Verification
+        Runtime->>StopHook: JSON {terminationReason, fullyIdle} on stdin
+        StopHook->>StopHook: Verify uncommitted state and background tasks
+        StopHook-->>Runtime: {"decision": "stop"} (or {"decision": "continue"})
+    end
+    Runtime-->>User: Return Completed Response & Artifacts
+
+    Note over User,MemoryEngine: PHASE 7: PERSISTENCE & BACKGROUND INDEXING
+    opt [OPTIONAL | ASYNC | BEST-EFFORT] Memory Consolidation & Vector Update
+        Runtime->>MemoryEngine: Trigger /promote-memory or compact_memory.py
+        MemoryEngine->>MemoryEngine: Normalization & Tier 3 Promotion (DECISIONS.md, GOTCHAS.md)
+        MemoryEngine->>MemoryEngine: Milvus Lite vector indexing (.agents/memory/.memsearch/)
+    end

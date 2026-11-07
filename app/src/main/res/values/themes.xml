@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.AsterCompanion" parent="android:Theme.Material.NoActionBar">
+        <item name="android:statusBarColor">@color/aster_background</item>
+        <item name="android:navigationBarColor">@color/aster_background</item>
+        <item name="android:windowBackground">@color/aster_background</item>
+    </style>
+
+    <style name="Theme.Gauge" parent="Theme.AsterCompanion" />
+</resources>

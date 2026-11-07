@@ -1,0 +1,65 @@
+sequenceDiagram
+    autonumber
+    title Antigravity Memory OS - Dynamic Memory Write Flow
+    
+    actor Agent as Core Agent / Subagent
+    participant Hook as PostToolUse Hook<br/>(scripts/hooks/post_tool_use.py)
+    participant Bus as CandidateBus<br/>(scripts/candidate_bus.py)
+    participant Inbox as Candidate Inbox<br/>(inbox/candidates.jsonl)
+    participant Compiler as MemoryCompiler<br/>(scripts/memory_compiler.py)
+    participant Scanner as SecretScanner<br/>(scripts/secret_scanner.py)
+    participant Reconciler as MemoryReconciler<br/>(scripts/memory_reconciler.py)
+    participant Lock as LockManager<br/>(<file>.lock)
+    participant Canonical as Canonical Markdown<br/>(.agents/memory/*.md)
+    participant WAL as IndexQueue WAL<br/>(index_queue.jsonl)
+    participant Indexer as MemSearch Worker<br/>(scripts/memsearch_backend.py)
+    participant VectorDB as Derived Vector Store<br/>(Milvus Lite + BM25)
+
+    Agent->>Hook: Tool execution completes (stdout, stderr, exit_code)
+    Hook->>Hook: Filter routine noise (ls, echo, pwd) & check signal threshold
+    opt High-signal event or tool failure detected
+        Hook->>Bus: stage_candidate(source, content, context, metadata)
+        Bus->>Bus: Compute deterministic SHA-256 candidate ID
+        Bus->>Inbox: Append candidate record (JSONL)
+    end
+    
+    Note over Compiler: Admission Processing Triggered
+    Compiler->>Inbox: Read staged candidate records
+    
+    loop For each candidate
+        Compiler->>Scanner: Gate 1: Scan for secrets / credentials
+        alt Secret Detected
+            Scanner-->>Compiler: REJECT (Secret finding)
+            Compiler->>Inbox: Quarantine / Discard candidate
+        else Clean
+            Scanner-->>Compiler: Clean
+            Compiler->>Compiler: Gate 2: Evidence Gate (score >= 0.70 threshold)
+            Compiler->>Compiler: Gate 3: Deduplication (SHA-256 & cosine similarity)
+            Compiler->>Compiler: Gate 4: Temporal & Scope Validation
+            Compiler->>Compiler: Gate 5: Type Normalization (9 canonical types)
+            
+            alt Admission Granted
+                Compiler->>Reconciler: promote_candidate(candidate)
+                Reconciler->>Lock: Acquire advisory lock (<file>.lock)
+                Reconciler->>Canonical: Read existing records for scope
+                Reconciler->>Reconciler: Check contradictions & compute supersession lineage
+                opt Contradiction Detected
+                    Reconciler->>Canonical: Mark superseded record (valid_until=now, status=superseded)
+                end
+                Reconciler->>Canonical: Atomic write (tempfile -> os.replace)
+                Reconciler->>Lock: Release advisory lock (<file>.lock)
+                
+                Reconciler->>WAL: Enqueue mutation event (UPSERT, item_id, path)
+            else Admission Rejected
+                Compiler->>Inbox: Mark candidate rejected / log reason
+            end
+        end
+    end
+    
+    Note over Indexer: Asynchronous Derived Index Sync
+    Indexer->>Lock: Acquire index_writer.lease.lock
+    Indexer->>WAL: Read pending mutation entries
+    Indexer->>Indexer: Compute ONNX embeddings (all-MiniLM-L6-v2, 384-d)
+    Indexer->>VectorDB: Upsert vector entity & update BM25 inverted index
+    Indexer->>WAL: Commit WAL cursor & checkpoint index_health.json
+    Indexer->>Lock: Release index_writer.lease.lock

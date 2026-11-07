@@ -1,0 +1,1 @@
+Sources/AsterCompanion/Views/Companion/CompanionStudioView.swift

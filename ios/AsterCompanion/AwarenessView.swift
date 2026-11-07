@@ -1,0 +1,1 @@
+Sources/AsterCompanion/Views/Awareness/AwarenessView.swift

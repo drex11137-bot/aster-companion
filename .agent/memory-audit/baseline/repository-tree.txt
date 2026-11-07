@@ -1,0 +1,233 @@
+.
+├── 2026-09-03.quark.log
+├── 2026-09-04.quark.log
+├── AGENTS.md
+├── Medicine and Dentistry-CCMAS 2023-FINAL.pdf
+├── README.md
+├── RSU_MBBS_Preclinical_Holiday_Master_Plan_INDEPENDENT_FINAL_2026.pdf
+├── booksihave.pdf
+├── docs
+│   ├── FORENSIC_AUDIT_REPORT.md
+│   ├── GAP_ANALYSIS_MATRIX.md
+│   ├── MEMORY_ARCHITECTURE.md
+│   ├── SUBAGENT_MEMORY_HANDOFF.md
+│   ├── architecture.md
+│   ├── audit
+│   │   ├── 01_env_cli_capabilities.md
+│   │   ├── 02_hierarchy_schema_audit.md
+│   │   ├── 03_security_gate_audit.md
+│   │   ├── 04_skills_discoverability_audit.md
+│   │   └── AUDIT_REPORT.md
+│   ├── compatibility-matrix.md
+│   ├── database_mcp_guidelines.md
+│   ├── engineering-environment.md
+│   ├── ios-macos-handoff.md
+│   ├── operations.md
+│   ├── schemas
+│   │   ├── ios-handoff.schema.json
+│   │   └── sample-handoff.json
+│   ├── test_reports
+│   │   ├── 01_multi_repo_isolation.md
+│   │   ├── 02_session_recovery.md
+│   │   ├── 03_context_efficiency.md
+│   │   ├── 04_adversarial_falsification.md
+│   │   ├── 05_core_cli_verification.md
+│   │   ├── 06_native_cpp_verification.md
+│   │   ├── 07_web_frontend_verification.md
+│   │   ├── 08_backend_openapi_verification.md
+│   │   ├── 09_database_mcp_verification.md
+│   │   ├── 10_browser_e2e_verification.md
+│   │   ├── 11_wasm_verification.md
+│   │   ├── 12_android_sdk_verification.md
+│   │   ├── 13_android_re_verification.md
+│   │   ├── 14_binary_analysis_verification.md
+│   │   ├── 15_ghidra_verification.md
+│   │   ├── 16_hexana_verification.md
+│   │   ├── 17_cybersecurity_sast_verification.md
+│   │   ├── 18_supplychain_secrets_verification.md
+│   │   ├── 19_network_analysis_verification.md
+│   │   ├── 20_ios_handoff_verification.md
+│   │   ├── 21_vscode_extensions_verification.md
+│   │   ├── 22_antigravity_platform_verification.md
+│   │   └── 23_adversarial_verification_report.md
+│   └── toolchain-matrix.md
+├── fixtures
+│   ├── android
+│   │   ├── app
+│   │   ├── build.gradle
+│   │   ├── gradle
+│   │   ├── gradle.properties
+│   │   ├── gradlew
+│   │   ├── gradlew.bat
+│   │   ├── local.properties
+│   │   ├── re_test
+│   │   └── settings.gradle
+│   ├── c_native
+│   │   ├── CMakeLists.txt
+│   │   ├── build
+│   │   ├── main.c
+│   │   ├── main_cpp.cpp
+│   │   ├── test_clang
+│   │   ├── test_clang_hardened
+│   │   ├── test_clangpp
+│   │   ├── test_gcc
+│   │   ├── test_gcc_hardened
+│   │   └── test_gpp
+│   ├── database
+│   │   ├── init_schema.sql
+│   │   └── test.db
+│   ├── network
+│   │   ├── generate_sample_pcap.py
+│   │   └── sample.pcap
+│   ├── security
+│   │   ├── openapi.json
+│   │   ├── sample_binary
+│   │   ├── vulnerable_app.py
+│   │   ├── vulnerable_native.c
+│   │   ├── vulnerable_web.js
+│   │   └── yara_rules.yar
+│   ├── wasm
+│   │   ├── add.c
+│   │   ├── add.disassembled.wat
+│   │   ├── add.opt.wasm
+│   │   ├── add.wasm
+│   │   ├── add.wat
+│   │   ├── add_c.o
+│   │   └── add_c.wasm
+│   └── web
+│       ├── e2e_test.js
+│       ├── eslint.config.mjs
+│       ├── index.html
+│       ├── package-lock.json
+│       ├── package.json
+│       ├── pnpm-lock.yaml
+│       ├── server.js
+│       ├── test-results
+│       └── test_screenshot.png
+├── futhercourseoutlinedata.pdf
+├── ghidra_output_test_gcc
+│   ├── ghidra_analysis.log
+│   ├── test_gcc.decompiled.c
+│   └── test_gcc.summary.txt
+├── instruction.md
+├── playwright.config.js
+├── scripts
+│   ├── audit_inventory.py
+│   ├── audit_memory.py
+│   ├── audit_skills.py
+│   ├── backup_memory.py
+│   ├── candidate_bus.py
+│   ├── chrome.sh
+│   ├── compact_memory.py
+│   ├── context_compiler.py
+│   ├── detect_contradictions.py
+│   ├── hooks
+│   │   ├── legacy
+│   │   ├── post_tool_use.py
+│   │   ├── pre_invocation.py
+│   │   ├── pre_tool_use.py
+│   │   ├── stop_guard.py -> stop_hook.py
+│   │   └── stop_hook.py
+│   ├── learning_loop.py
+│   ├── lock_manager.py
+│   ├── memory_benchmark.py
+│   ├── memory_compiler.py
+│   ├── memory_doctor.py
+│   ├── memory_engine.py
+│   ├── memory_feedback.py
+│   ├── memory_index_queue.py
+│   ├── memory_reconciler.py
+│   ├── memsearch_backend.py
+│   ├── procedural_engine.py
+│   ├── query_router.py
+│   ├── search_memory.py
+│   ├── secret_scanner.py
+│   ├── session_manager.py
+│   ├── test_concurrency.py
+│   ├── test_detect_contradictions.py
+│   ├── test_query_router.py
+│   ├── validate_memory.py
+│   ├── verify_subagent_memory.py
+│   └── version_sync.py
+├── skills
+│   ├── memory-audit.md
+│   ├── memory-end.md
+│   ├── memory-promote.md
+│   ├── memory-reorganize.md
+│   ├── memory-search.md
+│   └── memory-start.md
+├── test-results
+├── test_env
+│   ├── project-a
+│   └── project-b
+├── tests
+│   ├── e2e
+│   │   └── web.spec.js
+│   ├── run_all_tests.sh
+│   ├── test_adversarial_attacks.py
+│   ├── test_candidate_bus.py
+│   ├── test_chaos_recovery.py
+│   ├── test_compact_memory.py
+│   ├── test_context_efficiency.py
+│   ├── test_database.py
+│   ├── test_ios_handoff.py
+│   ├── test_isolation.py
+│   ├── test_learning_loop.py
+│   ├── test_lifecycle_hooks.py
+│   ├── test_memory_audit.py
+│   ├── test_memory_compiler.py
+│   ├── test_memory_feedback.py
+│   ├── test_memory_index_queue.py
+│   ├── test_memory_os_adversarial.py
+│   ├── test_memory_reconciler.py
+│   ├── test_memory_search.py
+│   ├── test_memory_system.py
+│   ├── test_negative_fixtures.py
+│   ├── test_procedural_engine.py
+│   ├── test_secret_scanner.py
+│   └── test_session_lifecycle.py
+├── tools
+│   ├── bin
+│   │   ├── agy-agent-doctor
+│   │   ├── agy-android-doctor
+│   │   ├── agy-binary-doctor
+│   │   ├── agy-env-doctor
+│   │   ├── agy-mcp-doctor
+│   │   ├── agy-memory-doctor
+│   │   ├── agy-network-doctor
+│   │   ├── agy-security-doctor
+│   │   ├── agy-wasm-doctor
+│   │   ├── agy-web-doctor
+│   │   ├── android-re-toolcheck
+│   │   ├── codeql-analyze -> ../scripts/codeql-analyze.sh
+│   │   ├── codeql-create-db -> ../scripts/codeql-create-db.sh
+│   │   ├── codeql-verify -> ../scripts/codeql-verify.sh
+│   │   ├── security:scan
+│   │   ├── security:scan-changed
+│   │   ├── security:scan-fast
+│   │   ├── security:scan-full
+│   │   └── semgrep-scan -> ../scripts/semgrep-scan.sh
+│   └── scripts
+│       ├── agy-agent-doctor
+│       ├── agy-android-doctor
+│       ├── agy-binary-doctor
+│       ├── agy-env-doctor
+│       ├── agy-mcp-doctor
+│       ├── agy-network-doctor
+│       ├── agy-security-doctor
+│       ├── agy-wasm-doctor
+│       ├── agy-web-doctor
+│       ├── android-re-toolcheck
+│       ├── codeql-analyze.sh
+│       ├── codeql-create-db.sh
+│       ├── codeql-verify.sh
+│       ├── ghidra-analyze.sh
+│       ├── ghidra_scripts
+│       ├── hexana-analyze.sh
+│       ├── network-toolcheck.sh
+│       ├── pcap-http-report.sh
+│       ├── pcap-summary.sh
+│       └── semgrep-scan.sh
+└── trivy.yaml
+
+33 directories, 198 files

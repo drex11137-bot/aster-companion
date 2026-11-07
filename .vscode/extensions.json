@@ -1,0 +1,27 @@
+{
+  "recommendations": [
+    "Google.google-antigravity",
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "SonarSource.sonarlint-vscode",
+    "Semgrep.semgrep",
+    "GitHub.vscode-codeql",
+    "ms-python.python",
+    "ms-python.vscode-pylance",
+    "ms-python.debugpy",
+    "ms-vscode.cpptools",
+    "ms-vscode.cmake-tools",
+    "vadimcn.vscode-lldb",
+    "ms-azuretools.vscode-docker",
+    "ms-kubernetes-tools.vscode-kubernetes-tools",
+    "github.vscode-github-actions",
+    "github.vscode-pull-request-github",
+    "bradlc.vscode-tailwindcss",
+    "AndroidGradleTools.android-ide-extension",
+    "levkosyk.vscode-android-tools",
+    "Surendrajat.apklab",
+    "JetBrains.hexana-wasm",
+    "redhat.vscode-yaml"
+  ],
+  "unwantedRecommendations": []
+}

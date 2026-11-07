@@ -1,0 +1,20 @@
+# Gitleaks Configuration for Antigravity Engineering Workstation
+# Defines secret detection policies, regex patterns, and allowlists for synthetic test fixtures.
+
+title = "Antigravity Workstation Gitleaks Config"
+
+[allowlist]
+description = "Allowlist for synthetic unit test fixtures, mock data, and test caches"
+paths = [
+  '''(?i)tests/''',
+  '''(?i)fixtures/''',
+  '''(?i)\.pytest_cache/''',
+  '''(?i)__pycache__/''',
+  '''(?i)docs/test_reports/''',
+  '''(?i)docs/schemas/''',
+  '''(?i)node_modules/''',
+  '''(?i)\.gradle/''',
+  '''(?i)dist/''',
+  '''(?i)build/''',
+  '''(?i)\.git/'''
+]

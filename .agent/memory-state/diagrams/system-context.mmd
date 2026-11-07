@@ -1,0 +1,29 @@
+C4Context
+    title Antigravity Memory OS - C4 L1 System Context Diagram
+    
+    Person(developer, "Software Engineer / AI Pair", "Interacts with Antigravity CLI (agy) to write code, debug issues, and manage workstation projects.")
+    
+    Enterprise_Boundary(antigravity_workstation, "Antigravity Engineering Workstation") {
+        System(agy_core, "Antigravity CLI / Core Agent (agy)", "Orchestrates LLM turns, invokes subagents, executes tools, and queries context.")
+        
+        System_Boundary(memory_os_boundary, "Antigravity 8-Tier Memory Operating System") {
+            System(memory_control, "Memory OS Control & Ingestion Pipeline", "Candidate bus, admission gating, bitemporal reconciliation, and context compilation.")
+            SystemDb(canonical_markdown, "Canonical Markdown Storage", "Human-readable source of truth (.agents/memory/*.md, ~/.gemini/.../memory/*.md).")
+            SystemDb(memsearch_substrate, "Derived Retrieval Substrate (MemSearch)", "Milvus Lite + ONNX CPU Embeddings (all-MiniLM-L6-v2) + BM25 Lexical Index.")
+            System(diagnostic_suite, "Memory Doctor & Telemetry Ledger", "Health diagnostics (agy-memory-doctor), MRR/NDCG telemetry, and learning loop.")
+        }
+        
+        System(lifecycle_hooks, "Platform Lifecycle Hooks", "Deterministic triggers: PreInvocation (context reminder), PreToolUse (secret gate), PostToolUse (event capture), Stop (guard).")
+        System(tools_runtime, "Toolchains & Execution Runtimes", "Bash, Git, Node.js, Python, Gradle/Android, Clang/GCC, Reverse Engineering tools.")
+    }
+    
+    Rel(developer, agy_core, "Issues prompts, reviews diffs, instructs tasks")
+    Rel(agy_core, lifecycle_hooks, "Triggers via hooks.json at deterministic lifecycle checkpoints")
+    Rel(lifecycle_hooks, agy_core, "Injects context reminders or blocks sensitive actions (fail-closed)")
+    Rel(agy_core, tools_runtime, "Executes commands and edits workspace files")
+    Rel(lifecycle_hooks, memory_control, "Captures tool experiences and gotchas into CandidateBus")
+    Rel(agy_core, memory_control, "Routes search queries and compiles scoped context into prompt")
+    Rel(memory_control, canonical_markdown, "Reads and writes authoritative Markdown records with file locks")
+    Rel(memory_control, memsearch_substrate, "Synchronizes mutations via Index Queue WAL and queries vectors")
+    Rel(diagnostic_suite, canonical_markdown, "Audits structural integrity, format compliance, and secret hygiene")
+    Rel(diagnostic_suite, memsearch_substrate, "Audits vector sync, index freshness, and drift status")

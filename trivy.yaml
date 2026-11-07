@@ -1,0 +1,24 @@
+# Trivy Configuration for Antigravity Engineering Workstation
+# Defines severity policies, scanners, and ignore rules.
+
+scan:
+  scanners:
+    - vuln
+    - secret
+    - misconfig
+  skip-dirs:
+    - tests
+    - fixtures
+    - .pytest_cache
+    - __pycache__
+    - docs/test_reports
+
+severity:
+  - UNKNOWN
+  - LOW
+  - MEDIUM
+  - HIGH
+  - CRITICAL
+
+vulnerability:
+  ignore-unfixed: false

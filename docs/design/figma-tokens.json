@@ -1,0 +1,78 @@
+{
+  "$schema": "https://design-tokens.github.io/community-group/format/",
+  "name": "Gauge Design Tokens",
+  "version": "1.0.0",
+  "description": "Authoritative design token repository for GAUGE: System Monitor. Strictly audited against banned hex list.",
+  "color": {
+    "ground": {
+      "dark": { "value": "#111318", "type": "color", "description": "Deep Matte Obsidian Slate - Screen Base" },
+      "light": { "value": "#F8F9FA", "type": "color", "description": "Crisp Technical Paper - Light Base" }
+    },
+    "surface": {
+      "dark": { "value": "#1A1C23", "type": "color", "description": "Laboratory Card & Panel Surface" },
+      "darkElevated": { "value": "#232630", "type": "color", "description": "Elevated Dialog & Sheet Surface" },
+      "darkHighlight": { "value": "#2C303D", "type": "color", "description": "Pressed / Active Item Surface" },
+      "light": { "value": "#FFFFFF", "type": "color", "description": "Pure White Card Surface" },
+      "lightElevated": { "value": "#F1F3F5", "type": "color", "description": "Subtle Paper Surface" }
+    },
+    "outline": {
+      "dark": { "value": "#383D4E", "type": "color", "description": "1px High-Contrast Structural Rule" },
+      "darkActive": { "value": "#474D63", "type": "color", "description": "Focused Control Border" },
+      "light": { "value": "#E5E7EB", "type": "color", "description": "Clean Light Border" }
+    },
+    "ink": {
+      "primaryDark": { "value": "#F3F4F6", "type": "color", "description": "Headings, Metrics, Key Telemetry (14.8:1 AAA)" },
+      "secondaryDark": { "value": "#9CA3AF", "type": "color", "description": "Labels, Units, Secondary Text (6.2:1 AA)" },
+      "primaryLight": { "value": "#111827", "type": "color", "description": "Dark Asphalt Charcoal (15.2:1 AAA)" },
+      "secondaryLight": { "value": "#4B5563", "type": "color", "description": "Muted Technical Ink (7.1:1 AAA)" }
+    },
+    "accent": {
+      "primary": { "value": "#06B6D4", "type": "color", "description": "Electric Laboratory Cyan - Primary Action" },
+      "primaryLight": { "value": "#0891B2", "type": "color", "description": "Deep Instrument Cyan" }
+    },
+    "signal": {
+      "normal": { "value": "#10B981", "type": "color", "description": "Telemetry Emerald - Healthy State" },
+      "warning": { "value": "#F59E0B", "type": "color", "description": "Instrument Amber - Throttled / Elevated" },
+      "critical": { "value": "#EF4444", "type": "color", "description": "Precision Red - Critical Threshold" },
+      "power": { "value": "#3B82F6", "type": "color", "description": "Ion Blue - Charging / Active Power" }
+    }
+  },
+  "typography": {
+    "fontFamily": {
+      "ui": { "value": "Inter, system-ui, sans-serif", "type": "fontFamily" },
+      "telemetry": { "value": "ui-monospace, SFMono-Regular, Roboto Mono, monospace", "type": "fontFamily" }
+    },
+    "fontSize": {
+      "display": { "value": "32px", "type": "dimension" },
+      "title": { "value": "20px", "type": "dimension" },
+      "body": { "value": "15px", "type": "dimension" },
+      "label": { "value": "12px", "type": "dimension" },
+      "telemetryLarge": { "value": "28px", "type": "dimension" },
+      "telemetryMedium": { "value": "18px", "type": "dimension" },
+      "telemetrySmall": { "value": "13px", "type": "dimension" }
+    },
+    "letterSpacing": {
+      "tight": { "value": "-0.01em", "type": "dimension" },
+      "normal": { "value": "0em", "type": "dimension" },
+      "monoTracked": { "value": "0.06em", "type": "dimension" }
+    }
+  },
+  "spacing": {
+    "xxs": { "value": "2px", "type": "dimension" },
+    "xs": { "value": "4px", "type": "dimension" },
+    "sm": { "value": "8px", "type": "dimension" },
+    "md": { "value": "16px", "type": "dimension" },
+    "lg": { "value": "24px", "type": "dimension" },
+    "xl": { "value": "32px", "type": "dimension" }
+  },
+  "radius": {
+    "control": { "value": "8px", "type": "dimension" },
+    "card": { "value": "14px", "type": "dimension" },
+    "dialog": { "value": "20px", "type": "dimension" },
+    "pill": { "value": "9999px", "type": "dimension" }
+  },
+  "elevation": {
+    "card": { "value": "0px 2px 6px rgba(0, 0, 0, 0.25)", "type": "shadow" },
+    "dialog": { "value": "0px 12px 28px rgba(0, 0, 0, 0.50)", "type": "shadow" }
+  }
+}

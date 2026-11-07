@@ -1,0 +1,72 @@
+{
+  "mcpServers": {
+    "chrome-devtools": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "chrome-devtools-mcp@latest",
+        "--browserUrl",
+        "http://localhost:9222"
+      ],
+      "description": "Chrome DevTools Protocol MCP server. Connects to Chromium on port 9222. Start first with: bash scripts/chrome.sh --headless OR --gui. Provides DOM inspection, console logs, network, JS execution, screenshots."
+    },
+    "context7": {
+      "command": "npx",
+      "args": ["-y", "@upstash/context7-mcp"],
+      "description": "Context7 live documentation MCP server for framework, API, and library documentation lookups."
+    },
+    "github": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_TOKEN}"
+      },
+      "description": "GitHub MCP server for repository inspection, issues, pull requests, code search, and CI workflow auditing."
+    },
+    "playwright": {
+      "command": "npx",
+      "args": ["-y", "@executeautomation/playwright-mcp-server"],
+      "env": {
+        "DISPLAY": ":99"
+      },
+      "description": "Playwright MCP server for headless browser automation, UI inspection, console logs, and E2E verification."
+    },
+    "sqlite-safe": {
+      "command": "mcp-server-sqlite",
+      "args": ["--db-path", "/workspaces/codespaces-blank/fixtures/database/test.db"],
+      "env": {
+        "DB_READONLY": "true"
+      },
+      "description": "Safe read-only SQLite MCP server for local database schema inspection and queries."
+    },
+    "postgres-safe": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-postgres", "postgresql://readonly_user@localhost:5432/app_db"],
+      "env": {
+        "PGREADONLY": "true"
+      },
+      "description": "Safe read-only PostgreSQL MCP server for database schema inspection and analytical queries."
+    },
+    "hexana": {
+      "command": "hexana-mcp",
+      "args": ["stdio", "--tool-profile=production", "--log-level=quiet"],
+      "description": "JetBrains Hexana WebAssembly and native binary (ELF/PE/Mach-O) inspection, analysis, and disassembly MCP server."
+    },
+    "exa": {
+      "command": "npx",
+      "args": ["-y", "exa-mcp-server"],
+      "env": {
+        "EXA_API_KEY": "${EXA_API_KEY}"
+      },
+      "description": "Exa AI neural web search, semantic documentation retrieval, and content extraction MCP server."
+    },
+    "figma": {
+      "command": "npx",
+      "args": ["-y", "figma-developer-mcp", "--stdio"],
+      "env": {
+        "FIGMA_API_KEY": "${FIGMA_API_KEY}"
+      },
+      "description": "Figma Developer Context MCP server for extracting layout, Auto Layout, styles, typography, design tokens, and image assets."
+    }
+  }
+}

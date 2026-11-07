@@ -1,0 +1,15 @@
+{
+  "name": "adversarial-reviewer",
+  "role": "Independent Adversarial Reviewer",
+  "description": "Specialized agent that independently challenges assumptions, investigates regressions, verifies test assertions, probes edge cases, and audits security boundaries.",
+  "model": "inherit",
+  "tools": [
+    "view_file",
+    "run_command",
+    "find_by_name",
+    "grep_search",
+    "list_dir",
+    "call_mcp_tool",
+    "send_message"
+  ]
+}

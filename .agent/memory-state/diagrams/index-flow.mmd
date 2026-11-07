@@ -1,0 +1,54 @@
+sequenceDiagram
+    autonumber
+    actor Agent as Autonomous Agent / User
+    participant Source as Canonical Markdown Files<br/>(.agents/memory/*.md)
+    participant Hook as Antigravity Lifecycle Hook<br/>(PostToolUse / pre_tool_use)
+    participant Queue as Durable Index Queue<br/>(index_queue.jsonl)
+    participant Lease as Single-Writer Lease<br/>(index_writer.lease.lock)
+    participant Worker as Index Queue Manager<br/>(memory_index_queue.py)
+    participant Backend as MemSearch Adapter<br/>(memsearch_backend.py)
+    participant Engine as MemSearch CLI / ONNX<br/>(bge-m3 1024-dim)
+    participant Milvus as Milvus Lite Vector DB<br/>(~/.memsearch/milvus.db)
+    participant Manifest as Index Manifest<br/>(manifest.json)
+    participant Health as Health State Monitor<br/>(index_health.json)
+
+    Note over Agent,Source: 1. Canonical State Change
+    Agent->>Source: Update memory file (e.g. DECISIONS.md)
+    Source-->>Hook: File modification detected
+    Hook->>Queue: enqueue(source_path, hash, event="upsert")
+    Queue->>Health: Mark status = "STALE" (canonical revision != indexed revision)
+
+    Note over Worker,Lease: 2. Single-Writer Queue Drain
+    Worker->>Lease: Acquire exclusive file lock (timeout=10s)
+    alt Lease Acquired
+        Worker->>Queue: Read pending jobs & execute coalescing
+        Note over Worker,Queue: Deduplicate multiple edits to same path into newest job
+        Worker->>Backend: index(file_path, content)
+        Backend->>Engine: memsearch index <path> --provider onnx
+        Engine->>Engine: Generate 1024-dim dense embedding & BM25 tokens
+        Engine->>Milvus: Upsert chunk_hash, embedding, sparse_vector, metadata
+        alt Milvus Locked / Unavailable
+            Milvus-->>Engine: BlockingIOError / DataDirLockedError
+            Engine-->>Backend: Non-zero exit code
+            Backend->>Backend: Set backend degraded; fallback to lexical search
+            Backend-->>Worker: Return failure (increment attempt counter)
+            alt Attempts >= 3
+                Worker->>Queue: Mark job status = "failed"
+                Worker->>Queue: Append to Dead-Letter Queue (index_dead_letter.jsonl)
+                Worker->>Health: Transition status = "DEGRADED"
+            else Attempts < 3
+                Worker->>Queue: Re-mark job status = "pending" (retry next cycle)
+            end
+        else Milvus Upsert Success
+            Milvus-->>Engine: Chunks indexed successfully
+            Engine-->>Backend: Success code 0
+            Backend->>Manifest: Update indexed_files[path] with content_hash & timestamp
+            Backend-->>Worker: Return success
+            Worker->>Queue: Mark job status = "completed"
+            Worker->>Health: Transition status = "HEALTHY", update indexed_revision
+        end
+        Worker->>Lease: Release single-writer lease lock
+    else Lease Locked by Concurrent Worker
+        Lease-->>Worker: LockTimeout
+        Worker-->>Agent: Abort execution cleanly (prevent vector DB corruption)
+    end

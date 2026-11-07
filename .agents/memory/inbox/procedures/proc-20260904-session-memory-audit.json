@@ -1,0 +1,83 @@
+{
+  "id": "proc-20260904-session-memory-audit",
+  "title": "Episodic Session Lifecycle & Memory Verification",
+  "domain": "memory-governance",
+  "description": "Recurring procedure for validating memory integrity and session lifecycle compliance.",
+  "source_sessions": [
+    "2026-09-01-1546",
+    "2026-09-01-1617"
+  ],
+  "recurrence_count": 2,
+  "confidence": 0.85,
+  "tags": [
+    "memory-governance",
+    "session-lifecycle",
+    "distilled-procedure"
+  ],
+  "status": "CANDIDATE_STAGED",
+  "admitted": false,
+  "admission_policy": "Requires explicit human or gatekeeper policy admission (Invariant 16)",
+  "created_at": "2026-09-04T07:42:32.670132+00:00",
+  "steps": [
+    {
+      "step_number": 1,
+      "step_type": "INFERRED_STEP",
+      "name": "Inspect INDEX.md and Working State",
+      "description": "Verify active working state in .agents/memory/CURRENT.md before session start.",
+      "command": null,
+      "tool": null,
+      "args": {},
+      "cwd": "/workspaces/codespaces-blank",
+      "expected_output": null,
+      "error_pattern": null,
+      "follow_up_correction": null,
+      "verification": null,
+      "is_observed": false
+    },
+    {
+      "step_number": 2,
+      "step_type": "VERIFIED_STEP",
+      "name": "Run Memory Structure Validation",
+      "description": "Execute deterministic memory validator to guarantee structural coherence.",
+      "command": "python3 scripts/validate_memory.py",
+      "tool": null,
+      "args": {},
+      "cwd": "/workspaces/codespaces-blank",
+      "expected_output": null,
+      "error_pattern": null,
+      "follow_up_correction": null,
+      "verification": "Exit code 0 and 'VALIDATION PASSED'",
+      "is_observed": true
+    },
+    {
+      "step_number": 3,
+      "step_type": "RECOMMENDED_STEP",
+      "name": "Recommend Zero-Secret Gatekeeper Audit",
+      "description": "Audit candidate memory entries for zero secrets prior to promotion.",
+      "command": "python3 scripts/secret_scanner.py --dir .agents/memory",
+      "tool": null,
+      "args": {},
+      "cwd": "/workspaces/codespaces-blank",
+      "expected_output": null,
+      "error_pattern": null,
+      "follow_up_correction": null,
+      "verification": "Zero secret violations reported",
+      "is_observed": false
+    },
+    {
+      "step_number": 4,
+      "step_type": "OPTIONAL_STEP",
+      "name": "Optional Memory Compaction",
+      "description": "If CURRENT.md exceeds 30 lines, run compaction routine.",
+      "command": "python3 scripts/compact_memory.py",
+      "tool": null,
+      "args": {},
+      "cwd": "/workspaces/codespaces-blank",
+      "expected_output": null,
+      "error_pattern": null,
+      "follow_up_correction": null,
+      "verification": null,
+      "is_observed": false
+    }
+  ]
+}

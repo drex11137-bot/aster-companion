@@ -1,0 +1,104 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Python: Current File",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${file}",
+      "console": "integratedTerminal",
+      "justMyCode": true,
+      "python": "/home/codespace/.python/current/bin/python3"
+    },
+    {
+      "name": "Python: Run pytest Suite",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "pytest",
+      "args": ["tests", "-v"],
+      "console": "integratedTerminal",
+      "justMyCode": false,
+      "python": "/home/codespace/.python/current/bin/python3"
+    },
+    {
+      "name": "Python: Run Secret Scanner",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/scripts/secret_scanner.py",
+      "args": ["--path", "${workspaceFolder}"],
+      "console": "integratedTerminal",
+      "justMyCode": true,
+      "python": "/home/codespace/.python/current/bin/python3"
+    },
+    {
+      "name": "Python: Attach to Remote",
+      "type": "debugpy",
+      "request": "attach",
+      "connect": {
+        "host": "localhost",
+        "port": 5678
+      },
+      "pathMappings": [
+        {
+          "localRoot": "${workspaceFolder}",
+          "remoteRoot": "${workspaceFolder}"
+        }
+      ]
+    },
+    {
+      "name": "Node.js: Launch Current File",
+      "type": "node",
+      "request": "launch",
+      "program": "${file}",
+      "console": "integratedTerminal",
+      "skipFiles": ["<node_internals>/**"]
+    },
+    {
+      "name": "Node.js: Run Web Fixture E2E Test",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/fixtures/web/e2e_test.js",
+      "cwd": "${workspaceFolder}/fixtures/web",
+      "console": "integratedTerminal",
+      "skipFiles": ["<node_internals>/**"]
+    },
+    {
+      "name": "Node.js: Attach to Process",
+      "type": "node",
+      "request": "attach",
+      "port": 9229,
+      "restart": true,
+      "skipFiles": ["<node_internals>/**"]
+    },
+    {
+      "name": "C/C++: Launch Executable (LLDB)",
+      "type": "lldb",
+      "request": "launch",
+      "name": "C/C++: LLDB Launch",
+      "program": "${command:cmake.launchTargetPath}",
+      "args": [],
+      "cwd": "${workspaceFolder}",
+      "stopOnEntry": false
+    },
+    {
+      "name": "C/C++: Launch Native Fixture (GDB)",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "${workspaceFolder}/fixtures/c_native/build/test_cmake_ninja",
+      "args": [],
+      "stopAtEntry": false,
+      "cwd": "${workspaceFolder}/fixtures/c_native",
+      "environment": [],
+      "externalConsole": false,
+      "MIMode": "gdb",
+      "miDebuggerPath": "/usr/bin/gdb",
+      "setupCommands": [
+        {
+          "description": "Enable pretty-printing for gdb",
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
+        }
+      ]
+    }
+  ]
+}

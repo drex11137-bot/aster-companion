@@ -1,0 +1,152 @@
+{
+  "timestamp": "2026-09-04T12:33:32.128721+00:00",
+  "overall_status": "WARNING",
+  "is_healthy": true,
+  "summary": "WARNING: System operational, but maintenance required (unindexed files, stale index, or backlog).",
+  "predicate_evaluation": {
+    "canonical_valid": true,
+    "no_blocking_security": true,
+    "no_index_corruption": true,
+    "no_schema_corruption": true,
+    "no_contradiction": true,
+    "required_indexes_current": true
+  },
+  "section_105_qa": {
+    "is_canonical_memory_healthy": "YES",
+    "is_index_healthy": "HEALTHY",
+    "is_capture_working": "YES (CandidateBus event staging active)",
+    "is_promotion_working": "YES (/promote-memory available)",
+    "are_candidates_accumulating": "YES (30 staged)",
+    "are_there_unresolved_conflicts": "NO",
+    "is_memsearch_available": "YES (Native CLI & Milvus Lite)",
+    "active_embedding_model": "bge-m3 (ONNX)",
+    "is_index_stale": "NO",
+    "are_any_scopes_leaking": "NO",
+    "are_there_security_findings": "NO (0 findings)"
+  },
+  "dimensions": {
+    "canonical_integrity": {
+      "name": "Canonical Markdown Integrity",
+      "dimension_id": "canonical_integrity",
+      "status": "PASS",
+      "score": 1.0,
+      "summary": "PASS: All 17 canonical files meet schema, line bounds, and indexing requirements.",
+      "metrics": {
+        "total_canonical_files": 17,
+        "unindexed_files_count": 0,
+        "bounds_violations_count": 0,
+        "schema_errors_count": 0,
+        "broken_references_count": 0
+      },
+      "findings": [],
+      "recommendations": []
+    },
+    "secret_hygiene": {
+      "name": "Secret Hygiene",
+      "dimension_id": "secret_hygiene",
+      "status": "PASS",
+      "score": 1.0,
+      "summary": "PASS: Zero secrets detected across 17 files (544 lines). Gitleaks & regex clean.",
+      "metrics": {
+        "gitleaks_status": "AVAILABLE",
+        "gitleaks_findings": 0,
+        "regex_scanner_findings": 0,
+        "scanned_files_count": 17,
+        "scanned_lines_count": 544,
+        "pre_ingestion_blocked_secrets": 0
+      },
+      "findings": [],
+      "recommendations": []
+    },
+    "contradiction_coherence": {
+      "name": "Deduplication & Contradiction Coherence",
+      "dimension_id": "contradiction_coherence",
+      "status": "PASS",
+      "score": 1.0,
+      "summary": "PASS: Zero contradictions, zero unmanaged duplicate facts. Coherence verified (1 superseded records intact).",
+      "metrics": {
+        "active_contradictions_count": 0,
+        "duplicate_facts_count": 0,
+        "superseded_records_count": 1,
+        "total_unique_facts_indexed": 84
+      },
+      "findings": [],
+      "recommendations": []
+    },
+    "vector_index": {
+      "name": "Derived Vector Index Health",
+      "dimension_id": "vector_index",
+      "status": "PASS",
+      "score": 1.0,
+      "summary": "PASS: Derived vector index is HEALTHY (17 chunks synchronized, Milvus & MemSearch ready).",
+      "metrics": {
+        "index_state": "HEALTHY",
+        "canonical_revision": "4a58ed35560a66b2",
+        "indexed_revision": "2026-09-04T12:33:17Z",
+        "last_success": "2026-09-04T12:33:17Z",
+        "last_failure": null,
+        "failed_sources": [],
+        "embedding_provider": "onnx",
+        "embedding_model": "bge-m3 (ONNX)",
+        "schema_version": "1.0.0",
+        "synced_chunks": 17,
+        "stale_chunks": 0,
+        "unindexed_files_count": 0,
+        "total_indexed_files": 17,
+        "milvus_lite_available": true,
+        "memsearch_cli_available": true,
+        "backend_mode": "native",
+        "section_34_notice": ""
+      },
+      "findings": [],
+      "recommendations": []
+    },
+    "ingestion_queue": {
+      "name": "Ingestion Queue & Inbox Backlog",
+      "dimension_id": "ingestion_queue",
+      "status": "WARN",
+      "score": 0.6,
+      "summary": "WARN: High candidate backlog! 30 candidates staged awaiting triage (oldest 0.1h ago).",
+      "metrics": {
+        "inbox_path": "/workspaces/codespaces-blank/.agents/memory/inbox",
+        "total_candidates": 30,
+        "staged_backlog_count": 30,
+        "promoted_count": 0,
+        "rejected_count": 0,
+        "staged_procedures_count": 4,
+        "oldest_backlog_age_hours": 0.1
+      },
+      "findings": [],
+      "recommendations": [
+        "Execute /promote-memory or candidate_bus triage to process staged items."
+      ]
+    },
+    "telemetry_quality": {
+      "name": "Telemetry Quality",
+      "dimension_id": "telemetry_quality",
+      "status": "PASS",
+      "score": 0.96,
+      "summary": "PASS: High retrieval telemetry quality (MRR: 0.95, NDCG@10: 0.96, Recall@5: 1.00, Latency: 6.1ms).",
+      "metrics": {
+        "query_count": 10,
+        "mrr": 0.95,
+        "ndcg_10": 0.963,
+        "recall_1": 0.9,
+        "recall_3": 1.0,
+        "recall_5": 1.0,
+        "recall_10": 1.0,
+        "miss_count": 0,
+        "miss_rate": 0.0,
+        "avg_latency_ms": 6.13,
+        "low_margin_count": 2,
+        "benchmark_timestamp": "2026-09-04T06:42:54.236672+00:00"
+      },
+      "findings": [],
+      "recommendations": []
+    }
+  },
+  "next_inspection_pointer": "INSPECT NEXT: Candidate inbox at .agents/memory/inbox/candidates.jsonl for promotion review.",
+  "remediation_actions": [
+    "Execute /promote-memory or candidate_bus triage to process staged items."
+  ]
+}

@@ -1,0 +1,52 @@
+sequenceDiagram
+    autonumber
+    title Antigravity Memory OS - Comprehensive Crash Recovery, Lease Reclamation & Resiliency
+
+    actor Agent as Restoring Agent / Doctor
+    participant Process as Failing / Crashing Process
+    participant LockMgr as LockManager (fcntl.flock + *.lock)
+    participant AtomicFS as Filesystem (atomic_write + .tmp)
+    participant LeaseMgr as Lease Manager (index_writer.lease)
+    participant Queue as Index Queue (index_queue.jsonl + DLQ)
+    participant Doctor as MemoryDoctor (scripts/memory_doctor.py)
+    participant Substrate as MemSearch Substrate (Milvus Lite + ONNX)
+
+    Note over Process, AtomicFS: Scenario 1: Process Crash During Memory Write (Partial Write Survival)
+    Process->>AtomicFS: atomic_write(filepath, content)
+    AtomicFS->>AtomicFS: Create temp file: filepath.<name>.tmp
+    AtomicFS->>AtomicFS: Write content, flush buffer, execute os.fsync()
+    Note over Process: Sudden SIGKILL / OOM Crash
+    Process--xAtomicFS: Process terminated before os.replace()
+    Note over AtomicFS: Target file remains intact & unmodified. Partial write safely trapped in .tmp file.
+    Doctor->>AtomicFS: recover_and_cleanup(max_age_seconds=3600)
+    AtomicFS->>AtomicFS: Unlink stale orphaned *.tmp files
+
+    Note over Process, LeaseMgr: Scenario 2: Stale Lease Lock Recovery
+    Process->>LockMgr: Acquire lease lock on index_writer.lease.lock
+    Process->>LeaseMgr: Acquire 30-second lease for queue drain
+    Note over Process: Process crashes while job is in PROCESSING status
+    Note over LockMgr: Linux kernel auto-closes fd and releases POSIX flock on process exit
+    Doctor->>LeaseMgr: Subsequent worker detects expired lease & idle lock
+    Doctor->>Queue: Reclaim abandoned PROCESSING jobs; reset to PENDING
+
+    Note over Queue, Substrate: Scenario 3: Failed Indexing & Dead-Letter Queue (DLQ)
+    Queue->>Substrate: Index batch into Milvus Lite
+    alt Indexing Fails (attempts < 3)
+        Substrate-->>Queue: Error logged; job marked PENDING for retry
+    else Indexing Fails 3 Consecutive Attempts (attempts >= 3)
+        Substrate-->>Queue: Job marked FAILED; moved to index_dead_letter.jsonl (DLQ)
+        Note over Queue: Main queue remains healthy; no queue poisoning
+        Doctor->>Queue: requeue_dead_letter(job_id) on repair
+    end
+
+    Note over Doctor, Substrate: Scenario 4: Full Antigravity Restart & Rebuild
+    Agent->>Doctor: Execute agy-memory-doctor --fix
+    Doctor->>Doctor: Audit file budgets (CURRENT.md < 30 lines)
+    Doctor->>Queue: Drain pending index queue with single-writer lease
+    alt Index Corrupted / Missing / Version Mismatch
+        Doctor->>Substrate: Trigger full deterministic rebuild
+        Doctor->>Substrate: Scan canonical Markdown files (.agents/memory/*.md)
+        Doctor->>Substrate: Re-embed content and update manifest
+        Doctor->>Doctor: Update index_health.json status to HEALTHY
+    end
+    Doctor-->>Agent: Verification complete (All 6 dimensions certified PASS)

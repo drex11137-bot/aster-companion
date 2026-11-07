@@ -1,0 +1,642 @@
+{
+  "query": "memory",
+  "total_candidates": 20,
+  "evaluated_at": "2026-09-04T07:42:49.208495+00:00",
+  "model_version": "1.0.0",
+  "schema_version": "1.0.0",
+  "metrics": {
+    "spearman_rho": 0.7699,
+    "kendall_tau": 0.6632,
+    "top1_agreement": true,
+    "top3_jaccard": 1.0,
+    "top5_jaccard": 0.6667,
+    "mean_absolute_rank_displacement": 3.0,
+    "max_promotion": 5,
+    "max_demotion": -8
+  },
+  "regression_warnings": [
+    "[REGRESSION: GOVERNANCE DEMOTION] High-authority fact 'memory.md#L25' demoted by 7 positions (Rank 8 -> 15)."
+  ],
+  "rankings": [
+    {
+      "id": "performance.md#L2",
+      "scope": "policy",
+      "heading": "# Performance & Token Optimization Governance Rule",
+      "file": "/workspaces/codespaces-blank/.agents/rules/performance.md",
+      "baseline_rank": 1,
+      "shadow_rank": 1,
+      "rank_diff": 0,
+      "baseline_score": 0.0158,
+      "shadow_score": 0.847,
+      "features": {
+        "baseline_rrf_score": 1.0,
+        "decay_factor": 1.0,
+        "access_reinforcement": 0.0,
+        "importance": 1.0,
+        "authority": 1.0,
+        "freshness": 0.9405,
+        "stale_penalty": 0.0,
+        "superseded_penalty": 0.0
+      },
+      "contributions": {
+        "baseline_rrf_score": 0.4,
+        "decay_factor": 0.15,
+        "access_reinforcement": 0.0,
+        "importance": 0.1,
+        "authority": 0.15,
+        "freshness": 0.047,
+        "stale_penalty": -0.0,
+        "superseded_penalty": -0.0
+      }
+    },
+    {
+      "id": "memory.md#L38",
+      "scope": "policy",
+      "heading": "## 5. Performance & Token Optimization (Phase 15 Constraints)",
+      "file": "/workspaces/codespaces-blank/.agents/rules/memory.md",
+      "baseline_rank": 2,
+      "shadow_rank": 2,
+      "rank_diff": 0,
+      "baseline_score": 0.0157,
+      "shadow_score": 0.8443,
+      "features": {
+        "baseline_rrf_score": 0.9932,
+        "decay_factor": 1.0,
+        "access_reinforcement": 0.0,
+        "importance": 1.0,
+        "authority": 1.0,
+        "freshness": 0.9405,
+        "stale_penalty": 0.0,
+        "superseded_penalty": 0.0
+      },
+      "contributions": {
+        "baseline_rrf_score": 0.3973,
+        "decay_factor": 0.15,
+        "access_reinforcement": 0.0,
+        "importance": 0.1,
+        "authority": 0.15,
+        "freshness": 0.047,
+        "stale_penalty": -0.0,
+        "superseded_penalty": -0.0
+      }
+    },
+    {
+      "id": "performance.md#L35",
+      "scope": "policy",
+      "heading": "## 5. Automated Compaction & Auditing",
+      "file": "/workspaces/codespaces-blank/.agents/rules/performance.md",
+      "baseline_rank": 3,
+      "shadow_rank": 3,
+      "rank_diff": 0,
+      "baseline_score": 0.0153,
+      "shadow_score": 0.8352,
+      "features": {
+        "baseline_rrf_score": 0.9704,
+        "decay_factor": 1.0,
+        "access_reinforcement": 0.0,
+        "importance": 1.0,
+        "authority": 1.0,
+        "freshness": 0.9405,
+        "stale_penalty": 0.0,
+        "superseded_penalty": 0.0
+      },
+      "contributions": {
+        "baseline_rrf_score": 0.3882,
+        "decay_factor": 0.15,
+        "access_reinforcement": 0.0,
+        "importance": 0.1,
+        "authority": 0.15,
+        "freshness": 0.047,
+        "stale_penalty": -0.0,
+        "superseded_penalty": -0.0
+      }
+    },
+    {
+      "id": "memory.md#L1",
+      "scope": "policy",
+      "heading": "# Antigravity Persistent Memory Governance Rule",
+      "file": "/workspaces/codespaces-blank/.agents/rules/memory.md",
+      "baseline_rank": 4,
+      "shadow_rank": 4,
+      "rank_diff": 0,
+      "baseline_score": 0.0152,
+      "shadow_score": 0.8333,
+      "features": {
+        "baseline_rrf_score": 0.9657,
+        "decay_factor": 1.0,
+        "access_reinforcement": 0.0,
+        "importance": 1.0,
+        "authority": 1.0,
+        "freshness": 0.9405,
+        "stale_penalty": 0.0,
+        "superseded_penalty": 0.0
+      },
+      "contributions": {
+        "baseline_rrf_score": 0.3863,
+        "decay_factor": 0.15,
+        "access_reinforcement": 0.0,
+        "importance": 0.1,
+        "authority": 0.15,
+        "freshness": 0.047,
+        "stale_penalty": -0.0,
+        "superseded_penalty": -0.0
+      }
+    },
+    {
+      "id": "POLICY.md#L13",
+      "scope": "global",
+      "heading": "# Antigravity Memory Policy & Governance Framework",
+      "file": "/home/codespace/.gemini/antigravity-cli/memory/POLICY.md",
+      "baseline_rank": 5,
+      "shadow_rank": 7,
+      "rank_diff": -2,
+      "baseline_score": 0.0149,
+      "shadow_score": 0.8009,
+      "features": {
+        "baseline_rrf_score": 0.947,
+        "decay_factor": 1.0,
+        "access_reinforcement": 0.0,
+        "importance": 0.9,
+        "authority": 0.9,
+        "freshness": 0.941,
+        "stale_penalty": 0.0,
+        "superseded_penalty": 0.0
+      },
+      "contributions": {
+        "baseline_rrf_score": 0.3788,
+        "decay_factor": 0.15,
+        "access_reinforcement": 0.0,
+        "importance": 0.09,
+        "authority": 0.135,
+        "freshness": 0.0471,
+        "stale_penalty": -0.0,
+        "superseded_penalty": -0.0
+      }
+    },
+    {
+      "id": "GOTCHAS.md#L36",
+      "scope": "project",
+      "heading": "## 2026-09-01 \u2014 Gradle Daemon Memory Exhaustion",
+      "file": "/workspaces/codespaces-blank/.agents/memory/GOTCHAS.md",
+      "baseline_rank": 6,
+      "shadow_rank": 13,
+      "rank_diff": -7,
+      "baseline_score": 0.0148,
+      "shadow_score": 0.729,
+      "features": {
+        "baseline_rrf_score": 0.9413,
+        "decay_factor": 0.991,
+        "access_reinforcement": 0.0,
+        "importance": 0.6,
+        "authority": 0.65,
+        "freshness": 0.9265,
+        "stale_penalty": 0.0,
+        "superseded_penalty": 0.0
+      },
+      "contributions": {
+        "baseline_rrf_score": 0.3765,
+        "decay_factor": 0.1487,
+        "access_reinforcement": 0.0,
+        "importance": 0.06,
+        "authority": 0.0975,
+        "freshness": 0.0463,
+        "stale_penalty": -0.0,
+        "superseded_penalty": -0.0
+      }
+    },
+    {
+      "id": "performance.md#L25",
+      "scope": "policy",
+      "heading": "## 3. Strict Deduplication & Pointer Strategy",
+      "file": "/workspaces/codespaces-blank/.agents/rules/performance.md",
+      "baseline_rank": 7,
+      "shadow_rank": 5,
+      "rank_diff": 2,
+      "baseline_score": 0.0147,
+      "shadow_score": 0.8193,
+      "features": {
+        "baseline_rrf_score": 0.9306,
+        "decay_factor": 1.0,
+        "access_reinforcement": 0.0,
+        "importance": 1.0,
+        "authority": 1.0,
+        "freshness": 0.9405,
+        "stale_penalty": 0.0,
+        "superseded_penalty": 0.0
+      },
+      "contributions": {
+        "baseline_rrf_score": 0.3722,
+        "decay_factor": 0.15,
+        "access_reinforcement": 0.0,
+        "importance": 0.1,
+        "authority": 0.15,
+        "freshness": 0.047,
+        "stale_penalty": -0.0,
+        "superseded_penalty": -0.0
+      }
+    },
+    {
+      "id": "memory.md#L25",
+      "scope": "policy",
+      "heading": "## 4. Knowledge Classification (9 Types & Durability 0\u20135)",
+      "file": "/workspaces/codespaces-blank/.agents/rules/memory.md",
+      "baseline_rank": 8,
+      "shadow_rank": 15,
+      "rank_diff": -7,
+      "baseline_score": 0.0144,
+      "shadow_score": 0.7128,
+      "features": {
+        "baseline_rrf_score": 0.9145,
+        "decay_factor": 1.0,
+        "access_reinforcement": 0.0,
+        "importance": 0.0,
+        "authority": 1.0,
+        "freshness": 0.9405,
+        "stale_penalty": 0.0,
+        "superseded_penalty": 0.0
+      },
+      "contributions": {
+        "baseline_rrf_score": 0.3658,
+        "decay_factor": 0.15,
+        "access_reinforcement": 0.0,
+        "importance": 0.0,
+        "authority": 0.15,
+        "freshness": 0.047,
+        "stale_penalty": -0.0,
+        "superseded_penalty": -0.0
+      }
+    },
+    {
+      "id": "INDEX.md#L7",
+      "scope": "project",
+      "heading": "# Project Memory Index",
+      "file": "/workspaces/codespaces-blank/.agents/memory/INDEX.md",
+      "baseline_rank": 9,
+      "shadow_rank": 14,
+      "rank_diff": -5,
+      "baseline_score": 0.0144,
+      "shadow_score": 0.7178,
+      "features": {
+        "baseline_rrf_score": 0.9134,
+        "decay_factor": 0.991,
+        "access_reinforcement": 0.0,
+        "importance": 0.6,
+        "authority": 0.65,
+        "freshness": 0.9265,
+        "stale_penalty": 0.0,
+        "superseded_penalty": 0.0
+      },
+      "contributions": {
+        "baseline_rrf_score": 0.3654,
+        "decay_factor": 0.1487,
+        "access_reinforcement": 0.0,
+        "importance": 0.06,
+        "authority": 0.0975,
+        "freshness": 0.0463,
+        "stale_penalty": -0.0,
+        "superseded_penalty": -0.0
+      }
+    },
+    {
+      "id": "memory.md#L17",
+      "scope": "policy",
+      "heading": "## 3. Authority Hierarchy",
+      "file": "/workspaces/codespaces-blank/.agents/rules/memory.md",
+      "baseline_rank": 10,
+      "shadow_rank": 6,
+      "rank_diff": 4,
+      "baseline_score": 0.0143,
+      "shadow_score": 0.8094,
+      "features": {
+        "baseline_rrf_score": 0.9059,
+        "decay_factor": 1.0,
+        "access_reinforcement": 0.0,
+        "importance": 1.0,
+        "authority": 1.0,
+        "freshness": 0.9405,
+        "stale_penalty": 0.0,
+        "superseded_penalty": 0.0
+      },
+      "contributions": {
+        "baseline_rrf_score": 0.3623,
+        "decay_factor": 0.15,
+        "access_reinforcement": 0.0,
+        "importance": 0.1,
+        "authority": 0.15,
+        "freshness": 0.047,
+        "stale_penalty": -0.0,
+        "superseded_penalty": -0.0
+      }
+    },
+    {
+      "id": "POLICY.md#L1",
+      "scope": "global",
+      "heading": "# Antigravity Memory Policy & Governance Framework",
+      "file": "/home/codespace/.gemini/antigravity-cli/memory/POLICY.md",
+      "baseline_rank": 11,
+      "shadow_rank": 8,
+      "rank_diff": 3,
+      "baseline_score": 0.0141,
+      "shadow_score": 0.7801,
+      "features": {
+        "baseline_rrf_score": 0.8969,
+        "decay_factor": 1.0,
+        "access_reinforcement": 0.0,
+        "importance": 0.9,
+        "authority": 0.9,
+        "freshness": 0.9265,
+        "stale_penalty": 0.0,
+        "superseded_penalty": 0.0
+      },
+      "contributions": {
+        "baseline_rrf_score": 0.3588,
+        "decay_factor": 0.15,
+        "access_reinforcement": 0.0,
+        "importance": 0.09,
+        "authority": 0.135,
+        "freshness": 0.0463,
+        "stale_penalty": -0.0,
+        "superseded_penalty": -0.0
+      }
+    },
+    {
+      "id": "GOTCHAS.md#L14",
+      "scope": "project",
+      "heading": "## 2026-09-01 \u2014 Advisory Memory",
+      "file": "/workspaces/codespaces-blank/.agents/memory/GOTCHAS.md",
+      "baseline_rank": 12,
+      "shadow_rank": 20,
+      "rank_diff": -8,
+      "baseline_score": 0.014,
+      "shadow_score": 0.2615,
+      "features": {
+        "baseline_rrf_score": 0.8892,
+        "decay_factor": 0.3469,
+        "access_reinforcement": 0.0,
+        "importance": 0.6,
+        "authority": 0.65,
+        "freshness": 0.9265,
+        "stale_penalty": 0.0,
+        "superseded_penalty": 1.0
+      },
+      "contributions": {
+        "baseline_rrf_score": 0.3557,
+        "decay_factor": 0.052,
+        "access_reinforcement": 0.0,
+        "importance": 0.06,
+        "authority": 0.0975,
+        "freshness": 0.0463,
+        "stale_penalty": -0.0,
+        "superseded_penalty": -0.35
+      }
+    },
+    {
+      "id": "POLICY.md#L34",
+      "scope": "global",
+      "heading": "## Authority Hierarchy (Source of Truth Rule)",
+      "file": "/home/codespace/.gemini/antigravity-cli/memory/POLICY.md",
+      "baseline_rank": 13,
+      "shadow_rank": 9,
+      "rank_diff": 4,
+      "baseline_score": 0.014,
+      "shadow_score": 0.7775,
+      "features": {
+        "baseline_rrf_score": 0.8887,
+        "decay_factor": 1.0,
+        "access_reinforcement": 0.0,
+        "importance": 0.9,
+        "authority": 0.9,
+        "freshness": 0.941,
+        "stale_penalty": 0.0,
+        "superseded_penalty": 0.0
+      },
+      "contributions": {
+        "baseline_rrf_score": 0.3555,
+        "decay_factor": 0.15,
+        "access_reinforcement": 0.0,
+        "importance": 0.09,
+        "authority": 0.135,
+        "freshness": 0.0471,
+        "stale_penalty": -0.0,
+        "superseded_penalty": -0.0
+      }
+    },
+    {
+      "id": "POLICY.md#L7",
+      "scope": "global",
+      "heading": "# Antigravity Memory Policy & Governance Framework",
+      "file": "/home/codespace/.gemini/antigravity-cli/memory/POLICY.md",
+      "baseline_rank": 14,
+      "shadow_rank": 10,
+      "rank_diff": 4,
+      "baseline_score": 0.0138,
+      "shadow_score": 0.7718,
+      "features": {
+        "baseline_rrf_score": 0.8743,
+        "decay_factor": 1.0,
+        "access_reinforcement": 0.0,
+        "importance": 0.9,
+        "authority": 0.9,
+        "freshness": 0.941,
+        "stale_penalty": 0.0,
+        "superseded_penalty": 0.0
+      },
+      "contributions": {
+        "baseline_rrf_score": 0.3497,
+        "decay_factor": 0.15,
+        "access_reinforcement": 0.0,
+        "importance": 0.09,
+        "authority": 0.135,
+        "freshness": 0.0471,
+        "stale_penalty": -0.0,
+        "superseded_penalty": -0.0
+      }
+    },
+    {
+      "id": "INDEX.md#L1",
+      "scope": "project",
+      "heading": "# Project Memory Index",
+      "file": "/workspaces/codespaces-blank/.agents/memory/INDEX.md",
+      "baseline_rank": 15,
+      "shadow_rank": 16,
+      "rank_diff": -1,
+      "baseline_score": 0.0138,
+      "shadow_score": 0.702,
+      "features": {
+        "baseline_rrf_score": 0.8737,
+        "decay_factor": 0.991,
+        "access_reinforcement": 0.0,
+        "importance": 0.6,
+        "authority": 0.65,
+        "freshness": 0.9265,
+        "stale_penalty": 0.0,
+        "superseded_penalty": 0.0
+      },
+      "contributions": {
+        "baseline_rrf_score": 0.3495,
+        "decay_factor": 0.1487,
+        "access_reinforcement": 0.0,
+        "importance": 0.06,
+        "authority": 0.0975,
+        "freshness": 0.0463,
+        "stale_penalty": -0.0,
+        "superseded_penalty": -0.0
+      }
+    },
+    {
+      "id": "ENVIRONMENT.md#L1",
+      "scope": "global",
+      "heading": "# Global Environment Memory",
+      "file": "/home/codespace/.gemini/antigravity-cli/memory/ENVIRONMENT.md",
+      "baseline_rank": 16,
+      "shadow_rank": 11,
+      "rank_diff": 5,
+      "baseline_score": 0.0136,
+      "shadow_score": 0.7675,
+      "features": {
+        "baseline_rrf_score": 0.86,
+        "decay_factor": 0.9999,
+        "access_reinforcement": 0.0,
+        "importance": 0.9,
+        "authority": 0.9,
+        "freshness": 0.9701,
+        "stale_penalty": 0.0,
+        "superseded_penalty": 0.0
+      },
+      "contributions": {
+        "baseline_rrf_score": 0.344,
+        "decay_factor": 0.15,
+        "access_reinforcement": 0.0,
+        "importance": 0.09,
+        "authority": 0.135,
+        "freshness": 0.0485,
+        "stale_penalty": -0.0,
+        "superseded_penalty": -0.0
+      }
+    },
+    {
+      "id": "DECISIONS.md#ADR-001",
+      "scope": "project",
+      "heading": "## 2026-09-01 \u2014 ADR-001: 5-Tier Memory Architecture",
+      "file": "/workspaces/codespaces-blank/.agents/memory/DECISIONS.md",
+      "baseline_rank": 17,
+      "shadow_rank": 12,
+      "rank_diff": 5,
+      "baseline_score": 0.0134,
+      "shadow_score": 0.7505,
+      "features": {
+        "baseline_rrf_score": 0.8509,
+        "decay_factor": 0.9962,
+        "access_reinforcement": 0.379,
+        "importance": 0.6,
+        "authority": 0.65,
+        "freshness": 0.9265,
+        "stale_penalty": 0.0,
+        "superseded_penalty": 0.0
+      },
+      "contributions": {
+        "baseline_rrf_score": 0.3404,
+        "decay_factor": 0.1494,
+        "access_reinforcement": 0.0569,
+        "importance": 0.06,
+        "authority": 0.0975,
+        "freshness": 0.0463,
+        "stale_penalty": -0.0,
+        "superseded_penalty": -0.0
+      }
+    },
+    {
+      "id": "ARCHITECTURE.md#L21",
+      "scope": "project",
+      "heading": "## Directory Partitioning",
+      "file": "/workspaces/codespaces-blank/.agents/memory/ARCHITECTURE.md",
+      "baseline_rank": 18,
+      "shadow_rank": 17,
+      "rank_diff": 1,
+      "baseline_score": 0.0133,
+      "shadow_score": 0.6932,
+      "features": {
+        "baseline_rrf_score": 0.8423,
+        "decay_factor": 0.9978,
+        "access_reinforcement": 0.0,
+        "importance": 0.6,
+        "authority": 0.65,
+        "freshness": 0.9818,
+        "stale_penalty": 0.0,
+        "superseded_penalty": 0.0
+      },
+      "contributions": {
+        "baseline_rrf_score": 0.3369,
+        "decay_factor": 0.1497,
+        "access_reinforcement": 0.0,
+        "importance": 0.06,
+        "authority": 0.0975,
+        "freshness": 0.0491,
+        "stale_penalty": -0.0,
+        "superseded_penalty": -0.0
+      }
+    },
+    {
+      "id": "ARCHITECTURE.md#L10",
+      "scope": "project",
+      "heading": "## System Overview",
+      "file": "/workspaces/codespaces-blank/.agents/memory/ARCHITECTURE.md",
+      "baseline_rank": 19,
+      "shadow_rank": 18,
+      "rank_diff": 1,
+      "baseline_score": 0.0131,
+      "shadow_score": 0.6888,
+      "features": {
+        "baseline_rrf_score": 0.8312,
+        "decay_factor": 0.9978,
+        "access_reinforcement": 0.0,
+        "importance": 0.6,
+        "authority": 0.65,
+        "freshness": 0.9818,
+        "stale_penalty": 0.0,
+        "superseded_penalty": 0.0
+      },
+      "contributions": {
+        "baseline_rrf_score": 0.3325,
+        "decay_factor": 0.1497,
+        "access_reinforcement": 0.0,
+        "importance": 0.06,
+        "authority": 0.0975,
+        "freshness": 0.0491,
+        "stale_penalty": -0.0,
+        "superseded_penalty": -0.0
+      }
+    },
+    {
+      "id": "ARCHITECTURE.md#L4",
+      "scope": "project",
+      "heading": "## System Overview",
+      "file": "/workspaces/codespaces-blank/.agents/memory/ARCHITECTURE.md",
+      "baseline_rank": 20,
+      "shadow_rank": 19,
+      "rank_diff": 1,
+      "baseline_score": 0.013,
+      "shadow_score": 0.6872,
+      "features": {
+        "baseline_rrf_score": 0.8273,
+        "decay_factor": 0.9978,
+        "access_reinforcement": 0.0,
+        "importance": 0.6,
+        "authority": 0.65,
+        "freshness": 0.9818,
+        "stale_penalty": 0.0,
+        "superseded_penalty": 0.0
+      },
+      "contributions": {
+        "baseline_rrf_score": 0.3309,
+        "decay_factor": 0.1497,
+        "access_reinforcement": 0.0,
+        "importance": 0.06,
+        "authority": 0.0975,
+        "freshness": 0.0491,
+        "stale_penalty": -0.0,
+        "superseded_penalty": -0.0
+      }
+    }
+  ]
+}

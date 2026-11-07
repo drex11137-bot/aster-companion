@@ -1,0 +1,14 @@
+{
+  "schema_version": "1.0.0",
+  "last_updated": "2026-09-03T17:22:11.802930+00:00",
+  "record_count": 1,
+  "records": {
+    "DECISIONS.md#ADR-001": {
+      "access_count": 3,
+      "verified_count": 3,
+      "refuted_count": 0,
+      "first_accessed_at": "2026-09-03T17:22:06.223206+00:00",
+      "last_accessed_at": "2026-09-03T17:22:11.802879+00:00"
+    }
+  }
+}

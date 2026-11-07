@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <group
+        android:scaleX="0.65"
+        android:scaleY="0.65"
+        android:translateX="18.9"
+        android:translateY="18.9">
+        <!-- Outer Track Arc -->
+        <path
+            android:fillColor="#00000000"
+            android:strokeColor="#383D4E"
+            android:strokeWidth="5"
+            android:strokeLineCap="round"
+            android:pathData="M 28 80 A 38 38 0 1 1 80 80" />
+        
+        <!-- Active Cyan Arc -->
+        <path
+            android:fillColor="#00000000"
+            android:strokeColor="#06B6D4"
+            android:strokeWidth="5"
+            android:strokeLineCap="round"
+            android:pathData="M 28 80 A 38 38 0 1 1 78 36" />
+        
+        <!-- Center Hub -->
+        <path
+            android:fillColor="#F3F4F6"
+            android:pathData="M54,54m-6,0a6,6 0,1 1,12 0a6,6 0,1 1,-12 0" />
+
+        <!-- Amber Needle -->
+        <path
+            android:fillColor="#F59E0B"
+            android:pathData="M 52.5,54 L 74,34 L 55.5,54 Z" />
+    </group>
+</vector>

@@ -1,0 +1,17 @@
+{
+  "name": "security-auditor",
+  "role": "Application Security Auditor",
+  "description": "Specialized agent for SAST scanning, semantic CodeQL analysis, secret leakage detection, software supply chain auditing, and defensive vulnerability remediation.",
+  "model": "inherit",
+  "tools": [
+    "view_file",
+    "write_to_file",
+    "replace_file_content",
+    "run_command",
+    "find_by_name",
+    "grep_search",
+    "list_dir",
+    "call_mcp_tool",
+    "send_message"
+  ]
+}

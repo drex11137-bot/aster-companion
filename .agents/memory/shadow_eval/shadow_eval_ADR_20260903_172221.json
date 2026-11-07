@@ -1,0 +1,175 @@
+{
+  "query": "ADR",
+  "total_candidates": 5,
+  "evaluated_at": "2026-09-03T17:22:21.564658+00:00",
+  "model_version": "1.0.0",
+  "schema_version": "1.0.0",
+  "metrics": {
+    "spearman_rho": 0.7,
+    "kendall_tau": 0.6,
+    "top1_agreement": true,
+    "top3_jaccard": 0.5,
+    "top5_jaccard": 1.0,
+    "mean_absolute_rank_displacement": 0.8,
+    "max_promotion": 1,
+    "max_demotion": -2
+  },
+  "regression_warnings": [],
+  "rankings": [
+    {
+      "id": "performance.md#L26",
+      "scope": "policy",
+      "heading": "## 3. Strict Deduplication & Pointer Strategy",
+      "file": "/workspaces/codespaces-blank/.agents/rules/performance.md",
+      "baseline_rank": 1,
+      "shadow_rank": 1,
+      "rank_diff": 0,
+      "baseline_score": 0.0161,
+      "shadow_score": 0.8477,
+      "features": {
+        "baseline_rrf_score": 1.0,
+        "decay_factor": 1.0,
+        "access_reinforcement": 0.0,
+        "importance": 1.0,
+        "authority": 1.0,
+        "freshness": 0.9536,
+        "stale_penalty": 0.0,
+        "superseded_penalty": 0.0
+      },
+      "contributions": {
+        "baseline_rrf_score": 0.4,
+        "decay_factor": 0.15,
+        "access_reinforcement": 0.0,
+        "importance": 0.1,
+        "authority": 0.15,
+        "freshness": 0.0477,
+        "stale_penalty": -0.0,
+        "superseded_penalty": -0.0
+      }
+    },
+    {
+      "id": "DECISIONS.md#ADR-002",
+      "scope": "project",
+      "heading": "## 2026-09-01 \u2014 ADR-002: Dual Skill Entrypoints",
+      "file": "/workspaces/codespaces-blank/.agents/memory/DECISIONS.md",
+      "baseline_rank": 2,
+      "shadow_rank": 4,
+      "rank_diff": -2,
+      "baseline_score": 0.016,
+      "shadow_score": 0.7503,
+      "features": {
+        "baseline_rrf_score": 0.9923,
+        "decay_factor": 0.9926,
+        "access_reinforcement": 0.0,
+        "importance": 0.6,
+        "authority": 0.65,
+        "freshness": 0.9393,
+        "stale_penalty": 0.0,
+        "superseded_penalty": 0.0
+      },
+      "contributions": {
+        "baseline_rrf_score": 0.3969,
+        "decay_factor": 0.1489,
+        "access_reinforcement": 0.0,
+        "importance": 0.06,
+        "authority": 0.0975,
+        "freshness": 0.047,
+        "stale_penalty": -0.0,
+        "superseded_penalty": -0.0
+      }
+    },
+    {
+      "id": "performance.md#L19",
+      "scope": "policy",
+      "heading": "## 2. Line & Byte Budgets",
+      "file": "/workspaces/codespaces-blank/.agents/rules/performance.md",
+      "baseline_rank": 3,
+      "shadow_rank": 2,
+      "rank_diff": 1,
+      "baseline_score": 0.0159,
+      "shadow_score": 0.8413,
+      "features": {
+        "baseline_rrf_score": 0.9841,
+        "decay_factor": 1.0,
+        "access_reinforcement": 0.0,
+        "importance": 1.0,
+        "authority": 1.0,
+        "freshness": 0.9536,
+        "stale_penalty": 0.0,
+        "superseded_penalty": 0.0
+      },
+      "contributions": {
+        "baseline_rrf_score": 0.3936,
+        "decay_factor": 0.15,
+        "access_reinforcement": 0.0,
+        "importance": 0.1,
+        "authority": 0.15,
+        "freshness": 0.0477,
+        "stale_penalty": -0.0,
+        "superseded_penalty": -0.0
+      }
+    },
+    {
+      "id": "DECISIONS.md#ADR-001",
+      "scope": "project",
+      "heading": "## 2026-09-01 \u2014 ADR-001: 5-Tier Memory Architecture",
+      "file": "/workspaces/codespaces-blank/.agents/memory/DECISIONS.md",
+      "baseline_rank": 4,
+      "shadow_rank": 3,
+      "rank_diff": 1,
+      "baseline_score": 0.0158,
+      "shadow_score": 0.8015,
+      "features": {
+        "baseline_rrf_score": 0.9767,
+        "decay_factor": 0.9969,
+        "access_reinforcement": 0.379,
+        "importance": 0.6,
+        "authority": 0.65,
+        "freshness": 0.9393,
+        "stale_penalty": 0.0,
+        "superseded_penalty": 0.0
+      },
+      "contributions": {
+        "baseline_rrf_score": 0.3907,
+        "decay_factor": 0.1495,
+        "access_reinforcement": 0.0569,
+        "importance": 0.06,
+        "authority": 0.0975,
+        "freshness": 0.047,
+        "stale_penalty": -0.0,
+        "superseded_penalty": -0.0
+      }
+    },
+    {
+      "id": "INDEX.md#L8",
+      "scope": "project",
+      "heading": "# Project Memory Index",
+      "file": "/workspaces/codespaces-blank/.agents/memory/INDEX.md",
+      "baseline_rank": 5,
+      "shadow_rank": 5,
+      "rank_diff": 0,
+      "baseline_score": 0.0156,
+      "shadow_score": 0.7409,
+      "features": {
+        "baseline_rrf_score": 0.9687,
+        "decay_factor": 0.9926,
+        "access_reinforcement": 0.0,
+        "importance": 0.6,
+        "authority": 0.65,
+        "freshness": 0.9393,
+        "stale_penalty": 0.0,
+        "superseded_penalty": 0.0
+      },
+      "contributions": {
+        "baseline_rrf_score": 0.3875,
+        "decay_factor": 0.1489,
+        "access_reinforcement": 0.0,
+        "importance": 0.06,
+        "authority": 0.0975,
+        "freshness": 0.047,
+        "stale_penalty": -0.0,
+        "superseded_penalty": -0.0
+      }
+    }
+  ]
+}

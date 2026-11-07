@@ -1,0 +1,252 @@
+{
+  "matrix_name": "Antigravity Memory OS Acceptance Test Matrix",
+  "version": "2.0.0",
+  "specification": "Instruction.md Section 111 (A001-A030)",
+  "timestamp": "2026-11-01T05:21:06.443882+00:00",
+  "total_assertions": 30,
+  "passed": 30,
+  "failed": 0,
+  "pass_rate_percent": 100.0,
+  "assertions": [
+    {
+      "assertion_id": "A001",
+      "status": "PASS",
+      "description": "Canonical Markdown readable without MemSearch",
+      "details": "6/6 canonical files verified readable without dependencies",
+      "duration_ms": 0.39,
+      "timestamp": "2026-11-01T05:21:06.373414+00:00"
+    },
+    {
+      "assertion_id": "A002",
+      "status": "PASS",
+      "description": "Removing semantic index does not destroy canonical memory",
+      "details": "Derived index purged; canonical Markdown remains bitwise intact",
+      "duration_ms": 1.05,
+      "timestamp": "2026-11-01T05:21:06.374508+00:00"
+    },
+    {
+      "assertion_id": "A003",
+      "status": "PASS",
+      "description": "Semantic search retrieves paraphrased queries missed by lexical search",
+      "details": "Semantic rank: 1 vs Lexical rank: 3",
+      "duration_ms": 1.9,
+      "timestamp": "2026-11-01T05:21:06.376454+00:00"
+    },
+    {
+      "assertion_id": "A004",
+      "status": "PASS",
+      "description": "Exact paths/commands retrievable via lexical search",
+      "details": "Top match: Unified Workstation Diagnostic Doctor CLI",
+      "duration_ms": 0.1,
+      "timestamp": "2026-11-01T05:21:06.376621+00:00"
+    },
+    {
+      "assertion_id": "A005",
+      "status": "PASS",
+      "description": "Hybrid retrieval outperforms lexical baseline on evaluation corpus",
+      "details": "Hybrid MRR: 1.0 vs Lexical MRR: 0.859; Hybrid Recall@5: 1.0",
+      "duration_ms": 18.17,
+      "timestamp": "2026-11-01T05:21:06.394832+00:00"
+    },
+    {
+      "assertion_id": "A006",
+      "status": "PASS",
+      "description": "Superseded memory is not returned as current authoritative truth",
+      "details": "Active record present: True, Superseded record excluded: True",
+      "duration_ms": 0.91,
+      "timestamp": "2026-11-01T05:21:06.395798+00:00"
+    },
+    {
+      "assertion_id": "A007",
+      "status": "PASS",
+      "description": "Historical as-of queries recover superseded information",
+      "details": "Historical query recovered: ['mem-004']",
+      "duration_ms": 0.89,
+      "timestamp": "2026-11-01T05:21:06.396724+00:00"
+    },
+    {
+      "assertion_id": "A008",
+      "status": "PASS",
+      "description": "A stale evidence citation reduces trust",
+      "details": "Missing evidence file triggered confidence trust reduction multiplier",
+      "duration_ms": 0.01,
+      "timestamp": "2026-11-01T05:21:06.396772+00:00"
+    },
+    {
+      "assertion_id": "A009",
+      "status": "PASS",
+      "description": "Missing citation prevents automatically promoted high-authority fact",
+      "details": "Gate 2 blocked unevidenced candidate from high-authority promotion",
+      "duration_ms": 0.0,
+      "timestamp": "2026-11-01T05:21:06.396798+00:00"
+    },
+    {
+      "assertion_id": "A010",
+      "status": "PASS",
+      "description": "Candidate memories never appear in authoritative retrieval unless requested",
+      "details": "Excluded from authoritative: True, retrievable when requested: True",
+      "duration_ms": 3.0,
+      "timestamp": "2026-11-01T05:21:06.399812+00:00"
+    },
+    {
+      "assertion_id": "A011",
+      "status": "PASS",
+      "description": "Exact duplicate candidates do not create duplicate durable records",
+      "details": "Exact duplicate candidate correctly evaluated as NOOP",
+      "duration_ms": 0.0,
+      "timestamp": "2026-11-01T05:21:06.399851+00:00"
+    },
+    {
+      "assertion_id": "A012",
+      "status": "PASS",
+      "description": "Semantic duplicate candidates are detected",
+      "details": "Near-neighbor semantic duplicate detected and merged",
+      "duration_ms": 0.0,
+      "timestamp": "2026-11-01T05:21:06.399891+00:00"
+    },
+    {
+      "assertion_id": "A013",
+      "status": "PASS",
+      "description": "True conflicts create a review/reconciliation path",
+      "details": "Contradictory candidate triggered explicit reconciliation lineage",
+      "duration_ms": 0.0,
+      "timestamp": "2026-11-01T05:21:06.399925+00:00"
+    },
+    {
+      "assertion_id": "A014",
+      "status": "PASS",
+      "description": "Scope boundaries prevent project-to-project leakage",
+      "details": "Project A isolation: True, Project B access: True",
+      "duration_ms": 2.45,
+      "timestamp": "2026-11-01T05:21:06.402401+00:00"
+    },
+    {
+      "assertion_id": "A015",
+      "status": "PASS",
+      "description": "Secret-scanning remains enforced",
+      "details": "Credential injection blocked unconditionally at Gate 1",
+      "duration_ms": 0.12,
+      "timestamp": "2026-11-01T05:21:06.402564+00:00"
+    },
+    {
+      "assertion_id": "A016",
+      "status": "PASS",
+      "description": "Automatic capture is idempotent",
+      "details": "Deterministic candidate ID verified: c1a08f1fd4aad83623f5b2280f6e95d56c7c420861fc6962864a06fe88df1024",
+      "duration_ms": 8.88,
+      "timestamp": "2026-11-01T05:21:06.411475+00:00"
+    },
+    {
+      "assertion_id": "A017",
+      "status": "PASS",
+      "description": "Indexing failures do not corrupt canonical memory",
+      "details": "Indexer exception isolated; canonical file bitwise unmodified",
+      "duration_ms": 0.48,
+      "timestamp": "2026-11-01T05:21:06.411996+00:00"
+    },
+    {
+      "assertion_id": "A018",
+      "status": "PASS",
+      "description": "Index failures are observable",
+      "details": "Index health status observed: DEGRADED",
+      "duration_ms": 1.1,
+      "timestamp": "2026-11-01T05:21:06.413132+00:00"
+    },
+    {
+      "assertion_id": "A019",
+      "status": "PASS",
+      "description": "Concurrent indexing is serialized correctly via file locks",
+      "details": "Advisory lock acquired and released cleanly",
+      "duration_ms": 0.31,
+      "timestamp": "2026-11-01T05:21:06.413487+00:00"
+    },
+    {
+      "assertion_id": "A020",
+      "status": "PASS",
+      "description": "Embedding-model changes are detected",
+      "details": "Model shift detected (onnx:gpahal/bge-m3-onnx-int8 -> local:all-MiniLM-L6-v2)",
+      "duration_ms": 0.0,
+      "timestamp": "2026-11-01T05:21:06.413526+00:00"
+    },
+    {
+      "assertion_id": "A021",
+      "status": "PASS",
+      "description": "System can rebuild derived semantic index from canonical memory",
+      "details": "Rebuilt 1 files from canonical storage",
+      "duration_ms": 2.1,
+      "timestamp": "2026-11-01T05:21:06.415656+00:00"
+    },
+    {
+      "assertion_id": "A022",
+      "status": "PASS",
+      "description": "System can operate in lexical fallback mode",
+      "details": "Lexical fallback recalled: Unified Workstation Diagnostic Doctor CLI",
+      "duration_ms": 0.11,
+      "timestamp": "2026-11-01T05:21:06.415809+00:00"
+    },
+    {
+      "assertion_id": "A023",
+      "status": "PASS",
+      "description": "Procedural candidates are not silently installed",
+      "details": "Procedural proposal staged in inbox/procedures for review",
+      "duration_ms": 0.0,
+      "timestamp": "2026-11-01T05:21:06.415845+00:00"
+    },
+    {
+      "assertion_id": "A024",
+      "status": "PASS",
+      "description": "Memory feedback distinguishes invisible from visible-but-unused results",
+      "details": "Telemetry correctly differentiated invisible from visible-but-unused records",
+      "duration_ms": 0.01,
+      "timestamp": "2026-11-01T05:21:06.415882+00:00"
+    },
+    {
+      "assertion_id": "A025",
+      "status": "PASS",
+      "description": "Unknown queries trigger abstention rather than fabricated recall",
+      "details": "Out-of-domain query triggered abstention (returned 0 items)",
+      "duration_ms": 1.62,
+      "timestamp": "2026-11-01T05:21:06.417528+00:00"
+    },
+    {
+      "assertion_id": "A026",
+      "status": "PASS",
+      "description": "Current-state questions verify live state when evidence is mutable",
+      "details": "Live repository verified against mutable memory assertions",
+      "duration_ms": 0.01,
+      "timestamp": "2026-11-01T05:21:06.417582+00:00"
+    },
+    {
+      "assertion_id": "A027",
+      "status": "PASS",
+      "description": "Historical questions retrieve historical memory",
+      "details": "Point-in-time retrieval returned historical state: ['mem-004']",
+      "duration_ms": 1.54,
+      "timestamp": "2026-11-01T05:21:06.419158+00:00"
+    },
+    {
+      "assertion_id": "A028",
+      "status": "PASS",
+      "description": "Final health report has zero contradictory statuses",
+      "details": "Zero contradictory statuses in health evaluation",
+      "duration_ms": 0.01,
+      "timestamp": "2026-11-01T05:21:06.419211+00:00"
+    },
+    {
+      "assertion_id": "A029",
+      "status": "PASS",
+      "description": "The benchmark itself is deterministic where deterministic scoring is possible",
+      "details": "Deterministic score match verified across multiple runs (|\u0394MRR| = 0.0)",
+      "duration_ms": 24.49,
+      "timestamp": "2026-11-01T05:21:06.443731+00:00"
+    },
+    {
+      "assertion_id": "A030",
+      "status": "PASS",
+      "description": "Final implementation is documented for fresh agent architecture reconstruction",
+      "details": "Master documentation present (66 KB across SPEC.md & AGENTS.md)",
+      "duration_ms": 0.05,
+      "timestamp": "2026-11-01T05:21:06.443819+00:00"
+    }
+  ]
+}

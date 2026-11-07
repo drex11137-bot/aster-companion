@@ -1,0 +1,4 @@
+/home/codespace/.local/bin/agy-env-doctor
+/home/codespace/.local/bin/agy-agent-doctor
+/home/codespace/.local/bin/agy-mcp-doctor
+/home/codespace/.local/bin/memsearch

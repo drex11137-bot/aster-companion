@@ -1,0 +1,328 @@
+#!/usr/bin/env python3
+"""
+==============================================================================
+ANTIGRAVITY WEB & FRONTEND DOCTOR (agy-web-doctor)
+Unified Diagnostic CLI for Web, Frontend, Bundlers & Browser Automation Stack
+Conforms to Antigravity Engineering Workstation Standards
+==============================================================================
+"""
+
+import os
+import sys
+import shutil
+import subprocess
+import json
+import argparse
+import glob
+from typing import Dict, List, Any, Optional
+
+GREEN = "\033[92m"
+YELLOW = "\033[93m"
+RED = "\033[91m"
+CYAN = "\033[96m"
+BOLD = "\033[1m"
+RESET = "\033[0m"
+
+WORKSPACE_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "../.."))
+FIXTURE_DIR = os.path.join(WORKSPACE_ROOT, "fixtures/web")
+
+
+def get_command_version(cmd_args: List[str], timeout: int = 5) -> str:
+    try:
+        env = os.environ.copy()
+        env["COREPACK_ENABLE_DOWNLOAD_PROMPT"] = "0"
+        res = subprocess.run(
+            cmd_args,
+            capture_output=True,
+            text=True,
+            timeout=timeout,
+            env=env,
+            cwd=FIXTURE_DIR if os.path.exists(FIXTURE_DIR) else None,
+        )
+        out = (res.stdout.strip() or res.stderr.strip()).split("\n")[0]
+        return out if out else "Available"
+    except Exception as e:
+        return f"Error: {str(e)}"
+
+
+def check_tool(
+    name: str,
+    category: str,
+    binary_name: str,
+    version_args: List[str] = ["--version"],
+    fallback_paths: Optional[List[str]] = None,
+    optional: bool = False,
+) -> Dict[str, Any]:
+    path = shutil.which(binary_name)
+    if not path and fallback_paths:
+        for fb in fallback_paths:
+            expanded = os.path.expanduser(fb)
+            if os.path.exists(expanded) and os.access(expanded, os.X_OK):
+                path = expanded
+                break
+
+    if path and os.path.exists(path):
+        ver = get_command_version([path] + version_args)
+        return {
+            "name": name,
+            "category": category,
+            "binary": binary_name,
+            "status": "PASS",
+            "path": path,
+            "version": ver,
+            "optional": optional,
+        }
+    else:
+        status = "OPTIONAL_MISSING" if optional else "FAIL"
+        return {
+            "name": name,
+            "category": category,
+            "binary": binary_name,
+            "status": status,
+            "path": None,
+            "version": "N/A",
+            "optional": optional,
+        }
+
+
+def check_chromium_browser() -> Dict[str, Any]:
+    # Check ms-playwright cache
+    cache_dirs = [
+        os.path.expanduser("~/.cache/ms-playwright"),
+        "/tmp/.cache/ms-playwright",
+    ]
+    found_bin = None
+    version_str = "N/A"
+
+    for cdir in cache_dirs:
+        if os.path.isdir(cdir):
+            matches = glob.glob(
+                os.path.join(
+                    cdir,
+                    "chromium_headless_shell-*/chrome-headless-shell-linux64/chrome-headless-shell",
+                )
+            ) + glob.glob(
+                os.path.join(cdir, "chromium-*/chrome-linux/chrome")
+            )
+            if matches:
+                found_bin = matches[0]
+                break
+
+    if found_bin and os.path.exists(found_bin):
+        ver_out = get_command_version([found_bin, "--version"])
+        version_str = ver_out if ver_out else "Installed"
+        return {
+            "name": "Playwright Chromium Binary",
+            "category": "Browser",
+            "binary": "chrome-headless-shell",
+            "status": "PASS",
+            "path": found_bin,
+            "version": version_str,
+            "optional": False,
+        }
+    else:
+        return {
+            "name": "Playwright Chromium Binary",
+            "category": "Browser",
+            "binary": "chrome-headless-shell",
+            "status": "WARN",
+            "path": None,
+            "version": "Not downloaded (run: npx playwright install chromium)",
+            "optional": True,
+        }
+
+
+def verify_fixtures(fixture_dir: str = FIXTURE_DIR) -> List[Dict[str, Any]]:
+    checks = [
+        ("Server Script", os.path.join(fixture_dir, "server.js")),
+        ("HTML Template", os.path.join(fixture_dir, "index.html")),
+        ("E2E Test Script", os.path.join(fixture_dir, "e2e_test.js")),
+        ("Package Manifest", os.path.join(fixture_dir, "package.json")),
+        ("ESLint Config", os.path.join(fixture_dir, "eslint.config.mjs")),
+        ("Prettier Config", os.path.join(fixture_dir, ".prettierrc")),
+        ("E2E Screenshot Artifact", os.path.join(fixture_dir, "test_screenshot.png")),
+    ]
+
+    results = []
+    for name, fpath in checks:
+        exists = os.path.exists(fpath)
+        size = os.path.getsize(fpath) if exists else 0
+        status = "PASS" if exists and size > 0 else "FAIL"
+        results.append({
+            "fixture": name,
+            "path": fpath,
+            "status": status,
+            "sizeBytes": size,
+        })
+    return results
+
+
+def run_code_quality_checks(fixture_dir: str = FIXTURE_DIR) -> Dict[str, Any]:
+    results = {}
+    # Run prettier check
+    prettier_bin = os.path.join(fixture_dir, "node_modules/.bin/prettier")
+    if not os.path.exists(prettier_bin):
+        prettier_bin = shutil.which("prettier")
+
+    if prettier_bin:
+        res = subprocess.run(
+            [prettier_bin, "--check", "."],
+            cwd=fixture_dir,
+            capture_output=True,
+            text=True,
+        )
+        results["prettier"] = {
+            "status": "PASS" if res.returncode == 0 else "FAIL",
+            "details": "Formatting compliant" if res.returncode == 0 else res.stderr.strip(),
+        }
+    else:
+        results["prettier"] = {"status": "SKIPPED", "details": "Prettier binary not found"}
+
+    # Run eslint
+    eslint_bin = os.path.join(fixture_dir, "node_modules/.bin/eslint")
+    if not os.path.exists(eslint_bin):
+        eslint_bin = shutil.which("eslint")
+
+    if eslint_bin:
+        res = subprocess.run(
+            [eslint_bin, "server.js", "e2e_test.js"],
+            cwd=fixture_dir,
+            capture_output=True,
+            text=True,
+        )
+        results["eslint"] = {
+            "status": "PASS" if res.returncode == 0 else "FAIL",
+            "details": "Lint clean (0 errors)" if res.returncode == 0 else res.stdout.strip(),
+        }
+    else:
+        results["eslint"] = {"status": "SKIPPED", "details": "ESLint binary not found"}
+
+    return results
+
+
+def main():
+    parser = argparse.ArgumentParser(
+        description="Antigravity Web & Frontend Toolchain Doctor"
+    )
+    parser.add_argument("--json", action="store_true", help="Output diagnostic results as JSON")
+    parser.add_argument("--verify-quality", action="store_true", help="Run ESLint and Prettier validation")
+    args = parser.parse_args()
+
+    local_bin = os.path.join(FIXTURE_DIR, "node_modules/.bin")
+
+    tools_to_check = [
+        # Node & Core Package Managers
+        ("Node.js Runtime", "Runtime", "node", ["--version"], None, False),
+        ("npm Package Manager", "Package", "npm", ["--version"], None, False),
+        ("npx Package Runner", "Package", "npx", ["--version"], None, False),
+        ("pnpm Package Manager", "Package", "pnpm", ["--version"], None, False),
+        ("yarn Package Manager", "Package", "yarn", ["--version"], None, False),
+        ("Corepack Shim Manager", "Package", "corepack", ["--version"], None, False),
+        # Bundler & Build Tooling
+        (
+            "Vite Bundler",
+            "Bundler",
+            "vite",
+            ["--version"],
+            [os.path.join(local_bin, "vite")],
+            False,
+        ),
+        # Code Quality
+        (
+            "ESLint Linter",
+            "Quality",
+            "eslint",
+            ["--version"],
+            [os.path.join(local_bin, "eslint")],
+            False,
+        ),
+        (
+            "Prettier Formatter",
+            "Quality",
+            "prettier",
+            ["--version"],
+            [os.path.join(local_bin, "prettier")],
+            False,
+        ),
+        # Browser Automation
+        (
+            "Playwright CLI",
+            "Testing",
+            "playwright",
+            ["--version"],
+            [
+                "/home/codespace/nvm/current/bin/playwright",
+                os.path.join(local_bin, "playwright"),
+            ],
+            False,
+        ),
+    ]
+
+    tool_results = []
+    for name, cat, bin_name, vargs, fallbacks, opt in tools_to_check:
+        tool_results.append(check_tool(name, cat, bin_name, vargs, fallbacks, opt))
+
+    browser_result = check_chromium_browser()
+    tool_results.append(browser_result)
+
+    fixture_results = verify_fixtures()
+    quality_results = run_code_quality_checks() if args.verify_quality else None
+
+    # Calculate overall status
+    has_failure = any(r["status"] == "FAIL" for r in tool_results) or any(
+        f["status"] == "FAIL" for f in fixture_results
+    )
+    overall_status = "PASS" if not has_failure else "FAIL"
+
+    if args.json:
+        payload = {
+            "doctor": "agy-web-doctor",
+            "status": overall_status,
+            "toolchain": tool_results,
+            "fixtures": fixture_results,
+        }
+        if quality_results:
+            payload["quality"] = quality_results
+        print(json.dumps(payload, indent=2))
+        sys.exit(0 if not has_failure else 1)
+
+    # Human-readable output
+    print(f"\n{BOLD}{CYAN}==================================================================={RESET}")
+    print(f"{BOLD}{CYAN}            ANTIGRAVITY WEB & FRONTEND DOCTOR                      {RESET}")
+    print(f"{BOLD}{CYAN}==================================================================={RESET}\n")
+
+    current_cat = None
+    for res in tool_results:
+        if res["category"] != current_cat:
+            current_cat = res["category"]
+            print(f"{BOLD}* [{current_cat} Subsystem]:{RESET}")
+
+        status_str = f"{GREEN}PASS{RESET}" if res["status"] == "PASS" else (
+            f"{YELLOW}WARN{RESET}" if res["status"] == "WARN" else f"{RED}FAIL{RESET}"
+        )
+        ver_str = f"({res['version']})" if res['version'] != "N/A" else ""
+        print(f"  [{res['name']:<28}] {status_str} {ver_str}")
+
+    print(f"\n{BOLD}* [Web Fixtures & Verification Artifacts]:{RESET}")
+    for fix in fixture_results:
+        fstatus = f"{GREEN}PASS{RESET}" if fix["status"] == "PASS" else f"{RED}FAIL{RESET}"
+        size_str = f"({fix['sizeBytes']} bytes)" if fix['sizeBytes'] > 0 else "(missing)"
+        print(f"  [{fix['fixture']:<28}] {fstatus} {size_str}")
+
+    if quality_results:
+        print(f"\n{BOLD}* [Code Quality Checks]:{RESET}")
+        for qname, qres in quality_results.items():
+            qstatus = f"{GREEN}PASS{RESET}" if qres["status"] == "PASS" else f"{RED}FAIL{RESET}"
+            print(f"  [{qname.upper():<28}] {qstatus} ({qres['details']})")
+
+    print(f"\n{BOLD}{CYAN}==================================================================={RESET}")
+    if not has_failure:
+        print(f"{GREEN}Web & Frontend Doctor inspection complete. All systems operational (100% PASS).{RESET}\n")
+        sys.exit(0)
+    else:
+        print(f"{RED}Web & Frontend Doctor detected issues. Please check failed items above.{RESET}\n")
+        sys.exit(1)
+
+
+if __name__ == "__main__":
+    main()

@@ -1,0 +1,89 @@
+#!/usr/bin/env bash
+# ==============================================================================
+# AGY-SECURITY-DOCTOR: Diagnostic Command for Cybersecurity & SAST Subsystem
+# ==============================================================================
+set -euo pipefail
+
+BOLD='\033[1m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+RED='\033[0;31m'
+CYAN='\033[0;36m'
+NC='\033[0m'
+
+echo -e "\n${BOLD}${CYAN}===================================================================${NC}"
+echo -e "${BOLD}${CYAN}               ANTIGRAVITY CYBERSECURITY DOCTOR                    ${NC}"
+echo -e "${BOLD}${CYAN}===================================================================${NC}\n"
+
+check_sec_tool() {
+    local category="$1"
+    local name="$2"
+    local cmd="$3"
+    local ver_cmd="$4"
+
+    echo -n "  [${category}] ${name}... "
+    if command -v "${cmd}" >/dev/null 2>&1; then
+        local ver
+        ver=$(eval "${ver_cmd}" 2>/dev/null | head -n1 || echo "Available")
+        echo -e "${GREEN}PASS${NC} (${ver})"
+    else
+        echo -e "${YELLOW}UNAVAILABLE${NC}"
+    fi
+}
+
+echo -e "${BOLD}1. Static Application Security Testing (SAST):${NC}"
+check_sec_tool "SAST" "Semgrep Static Analysis" "semgrep" "semgrep --version"
+check_sec_tool "SAST" "CodeQL Semantic Analysis" "codeql" "codeql --version"
+check_sec_tool "SAST" "Bandit Python SAST" "bandit" "bandit --version"
+
+echo -e "\n${BOLD}2. Secrets & Vulnerability Scanners:${NC}"
+check_sec_tool "Secrets" "Gitleaks Scanner" "gitleaks" "gitleaks version"
+check_sec_tool "SCA" "Trivy Vulnerability Scanner" "trivy" "trivy --version"
+check_sec_tool "SCA" "OSV-Scanner Dependency Auditor" "osv-scanner" "osv-scanner --version"
+check_sec_tool "Patterns" "YARA Rule Matcher" "yara" "yara --version"
+check_sec_tool "Binary" "checksec Binary Hardening" "checksec" "checksec --version"
+
+echo -e "\n${BOLD}3. Security Policies & Configurations:${NC}"
+if [ -f ".gitleaks.toml" ]; then
+    echo -e "  [Config] .gitleaks.toml... ${GREEN}PASS${NC} (Present)"
+else
+    echo -e "  [Config] .gitleaks.toml... ${YELLOW}MISSING${NC}"
+fi
+
+if [ -f "trivy.yaml" ]; then
+    echo -e "  [Config] trivy.yaml... ${GREEN}PASS${NC} (Present)"
+else
+    echo -e "  [Config] trivy.yaml... ${YELLOW}MISSING${NC}"
+fi
+
+if [ -f "scripts/secret_scanner.py" ]; then
+    echo -e "  [Engine] In-repo Secret Scanner... ${GREEN}PASS${NC} (scripts/secret_scanner.py)"
+fi
+
+echo -e "\n${BOLD}4. Functional & Fixture Verification:${NC}"
+if command -v gitleaks >/dev/null 2>&1 && [ -d "fixtures/security" ]; then
+    if gitleaks detect --source fixtures/security/ --no-git >/dev/null 2>&1; then
+        echo -e "  [Functional] Gitleaks Fixture Scan... ${GREEN}PASS${NC} (fixtures/security/)"
+    else
+        echo -e "  [Functional] Gitleaks Fixture Scan... ${RED}FAIL${NC}"
+    fi
+fi
+
+if command -v yara >/dev/null 2>&1 && [ -f "fixtures/security/yara_rules.yar" ] && [ -f "fixtures/security/vulnerable_native.c" ]; then
+    if yara fixtures/security/yara_rules.yar fixtures/security/vulnerable_native.c 2>&1 | grep -q "Detect_Insecure_Memory_Functions"; then
+        echo -e "  [Functional] YARA Rule Matching... ${GREEN}PASS${NC} (Detect_Insecure_Memory_Functions)"
+    else
+        echo -e "  [Functional] YARA Rule Matching... ${RED}FAIL${NC}"
+    fi
+fi
+
+if command -v checksec >/dev/null 2>&1 && [ -f "fixtures/security/sample_binary" ]; then
+    if checksec --file=fixtures/security/sample_binary 2>&1 | grep -q "NX disabled"; then
+        echo -e "  [Functional] checksec Mitigations... ${GREEN}PASS${NC} (ELF properties verified)"
+    else
+        echo -e "  [Functional] checksec Mitigations... ${RED}FAIL${NC}"
+    fi
+fi
+
+echo -e "\n${BOLD}${CYAN}===================================================================${NC}"
+echo -e "${GREEN}Cybersecurity Doctor inspection complete.${NC}\n"

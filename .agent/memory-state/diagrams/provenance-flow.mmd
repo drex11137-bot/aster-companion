@@ -1,0 +1,53 @@
+sequenceDiagram
+    autonumber
+    title Antigravity Memory OS - End-to-End Provenance Flow & Audit Lineage
+
+    actor User as User / Developer
+    participant Agent as Antigravity Agent
+    participant Hook as Pre/Post Tool Hooks (scripts/hooks/*.py)
+    participant Bus as CandidateBus (scripts/candidate_bus.py)
+    participant Inbox as Inbox Staging (.agents/memory/inbox/candidates.jsonl)
+    participant Compiler as MemoryCompiler Gatekeeper (scripts/memory_compiler.py)
+    participant Canonical as Canonical Storage (.agents/memory/*.md)
+    participant Substrate as MemSearch Substrate (Milvus Lite + ONNX bge-m3)
+    participant CtxCompiler as ContextCompiler (scripts/context_compiler.py)
+
+    Note over User, Agent: Turn Execution & Operational Event
+    User->>Agent: Prompt / Instruction
+    Agent->>Hook: Tool Invocation (run_command / write_to_file)
+    Hook->>Hook: PreToolUse Security Gate (scan_text for zero secrets)
+    Hook->>Agent: Allow Execution (or fail-closed deny)
+    Agent->>Hook: PostToolUse Hook (exit code, stdout, stderr, cwd)
+
+    Note over Hook, Bus: Experience Capture & Provenance Extraction
+    Hook->>Bus: capture_tool_event(tool, args, output, exit_code, session_id, turn_id)
+    Bus->>Bus: Filter routine noise (ls, echo, status checks)
+    Bus->>Bus: Compute deterministic SHA-256 hashes (content_hash, output_hash)
+    Bus->>Bus: Attach typed provenance (session_id, turn_id, commit, command, timestamp)
+    Bus->>Bus: Scan candidate for secrets via SecretScanner
+    Bus->>Inbox: Stage record to candidates.jsonl (idempotent append under file_lock)
+
+    Note over Inbox, Compiler: 5-Gate Admission & Source Authority Verification
+    Compiler->>Inbox: Read candidate records
+    Compiler->>Compiler: Gate 1: Secret Hygiene Gate (scan_text)
+    Compiler->>Compiler: Gate 2: Durability Threshold Gate (durability >= 3.0)
+    Compiler->>Compiler: Gate 3: Schema Validation Gate (v2.0.0 compliance)
+    Compiler->>Compiler: Gate 4: Source Authority Gate (verify_provenance: path/commit/command)
+    Compiler->>Compiler: Gate 5: Redundancy / Duplication Gate (Jaccard & exact hash)
+
+    Note over Compiler, Canonical: Canonical Promotion & Bitemporality
+    alt All 5 Gates Pass (AdmissionDecision: ACCEPT)
+        Compiler->>Canonical: Atomic write to DECISIONS.md / GOTCHAS.md / ARCHITECTURE.md
+        Note over Canonical: Injects bitemporal comment: id, observed_at, valid_from, supersedes
+        Compiler->>Substrate: Enqueue for semantic vector indexing (single-writer lease)
+    else Gates Fail or Speculative (HOLD / REJECT)
+        Compiler-->>Inbox: Quarantine in inbox or reject to rejected_secrets.jsonl
+    end
+
+    Note over Substrate, CtxCompiler: Retrieval & Trust Verdict Compilation
+    User->>CtxCompiler: Query Context for Subsequent Session
+    CtxCompiler->>Substrate: Hybrid search (RRF: Dense Vector + BM25 Lexical)
+    Substrate-->>CtxCompiler: Retrieved chunks with provenance metadata
+    CtxCompiler->>CtxCompiler: Evaluate Trust Verdict (CERTIFY, ADVISORY, WARN, BLOCK)
+    CtxCompiler->>CtxCompiler: Exclude BLOCK chunks; format progressive disclosure (L1/L2/L3)
+    CtxCompiler-->>Agent: Injected memory context with full provenance citations

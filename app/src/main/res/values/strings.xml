@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Aster Companion</string>
+    <string name="app_descriptor">Cloud-First Multimodal AI Companion</string>
+    <string name="nav_today">Today</string>
+    <string name="nav_chat">Chat</string>
+    <string name="nav_memories">Memories</string>
+    <string name="nav_studio">Studio</string>
+    <string name="notification_channel_name">Aster Awareness Service</string>
+    <string name="notification_channel_desc">Active multimodal screen and audio awareness for Aster Companion</string>
+</resources>

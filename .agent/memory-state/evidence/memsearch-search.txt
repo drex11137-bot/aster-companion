@@ -1,0 +1,210 @@
+ERROR:memsearch_backend:MemSearch CLI search returned non-zero code 1: [0;93m2026-09-04 19:20:21.597980666 [W:onnxruntime:Default, device_discovery.cc:146 GetPciBusId] Skipping pci_bus_id for PCI path at "/sys/devices/LNXSYSTM:00/LNXSYBUS:00/PNP0A03:00/device:07/VMBUS:01/5620e0c7-8062-4dce-aeb7-520c7ef76171" because filename "5620e0c7-8062-4dce-aeb7-520c7ef76171" did not match expected pattern of [0-9a-f]+:[0-9a-f]+:[0-9a-f]+[.][0-9a-f]+[m
+Failed to start MilvusLite server for /home/codespace/.memsearch/milvus.db
+Traceback (most recent call last):
+  File "/workspaces/codespaces-blank/.venv-memsearch/lib/python3.12/site-packages/milvus_lite/db.py", line 954, in _acquire_lock
+    fcntl.flock(fd, fcntl.LOCK_EX | fcntl.LOCK_NB)
+BlockingIOError: [Errno 11] Resource temporarily unavailable
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/workspaces/codespaces-blank/.venv-memsearch/lib/python3.12/site-packages/milvus_lite/server_manager.py", line 61, in start_and_get_uri
+    server, db, port = start_server_in_thread(
+                       ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspaces/codespaces-blank/.venv-memsearch/lib/python3.12/site-packages/milvus_lite/adapter/grpc/server.py", line 93, in start_server_in_thread
+    db = MilvusLite(data_dir)
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/workspaces/codespaces-blank/.venv-memsearch/lib/python3.12/site-packages/milvus_lite/db.py", line 101, in __init__
+    self._acquire_lock()
+  File "/workspaces/codespaces-blank/.venv-memsearch/lib/python3.12/site-packages/milvus_lite/db.py", line 957, in _acquire_lock
+    raise DataDirLockedError(
+milvus_lite.exceptions.DataDirLockedError: another process holds the lock on '/home/codespace/.memsearch/milvus.db': [Errno 11] Resource temporarily unavailable
+Traceback (most recent call last):
+  File "/workspaces/codespaces-blank/.venv-memsearch/lib/python3.12/site-packages/memsearch/store.py", line 91, in __init__
+    self._client = MilvusClient(**connect_kwargs)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspaces/codespaces-blank/.venv-memsearch/lib/python3.12/site-packages/pymilvus/milvus_client/milvus_client.py", line 91, in __init__
+    self._config = ConnectionConfig.from_uri(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspaces/codespaces-blank/.venv-memsearch/lib/python3.12/site-packages/pymilvus/client/connection_manager.py", line 112, in from_uri
+    raise ConnectionConfigException(message="Open local milvus failed")
+pymilvus.exceptions.ConnectionConfigException: <ConnectionConfigException: (code=1, message=Open local milvus failed)>
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/codespace/.local/bin/memsearch", line 10, in <module>
+    sys.exit(cli())
+             ^^^^^
+  File "/workspaces/codespaces-blank/.venv-memsearch/lib/python3.12/site-packages/click/core.py", line 1631, in __call__
+    return self.main(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspaces/codespaces-blank/.venv-memsearch/lib/python3.12/site-packages/memsearch/cli.py", line 184, in main
+    return super().main(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspaces/codespaces-blank/.venv-memsearch/lib/python3.12/site-packages/click/core.py", line 1552, in main
+    rv = self.invoke(ctx)
+         ^^^^^^^^^^^^^^^^
+  File "/workspaces/codespaces-blank/.venv-memsearch/lib/python3.12/site-packages/click/core.py", line 2032, in invoke
+    return _process_result(sub_ctx.command.invoke(sub_ctx))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspaces/codespaces-blank/.venv-memsearch/lib/python3.12/site-packages/click/core.py", line 1415, in invoke
+    return ctx.invoke(self.callback, **ctx.params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspaces/codespaces-blank/.venv-memsearch/lib/python3.12/site-packages/click/core.py", line 910, in invoke
+    return callback(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspaces/codespaces-blank/.venv-memsearch/lib/python3.12/site-packages/memsearch/cli.py", line 366, in search
+    ms = MemSearch(**_cfg_to_memsearch_kwargs(cfg))
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspaces/codespaces-blank/.venv-memsearch/lib/python3.12/site-packages/memsearch/core.py", line 86, in __init__
+    self._store = MilvusStore(
+                  ^^^^^^^^^^^^
+  File "/workspaces/codespaces-blank/.venv-memsearch/lib/python3.12/site-packages/memsearch/store.py", line 94, in __init__
+    raise RuntimeError(_local_open_error_message(exc, resolved, _milvus_lite_major())) from exc
+RuntimeError: Could not open the local Milvus database at /home/codespace/.memsearch/milvus.db: <ConnectionConfigException: (code=1, message=Open local milvus failed)>. This can happen if another process already has the database open, if file permissions are wrong, or if the file is damaged. Close other processes using this database and verify that the path is writable. If the problem continues, preserve the database and inspect the application logs before attempting recovery.
+
+{
+  "status": "success",
+  "query": "CMAKE_BUILD_TYPE",
+  "is_regex": false,
+  "case_sensitive": false,
+  "scopes": [
+    "all"
+  ],
+  "hybrid": true,
+  "files_scanned_count": 29,
+  "total_matches_count": 3,
+  "reranker_applied": true,
+  "results": [
+    {
+      "id": "/workspaces/codespaces-blank/.agents/memory/ARCHITECTURE.md::1",
+      "file": "/workspaces/codespaces-blank/.agents/memory/ARCHITECTURE.md",
+      "filename": "ARCHITECTURE.md",
+      "scope": "project",
+      "heading": "# Project System Architecture",
+      "section_meta": [],
+      "start_line": 1,
+      "end_line": 3,
+      "score": 87.0,
+      "snippet": "# Project System Architecture\nLast Updated: 2026-09-01",
+      "rrf_score": 0.009836,
+      "dense_rank": 1,
+      "lexical_rank": null,
+      "dense_score": 0.2,
+      "lexical_score": 0.009836,
+      "signals": {
+        "source_tier": "REPOSITORY_SOURCE",
+        "source_authority": 0.9,
+        "epistemic_confidence": 0.9,
+        "temporal_status": "ACTIVE",
+        "temporal_penalty": 0.0,
+        "is_superseded": false,
+        "is_stale": false,
+        "superseded_by": null,
+        "truth_score": 0.9,
+        "trust_verdict": "CERTIFY",
+        "raw_lexical_score": 0.009836,
+        "normalized_relevance": 0.6,
+        "rerank_score": 87.0
+      },
+      "source_tier": "REPOSITORY_SOURCE",
+      "source_authority": 0.9,
+      "epistemic_confidence": 0.9,
+      "temporal_status": "ACTIVE",
+      "temporal_penalty": 0.0,
+      "truth_score": 0.9,
+      "trust_verdict": "CERTIFY",
+      "is_superseded": false,
+      "is_stale": false,
+      "normalized_relevance": 0.6,
+      "rerank_score": 87.0
+    },
+    {
+      "id": "/workspaces/codespaces-blank/.agents/memory/ARCHITECTURE.md::170",
+      "file": "/workspaces/codespaces-blank/.agents/memory/ARCHITECTURE.md",
+      "filename": "ARCHITECTURE.md",
+      "scope": "project",
+      "heading": "## 2026-09-04 \u2014 Native Compilation Policy Update",
+      "section_meta": [],
+      "start_line": 170,
+      "end_line": 199,
+      "score": 85.57,
+      "snippet": "## 2026-09-04 \u2014 Native Compilation Policy Update\n**Type:** PROJECT **Scope:** PROJECT **Confidence:** VERIFIED **Source:** live execution **Status:** ACTIVE\n<!-- bitemporal: id=contra_demo_1788523926 observed_at=2026-09-04T12:13:29.154585+00:00 recorded_at=2026-09-04T12:13:29.154593+00:00 valid_from=2026-09-04 valid_until=None supersedes=c07744e8eb5809aeafa04f3b0f110745f327a3db9c17ecc36480d8ec038f0089 -->\n### What\nGCC 13 and Clang 18 builds must use CMAKE_BUILD_TYPE=RelWithDebInfo to balance stack symbols and performance.\n### Why\nIdentified and verified in active workflow.\n\n### Evidence\nPerformance profiling run in docs/operations.md\n\n### Notes\nSupersedes c07744e8eb5809aeafa04f3b0f110745f327a3db9c17ecc36480d8ec038f0089.\n\n- [2026-09-04] [PROJECT] (Durability 3): Updated `/workspaces/codespaces-blank/scripts/memsearch_backend.py`: Increase index subprocess timeout from 30s to 60s for CPU ONNX embeddings\n\n- [2026-09-04] [PROJECT] (Durability 3): Updated `/workspaces/codespaces-blank/scripts/run_section128_demo.py`: Optimize queue drain and rebuild target in run_section128_demo.py\n\n- [2026-09-04] [PROJECT] (Durability 3): Updated `/workspaces/codespaces-blank/scripts/run_section128_demo.py`: Rebuild target path in run_section128_demo.py Step 14\n\n- [2026-09-04] [PROJECT] (Durability 3): Updated `/workspaces/codespaces-blank/scripts/run_section128_demo.py`: Use parse_memory_file and compile_chunks in Step 7\n\n- [2026-09-04] [PROJECT] (Durability 3): Updated `/workspaces/codespaces-blank/scripts/run_section128_demo.py`: Fix Step 18 record_event arguments and Step 19 drain in run_section128_demo.py\n\n- [2026-09-04] [PROJECT] (Durability 3): Updated `/workspaces/codespaces-blank/scripts/run_section128_demo.py`: Fix Step 18 query_id check and Step 19 empty status check\n\n- [2026-09-04] [PROJECT] (Durability 3): Updated `/workspaces/codespaces-blank/.agent/memory-audit/FINAL_AUDIT.md`: Create authoritative FINAL_AUDIT.md per Section 123\n\n- [2026-09-04] [PROJECT] (Durability 3): Updated `/workspaces/codespaces-blank/.agent/memory-audit/COMPONENT_MATRIX.md`: Create authoritative COMPONENT_MATRIX.md per Section 8 and Section 122",
+      "rrf_score": 0.006452,
+      "dense_rank": null,
+      "lexical_rank": 2,
+      "dense_score": null,
+      "lexical_score": 0.006452,
+      "signals": {
+        "source_tier": "REPOSITORY_SOURCE",
+        "source_authority": 0.9,
+        "epistemic_confidence": 1.0,
+        "temporal_status": "ACTIVE",
+        "temporal_penalty": 0.0,
+        "is_superseded": false,
+        "is_stale": false,
+        "superseded_by": null,
+        "truth_score": 0.94,
+        "trust_verdict": "CERTIFY",
+        "raw_lexical_score": 0.006452,
+        "normalized_relevance": 0.3936,
+        "rerank_score": 85.57
+      },
+      "source_tier": "REPOSITORY_SOURCE",
+      "source_authority": 0.9,
+      "epistemic_confidence": 1.0,
+      "temporal_status": "ACTIVE",
+      "temporal_penalty": 0.0,
+      "truth_score": 0.94,
+      "trust_verdict": "CERTIFY",
+      "is_superseded": false,
+      "is_stale": false,
+      "normalized_relevance": 0.3936,
+      "rerank_score": 85.57
+    },
+    {
+      "id": "/workspaces/codespaces-blank/.agents/memory/ARCHITECTURE.md::159",
+      "file": "/workspaces/codespaces-blank/.agents/memory/ARCHITECTURE.md",
+      "filename": "ARCHITECTURE.md",
+      "scope": "project",
+      "heading": "## 2026-09-04 \u2014 Observation: GCC 13 and Clang 18 toolchains require explicit",
+      "section_meta": [],
+      "start_line": 159,
+      "end_line": 169,
+      "score": 84.83,
+      "snippet": "## 2026-09-04 \u2014 Observation: GCC 13 and Clang 18 toolchains require explicit\n**Type:** PROJECT **Scope:** PROJECT **Confidence:** 0.95 **Source:** cmake_execution **Status:** ACTIVE\n<!-- bitemporal: id=aa305eb1014713864f00c1cceacb0d6095050820f018f596a94241cb70f073b8 observed_at=2026-09-04T12:09:09.638267+00:00 recorded_at=2026-09-04T12:09:10Z valid_from=2026-09-04 valid_until=None supersedes= -->\n### What\nObservation: GCC 13 and Clang 18 toolchains require explicit CMAKE_BUILD_TYPE=Debug for native stack traces. (Verified with Ninja build logs)\n### Why\nIdentified and verified in active workflow.\n\n### Evidence\nCommand: cmake -B build -G Ninja",
+      "rrf_score": 0.006557,
+      "dense_rank": null,
+      "lexical_rank": 1,
+      "dense_score": null,
+      "lexical_score": 0.006557,
+      "signals": {
+        "source_tier": "REPOSITORY_SOURCE",
+        "source_authority": 0.9,
+        "epistemic_confidence": 0.95,
+        "temporal_status": "ACTIVE",
+        "temporal_penalty": 0.0,
+        "is_superseded": false,
+        "is_stale": false,
+        "superseded_by": null,
+        "truth_score": 0.92,
+        "trust_verdict": "CERTIFY",
+        "raw_lexical_score": 0.006557,
+        "normalized_relevance": 0.4,
+        "rerank_score": 84.83
+      },
+      "source_tier": "REPOSITORY_SOURCE",
+      "source_authority": 0.9,
+      "epistemic_confidence": 0.95,
+      "temporal_status": "ACTIVE",
+      "temporal_penalty": 0.0,
+      "truth_score": 0.92,
+      "trust_verdict": "CERTIFY",
+      "is_superseded": false,
+      "is_stale": false,
+      "normalized_relevance": 0.4,
+      "rerank_score": 84.83
+    }
+  ]
+}

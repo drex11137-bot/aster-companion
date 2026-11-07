@@ -1,0 +1,79 @@
+flowchart TD
+    subgraph S1["1. Query Ingestion & Analysis"]
+        Q["User or Agent Prompt"] --> QR["query_router.py: QueryRouter"]
+        QR --> INT["classify_intent()<br/>(present-state, historical, procedural, debugging, why/rationale)"]
+        QR --> SCP["determine_scope()<br/>(project, global, tool, domain, multi-scope fanout)"]
+        QR --> EXP["expand_query()<br/>(abbreviations, technical synonyms, component hints)"]
+    end
+
+    subgraph S2["2. Dual Retrieval Substrates"]
+        EXP --> SRCH["search_memory.py: run_memory_search()"]
+        SRCH --> DISC["discover_memory_files(scopes)"]
+
+        DISC --> PATH_DENSE["Dense Semantic Path<br/>(MemSearchBackend)"]
+        DISC --> PATH_LEX["Lexical Path<br/>(extract_section_snippets)"]
+
+        subgraph S2A["Dense Substrate"]
+            PATH_DENSE --> ONNX["Local ONNX Runtime<br/>(bge-m3, 1024-dim CPU)"]
+            ONNX --> MILVUS["Milvus Lite Vector DB<br/>(~/.memsearch/milvus.db)"]
+            MILVUS --> DENSE_RES["Dense Candidates<br/>(cosine similarity score)"]
+        end
+
+        subgraph S2B["Lexical Substrate"]
+            PATH_LEX --> TOKEN["Regex / Token Boundary Matcher"]
+            TOKEN --> HEADING["Heading-Weighted & Meta Scorer"]
+            HEADING --> LEX_RES["Lexical Candidates<br/>(term frequency & phrase bonus)"]
+        end
+    end
+
+    subgraph S3["3. Rank Fusion & Alignment"]
+        DENSE_RES --> RRF["Reciprocal Rank Fusion (RRF)<br/>k=60, w_dense=0.6, w_lex=0.4<br/>Score = w_d/(60+r_d) + w_l/(60+r_l)"]
+        LEX_RES --> RRF
+        RRF --> FUSED["Fused Memory Candidates"]
+    end
+
+    subgraph S4["4. Evidence Reranking & Trust Verification"]
+        FUSED --> RERANK["evidence_reranker.py: EvidenceReranker"]
+        
+        RERANK --> SIGNALS["Signal Extraction:<br/>- Source Authority (0.2 - 1.0)<br/>- Epistemic Confidence (0.2 - 1.0)<br/>- Temporal Status (ACTIVE / STALE / SUPERSEDED)"]
+        
+        SIGNALS --> TRUTH["Truth Score vs Relevance Score<br/>'Retrieval Similarity != Proof of Truth'<br/>Disjoint Score Tiers (Tier 4 to Tier 0)"]
+        
+        TRUTH --> VERDICT["Trust Verdict Assignment:<br/>CERTIFY, ADVISORY, WARN, BLOCK"]
+    end
+
+    subgraph S5["5. Gatekeeping & Context Compilation"]
+        VERDICT --> COMP["context_compiler.py: ContextCompiler"]
+
+        COMP --> SEC_SCAN["Secret Scanner & PreToolUse Gate<br/>Zero-Secrets Policy Check"]
+        SEC_SCAN --> INJ_CHECK["SEC-004 Prompt Injection Check<br/>(Block Jailbreaks / Overrides)"]
+
+        INJ_CHECK --> ABSTAIN_CHECK{"Trustworthy Memory<br/>Above Threshold<br/>(>= 0.40)?"}
+        
+        ABSTAIN_CHECK -- "No / Superseded Only" --> ABSTAIN_OUT["Explicit Abstention<br/>'No sufficiently trustworthy memory found'"]
+        
+        ABSTAIN_CHECK -- "Yes" --> BUDGET["Token Budget Manager<br/>(e.g., 300t, 500t, 1500t)"]
+
+        BUDGET --> PROG_DISC["Progressive Disclosure Engine"]
+        PROG_DISC --> L1["L1: Compact Summary (< 200 chars)"]
+        PROG_DISC --> L2["L2: Canonical Markdown Context Pack"]
+        PROG_DISC --> L3["L3: Deep Provenance Pointer (Git SHA, URI)"]
+        PROG_DISC --> AUTO["AUTO: Adaptive Degradation (L2 -> L1)"]
+
+        AUTO --> SEC_FENCE["SEC-005 Code-Fence Breakout Defense<br/>(Quad Backtick ````markdown Wrapping)"]
+        SEC_FENCE --> FINAL_CTX["Final Safe Context Package"]
+    end
+
+    subgraph S6["6. Feedback & Continuous Learning Loop"]
+        FINAL_CTX --> AGENT["Agent Action & Working Memory<br/>(CURRENT.md / Context Window)"]
+        
+        AGENT --> TELEM["memory_feedback.py: FeedbackLedger<br/>retrieval_ledger.jsonl"]
+        TELEM --> SIGNALS_TRACK["Track: was_visible, used_in_action,<br/>helpful, wrong, stale, prevented_error"]
+        
+        SIGNALS_TRACK --> METRICS["Metrics: MRR, NDCG@10, False Recall Rate"]
+        
+        TELEM --> SHADOW["learning_loop.py: ShadowRanker"]
+        SHADOW --> DECAY["Half-Life Decay Curve (Ebbinghaus)<br/>+ Governance Exemption (Policy = Immortal)"]
+        SHADOW --> ACCESS["Access & Verification Reinforcement<br/>(Bounded Saturation via tanh/log)"]
+        SHADOW --> GATE["Benchmark Gate (6 Criteria)<br/>Strict Shadow Isolation (No Live Mutation)"]
+    end

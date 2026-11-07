@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0.0",
+  "model_version": "1.0.0",
+  "training_corpus_version": "2026.09.03",
+  "created_at": "2026-09-03T17:21:43.723366+00:00",
+  "updated_at": "2026-11-07T15:00:04.358057+00:00",
+  "feature_order": [
+    "baseline_rrf_score",
+    "decay_factor",
+    "access_reinforcement",
+    "importance",
+    "authority",
+    "freshness",
+    "stale_penalty",
+    "superseded_penalty"
+  ],
+  "weights": {
+    "baseline_rrf_score": 0.4,
+    "decay_factor": 0.15,
+    "access_reinforcement": 0.15,
+    "importance": 0.1,
+    "authority": 0.15,
+    "freshness": 0.05,
+    "stale_penalty": -0.25,
+    "superseded_penalty": -0.35
+  },
+  "benchmark_passed": true,
+  "benchmark_score": 1.0,
+  "benchmark_timestamp": "2026-11-07T15:00:04.357779+00:00",
+  "description": "Antigravity shadow ranking model"
+}

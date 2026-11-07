@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+# ==============================================================================
+# ANDROID-RE-TOOLCHECK: Android Reverse Engineering Status Checker
+# Location: tools/scripts/android-re-toolcheck
+# Conforms to instruction.md Section 10.
+# Reports: ADB APKTOOL JADX APKSIGNER ZIPALIGN SMALI BAKSMALI FRIDA FRIDA-PS FRIDA-TRACE
+# ==============================================================================
+
+set -euo pipefail
+
+check_tool() {
+    local name="$1"
+    local cmd="$2"
+    if command -v "${cmd}" >/dev/null 2>&1; then
+        echo -e "${name}: AVAILABLE ($(command -v "${cmd}"))"
+    else
+        echo -e "${name}: UNAVAILABLE"
+    fi
+}
+
+echo "=== ANDROID REVERSE ENGINEERING TOOLCHECK ==="
+check_tool "ADB" "adb"
+check_tool "APKTOOL" "apktool"
+check_tool "JADX" "jadx"
+check_tool "APKSIGNER" "apksigner"
+check_tool "ZIPALIGN" "zipalign"
+check_tool "SMALI" "smali"
+check_tool "BAKSMALI" "baksmali"
+check_tool "FRIDA" "frida"
+check_tool "FRIDA-PS" "frida-ps"
+check_tool "FRIDA-TRACE" "frida-trace"

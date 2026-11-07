@@ -1,0 +1,24 @@
+# VCS
+.git/
+.svn/
+.hg/
+
+# Dependencies & Build Artifacts
+node_modules/
+.venv/
+venv/
+env/
+dist/
+build/
+out/
+target/
+.pytest_cache/
+.scannerwork/
+.codeql/
+*.tar.gz
+*.tar.zst
+
+# IDE & OS
+.vscode/
+.idea/
+.DS_Store

@@ -1,0 +1,278 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "version": "1.0.0",
+  "generated_at": "2026-09-04T19:10:35Z",
+  "auditor": "Agent 7: Antigravity Runtime & Hooks Auditor",
+  "evidence_classification": "OBSERVED_EXECUTION",
+  "precedence_hierarchy": [
+    {
+      "rank": 1,
+      "level": "built-in defaults",
+      "description": "Hardcoded fallbacks inside Antigravity binary, runtime libraries, and hook scripts (e.g., default timeout 30s, default cache TTL 86400s, default budget 25ms)."
+    },
+    {
+      "rank": 2,
+      "level": "global config",
+      "description": "Machine-local settings in ~/.gemini/antigravity-cli/ (settings.json, mcp_config.json, hooks.json, GEMINI.md)."
+    },
+    {
+      "rank": 3,
+      "level": "project config",
+      "description": "Workspace-scoped configuration checked into VCS in /workspaces/codespaces-blank/.agents/ (hooks.json, mcp_config.json, rules/*.md, skills/, agents/, memory/)."
+    },
+    {
+      "rank": 4,
+      "level": "environment variables",
+      "description": "Process and OS environment variables overriding file configurations (e.g. ANTIGRAVITY_*, DB_READONLY, PGREADONLY, DISPLAY, GITHUB_TOKEN)."
+    },
+    {
+      "rank": 5,
+      "level": "CLI overrides",
+      "description": "Runtime command-line flags passed during agent or tool invocation (e.g. agy --model ..., tools/bin/agy-memory-doctor --fix)."
+    }
+  ],
+  "configuration_settings": [
+    {
+      "name": "model",
+      "default": "auto",
+      "effective_value": "Gemini 3.8 Flash (High)",
+      "source": "/home/codespace/.gemini/antigravity-cli/settings.json",
+      "consumer": "Antigravity CLI Agent Runtime",
+      "security_implications": "Determines model capability, reasoning depth, and context window limits.",
+      "secret_status": "PRESENT"
+    },
+    {
+      "name": "toolPermission",
+      "default": "ask",
+      "effective_value": "always-proceed",
+      "source": "/home/codespace/.gemini/antigravity-cli/settings.json",
+      "consumer": "Tool Execution Engine",
+      "security_implications": "Bypasses interactive prompt for allowed commands; security enforcement relies entirely on PreToolUse hook.",
+      "secret_status": "PRESENT"
+    },
+    {
+      "name": "allowNonWorkspaceAccess",
+      "default": false,
+      "effective_value": true,
+      "source": "/home/codespace/.gemini/antigravity-cli/settings.json",
+      "consumer": "File & Command Execution Boundaries",
+      "security_implications": "Permits reading and tool interaction outside workspace (e.g. /home/codespace/.gemini, /usr).",
+      "secret_status": "PRESENT"
+    },
+    {
+      "name": "trustedWorkspaces",
+      "default": [],
+      "effective_value": [
+        "/workspaces/codespaces-blank",
+        "/usr"
+      ],
+      "source": "/home/codespace/.gemini/antigravity-cli/settings.json",
+      "consumer": "Workspace Trust Manager",
+      "security_implications": "Grants execution privileges within designated path trees.",
+      "secret_status": "PRESENT"
+    },
+    {
+      "name": "artifactReviewPolicy",
+      "default": "always-review",
+      "effective_value": "agent-decides",
+      "source": "/home/codespace/.gemini/antigravity-cli/settings.json",
+      "consumer": "Artifact Delivery Pipeline",
+      "security_implications": "Allows agent autonomy in determining user-facing artifact presentation.",
+      "secret_status": "PRESENT"
+    },
+    {
+      "name": "ANTIGRAVITY_CACHE_TTL",
+      "default": 86400,
+      "effective_value": 86400,
+      "source": "scripts/hooks/pre_tool_use.py fallback to os.environ.get",
+      "consumer": "PreToolUse Security Gatekeeper",
+      "security_implications": "Governs duration (seconds) of SHA-256 clean scan cache before re-scanning is forced.",
+      "secret_status": "ABSENT"
+    },
+    {
+      "name": "ANTIGRAVITY_CANDIDATES_FILE",
+      "default": "/workspaces/codespaces-blank/.agents/memory/inbox/candidates.jsonl",
+      "effective_value": "/workspaces/codespaces-blank/.agents/memory/inbox/candidates.jsonl",
+      "source": "candidate_bus.py & scripts/hooks/post_tool_use.py fallback",
+      "consumer": "CandidateBus & PostToolUse Hook",
+      "security_implications": "Destination for captured high-signal events and gotchas.",
+      "secret_status": "ABSENT"
+    },
+    {
+      "name": "DB_READONLY",
+      "default": "false",
+      "effective_value": "true",
+      "source": ".agents/mcp_config.json (sqlite-safe)",
+      "consumer": "sqlite-safe MCP Server",
+      "security_implications": "Strictly prevents SQLite database writes or schema modifications via MCP.",
+      "secret_status": "PRESENT"
+    },
+    {
+      "name": "PGREADONLY",
+      "default": "false",
+      "effective_value": "true",
+      "source": ".agents/mcp_config.json (postgres-safe)",
+      "consumer": "postgres-safe MCP Server",
+      "security_implications": "Strictly prevents PostgreSQL database writes or mutations via MCP.",
+      "secret_status": "PRESENT"
+    },
+    {
+      "name": "DISPLAY",
+      "default": ":0",
+      "effective_value": ":99",
+      "source": ".agents/mcp_config.json (playwright)",
+      "consumer": "Playwright MCP Server & Xvfb",
+      "security_implications": "Routes browser automation rendering to headless virtual X11 server buffer.",
+      "secret_status": "PRESENT"
+    },
+    {
+      "name": "GITHUB_PERSONAL_ACCESS_TOKEN",
+      "default": "",
+      "effective_value": "REDACTED",
+      "source": "Environment Variable (${GITHUB_TOKEN}) mapped in .agents/mcp_config.json",
+      "consumer": "GitHub MCP Server",
+      "security_implications": "GitHub API authentication credential for repository queries and PR operations.",
+      "secret_status": "REDACTED"
+    },
+    {
+      "name": "ANTIGRAVITY_CSRF_TOKEN",
+      "default": "",
+      "effective_value": "REDACTED",
+      "source": "Runtime Daemon Environment",
+      "consumer": "Antigravity CLI Agent IPC",
+      "security_implications": "Session authentication token between CLI agent and daemon.",
+      "secret_status": "REDACTED"
+    },
+    {
+      "name": "antigravity-oauth-token",
+      "default": "",
+      "effective_value": "REDACTED",
+      "source": "/home/codespace/.gemini/antigravity-cli/antigravity-oauth-token",
+      "consumer": "Google Cloud / Gemini Authentication Layer",
+      "security_implications": "User OAuth credential for model API access; strictly protected by zero-secrets policy.",
+      "secret_status": "REDACTED"
+    }
+  ],
+  "runtime_locations": {
+    "workspace_customizations": "/workspaces/codespaces-blank/.agents/",
+    "global_customizations": "/home/codespace/.gemini/antigravity-cli/",
+    "global_instructions": "/home/codespace/.gemini/GEMINI.md",
+    "project_instructions": "/workspaces/codespaces-blank/AGENTS.md"
+  },
+  "hooks": {
+    "workspace_config": {
+      "file": "/workspaces/codespaces-blank/.agents/hooks.json",
+      "active_set": "antigravity-platform-hooks",
+      "enabled": true,
+      "events": {
+        "PreInvocation": {
+          "matcher": null,
+          "command": "python3 /workspaces/codespaces-blank/scripts/hooks/pre_invocation.py",
+          "timeout_seconds": 15,
+          "blocking": false,
+          "failure_policy": "fail-open"
+        },
+        "PreToolUse": {
+          "matcher": "write_to_file|replace_file_content|run_command|manage_task|notebook_edit",
+          "command": "python3 /workspaces/codespaces-blank/scripts/hooks/pre_tool_use.py",
+          "timeout_seconds": 15,
+          "blocking": true,
+          "failure_policy": "fail-closed"
+        },
+        "PostToolUse": {
+          "matcher": "*",
+          "command": "python3 /workspaces/codespaces-blank/scripts/hooks/post_tool_use.py",
+          "timeout_seconds": 15,
+          "blocking": false,
+          "failure_policy": "fail-open"
+        },
+        "Stop": {
+          "matcher": null,
+          "command": "python3 /workspaces/codespaces-blank/scripts/hooks/stop_hook.py",
+          "timeout_seconds": 15,
+          "blocking": true,
+          "failure_policy": "fail-open"
+        }
+      }
+    },
+    "global_config": {
+      "file": "/home/codespace/.gemini/antigravity-cli/hooks.json",
+      "active_set": "antigravity-memory-guards",
+      "enabled": false,
+      "drift_notes": "Global hooks are disabled ('enabled': false). Workspace hooks in .agents/hooks.json take precedence and are active."
+    }
+  },
+  "mcp_servers": {
+    "workspace_configured": {
+      "chrome-devtools": {
+        "command": "npx",
+        "args": ["-y", "chrome-devtools-mcp@latest", "--browserUrl", "http://localhost:9222"],
+        "read_only": false,
+        "tool_count": 28
+      },
+      "context7": {
+        "command": "npx",
+        "args": ["-y", "@upstash/context7-mcp"],
+        "read_only": true,
+        "tool_count": 2
+      },
+      "github": {
+        "command": "npx",
+        "args": ["-y", "@modelcontextprotocol/server-github"],
+        "env": {"GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_TOKEN}"},
+        "read_only": false,
+        "tool_count": 26
+      },
+      "playwright": {
+        "command": "npx",
+        "args": ["-y", "@executeautomation/playwright-mcp-server"],
+        "env": {"DISPLAY": ":99"},
+        "read_only": false,
+        "tool_count": 34
+      },
+      "sqlite-safe": {
+        "command": "mcp-server-sqlite",
+        "args": ["--db-path", "/workspaces/codespaces-blank/fixtures/database/test.db"],
+        "env": {"DB_READONLY": "true"},
+        "read_only": true,
+        "tool_count": 6
+      },
+      "postgres-safe": {
+        "command": "npx",
+        "args": ["-y", "@modelcontextprotocol/server-postgres", "postgresql://readonly_user@localhost:5432/app_db"],
+        "env": {"PGREADONLY": "true"},
+        "read_only": true,
+        "tool_count": 1
+      },
+      "hexana": {
+        "command": "hexana-mcp",
+        "args": ["stdio", "--tool-profile=production", "--log-level=quiet"],
+        "read_only": true,
+        "tool_count": 28
+      }
+    },
+    "runtime_active_additional": {
+      "tavily": {
+        "transport": "stdio",
+        "tool_count": 5,
+        "read_only": true
+      }
+    }
+  },
+  "skills_summary": {
+    "workspace_skills_count": 22,
+    "workspace_skills_path": "/workspaces/codespaces-blank/.agents/skills/",
+    "global_builtin_count": 5,
+    "global_builtin_path": "/home/codespace/.gemini/antigravity-cli/builtin/skills/",
+    "global_user_count": 6,
+    "global_user_path": "/home/codespace/.gemini/antigravity-cli/skills/",
+    "runtime_discovered_count": 24
+  },
+  "subagents_summary": {
+    "workspace_agent_definitions": 9,
+    "workspace_agents_path": "/workspaces/codespaces-blank/.agents/agents/",
+    "memory_os_roster_count": 21,
+    "memory_os_squads_count": 7,
+    "runtime_available_subagents": ["self", "research"]
+  }
+}

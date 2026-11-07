@@ -1,0 +1,106 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "IOSMacOSHandoffManifest",
+  "description": "Schema for transferring iOS workspace state and build jobs from Linux Codespaces to macOS build environments",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "timestamp",
+    "sourceEnvironment",
+    "targetEnvironment",
+    "repository",
+    "buildTarget",
+    "actions"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "timestamp": {
+      "type": "string"
+    },
+    "sourceEnvironment": {
+      "type": "object",
+      "required": ["platform", "hostType", "agentId"],
+      "properties": {
+        "platform": { "type": "string", "enum": ["linux", "linux-codespace", "container"] },
+        "hostType": { "type": "string" },
+        "agentId": { "type": "string" }
+      }
+    },
+    "targetEnvironment": {
+      "type": "object",
+      "required": ["platform", "xcodeVersionRequired", "architecture"],
+      "properties": {
+        "platform": { "type": "string", "enum": ["macos", "darwin-arm64", "darwin-x64"] },
+        "xcodeVersionRequired": { "type": "string" },
+        "architecture": { "type": "string", "enum": ["arm64", "x86_64", "universal"] }
+      }
+    },
+    "repository": {
+      "type": "object",
+      "required": ["remoteUrl", "branch", "commitHash", "hasUncommittedChanges"],
+      "properties": {
+        "remoteUrl": { "type": "string" },
+        "branch": { "type": "string" },
+        "commitHash": { "type": "string" },
+        "hasUncommittedChanges": { "type": "boolean" },
+        "patchFile": { "type": "string" }
+      }
+    },
+    "buildTarget": {
+      "type": "object",
+      "required": ["workspacePath", "scheme", "configuration", "destination"],
+      "properties": {
+        "workspacePath": { "type": "string" },
+        "projectPath": { "type": "string" },
+        "scheme": { "type": "string" },
+        "configuration": { "type": "string", "enum": ["Debug", "Release", "Test"] },
+        "destination": {
+          "type": "object",
+          "required": ["platform"],
+          "properties": {
+            "platform": { "type": "string", "enum": ["iOS Simulator", "iOS", "macOS", "visionOS Simulator"] },
+            "deviceName": { "type": "string" },
+            "osVersion": { "type": "string" }
+          }
+        },
+        "signing": {
+          "type": "object",
+          "properties": {
+            "method": { "type": "string", "enum": ["development", "adhoc", "app-store", "enterprise", "automatic", "none"] },
+            "teamId": { "type": "string" },
+            "exportMethod": { "type": "string" }
+          }
+        }
+      }
+    },
+    "actions": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "sync_repository",
+          "apply_patch",
+          "resolve_spm_dependencies",
+          "install_pods",
+          "generate_project",
+          "lint",
+          "build",
+          "test",
+          "package_ipa",
+          "stream_simulator",
+          "export_xcresult",
+          "return_status"
+        ]
+      }
+    },
+    "artifactsExpected": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

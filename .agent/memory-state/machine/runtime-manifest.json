@@ -1,0 +1,66 @@
+{
+  "cpu_cores": 4,
+  "generated_at": "2026-09-04T19:15:00Z",
+  "host_environment": "GitHub Codespaces / Docker container",
+  "kernel": "6.8.0-1052-azure",
+  "memory_total_mb": 16024,
+  "runtime_processes": [
+    {
+      "lifecycle": "User session",
+      "memory_mb_nominal": 550,
+      "name": "Antigravity CLI (agy)",
+      "pid_discovery": "pgrep -f agy",
+      "restart_policy": "Manual restart",
+      "type": "Interactive Node.js Host"
+    },
+    {
+      "command": "python3 /workspaces/codespaces-blank/scripts/hooks/pre_invocation.py",
+      "lifecycle": "Per prompt turn (<50ms)",
+      "memory_mb_nominal": 25,
+      "name": "PreInvocation Hook",
+      "restart_policy": "Ephemeral single execution",
+      "type": "Subprocess CLI"
+    },
+    {
+      "command": "python3 /workspaces/codespaces-blank/scripts/hooks/pre_tool_use.py",
+      "lifecycle": "Per tool execution (<50ms)",
+      "memory_mb_nominal": 28,
+      "name": "PreToolUse Hook",
+      "restart_policy": "Ephemeral single execution (fail-closed)",
+      "type": "Subprocess CLI (Security Gatekeeper)"
+    },
+    {
+      "command": "python3 /workspaces/codespaces-blank/scripts/hooks/post_tool_use.py",
+      "lifecycle": "Per tool execution (<30ms)",
+      "memory_mb_nominal": 28,
+      "name": "PostToolUse Hook",
+      "restart_policy": "Ephemeral single execution",
+      "type": "Subprocess CLI (Candidate Ingestion)"
+    },
+    {
+      "command": "python3 /workspaces/codespaces-blank/scripts/hooks/stop_hook.py",
+      "lifecycle": "Session termination (<50ms)",
+      "memory_mb_nominal": 25,
+      "name": "Stop Hook",
+      "restart_policy": "Ephemeral single execution",
+      "type": "Subprocess CLI (Session Guard)"
+    },
+    {
+      "lifecycle": "On-demand worker batch execution",
+      "location": "/workspaces/codespaces-blank/.venv-memsearch",
+      "memory_mb_nominal": 350,
+      "name": "MemSearch Substrate & Milvus Lite",
+      "restart_policy": "Deterministic rebuildable from canonical markdown",
+      "type": "Local embedded vector database + ONNX worker"
+    },
+    {
+      "command": "python3 mcp-server-sqlite --db-path /workspaces/codespaces-blank/fixtures/database/test.db",
+      "lifecycle": "Antigravity CLI session",
+      "memory_mb_nominal": 75,
+      "name": "MCP Safe SQLite Server",
+      "restart_policy": "Restarted by parent agy process",
+      "type": "Persistent stdio MCP daemon"
+    }
+  ],
+  "schema_version": "1.0.0"
+}

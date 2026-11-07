@@ -1,0 +1,237 @@
+On branch main
+Changes not staged for commit:
+  (use "git add/rm <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   .agents/agents/adversarial-reviewer/agent.json
+	modified:   .agents/agents/android-engineer/agent.json
+	modified:   .agents/agents/backend-engineer/agent.json
+	modified:   .agents/agents/binary-analyst/agent.json
+	modified:   .agents/agents/environment-auditor/agent.json
+	modified:   .agents/agents/network-analyst/agent.json
+	modified:   .agents/agents/security-auditor/agent.json
+	modified:   .agents/agents/verification-engineer/agent.json
+	modified:   .agents/agents/web-engineer/agent.json
+	modified:   .agents/mcp_config.json
+	modified:   .agents/memory/ARCHITECTURE.md
+	modified:   .agents/memory/DECISIONS.md
+	modified:   .agents/memory/GOTCHAS.md
+	modified:   .agents/memory/INDEX.md
+	modified:   .agents/skills/android-engineering/SKILL.md
+	modified:   .agents/skills/android-reverse-engineering/SKILL.md
+	modified:   .agents/skills/api-engineering/SKILL.md
+	modified:   .agents/skills/backend-engineering/SKILL.md
+	modified:   .agents/skills/binary-analysis/SKILL.md
+	modified:   .agents/skills/container-engineering/SKILL.md
+	modified:   .agents/skills/cybersecurity-review/SKILL.md
+	modified:   .agents/skills/dependency-audit/SKILL.md
+	modified:   .agents/skills/frontend-engineering/SKILL.md
+	modified:   .agents/skills/kubernetes-engineering/SKILL.md
+	modified:   .agents/skills/memory-audit/SKILL.md
+	modified:   .agents/skills/memory-end/SKILL.md
+	modified:   .agents/skills/memory-promote/SKILL.md
+	modified:   .agents/skills/memory-reorganize/SKILL.md
+	modified:   .agents/skills/memory-search/SKILL.md
+	modified:   .agents/skills/memory-start/SKILL.md
+	modified:   .agents/skills/native-development/SKILL.md
+	modified:   .agents/skills/network-analysis/SKILL.md
+	modified:   .agents/skills/reverse-engineering/SKILL.md
+	modified:   .agents/skills/verification/SKILL.md
+	modified:   .agents/skills/wasm-engineering/SKILL.md
+	modified:   .agents/skills/web-engineering/SKILL.md
+	modified:   .devcontainer/devcontainer.json
+	modified:   .devcontainer/scripts/bootstrap.sh
+	modified:   .devcontainer/scripts/verify-android.sh
+	modified:   .devcontainer/scripts/verify-binary-stack.sh
+	modified:   .devcontainer/scripts/verify-mcp.sh
+	modified:   .devcontainer/scripts/verify-network-stack.sh
+	modified:   .devcontainer/scripts/verify-security-stack.sh
+	modified:   .devcontainer/scripts/verify-toolchain.sh
+	modified:   .vscode/extensions.json
+	modified:   .vscode/settings.json
+	modified:   .vscode/tasks.json
+	modified:   AGENTS.md
+	modified:   docs/compatibility-matrix.md
+	modified:   docs/engineering-environment.md
+	modified:   docs/test_reports/03_context_efficiency.md
+	modified:   docs/test_reports/12_android_sdk_verification.md
+	modified:   docs/toolchain-matrix.md
+	modified:   fixtures/android/.gradle/8.6/checksums/checksums.lock
+	modified:   fixtures/android/.gradle/8.6/checksums/md5-checksums.bin
+	modified:   fixtures/android/.gradle/8.6/checksums/sha1-checksums.bin
+	modified:   fixtures/android/.gradle/8.6/executionHistory/executionHistory.bin
+	modified:   fixtures/android/.gradle/8.6/executionHistory/executionHistory.lock
+	modified:   fixtures/android/.gradle/8.6/fileHashes/fileHashes.bin
+	modified:   fixtures/android/.gradle/8.6/fileHashes/fileHashes.lock
+	modified:   fixtures/android/.gradle/8.6/fileHashes/resourceHashesCache.bin
+	modified:   fixtures/android/.gradle/buildOutputCleanup/buildOutputCleanup.lock
+	modified:   fixtures/android/.gradle/buildOutputCleanup/outputFiles.bin
+	deleted:    fixtures/android/app/build
+	modified:   fixtures/android/app/build.gradle
+	modified:   fixtures/c_native/CMakeLists.txt
+	modified:   fixtures/c_native/build/.ninja_deps
+	modified:   fixtures/c_native/build/.ninja_log
+	modified:   fixtures/c_native/build/CMakeCache.txt
+	modified:   fixtures/c_native/build/CMakeFiles/CMakeConfigureLog.yaml
+	modified:   fixtures/c_native/build/CMakeFiles/TargetDirectories.txt
+	modified:   fixtures/c_native/build/CMakeFiles/rules.ninja
+	modified:   fixtures/c_native/build/CMakeFiles/test_cmake_ninja.dir/main.c.o
+	modified:   fixtures/c_native/build/build.ninja
+	modified:   fixtures/c_native/build/cmake_install.cmake
+	modified:   fixtures/c_native/build/test_cmake_ninja
+	modified:   fixtures/c_native/main.c
+	modified:   fixtures/c_native/test_clang
+	modified:   fixtures/c_native/test_gcc
+	modified:   fixtures/c_native/test_gcc_hardened
+	modified:   fixtures/c_native/test_gpp
+	modified:   fixtures/network/sample.pcap
+	modified:   fixtures/web/e2e_test.js
+	modified:   fixtures/web/index.html
+	modified:   fixtures/web/node_modules/.bin/acorn
+	modified:   fixtures/web/node_modules/.bin/eslint
+	modified:   fixtures/web/node_modules/.bin/playwright
+	modified:   fixtures/web/node_modules/.bin/prettier
+	modified:   fixtures/web/node_modules/.modules.yaml
+	modified:   fixtures/web/node_modules/.package-map.json
+	modified:   fixtures/web/node_modules/.pnpm-workspace-state-v1.json
+	modified:   fixtures/web/node_modules/.pnpm/lock.yaml
+	modified:   fixtures/web/package.json
+	modified:   fixtures/web/pnpm-lock.yaml
+	modified:   fixtures/web/test_screenshot.png
+	modified:   instruction.md
+	modified:   scripts/audit_memory.py
+	modified:   scripts/compact_memory.py
+	deleted:    scripts/hooks/post_tool_tracker.py
+	modified:   scripts/hooks/post_tool_use.py
+	modified:   scripts/hooks/pre_invocation.py
+	deleted:    scripts/hooks/pre_invocation_memory.py
+	deleted:    scripts/hooks/pre_tool_security_gate.py
+	modified:   scripts/hooks/pre_tool_use.py
+	modified:   scripts/hooks/stop_hook.py
+	deleted:    scripts/hooks/stop_session_guard.py
+	modified:   scripts/memory_engine.py
+	modified:   scripts/search_memory.py
+	modified:   tests/run_all_tests.sh
+	modified:   tests/test_context_efficiency.py
+	modified:   tests/test_negative_fixtures.py
+	modified:   tools/scripts/agy-env-doctor
+	modified:   tools/scripts/android-re-toolcheck
+	modified:   tools/scripts/ghidra-analyze.sh
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	.agent-state/
+	.agent/
+	.agents/memory-upgrade/
+	.agents/memory/.memsearch/
+	.agents/memory/inbox/
+	.agents/memory/index_health.json
+	.agents/memory/index_queue.jsonl
+	.agents/memory/index_queue.jsonl.lock
+	.agents/memory/index_writer.lease.lock
+	.agents/memory/learning_ledger.json
+	.agents/memory/models/
+	.agents/memory/retrieval_ledger.jsonl
+	.agents/memory/retrieval_ledger.jsonl.lock
+	.agents/memory/shadow_eval/
+	.agents/memory/telemetry.json
+	.devcontainer/scripts/doctor.sh
+	.devcontainer/scripts/test-reproducibility.sh
+	.environment-audit/
+	.vscode/launch.json
+	Medicine and Dentistry-CCMAS 2023-FINAL.pdf
+	RSU_MBBS_Preclinical_Holiday_Master_Plan_INDEPENDENT_FINAL_2026.pdf
+	booksihave.pdf
+	docs/architecture.md
+	docs/operations.md
+	fixtures/android/app/src/test/
+	fixtures/android/re_test/
+	fixtures/c_native/build/CTestTestfile.cmake
+	fixtures/c_native/build/Testing/
+	fixtures/wasm/add.disassembled.wat
+	fixtures/wasm/add.opt.wasm
+	fixtures/wasm/add_c.wasm
+	fixtures/web/node_modules/.bin/vite
+	fixtures/web/node_modules/.pnpm/@oxc-project+types@0.147.0/
+	fixtures/web/node_modules/.pnpm/@rolldown+binding-linux-x64-gnu@1.2.6/
+	fixtures/web/node_modules/.pnpm/@rolldown+pluginutils@1.0.1/
+	fixtures/web/node_modules/.pnpm/detect-libc@2.1.2/
+	fixtures/web/node_modules/.pnpm/fdir@6.5.0_picomatch@4.0.7/
+	fixtures/web/node_modules/.pnpm/lightningcss-linux-x64-gnu@1.33.0/
+	fixtures/web/node_modules/.pnpm/lightningcss@1.33.0/
+	fixtures/web/node_modules/.pnpm/nanoid@3.3.18/
+	fixtures/web/node_modules/.pnpm/node_modules/.bin/nanoid
+	fixtures/web/node_modules/.pnpm/node_modules/.bin/rolldown
+	fixtures/web/node_modules/.pnpm/node_modules/@oxc-project/
+	fixtures/web/node_modules/.pnpm/node_modules/@rolldown/
+	fixtures/web/node_modules/.pnpm/node_modules/detect-libc
+	fixtures/web/node_modules/.pnpm/node_modules/fdir
+	fixtures/web/node_modules/.pnpm/node_modules/lightningcss
+	fixtures/web/node_modules/.pnpm/node_modules/lightningcss-linux-x64-gnu
+	fixtures/web/node_modules/.pnpm/node_modules/nanoid
+	fixtures/web/node_modules/.pnpm/node_modules/picocolors
+	fixtures/web/node_modules/.pnpm/node_modules/picomatch
+	fixtures/web/node_modules/.pnpm/node_modules/postcss
+	fixtures/web/node_modules/.pnpm/node_modules/rolldown
+	fixtures/web/node_modules/.pnpm/node_modules/source-map-js
+	fixtures/web/node_modules/.pnpm/node_modules/tinyglobby
+	fixtures/web/node_modules/.pnpm/picocolors@1.1.1/
+	fixtures/web/node_modules/.pnpm/picomatch@4.0.7/
+	fixtures/web/node_modules/.pnpm/postcss@8.5.26/
+	fixtures/web/node_modules/.pnpm/rolldown@1.2.6/
+	fixtures/web/node_modules/.pnpm/source-map-js@1.2.1/
+	fixtures/web/node_modules/.pnpm/tinyglobby@0.2.17/
+	fixtures/web/node_modules/.pnpm/vite@8.2.2/
+	fixtures/web/node_modules/vite
+	fixtures/web/test-results/
+	futhercourseoutlinedata.pdf
+	node_modules
+	playwright.config.js
+	scripts/audit_inventory.py
+	scripts/audit_skills.py
+	scripts/candidate_bus.py
+	scripts/chrome.sh
+	scripts/context_compiler.py
+	scripts/hooks/legacy/
+	scripts/hooks/stop_guard.py
+	scripts/learning_loop.py
+	scripts/memory_benchmark.py
+	scripts/memory_compiler.py
+	scripts/memory_doctor.py
+	scripts/memory_feedback.py
+	scripts/memory_index_queue.py
+	scripts/memory_reconciler.py
+	scripts/memsearch_backend.py
+	scripts/procedural_engine.py
+	scripts/query_router.py
+	scripts/test_query_router.py
+	scripts/version_sync.py
+	test-results/
+	tests/e2e/
+	tests/test_candidate_bus.py
+	tests/test_learning_loop.py
+	tests/test_lifecycle_hooks.py
+	tests/test_memory_compiler.py
+	tests/test_memory_feedback.py
+	tests/test_memory_index_queue.py
+	tests/test_memory_os_adversarial.py
+	tests/test_memory_reconciler.py
+	tests/test_procedural_engine.py
+	tools/bin/agy-agent-doctor
+	tools/bin/agy-android-doctor
+	tools/bin/agy-binary-doctor
+	tools/bin/agy-mcp-doctor
+	tools/bin/agy-memory-doctor
+	tools/bin/agy-network-doctor
+	tools/bin/agy-security-doctor
+	tools/bin/agy-wasm-doctor
+	tools/bin/agy-web-doctor
+	tools/scripts/agy-agent-doctor
+	tools/scripts/agy-android-doctor
+	tools/scripts/agy-binary-doctor
+	tools/scripts/agy-mcp-doctor
+	tools/scripts/agy-network-doctor
+	tools/scripts/agy-security-doctor
+	tools/scripts/agy-wasm-doctor
+	tools/scripts/agy-web-doctor
+
+no changes added to commit (use "git add" and/or "git commit -a")

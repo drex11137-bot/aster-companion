@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <!-- Background Circle Radial Shading -->
+    <radialGradient id="gaugeBg" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#1A1C23"/>
+      <stop offset="85%" stop-color="#15171F"/>
+      <stop offset="100%" stop-color="#111318"/>
+    </radialGradient>
+    
+    <!-- Active Arc Gradient -->
+    <linearGradient id="activeArc" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#06B6D4"/>
+      <stop offset="100%" stop-color="#10B981"/>
+    </linearGradient>
+
+    <!-- Needle Gradient -->
+    <linearGradient id="needleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F59E0B"/>
+      <stop offset="100%" stop-color="#D97706"/>
+    </linearGradient>
+
+    <!-- Outer Bezel Filter -->
+    <filter id="subtleBezel" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000000" flood-opacity="0.45"/>
+    </filter>
+  </defs>
+
+  <!-- Outer Bezel Ring -->
+  <circle cx="256" cy="256" r="236" fill="url(#gaugeBg)" stroke="#383D4E" stroke-width="8" filter="url(#subtleBezel)"/>
+  
+  <!-- Inner Track Groove -->
+  <circle cx="256" cy="256" r="204" fill="none" stroke="#232630" stroke-width="4"/>
+
+  <!-- Dial Background Arc (270 degrees: from 135 deg to 405/45 deg) -->
+  <path d="M 122.3 389.7 A 180 180 0 1 1 389.7 389.7"
+        fill="none"
+        stroke="#232630"
+        stroke-width="24"
+        stroke-linecap="round"/>
+
+  <!-- Active Telemetry Arc (135 deg to 315 deg, representing ~65% load) -->
+  <path d="M 122.3 389.7 A 180 180 0 1 1 383.4 176.6"
+        fill="none"
+        stroke="url(#activeArc)"
+        stroke-width="24"
+        stroke-linecap="round"/>
+
+  <!-- Precision Calibration Ticks (Major & Minor) -->
+  <g stroke="#9CA3AF" stroke-linecap="round">
+    <!-- Major ticks -->
+    <line x1="108.1" y1="403.9" x2="129.3" y2="382.7" stroke-width="4" stroke="#F3F4F6"/>
+    <line x1="66" y1="256" x2="96" y2="256" stroke-width="4" stroke="#F3F4F6"/>
+    <line x1="129.3" y1="129.3" x2="150.5" y2="150.5" stroke-width="4" stroke="#F3F4F6"/>
+    <line x1="256" y1="66" x2="256" y2="96" stroke-width="5" stroke="#06B6D4"/>
+    <line x1="382.7" y1="129.3" x2="361.5" y2="150.5" stroke-width="4" stroke="#F3F4F6"/>
+    <line x1="446" y1="256" x2="416" y2="256" stroke-width="4" stroke="#F3F4F6"/>
+    <line x1="403.9" y1="403.9" x2="382.7" y2="382.7" stroke-width="4" stroke="#EF4444"/>
+    
+    <!-- Minor ticks -->
+    <line x1="79.8" y1="189.6" x2="94.4" y2="197.8" stroke-width="2" stroke="#474D63"/>
+    <line x1="189.6" y1="79.8" x2="197.8" y2="94.4" stroke-width="2" stroke="#474D63"/>
+    <line x1="322.4" y1="79.8" x2="314.2" y2="94.4" stroke-width="2" stroke="#474D63"/>
+    <line x1="432.2" y1="189.6" x2="417.6" y2="197.8" stroke-width="2" stroke="#474D63"/>
+    <line x1="432.2" y1="322.4" x2="417.6" y2="314.2" stroke-width="2" stroke="#474D63"/>
+  </g>
+
+  <!-- Metric Threshold Indicator Dots -->
+  <circle cx="122.3" cy="389.7" r="6" fill="#10B981"/>
+  <circle cx="256" cy="76" r="6" fill="#06B6D4"/>
+  <circle cx="389.7" cy="389.7" r="6" fill="#EF4444"/>
+
+  <!-- Instrument Needle (Pointing at 45 degrees, ~65% position) -->
+  <g transform="rotate(45, 256, 256)">
+    <!-- Needle Shadow -->
+    <polygon points="256,76 264,256 256,280 248,256" fill="#000000" opacity="0.35" transform="translate(4, 6)"/>
+    <!-- Needle Body -->
+    <polygon points="256,76 263,252 256,276 249,252" fill="url(#needleGrad)"/>
+    <circle cx="256" cy="110" r="4" fill="#F3F4F6"/>
+  </g>
+
+  <!-- Center Hub Pin -->
+  <circle cx="256" cy="256" r="32" fill="#232630" stroke="#383D4E" stroke-width="4"/>
+  <circle cx="256" cy="256" r="18" fill="#111318" stroke="#06B6D4" stroke-width="3"/>
+  <circle cx="256" cy="256" r="6" fill="#F3F4F6"/>
+
+  <!-- Subtle Logo Lettermark "G" at 6 o'clock -->
+  <text x="256" y="445"
+        text-anchor="middle"
+        font-family="system-ui, -apple-system, sans-serif"
+        font-weight="700"
+        font-size="28"
+        letter-spacing="4"
+        fill="#9CA3AF">GAUGE</text>
+</svg>

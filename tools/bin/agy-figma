@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+# Antigravity Figma Extended CLI Wrapper
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPO_ROOT="$(cd "${SCRIPT_DIR}/../.." && pwd)"
+
+# Ensure FIGMA_API_KEY is available
+if [ -z "${FIGMA_API_KEY}" ]; then
+  if grep -q "export FIGMA_API_KEY=" ~/.bashrc 2>/dev/null; then
+    eval "$(grep "export FIGMA_API_KEY=" ~/.bashrc)"
+  fi
+fi
+
+exec python3 "${REPO_ROOT}/tools/scripts/figma_client.py" "$@"

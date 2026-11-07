@@ -1,0 +1,1785 @@
+{
+  "agents": [
+    "lead-memory-architect",
+    "forensic-baseline-auditor",
+    "core-repair-engineer",
+    "security-gatekeeper",
+    "memsearch-runtime-engineer",
+    "storage-backend-adapter-engineer",
+    "hybrid-search-specialist",
+    "evidence-reranker-engineer",
+    "context-compiler-engineer",
+    "query-routing-specialist",
+    "candidate-bus-engineer",
+    "memory-compiler-gatekeeper",
+    "memory-reconciler-specialist",
+    "index-queue-engineer",
+    "feedback-telemetry-engineer",
+    "learning-loop-specialist",
+    "procedural-skill-engineer",
+    "memory-doctor-engineer",
+    "benchmark-test-architect",
+    "adversarial-red-team-reviewer",
+    "workstation-release-master"
+  ],
+  "components": [
+    {
+      "id": "COMP-01",
+      "name": "Governance & Rule Hierarchy",
+      "category": "GOVERNANCE",
+      "tier": 1,
+      "subsystem": "Governance",
+      "authoritative_source": ".agents/rules/",
+      "status": "REAL",
+      "reality": "REAL",
+      "confidence": "HIGH",
+      "implementation_files": [
+        ".agents/rules/",
+        "AGENTS.md",
+        "~/.gemini/GEMINI.md",
+        "~/.gemini/antigravity-cli/memory/POLICY.md"
+      ],
+      "description": "Multi-tier rule precedence and global instruction definitions governing agent behavior.",
+      "exists": true,
+      "real": true,
+      "wired": true,
+      "executed": true,
+      "tested": true,
+      "verified": true,
+      "evidence": "SOURCE_CODE + TEST_EVIDENCE (tests/test_memory_system.py)"
+    },
+    {
+      "id": "COMP-02",
+      "name": "Current Working State",
+      "category": "WORKING_MEMORY",
+      "tier": 1,
+      "subsystem": "Working Memory",
+      "authoritative_source": ".agents/memory/CURRENT.md",
+      "status": "REAL",
+      "reality": "REAL",
+      "confidence": "HIGH",
+      "implementation_files": [
+        ".agents/memory/CURRENT.md",
+        "scripts/compact_memory.py",
+        "scripts/hooks/pre_invocation.py"
+      ],
+      "description": "Active goal, status, blockers, and recent command state strictly bounded to <30 lines.",
+      "exists": true,
+      "real": true,
+      "wired": true,
+      "executed": true,
+      "tested": true,
+      "verified": true,
+      "evidence": "OBSERVED_EXECUTION + SOURCE_CODE (scripts/hooks/pre_invocation.py)"
+    },
+    {
+      "id": "COMP-03",
+      "name": "Episodic Session Store",
+      "category": "EPISODIC",
+      "tier": 2,
+      "subsystem": "Episodic Memory",
+      "authoritative_source": "scripts/session_manager.py",
+      "status": "REAL",
+      "reality": "REAL",
+      "confidence": "HIGH",
+      "implementation_files": [
+        "scripts/session_manager.py",
+        ".agents/memory/sessions/"
+      ],
+      "description": "Chronological session logs recorded at start/end of interactive or automated workflows.",
+      "exists": true,
+      "real": true,
+      "wired": true,
+      "executed": true,
+      "tested": true,
+      "verified": true,
+      "evidence": "SOURCE_CODE + TEST_EVIDENCE (tests/test_session_lifecycle.py)"
+    },
+    {
+      "id": "COMP-04",
+      "name": "Candidate Experience Bus",
+      "category": "INGESTION",
+      "tier": 6,
+      "subsystem": "Ingestion",
+      "authoritative_source": "scripts/candidate_bus.py",
+      "status": "REAL",
+      "reality": "REAL",
+      "confidence": "HIGH",
+      "implementation_files": [
+        "scripts/candidate_bus.py",
+        "scripts/hooks/post_tool_use.py",
+        ".agents/memory/inbox/candidates.jsonl"
+      ],
+      "description": "Deterministic event capture from tool outcomes, noise filtering, and candidate staging.",
+      "exists": true,
+      "real": true,
+      "wired": true,
+      "executed": true,
+      "tested": true,
+      "verified": true,
+      "evidence": "OBSERVED_EXECUTION + TEST_EVIDENCE (tests/test_candidate_bus.py: 37/37 pass)"
+    },
+    {
+      "id": "COMP-05",
+      "name": "Canonical Project Memory",
+      "category": "STORAGE",
+      "tier": 3,
+      "subsystem": "Canonical Storage",
+      "authoritative_source": ".agents/memory/",
+      "status": "REAL",
+      "reality": "REAL",
+      "confidence": "HIGH",
+      "implementation_files": [
+        ".agents/memory/DECISIONS.md",
+        ".agents/memory/GOTCHAS.md",
+        ".agents/memory/ARCHITECTURE.md",
+        ".agents/memory/PROCEDURES.md",
+        ".agents/memory/INDEX.md"
+      ],
+      "description": "Authoritative durable project knowledge formatted in structured Markdown with RFC3339 timestamps.",
+      "exists": true,
+      "real": true,
+      "wired": true,
+      "executed": true,
+      "tested": true,
+      "verified": true,
+      "evidence": "SOURCE_CODE + TEST_EVIDENCE (tests/test_memory_system.py)"
+    },
+    {
+      "id": "COMP-06",
+      "name": "Canonical Global Memory",
+      "category": "STORAGE",
+      "tier": 4,
+      "subsystem": "Canonical Storage",
+      "authoritative_source": "~/.gemini/antigravity-cli/memory/",
+      "status": "REAL",
+      "reality": "REAL",
+      "confidence": "HIGH",
+      "implementation_files": [
+        "~/.gemini/antigravity-cli/memory/GENERAL.md",
+        "~/.gemini/antigravity-cli/memory/USER.md",
+        "~/.gemini/antigravity-cli/memory/ENVIRONMENT.md",
+        "~/.gemini/antigravity-cli/memory/INDEX.md"
+      ],
+      "description": "Cross-project user preferences, machine environment metadata, and universal facts.",
+      "exists": true,
+      "real": true,
+      "wired": true,
+      "executed": true,
+      "tested": true,
+      "verified": true,
+      "evidence": "SOURCE_CODE + CONFIGURATION"
+    },
+    {
+      "id": "COMP-07",
+      "name": "Memory Admission Compiler",
+      "category": "COMPILER",
+      "tier": 6,
+      "subsystem": "Admission & Compilation",
+      "authoritative_source": "scripts/memory_compiler.py",
+      "status": "REAL",
+      "reality": "REAL",
+      "confidence": "HIGH",
+      "implementation_files": [
+        "scripts/memory_compiler.py"
+      ],
+      "description": "5-gate admission pipeline evaluating candidate security, relevance, taxonomy, durability, and authority.",
+      "exists": true,
+      "real": true,
+      "wired": true,
+      "executed": true,
+      "tested": true,
+      "verified": true,
+      "evidence": "SOURCE_CODE + TEST_EVIDENCE (tests/test_memory_compiler.py: 16/16 pass)"
+    },
+    {
+      "id": "COMP-08",
+      "name": "Memory Reconciler",
+      "category": "RECONCILER",
+      "tier": 3,
+      "subsystem": "Reconciliation & Bitemporality",
+      "authoritative_source": "scripts/memory_reconciler.py",
+      "status": "REAL",
+      "reality": "REAL",
+      "confidence": "HIGH",
+      "implementation_files": [
+        "scripts/memory_reconciler.py"
+      ],
+      "description": "Non-destructive bitemporal supersession, deduplication, conflict resolution, and atomic journal logging.",
+      "exists": true,
+      "real": true,
+      "wired": true,
+      "executed": true,
+      "tested": true,
+      "verified": true,
+      "evidence": "SOURCE_CODE + TEST_EVIDENCE (tests/test_memory_reconciler.py: 22/22 pass)"
+    },
+    {
+      "id": "COMP-09",
+      "name": "Semantic Deduplication Engine",
+      "category": "DEDUPLICATION",
+      "tier": 3,
+      "subsystem": "Deduplication",
+      "authoritative_source": "scripts/memory_reconciler.py",
+      "status": "REAL",
+      "reality": "REAL",
+      "confidence": "HIGH",
+      "implementation_files": [
+        "scripts/memory_reconciler.py"
+      ],
+      "description": "SequenceMatcher and token Jaccard similarity to prevent duplicate canonical records.",
+      "exists": true,
+      "real": true,
+      "wired": true,
+      "executed": true,
+      "tested": true,
+      "verified": true,
+      "evidence": "SOURCE_CODE + TEST_EVIDENCE (tests/test_memory_reconciler.py)"
+    },
+    {
+      "id": "COMP-10",
+      "name": "Contradiction Detection Engine",
+      "category": "CONTRADICTION",
+      "tier": 3,
+      "subsystem": "Contradiction Resolution",
+      "authoritative_source": "scripts/detect_contradictions.py",
+      "status": "REAL",
+      "reality": "REAL",
+      "confidence": "HIGH",
+      "implementation_files": [
+        "scripts/detect_contradictions.py",
+        "scripts/memory_reconciler.py"
+      ],
+      "description": "Detects toolchain, version, and architecture conflicts; formats superseded blocks.",
+      "exists": true,
+      "real": true,
+      "wired": true,
+      "executed": true,
+      "tested": true,
+      "verified": true,
+      "evidence": "SOURCE_CODE + TEST_EVIDENCE (tests/test_memory_system.py)"
+    },
+    {
+      "id": "COMP-11",
+      "name": "Bitemporal History Engine",
+      "category": "TEMPORAL",
+      "tier": 3,
+      "subsystem": "Temporal Lineage",
+      "authoritative_source": "scripts/memory_reconciler.py",
+      "status": "REAL",
+      "reality": "REAL",
+      "confidence": "HIGH",
+      "implementation_files": [
+        "scripts/memory_reconciler.py"
+      ],
+      "description": "Bitemporal tracking (valid_from, valid_to, recorded_at, superseded_at) and historical time-travel query.",
+      "exists": true,
+      "real": true,
+      "wired": true,
+      "executed": true,
+      "tested": true,
+      "verified": true,
+      "evidence": "SOURCE_CODE + TEST_EVIDENCE (tests/test_memory_reconciler.py: test_bitemporal_time_travel_query)"
+    },
+    {
+      "id": "COMP-12",
+      "name": "Provenance Tracking Subsystem",
+      "category": "PROVENANCE",
+      "tier": 6,
+      "subsystem": "Provenance",
+      "authoritative_source": "scripts/candidate_bus.py",
+      "status": "REAL",
+      "reality": "REAL",
+      "confidence": "HIGH",
+      "implementation_files": [
+        "scripts/candidate_bus.py"
+      ],
+      "description": "Attaches cryptographic IDs, command strings, exit codes, source types, and verification evidence.",
+      "exists": true,
+      "real": true,
+      "wired": true,
+      "executed": true,
+      "tested": true,
+      "verified": true,
+      "evidence": "SOURCE_CODE + TEST_EVIDENCE (tests/test_candidate_bus.py)"
+    },
+    {
+      "id": "COMP-13",
+      "name": "Epistemic Evidence Gate",
+      "category": "EVIDENCE_GATE",
+      "tier": 6,
+      "subsystem": "Admission & Compilation",
+      "authoritative_source": "scripts/memory_compiler.py",
+      "status": "REAL",
+      "reality": "REAL",
+      "confidence": "HIGH",
+      "implementation_files": [
+        "scripts/memory_compiler.py"
+      ],
+      "description": "Enforces authority thresholds against epistemic confidence scores before promotion.",
+      "exists": true,
+      "real": true,
+      "wired": true,
+      "executed": true,
+      "tested": true,
+      "verified": true,
+      "evidence": "SOURCE_CODE + TEST_EVIDENCE (tests/test_memory_compiler.py)"
+    },
+    {
+      "id": "COMP-14",
+      "name": "Dense Semantic Retrieval Backend",
+      "category": "RETRIEVAL",
+      "tier": 5,
+      "subsystem": "Vector Storage & Retrieval",
+      "authoritative_source": "scripts/memsearch_backend.py",
+      "status": "REAL",
+      "reality": "REAL",
+      "confidence": "HIGH",
+      "implementation_files": [
+        "scripts/memsearch_backend.py"
+      ],
+      "description": "Milvus Lite embedded vector store using ONNX BGE-M3 dense embeddings with degraded fallback facade.",
+      "exists": true,
+      "real": true,
+      "wired": true,
+      "executed": true,
+      "tested": true,
+      "verified": true,
+      "evidence": "OBSERVED_EXECUTION + TEST_EVIDENCE (scripts/memory_benchmark.py A003, A005)"
+    },
+    {
+      "id": "COMP-15",
+      "name": "Sparse Lexical Retrieval Engine",
+      "category": "RETRIEVAL",
+      "tier": 5,
+      "subsystem": "Lexical Search",
+      "authoritative_source": "scripts/search_memory.py",
+      "status": "REAL",
+      "reality": "REAL",
+      "confidence": "HIGH",
+      "implementation_files": [
+        "scripts/search_memory.py"
+      ],
+      "description": "Ripgrep / Python regex text scanner with heading-based relevance boosts.",
+      "exists": true,
+      "real": true,
+      "wired": true,
+      "executed": true,
+      "tested": true,
+      "verified": true,
+      "evidence": "OBSERVED_EXECUTION + TEST_EVIDENCE (tests/test_memory_search.py)"
+    },
+    {
+      "id": "COMP-16",
+      "name": "Reciprocal Rank Fusion (RRF)",
+      "category": "FUSION",
+      "tier": 5,
+      "subsystem": "Hybrid Retrieval",
+      "authoritative_source": "scripts/search_memory.py",
+      "status": "REAL",
+      "reality": "REAL",
+      "confidence": "HIGH",
+      "implementation_files": [
+        "scripts/search_memory.py",
+        "scripts/learning_loop.py"
+      ],
+      "description": "Combines dense Milvus Lite and sparse lexical retrieval rankings with k=60 constant.",
+      "exists": true,
+      "real": true,
+      "wired": true,
+      "executed": true,
+      "tested": true,
+      "verified": true,
+      "evidence": "OBSERVED_EXECUTION + TEST_EVIDENCE (scripts/memory_benchmark.py A005)"
+    },
+    {
+      "id": "COMP-17",
+      "name": "Multi-Signal Evidence Reranker",
+      "category": "RERANKING",
+      "tier": 5,
+      "subsystem": "Reranking & Diversity",
+      "authoritative_source": "scripts/evidence_reranker.py",
+      "status": "REAL",
+      "reality": "REAL",
+      "confidence": "HIGH",
+      "implementation_files": [
+        "scripts/evidence_reranker.py"
+      ],
+      "description": "Reranks results using tier weights, temporal freshness decay, verification flags, and MMR diversity.",
+      "exists": true,
+      "real": true,
+      "wired": true,
+      "executed": true,
+      "tested": true,
+      "verified": true,
+      "evidence": "SOURCE_CODE + TEST_EVIDENCE (tests/test_evidence_reranker.py: 11/11 pass)"
+    },
+    {
+      "id": "COMP-18",
+      "name": "Scope Filtering & Boundary Isolation",
+      "category": "ISOLATION",
+      "tier": 5,
+      "subsystem": "Retrieval Isolation",
+      "authoritative_source": "scripts/search_memory.py",
+      "status": "REAL",
+      "reality": "REAL",
+      "confidence": "HIGH",
+      "implementation_files": [
+        "scripts/search_memory.py"
+      ],
+      "description": "Enforces strict boundary containment across 11 distinct scopes (project, global, sessions, inbox, etc.).",
+      "exists": true,
+      "real": true,
+      "wired": true,
+      "executed": true,
+      "tested": true,
+      "verified": true,
+      "evidence": "OBSERVED_EXECUTION + TEST_EVIDENCE (tests/test_isolation.py, tests/test_memory_search.py)"
+    },
+    {
+      "id": "COMP-19",
+      "name": "Progressive Disclosure Context Compiler",
+      "category": "COMPILER",
+      "tier": 1,
+      "subsystem": "Context Compilation",
+      "authoritative_source": "scripts/context_compiler.py",
+      "status": "REAL",
+      "reality": "REAL",
+      "confidence": "HIGH",
+      "implementation_files": [
+        "scripts/context_compiler.py"
+      ],
+      "description": "Compiles L1 (<500 tokens), L2 (<2000 tokens), and L3 (<4000 tokens) contexts with trust verdicts.",
+      "exists": true,
+      "real": true,
+      "wired": true,
+      "executed": true,
+      "tested": true,
+      "verified": true,
+      "evidence": "OBSERVED_EXECUTION + TEST_EVIDENCE (tests/test_context_efficiency.py)"
+    },
+    {
+      "id": "COMP-20",
+      "name": "MemSearch Adapter Facade",
+      "category": "ADAPTER",
+      "tier": 5,
+      "subsystem": "Vector Substrate Adapter",
+      "authoritative_source": "scripts/memsearch_backend.py",
+      "status": "REAL",
+      "reality": "REAL",
+      "confidence": "HIGH",
+      "implementation_files": [
+        "scripts/memsearch_backend.py"
+      ],
+      "description": "Decoupled facade isolating Milvus Lite and native memsearch CLI with graceful degradation.",
+      "exists": true,
+      "real": true,
+      "wired": true,
+      "executed": true,
+      "tested": true,
+      "verified": true,
+      "evidence": "SOURCE_CODE + OBSERVED_EXECUTION"
+    },
+    {
+      "id": "COMP-21",
+      "name": "Asynchronous Index Queue & Locking",
+      "category": "QUEUE",
+      "tier": 5,
+      "subsystem": "Indexing Pipeline",
+      "authoritative_source": "scripts/memory_index_queue.py",
+      "status": "REAL",
+      "reality": "REAL",
+      "confidence": "HIGH",
+      "implementation_files": [
+        "scripts/memory_index_queue.py"
+      ],
+      "description": "Durable queue, single-writer POSIX lease locking, update coalescing, and dead-letter queue.",
+      "exists": true,
+      "real": true,
+      "wired": true,
+      "executed": true,
+      "tested": true,
+      "verified": true,
+      "evidence": "OBSERVED_EXECUTION + TEST_EVIDENCE (tests/test_memory_index_queue.py: 16/16 pass)"
+    },
+    {
+      "id": "COMP-22",
+      "name": "Index Worker Subsystem",
+      "category": "WORKER",
+      "tier": 5,
+      "subsystem": "Indexing Pipeline",
+      "authoritative_source": "scripts/memory_index_queue.py",
+      "status": "REAL",
+      "reality": "REAL",
+      "confidence": "HIGH",
+      "implementation_files": [
+        "scripts/memory_index_queue.py"
+      ],
+      "description": "Drains queued indexing jobs into Milvus Lite in batches with error retry and dead-letter management.",
+      "exists": true,
+      "real": true,
+      "wired": true,
+      "executed": true,
+      "tested": true,
+      "verified": true,
+      "evidence": "OBSERVED_EXECUTION + TEST_EVIDENCE (tests/test_memory_index_queue.py)"
+    },
+    {
+      "id": "COMP-23",
+      "name": "Index Health State Machine",
+      "category": "HEALTH",
+      "tier": 5,
+      "subsystem": "Indexing Health",
+      "authoritative_source": "scripts/memory_index_queue.py",
+      "status": "REAL",
+      "reality": "REAL",
+      "confidence": "HIGH",
+      "implementation_files": [
+        "scripts/memory_index_queue.py",
+        "scripts/memory_doctor.py"
+      ],
+      "description": "5-state transition engine (HEALTHY, STALE, DEGRADED, REBUILDING, FAILED) tracked in index_health.json.",
+      "exists": true,
+      "real": true,
+      "wired": true,
+      "executed": true,
+      "tested": true,
+      "verified": true,
+      "evidence": "OBSERVED_EXECUTION + TEST_EVIDENCE (tests/test_memory_index_queue.py)"
+    },
+    {
+      "id": "COMP-24",
+      "name": "Filesystem Watcher / Poller",
+      "category": "WATCHER",
+      "tier": 5,
+      "subsystem": "Watcher",
+      "authoritative_source": "scripts/memory_index_queue.py",
+      "status": "PARTIAL",
+      "reality": "PARTIAL",
+      "confidence": "MEDIUM",
+      "implementation_files": [
+        "scripts/memory_index_queue.py"
+      ],
+      "description": "Queue poller/watch command implemented via sleep-loop; inotify daemon optional.",
+      "exists": true,
+      "real": true,
+      "wired": true,
+      "executed": true,
+      "tested": true,
+      "verified": true,
+      "evidence": "SOURCE_CODE (scripts/memory_index_queue.py: cmd_watch)"
+    },
+    {
+      "id": "COMP-25",
+      "name": "Compaction & Hygiene Maintenance",
+      "category": "MAINTENANCE",
+      "tier": 3,
+      "subsystem": "Compaction",
+      "authoritative_source": "scripts/compact_memory.py",
+      "status": "REAL",
+      "reality": "REAL",
+      "confidence": "HIGH",
+      "implementation_files": [
+        "scripts/compact_memory.py"
+      ],
+      "description": "Audits line budgets (<250 lines) and byte limits (<16KB), compacts CURRENT.md and canonical Markdown.",
+      "exists": true,
+      "real": true,
+      "wired": true,
+      "executed": true,
+      "tested": true,
+      "verified": true,
+      "evidence": "SOURCE_CODE + TEST_EVIDENCE (tests/test_compact_memory.py)"
+    },
+    {
+      "id": "COMP-26",
+      "name": "Feedback & Retrieval Telemetry Ledger",
+      "category": "TELEMETRY",
+      "tier": 8,
+      "subsystem": "Telemetry & Learning",
+      "authoritative_source": "scripts/memory_feedback.py",
+      "status": "REAL",
+      "reality": "REAL",
+      "confidence": "HIGH",
+      "implementation_files": [
+        "scripts/memory_feedback.py",
+        ".agents/memory/retrieval_ledger.jsonl"
+      ],
+      "description": "Retrieval event logging, relevance feedback tracking, MRR, NDCG@10, and False Recall Rate computation.",
+      "exists": true,
+      "real": true,
+      "wired": true,
+      "executed": true,
+      "tested": true,
+      "verified": true,
+      "evidence": "OBSERVED_EXECUTION + TEST_EVIDENCE (tests/test_memory_feedback.py: 17/17 pass)"
+    },
+    {
+      "id": "COMP-27",
+      "name": "Memory Half-Life Decay & Learning Loop",
+      "category": "DECAY",
+      "tier": 8,
+      "subsystem": "Decay & Evolution",
+      "authoritative_source": "scripts/learning_loop.py",
+      "status": "REAL",
+      "reality": "REAL",
+      "confidence": "HIGH",
+      "implementation_files": [
+        "scripts/learning_loop.py"
+      ],
+      "description": "Exponential half-life decay model (Invariant 18) and isolated ShadowRanker comparison (Invariant 19).",
+      "exists": true,
+      "real": true,
+      "wired": true,
+      "executed": true,
+      "tested": true,
+      "verified": true,
+      "evidence": "SOURCE_CODE + TEST_EVIDENCE (tests/test_learning_loop.py: 16/16 pass)"
+    },
+    {
+      "id": "COMP-28",
+      "name": "Procedural Memory Engine",
+      "category": "PROCEDURAL",
+      "tier": 7,
+      "subsystem": "Procedural Workflows",
+      "authoritative_source": "scripts/procedural_engine.py",
+      "status": "REAL",
+      "reality": "REAL",
+      "confidence": "HIGH",
+      "implementation_files": [
+        "scripts/procedural_engine.py",
+        ".agents/memory/inbox/procedures/"
+      ],
+      "description": "Sequence mining from session logs quarantined in inbox/procedures/ (Invariant 16).",
+      "exists": true,
+      "real": true,
+      "wired": true,
+      "executed": true,
+      "tested": true,
+      "verified": true,
+      "evidence": "SOURCE_CODE + TEST_EVIDENCE (tests/test_procedural_engine.py: 5/5 pass)"
+    },
+    {
+      "id": "COMP-29",
+      "name": "POSIX Advisory Locking & Crash Recovery",
+      "category": "CONCURRENCY",
+      "tier": 3,
+      "subsystem": "Concurrency & Safety",
+      "authoritative_source": "scripts/lock_manager.py",
+      "status": "REAL",
+      "reality": "REAL",
+      "confidence": "HIGH",
+      "implementation_files": [
+        "scripts/lock_manager.py"
+      ],
+      "description": "fcntl.flock advisory locks with timeout, atomic write replace via tempfiles, and stale lock recovery.",
+      "exists": true,
+      "real": true,
+      "wired": true,
+      "executed": true,
+      "tested": true,
+      "verified": true,
+      "evidence": "SOURCE_CODE + TEST_EVIDENCE (tests/test_memory_os_adversarial.py)"
+    },
+    {
+      "id": "COMP-30",
+      "name": "Zero-Secrets Security Scanner",
+      "category": "SECURITY",
+      "tier": 6,
+      "subsystem": "Security Gatekeeper",
+      "authoritative_source": "scripts/secret_scanner.py",
+      "status": "REAL",
+      "reality": "REAL",
+      "confidence": "HIGH",
+      "implementation_files": [
+        "scripts/secret_scanner.py",
+        "scripts/hooks/pre_tool_use.py"
+      ],
+      "description": "Strict regex for API keys, tokens, SSH keys, passwords, plus Shannon entropy detection (>4.5 bits).",
+      "exists": true,
+      "real": true,
+      "wired": true,
+      "executed": true,
+      "tested": true,
+      "verified": true,
+      "evidence": "OBSERVED_EXECUTION + TEST_EVIDENCE (tests/test_secret_scanner.py: 31/31 pass)"
+    },
+    {
+      "id": "COMP-31",
+      "name": "Lifecycle Hooks Suite",
+      "category": "HOOKS",
+      "tier": 1,
+      "subsystem": "Lifecycle Integration",
+      "authoritative_source": ".agents/hooks.json",
+      "status": "REAL",
+      "reality": "REAL",
+      "confidence": "HIGH",
+      "implementation_files": [
+        ".agents/hooks.json",
+        "scripts/hooks/pre_invocation.py",
+        "scripts/hooks/pre_tool_use.py",
+        "scripts/hooks/post_tool_use.py",
+        "scripts/hooks/stop_hook.py"
+      ],
+      "description": "Deterministic lifecycle hooks intercepting tool execution, gating security, and capturing experiences.",
+      "exists": true,
+      "real": true,
+      "wired": true,
+      "executed": true,
+      "tested": true,
+      "verified": true,
+      "evidence": "OBSERVED_EXECUTION + TEST_EVIDENCE (tests/test_lifecycle_hooks.py)"
+    },
+    {
+      "id": "COMP-32",
+      "name": "Customization Skills",
+      "category": "SKILLS",
+      "tier": 1,
+      "subsystem": "Skills",
+      "authoritative_source": ".agents/skills/",
+      "status": "REAL",
+      "reality": "REAL",
+      "confidence": "HIGH",
+      "implementation_files": [
+        ".agents/skills/",
+        "~/.gemini/antigravity-cli/builtin/skills/"
+      ],
+      "description": "24 workspace domain skills including memory-audit, memory-promote, memory-start, memory-end, memory-search.",
+      "exists": true,
+      "real": true,
+      "wired": true,
+      "executed": true,
+      "tested": true,
+      "verified": true,
+      "evidence": "CONFIGURATION + SOURCE_CODE"
+    },
+    {
+      "id": "COMP-33",
+      "name": "Subagent Definitions",
+      "category": "AGENTS",
+      "tier": 1,
+      "subsystem": "Subagent Roster",
+      "authoritative_source": ".agents/agents/",
+      "status": "REAL",
+      "reality": "REAL",
+      "confidence": "HIGH",
+      "implementation_files": [
+        ".agents/agents/"
+      ],
+      "description": "21 specialized memory OS subagent definitions across 7 squads.",
+      "exists": true,
+      "real": true,
+      "wired": true,
+      "executed": true,
+      "tested": true,
+      "verified": true,
+      "evidence": "CONFIGURATION + SOURCE_CODE"
+    },
+    {
+      "id": "COMP-34",
+      "name": "Model Context Protocol (MCP) Configuration",
+      "category": "MCP",
+      "tier": 1,
+      "subsystem": "MCP Integration",
+      "authoritative_source": ".agents/mcp_config.json",
+      "status": "REAL",
+      "reality": "REAL",
+      "confidence": "HIGH",
+      "implementation_files": [
+        ".agents/mcp_config.json"
+      ],
+      "description": "Context7, GitHub, Playwright, SQLite-safe, Postgres-safe, and Hexana MCP server integrations.",
+      "exists": true,
+      "real": true,
+      "wired": true,
+      "executed": true,
+      "tested": true,
+      "verified": true,
+      "evidence": "CONFIGURATION + OBSERVED_EXECUTION"
+    },
+    {
+      "id": "COMP-35",
+      "name": "Workstation Diagnostic CLI Tools",
+      "category": "CLI",
+      "tier": 1,
+      "subsystem": "Diagnostic CLI",
+      "authoritative_source": "tools/bin/",
+      "status": "REAL",
+      "reality": "REAL",
+      "confidence": "HIGH",
+      "implementation_files": [
+        "tools/bin/agy-memory-doctor",
+        "tools/bin/agy-env-doctor",
+        "tools/bin/agy-mcp-doctor"
+      ],
+      "description": "CLI diagnostic wrappers executing unified workstation health checks.",
+      "exists": true,
+      "real": true,
+      "wired": true,
+      "executed": true,
+      "tested": true,
+      "verified": true,
+      "evidence": "OBSERVED_EXECUTION"
+    },
+    {
+      "id": "COMP-36",
+      "name": "Acceptance Benchmark Matrix Suite",
+      "category": "BENCHMARKS",
+      "tier": 8,
+      "subsystem": "Verification & Benchmarks",
+      "authoritative_source": "scripts/memory_benchmark.py",
+      "status": "REAL",
+      "reality": "REAL",
+      "confidence": "HIGH",
+      "implementation_files": [
+        "scripts/memory_benchmark.py"
+      ],
+      "description": "30-point acceptance matrix runner (A001\u2013A030), retrieval metrics, and noise stress tests.",
+      "exists": true,
+      "real": true,
+      "wired": true,
+      "executed": true,
+      "tested": true,
+      "verified": true,
+      "evidence": "OBSERVED_EXECUTION (29/30 pass live, A025 observed fail)"
+    },
+    {
+      "id": "COMP-37",
+      "name": "Unified Memory Doctor",
+      "category": "DIAGNOSTICS",
+      "tier": 1,
+      "subsystem": "Diagnostics",
+      "authoritative_source": "scripts/memory_doctor.py",
+      "status": "REAL",
+      "reality": "REAL",
+      "confidence": "HIGH",
+      "implementation_files": [
+        "scripts/memory_doctor.py",
+        "tools/bin/agy-memory-doctor"
+      ],
+      "description": "6-dimension diagnostic engine evaluating Markdown integrity, secret hygiene, coherence, vector health, inbox, telemetry.",
+      "exists": true,
+      "real": true,
+      "wired": true,
+      "executed": true,
+      "tested": true,
+      "verified": true,
+      "evidence": "OBSERVED_EXECUTION (Exit code 1 on bounds violation & stale index)"
+    },
+    {
+      "id": "COMP-38",
+      "name": "Query Intent Router",
+      "category": "ROUTER",
+      "tier": 5,
+      "subsystem": "Query Routing",
+      "authoritative_source": "scripts/query_router.py",
+      "status": "REAL",
+      "reality": "REAL",
+      "confidence": "HIGH",
+      "implementation_files": [
+        "scripts/query_router.py"
+      ],
+      "description": "5 intent classifications, scope selection, confidence scoring, and explicit abstention on unknown queries.",
+      "exists": true,
+      "real": true,
+      "wired": true,
+      "executed": true,
+      "tested": true,
+      "verified": true,
+      "evidence": "SOURCE_CODE + TEST_EVIDENCE (tests/test_query_router.py)"
+    },
+    {
+      "id": "COMP-39",
+      "name": "Live Toolchain Synchronizer",
+      "category": "ENVIRONMENT",
+      "tier": 4,
+      "subsystem": "Environment Synchronization",
+      "authoritative_source": "scripts/version_sync.py",
+      "status": "REAL",
+      "reality": "REAL",
+      "confidence": "HIGH",
+      "implementation_files": [
+        "scripts/version_sync.py"
+      ],
+      "description": "Probes live CLI and toolchain versions and synchronizes ENVIRONMENT.md.",
+      "exists": true,
+      "real": true,
+      "wired": true,
+      "executed": true,
+      "tested": true,
+      "verified": true,
+      "evidence": "SOURCE_CODE + OBSERVED_EXECUTION"
+    },
+    {
+      "id": "COMP-40",
+      "name": "Backup & Snapshot Subsystem",
+      "category": "BACKUP",
+      "tier": 3,
+      "subsystem": "Disaster Recovery",
+      "authoritative_source": "scripts/backup_memory.py",
+      "status": "REAL",
+      "reality": "REAL",
+      "confidence": "HIGH",
+      "implementation_files": [
+        "scripts/backup_memory.py"
+      ],
+      "description": "Creates and restores timestamped tar.gz archives of .agents/memory/ and global memory tiers.",
+      "exists": true,
+      "real": true,
+      "wired": true,
+      "executed": true,
+      "tested": true,
+      "verified": true,
+      "evidence": "SOURCE_CODE + TEST_EVIDENCE"
+    },
+    {
+      "id": "COMP-41",
+      "name": "Memory Engine Facade",
+      "category": "FACADE",
+      "tier": 1,
+      "subsystem": "Legacy API Facade",
+      "authoritative_source": "scripts/memory_engine.py",
+      "status": "REAL",
+      "reality": "REAL",
+      "confidence": "HIGH",
+      "implementation_files": [
+        "scripts/memory_engine.py"
+      ],
+      "description": "Unified entry point for session start, end, promote, search, audit, and reorganize workflows.",
+      "exists": true,
+      "real": true,
+      "wired": true,
+      "executed": true,
+      "tested": true,
+      "verified": true,
+      "evidence": "SOURCE_CODE + TEST_EVIDENCE (tests/test_memory_system.py)"
+    },
+    {
+      "id": "COMP-42",
+      "name": "Memory Audit Reporting Tool",
+      "category": "AUDIT",
+      "tier": 1,
+      "subsystem": "Audit",
+      "authoritative_source": "scripts/audit_memory.py",
+      "status": "REAL",
+      "reality": "REAL",
+      "confidence": "HIGH",
+      "implementation_files": [
+        "scripts/audit_memory.py"
+      ],
+      "description": "Generates comprehensive Markdown memory health reports across project and global memory layers.",
+      "exists": true,
+      "real": true,
+      "wired": true,
+      "executed": true,
+      "tested": true,
+      "verified": true,
+      "evidence": "SOURCE_CODE + TEST_EVIDENCE (tests/test_memory_audit.py)"
+    }
+  ],
+  "configuration": [
+    {
+      "format": "JSON",
+      "path": ".agents/hooks.json",
+      "role": "Antigravity lifecycle hook triggers"
+    },
+    {
+      "format": "JSON",
+      "path": ".agents/mcp_config.json",
+      "role": "Model Context Protocol server configuration"
+    },
+    {
+      "format": "JSON",
+      "path": ".devcontainer/devcontainer.json",
+      "role": "Codespaces workstation environment"
+    },
+    {
+      "format": "Markdown",
+      "path": "AGENTS.md",
+      "role": "Master workstation architecture & operating guide"
+    }
+  ],
+  "data_stores": [
+    {
+      "authoritative": true,
+      "format": "Markdown",
+      "id": "STORE-CANONICAL-CURRENT",
+      "path": ".agents/memory/CURRENT.md",
+      "type": "Working Memory"
+    },
+    {
+      "authoritative": true,
+      "format": "Markdown",
+      "id": "STORE-CANONICAL-DECISIONS",
+      "path": ".agents/memory/DECISIONS.md",
+      "type": "Architectural Decisions"
+    },
+    {
+      "authoritative": true,
+      "format": "Markdown",
+      "id": "STORE-CANONICAL-GOTCHAS",
+      "path": ".agents/memory/GOTCHAS.md",
+      "type": "Operational Pitfalls"
+    },
+    {
+      "authoritative": true,
+      "format": "Markdown",
+      "id": "STORE-CANONICAL-ARCH",
+      "path": ".agents/memory/ARCHITECTURE.md",
+      "type": "System Architecture"
+    },
+    {
+      "authoritative": true,
+      "format": "Markdown",
+      "id": "STORE-CANONICAL-PROC",
+      "path": ".agents/memory/PROCEDURES.md",
+      "type": "Procedural Workflows"
+    },
+    {
+      "authoritative": true,
+      "format": "Markdown",
+      "id": "STORE-CANONICAL-SESSIONS",
+      "path": ".agents/memory/sessions/*.md",
+      "type": "Episodic Journals"
+    },
+    {
+      "authoritative": true,
+      "format": "Markdown",
+      "id": "STORE-CANONICAL-GLOBAL",
+      "path": "~/.gemini/antigravity-cli/memory/",
+      "type": "Global Durable Knowledge"
+    },
+    {
+      "authoritative": false,
+      "format": "JSONL",
+      "id": "STORE-CANDIDATE-INBOX",
+      "path": ".agents/memory/inbox/candidates.jsonl",
+      "type": "Staged Unverified Candidates"
+    },
+    {
+      "authoritative": false,
+      "format": "JSONL",
+      "id": "STORE-INDEX-QUEUE-WAL",
+      "path": ".agents/memory/index_queue.jsonl",
+      "type": "Index Mutation WAL"
+    },
+    {
+      "authoritative": false,
+      "format": "JSON",
+      "id": "STORE-INDEX-HEALTH",
+      "path": ".agents/memory/index_health.json",
+      "type": "Index Status Checkpoint"
+    },
+    {
+      "authoritative": false,
+      "format": "JSONL",
+      "id": "STORE-RETRIEVAL-LEDGER",
+      "path": ".agents/memory/retrieval_ledger.jsonl",
+      "type": "Retrieval Feedback Ledger"
+    },
+    {
+      "authoritative": false,
+      "format": "Milvus Lite / HNSW",
+      "id": "STORE-MILVUS-LITE",
+      "path": "~/.memsearch/milvus.db",
+      "type": "Derived Vector Database"
+    }
+  ],
+  "dependencies": [
+    {
+      "name": "python",
+      "scope": "runtime",
+      "version": "3.12.1"
+    },
+    {
+      "name": "node",
+      "scope": "runtime",
+      "version": "v24.14.0"
+    },
+    {
+      "name": "pnpm",
+      "scope": "package_manager",
+      "version": "10.6.1"
+    },
+    {
+      "name": "pytest",
+      "scope": "testing",
+      "version": "9.1.1"
+    },
+    {
+      "name": "pymilvus",
+      "scope": "vector_database",
+      "version": "2.4.x"
+    },
+    {
+      "name": "onnxruntime",
+      "scope": "embedding_inference",
+      "version": "1.17.x"
+    },
+    {
+      "name": "sentence-transformers",
+      "scope": "embeddings",
+      "version": "all-MiniLM-L6-v2"
+    },
+    {
+      "name": "ripgrep",
+      "scope": "lexical_search",
+      "version": "14.1.0"
+    }
+  ],
+  "files": [
+    {
+      "path": "scripts/audit_inventory.py",
+      "lines": 328,
+      "bytes": 13981,
+      "type": "python",
+      "classes_count": 0,
+      "functions_count": 4,
+      "tests_matched": []
+    },
+    {
+      "path": "scripts/audit_memory.py",
+      "lines": 552,
+      "bytes": 27057,
+      "type": "python",
+      "classes_count": 1,
+      "functions_count": 2,
+      "tests_matched": [
+        "tests/test_memory_audit.py",
+        "tests/test_memory_system.py"
+      ]
+    },
+    {
+      "path": "scripts/audit_skills.py",
+      "lines": 63,
+      "bytes": 3064,
+      "type": "python",
+      "classes_count": 0,
+      "functions_count": 0,
+      "tests_matched": []
+    },
+    {
+      "path": "scripts/backup_memory.py",
+      "lines": 79,
+      "bytes": 2495,
+      "type": "python",
+      "classes_count": 0,
+      "functions_count": 3,
+      "tests_matched": []
+    },
+    {
+      "path": "scripts/candidate_bus.py",
+      "lines": 889,
+      "bytes": 37682,
+      "type": "python",
+      "classes_count": 3,
+      "functions_count": 6,
+      "tests_matched": [
+        "tests/test_candidate_bus.py",
+        "tests/test_lifecycle_hooks.py"
+      ]
+    },
+    {
+      "path": "scripts/compact_memory.py",
+      "lines": 523,
+      "bytes": 19678,
+      "type": "python",
+      "classes_count": 0,
+      "functions_count": 12,
+      "tests_matched": [
+        "tests/test_compact_memory.py",
+        "tests/test_memory_system.py"
+      ]
+    },
+    {
+      "path": "scripts/context_compiler.py",
+      "lines": 1246,
+      "bytes": 57532,
+      "type": "python",
+      "classes_count": 5,
+      "functions_count": 4,
+      "tests_matched": []
+    },
+    {
+      "path": "scripts/detect_contradictions.py",
+      "lines": 149,
+      "bytes": 6656,
+      "type": "python",
+      "classes_count": 0,
+      "functions_count": 8,
+      "tests_matched": [
+        "tests/test_memory_system.py"
+      ]
+    },
+    {
+      "path": "scripts/evidence_reranker.py",
+      "lines": 392,
+      "bytes": 16353,
+      "type": "python",
+      "classes_count": 4,
+      "functions_count": 0,
+      "tests_matched": [
+        "tests/test_evidence_reranker.py"
+      ]
+    },
+    {
+      "path": "scripts/hooks/post_tool_use.py",
+      "lines": 199,
+      "bytes": 7844,
+      "type": "python",
+      "classes_count": 0,
+      "functions_count": 3,
+      "tests_matched": [
+        "tests/test_lifecycle_hooks.py"
+      ]
+    },
+    {
+      "path": "scripts/hooks/pre_invocation.py",
+      "lines": 52,
+      "bytes": 1846,
+      "type": "python",
+      "classes_count": 0,
+      "functions_count": 1,
+      "tests_matched": [
+        "tests/test_lifecycle_hooks.py"
+      ]
+    },
+    {
+      "path": "scripts/hooks/pre_tool_use.py",
+      "lines": 89,
+      "bytes": 3395,
+      "type": "python",
+      "classes_count": 0,
+      "functions_count": 1,
+      "tests_matched": [
+        "tests/test_lifecycle_hooks.py",
+        "tests/test_negative_fixtures.py"
+      ]
+    },
+    {
+      "path": "scripts/hooks/stop_hook.py",
+      "lines": 30,
+      "bytes": 930,
+      "type": "python",
+      "classes_count": 0,
+      "functions_count": 1,
+      "tests_matched": [
+        "tests/test_lifecycle_hooks.py"
+      ]
+    },
+    {
+      "path": "scripts/learning_loop.py",
+      "lines": 1567,
+      "bytes": 65592,
+      "type": "python",
+      "classes_count": 18,
+      "functions_count": 2,
+      "tests_matched": [
+        "tests/test_learning_loop.py"
+      ]
+    },
+    {
+      "path": "scripts/lock_manager.py",
+      "lines": 95,
+      "bytes": 2809,
+      "type": "python",
+      "classes_count": 1,
+      "functions_count": 4,
+      "tests_matched": [
+        "tests/test_memory_index_queue.py"
+      ]
+    },
+    {
+      "path": "scripts/memory_benchmark.py",
+      "lines": 1279,
+      "bytes": 59049,
+      "type": "python",
+      "classes_count": 2,
+      "functions_count": 7,
+      "tests_matched": []
+    },
+    {
+      "path": "scripts/memory_compiler.py",
+      "lines": 1346,
+      "bytes": 60798,
+      "type": "python",
+      "classes_count": 7,
+      "functions_count": 1,
+      "tests_matched": [
+        "tests/test_memory_compiler.py",
+        "tests/test_evidence_reranker.py"
+      ]
+    },
+    {
+      "path": "scripts/memory_doctor.py",
+      "lines": 1352,
+      "bytes": 61361,
+      "type": "python",
+      "classes_count": 3,
+      "functions_count": 2,
+      "tests_matched": []
+    },
+    {
+      "path": "scripts/memory_engine.py",
+      "lines": 477,
+      "bytes": 20966,
+      "type": "python",
+      "classes_count": 1,
+      "functions_count": 10,
+      "tests_matched": [
+        "tests/test_isolation.py",
+        "tests/test_memory_os_adversarial.py",
+        "tests/test_memory_system.py"
+      ]
+    },
+    {
+      "path": "scripts/memory_feedback.py",
+      "lines": 1042,
+      "bytes": 42729,
+      "type": "python",
+      "classes_count": 2,
+      "functions_count": 4,
+      "tests_matched": [
+        "tests/test_memory_feedback.py"
+      ]
+    },
+    {
+      "path": "scripts/memory_index_queue.py",
+      "lines": 1127,
+      "bytes": 50232,
+      "type": "python",
+      "classes_count": 3,
+      "functions_count": 3,
+      "tests_matched": [
+        "tests/test_memory_index_queue.py"
+      ]
+    },
+    {
+      "path": "scripts/memory_reconciler.py",
+      "lines": 1511,
+      "bytes": 63740,
+      "type": "python",
+      "classes_count": 6,
+      "functions_count": 1,
+      "tests_matched": [
+        "tests/test_memory_reconciler.py"
+      ]
+    },
+    {
+      "path": "scripts/memsearch_backend.py",
+      "lines": 421,
+      "bytes": 18620,
+      "type": "python",
+      "classes_count": 2,
+      "functions_count": 1,
+      "tests_matched": [
+        "tests/test_memory_index_queue.py"
+      ]
+    },
+    {
+      "path": "scripts/procedural_engine.py",
+      "lines": 990,
+      "bytes": 44410,
+      "type": "python",
+      "classes_count": 5,
+      "functions_count": 2,
+      "tests_matched": [
+        "tests/test_procedural_engine.py"
+      ]
+    },
+    {
+      "path": "scripts/query_router.py",
+      "lines": 933,
+      "bytes": 41026,
+      "type": "python",
+      "classes_count": 1,
+      "functions_count": 3,
+      "tests_matched": []
+    },
+    {
+      "path": "scripts/run_section128_demo.py",
+      "lines": 278,
+      "bytes": 12322,
+      "type": "python",
+      "classes_count": 0,
+      "functions_count": 1,
+      "tests_matched": []
+    },
+    {
+      "path": "scripts/search_memory.py",
+      "lines": 873,
+      "bytes": 33031,
+      "type": "python",
+      "classes_count": 0,
+      "functions_count": 10,
+      "tests_matched": [
+        "tests/test_evidence_reranker.py",
+        "tests/test_context_efficiency.py",
+        "tests/test_memory_os_adversarial.py",
+        "tests/test_memory_search.py",
+        "tests/test_memory_system.py"
+      ]
+    },
+    {
+      "path": "scripts/secret_scanner.py",
+      "lines": 702,
+      "bytes": 26575,
+      "type": "python",
+      "classes_count": 3,
+      "functions_count": 7,
+      "tests_matched": [
+        "tests/test_memory_reconciler.py",
+        "tests/test_memory_feedback.py",
+        "tests/test_procedural_engine.py",
+        "tests/test_secret_scanner.py",
+        "tests/test_lifecycle_hooks.py",
+        "tests/test_memory_os_adversarial.py",
+        "tests/test_memory_system.py"
+      ]
+    },
+    {
+      "path": "scripts/session_manager.py",
+      "lines": 521,
+      "bytes": 19385,
+      "type": "python",
+      "classes_count": 0,
+      "functions_count": 10,
+      "tests_matched": [
+        "tests/test_session_lifecycle.py"
+      ]
+    },
+    {
+      "path": "scripts/test_concurrency.py",
+      "lines": 78,
+      "bytes": 2434,
+      "type": "python",
+      "classes_count": 0,
+      "functions_count": 3,
+      "tests_matched": []
+    },
+    {
+      "path": "scripts/test_detect_contradictions.py",
+      "lines": 57,
+      "bytes": 2385,
+      "type": "python",
+      "classes_count": 1,
+      "functions_count": 0,
+      "tests_matched": []
+    },
+    {
+      "path": "scripts/test_query_router.py",
+      "lines": 107,
+      "bytes": 4842,
+      "type": "python",
+      "classes_count": 1,
+      "functions_count": 0,
+      "tests_matched": []
+    },
+    {
+      "path": "scripts/validate_memory.py",
+      "lines": 141,
+      "bytes": 6009,
+      "type": "python",
+      "classes_count": 0,
+      "functions_count": 1,
+      "tests_matched": []
+    },
+    {
+      "path": "scripts/verify_subagent_memory.py",
+      "lines": 36,
+      "bytes": 1274,
+      "type": "python",
+      "classes_count": 0,
+      "functions_count": 1,
+      "tests_matched": []
+    },
+    {
+      "path": "scripts/version_sync.py",
+      "lines": 383,
+      "bytes": 15931,
+      "type": "python",
+      "classes_count": 0,
+      "functions_count": 7,
+      "tests_matched": []
+    },
+    {
+      "path": "tools/bin/agy-memory-doctor",
+      "lines": 5,
+      "bytes": 212,
+      "type": "bash",
+      "classes_count": 0,
+      "functions_count": 0,
+      "tests_matched": []
+    }
+  ],
+  "hooks": [
+    {
+      "fail_mode": "continue",
+      "handler": "scripts/hooks/pre_invocation.py",
+      "name": "PreInvocation",
+      "performance_budget_ms": 50,
+      "timeout_sec": 15
+    },
+    {
+      "fail_mode": "deny",
+      "handler": "scripts/hooks/pre_tool_use.py",
+      "name": "PreToolUse",
+      "performance_budget_ms": 50,
+      "timeout_sec": 15
+    },
+    {
+      "fail_mode": "swallowed",
+      "handler": "scripts/hooks/post_tool_use.py",
+      "name": "PostToolUse",
+      "performance_budget_ms": 30,
+      "timeout_sec": 15
+    },
+    {
+      "fail_mode": "stop",
+      "handler": "scripts/hooks/stop_hook.py",
+      "name": "Stop",
+      "performance_budget_ms": 50,
+      "timeout_sec": 15
+    }
+  ],
+  "interfaces": [
+    {
+      "component": "CandidateBus",
+      "method": "stage_candidate(source, content, context=None, candidate_type=\"observation\", metadata=None)",
+      "returns": "CandidateResult(candidate_id, status, error)"
+    },
+    {
+      "component": "MemoryCompiler",
+      "method": "compile_candidate(candidate, evidence_score=0.0)",
+      "returns": "AdmissionDecision(decision, reason, normalized_item)"
+    },
+    {
+      "component": "MemoryReconciler",
+      "method": "reconcile_and_commit(candidate, target_store, force=False)",
+      "returns": "CommitResult(status, item_id, target_file, superseded_id)"
+    },
+    {
+      "component": "HybridSearchEngine",
+      "method": "search_hybrid(query, scope=\"all\", top_k=30, rrf_k=60)",
+      "returns": "List[SearchResult(chunk_id, content, score, dense_rank, lexical_rank)]"
+    },
+    {
+      "component": "QueryRouter",
+      "method": "route_query(query)",
+      "returns": "RoutingDecision(intent, target_scope, should_abstain, reason)"
+    },
+    {
+      "component": "ContextCompiler",
+      "method": "compile_context(query, token_budget=2000, scope=\"all\")",
+      "returns": "CompiledContext(text, token_count, trust_verdict, included_chunks)"
+    },
+    {
+      "component": "MemoryDoctor",
+      "method": "run_diagnostics()",
+      "returns": "DiagnosticReport(dimensions, passed, failed, warnings)"
+    },
+    {
+      "component": "MemoryDoctor",
+      "method": "apply_repairs()",
+      "returns": "RepairReport(actions_taken, resolved_issues)"
+    }
+  ],
+  "known_limitations": [
+    {
+      "area": "Milvus Lite File Locking",
+      "description": "Milvus Lite uses single-process SQLite/local database file; parallel multi-process writes cause lock contention. Resolved by single-writer index queue lease lock.",
+      "id": "LIM-001"
+    },
+    {
+      "area": "CPU ONNX Inference Latency",
+      "description": "CPU-bound ONNX all-MiniLM-L6-v2 embedding generation takes ~30-50ms per batch. Mitigated by asynchronous WAL queuing.",
+      "id": "LIM-002"
+    },
+    {
+      "area": "Advisory File Locking Scope",
+      "description": "Advisory <file>.lock files coordinate cooperating subagents, but do not prevent external OS editors from modifying files.",
+      "id": "LIM-003"
+    }
+  ],
+  "mcp": [
+    {
+      "name": "context7",
+      "purpose": "Framework, library, and API documentation lookup",
+      "type": "Lazy"
+    },
+    {
+      "name": "github",
+      "purpose": "Repository search, PR audits, issue inspection",
+      "type": "Lazy"
+    },
+    {
+      "name": "playwright",
+      "purpose": "Headless browser automation and DOM testing",
+      "type": "Lazy"
+    },
+    {
+      "name": "sqlite-safe",
+      "purpose": "Safe read-only SQLite database queries",
+      "type": "Lazy"
+    },
+    {
+      "name": "postgres-safe",
+      "purpose": "Safe read-only Postgres database queries",
+      "type": "Lazy"
+    },
+    {
+      "name": "hexana",
+      "purpose": "WebAssembly and native binary inspection/disassembly",
+      "type": "Lazy"
+    },
+    {
+      "name": "chrome-devtools",
+      "purpose": "Live browser inspection and Lighthouse auditing",
+      "type": "Lazy"
+    },
+    {
+      "name": "tavily",
+      "purpose": "Real-time web search and content research",
+      "type": "Lazy"
+    }
+  ],
+  "runtime_processes": [
+    {
+      "lifecycle": "Session lifetime",
+      "name": "Antigravity CLI (agy)",
+      "process_type": "Interactive CLI",
+      "singleton": true
+    },
+    {
+      "lifecycle": "Per-invocation, ephemeral (<50ms)",
+      "name": "PreInvocation Hook",
+      "process_type": "Subprocess (python3)"
+    },
+    {
+      "lifecycle": "Per-tool call, ephemeral (<50ms)",
+      "name": "PreToolUse Hook",
+      "process_type": "Subprocess (python3)"
+    },
+    {
+      "lifecycle": "Per-tool call, ephemeral (<30ms)",
+      "name": "PostToolUse Hook",
+      "process_type": "Subprocess (python3)"
+    },
+    {
+      "lifecycle": "Session stop, ephemeral (<50ms)",
+      "name": "Stop Hook",
+      "process_type": "Subprocess (python3)"
+    },
+    {
+      "lifecycle": "Acquires lease lock, drains queue, exits",
+      "name": "MemSearch Index Worker",
+      "process_type": "On-Demand / Background"
+    },
+    {
+      "lifecycle": "CLI lifetime (Node/Python processes)",
+      "name": "MCP Servers",
+      "process_type": "Background stdio daemons"
+    }
+  ],
+  "skills": [
+    "memory-start",
+    "memory-end",
+    "memory-promote",
+    "memory-search",
+    "memory-audit",
+    "memory-reorganize",
+    "android-engineering",
+    "android-reverse-engineering",
+    "api-engineering",
+    "backend-engineering",
+    "binary-analysis",
+    "container-engineering",
+    "cybersecurity-review",
+    "dependency-audit",
+    "frontend-engineering",
+    "kubernetes-engineering",
+    "native-development",
+    "network-analysis",
+    "reverse-engineering",
+    "verification",
+    "wasm-engineering",
+    "web-engineering",
+    "antigravity-guide",
+    "agy-customizations"
+  ],
+  "snapshot": {
+    "antigravity_version": "2.0.0",
+    "cpu_architecture": "x86_64",
+    "current_branch": "main",
+    "embedding_dimension": 384,
+    "embedding_model": "all-MiniLM-L6-v2",
+    "embedding_provider": "sentence-transformers / onnx",
+    "generated_timestamp": "2026-09-04T19:15:00Z",
+    "head_commit": "b9a56487e1ad925c041c7a8225a71a738fa561d8",
+    "kernel": "6.8.0-1052-azure",
+    "memsearch_version": "0.1.0",
+    "node_version": "v24.14.0",
+    "os": "Ubuntu 22.04.5 LTS",
+    "package_manager": "pnpm / pip",
+    "python_version": "3.12.1",
+    "repository_name": "codespaces-blank",
+    "repository_path": "/workspaces/codespaces-blank",
+    "snapshot_id": "SNAP-20260904-MEMOS-001",
+    "snapshot_schema_version": "1.0.0",
+    "timezone": "UTC",
+    "vector_backend": "Milvus Lite (milvus.db)",
+    "working_tree_status": "DIRTY_AUDIT_STAGING"
+  },
+  "tests": [
+    {
+      "items": 13,
+      "path": "tests/test_candidate_bus.py",
+      "purpose": "Candidate ingestion, noise filtering, secret blocking"
+    },
+    {
+      "items": 18,
+      "path": "tests/test_memory_compiler.py",
+      "purpose": "5-stage admission gate, category normalization"
+    },
+    {
+      "items": 15,
+      "path": "tests/test_memory_reconciler.py",
+      "purpose": "Bitemporal tracking, supersession, rollback"
+    },
+    {
+      "items": 12,
+      "path": "tests/test_memory_index_queue.py",
+      "purpose": "WAL queue, lease lock, worker drain"
+    },
+    {
+      "items": 14,
+      "path": "tests/test_evidence_reranker.py",
+      "purpose": "Evidence thresholding, decay, MMR diversity"
+    },
+    {
+      "items": 11,
+      "path": "tests/test_learning_loop.py",
+      "purpose": "Access reinforcement, half-life decay, shadow ranker"
+    },
+    {
+      "items": 9,
+      "path": "tests/test_memory_feedback.py",
+      "purpose": "Telemetry logging, MRR/NDCG calculation"
+    },
+    {
+      "items": 10,
+      "path": "tests/test_procedural_engine.py",
+      "purpose": "Workflow sequence mining, safe staging"
+    },
+    {
+      "items": 22,
+      "path": "tests/test_secret_scanner.py",
+      "purpose": "Secret hygiene, fail-closed gatekeeping"
+    },
+    {
+      "items": 16,
+      "path": "tests/test_memory_os_adversarial.py",
+      "purpose": "Injection, concurrent race conditions, corruption"
+    }
+  ]
+}

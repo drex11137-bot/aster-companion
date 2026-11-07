@@ -1,0 +1,351 @@
+#!/usr/bin/env python3
+"""
+==============================================================================
+ANTIGRAVITY WORKSTATION - ENVIRONMENT DOCTOR (agy-env-doctor)
+Unified Diagnostic CLI for Multi-Domain Engineering Workstation
+Conforms to instruction.md Section 33, 31, 32
+==============================================================================
+"""
+
+import os
+import sys
+import shutil
+import subprocess
+import json
+import platform
+from concurrent.futures import ThreadPoolExecutor
+
+# ANSI Color Codes
+GREEN = "\033[92m"
+YELLOW = "\033[93m"
+RED = "\033[91m"
+BLUE = "\033[94m"
+CYAN = "\033[96m"
+BOLD = "\033[1m"
+RESET = "\033[0m"
+
+WORKSPACE_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "../.."))
+
+class DoctorResult:
+    def __init__(self, name, category, status, version="", details="", remediation="", required=True):
+        self.name = name
+        self.category = category
+        self.status = status  # PASS, WARN, FAIL, UNAVAILABLE
+        self.version = version
+        self.details = details
+        self.remediation = remediation
+        self.required = required
+
+def run_cmd(cmd, timeout=6):
+    try:
+        env = os.environ.copy()
+        env["SEMGREP_SEND_METRICS"] = "off"
+        res = subprocess.run(cmd, shell=True, capture_output=True, text=True, timeout=timeout, env=env)
+        combined = (res.stdout + "\n" + res.stderr).strip()
+        return res.returncode, combined
+    except subprocess.TimeoutExpired:
+        return -1, "Timeout"
+    except Exception as e:
+        return -1, str(e)
+
+def get_version(cmd, line_filter=0):
+    code, text = run_cmd(cmd)
+    if text:
+        lines = [l.strip() for l in text.splitlines() if l.strip() and not l.startswith("/bin/sh")]
+        if lines:
+            if line_filter < len(lines):
+                return lines[line_filter]
+            return lines[0]
+    return ""
+
+def find_first_binary(names):
+    for name in names:
+        path = shutil.which(name)
+        if path:
+            return name, path
+    return None, None
+
+def check_binary_multi(names, version_cmd=None, required=True, category="Tool", remediation=None):
+    display_name = names[0]
+    matched_name, path = find_first_binary(names)
+    
+    if not path:
+        status = "FAIL" if required else "UNAVAILABLE"
+        rem = remediation or f"Install {display_name} via package manager."
+        return DoctorResult(display_name, category, status, "", "Binary not found in PATH", rem, required)
+    
+    ver = ""
+    if version_cmd:
+        ver = get_version(version_cmd)
+    else:
+        ver = get_version(f"{matched_name} --version") or get_version(f"{matched_name} -v") or "Installed"
+        
+    return DoctorResult(display_name, category, "PASS", ver[:45] if ver else "Available", path, "", required)
+
+def run_all_checks():
+    results = []
+
+    # 1. Environment Check
+    os_info = f"{platform.system()} {platform.release()} ({platform.machine()})"
+    results.append(DoctorResult("OS / Kernel", "Environment", "PASS", os_info, "Host OS", "", True))
+
+    # Core CLI definitions
+    core_deps = [
+        (["git"], "git --version", True),
+        (["gh"], "gh --version", False),
+        (["curl"], "curl --version", True),
+        (["jq"], "jq --version", True),
+        (["yq"], "yq --version", False),
+        (["rg", "ripgrep"], None, False),
+        (["fd", "fdfind"], "fdfind --version || fd --version", True),
+        (["tree"], "tree --version", False),
+        (["make"], "make --version", True),
+        (["cmake"], "cmake --version", True),
+        (["ninja", "ninja-build"], "ninja --version || ninja-build --version", False),
+        (["gcc"], "gcc --version", True),
+        (["clang"], "clang --version", True),
+        (["python3"], "python3 --version", True),
+        (["node"], "node --version", True),
+        (["java"], "java -version", True),
+    ]
+
+    # Android definitions
+    android_home = os.environ.get("ANDROID_HOME", "/usr/local/lib/android/sdk")
+    sdkmanager_candidates = ["sdkmanager", f"{android_home}/cmdline-tools/latest/bin/sdkmanager"]
+    android_tools = [
+        (["adb"], "adb version", False),
+        (sdkmanager_candidates, f"{sdkmanager_candidates[0]} --version", False),
+        (["apktool"], "apktool --version", False),
+        (["jadx"], "jadx --version", False),
+        (["apksigner"], "apksigner --version", False),
+        (["zipalign"], "zipalign -v", False),
+    ]
+
+    # Binary definitions
+    binary_tools = [
+        (["readelf"], "readelf --version", True),
+        (["objdump"], "objdump --version", True),
+        (["nm"], "nm --version", True),
+        (["strings"], "strings --version", True),
+        (["checksec"], "checksec --version", False),
+        (["radare2", "r2"], "radare2 -v", False),
+        (["rizin"], "rizin -v", False),
+        (["gdb"], "gdb --version", False),
+        (["lldb"], "lldb --version", False),
+    ]
+
+    # WASM definitions
+    wasm_tools = [
+        (["wat2wasm"], "wat2wasm --version", False),
+        (["wasm2wat"], "wasm2wat --version", False),
+        (["wasm-validate"], "wasm-validate --version", False),
+        (["wasm-opt"], "wasm-opt --version", False),
+        (["wasmtime"], "wasmtime --version", False),
+    ]
+
+    # Security definitions
+    sec_tools = [
+        (["semgrep"], "semgrep --version", False),
+        (["gitleaks"], "gitleaks version", False),
+        (["codeql"], "codeql --version", False),
+        (["bandit"], "bandit --version", False),
+        (["trivy"], "trivy --version", False),
+    ]
+
+    # Network definitions
+    net_tools = [
+        (["tshark"], "tshark -v", False),
+        (["tcpdump"], "tcpdump --version", False),
+        (["capinfos"], "capinfos -v", False),
+        (["editcap"], "editcap -v", False),
+        (["mergecap"], "mergecap -v", False),
+        (["nmap"], "nmap --version", False),
+    ]
+
+    # Web & Frontend definitions
+    web_tools = [
+        (["npm"], "npm --version", True),
+        (["npx"], "npx --version", True),
+        (["pnpm"], "pnpm --version", False),
+        (["yarn"], "yarn --version", False),
+    ]
+
+    # Container & Cloud definitions
+    k8s_tools = [
+        (["docker"], "docker --version", False),
+        (["kubectl"], "kubectl version --client", False),
+        (["helm"], "helm version", False),
+        (["kustomize"], "kustomize version", False),
+        (["kubeconform"], "kubeconform -v", False),
+    ]
+
+    # Parallel evaluation
+    with ThreadPoolExecutor(max_workers=20) as executor:
+        futures = []
+        for names, vcmd, req in core_deps:
+            futures.append(executor.submit(check_binary_multi, names, vcmd, req, "Core CLI"))
+        for names, vcmd, req in android_tools:
+            futures.append(executor.submit(check_binary_multi, names, vcmd, req, "Android / Mobile"))
+        for names, vcmd, req in binary_tools:
+            futures.append(executor.submit(check_binary_multi, names, vcmd, req, "Binary Analysis"))
+        for names, vcmd, req in wasm_tools:
+            futures.append(executor.submit(check_binary_multi, names, vcmd, req, "WebAssembly"))
+        for names, vcmd, req in sec_tools:
+            futures.append(executor.submit(check_binary_multi, names, vcmd, req, "Cybersecurity"))
+        for names, vcmd, req in net_tools:
+            futures.append(executor.submit(check_binary_multi, names, vcmd, req, "Network Analysis"))
+        for names, vcmd, req in web_tools:
+            futures.append(executor.submit(check_binary_multi, names, vcmd, req, "Web & Frontend"))
+        for names, vcmd, req in k8s_tools:
+            futures.append(executor.submit(check_binary_multi, names, vcmd, req, "Container & Cloud"))
+
+        for f in futures:
+            results.append(f.result())
+
+    # 3. Agent & Customization Check (Synchronous)
+    agy_bin = shutil.which("agy")
+    if agy_bin:
+        results.append(DoctorResult("agy (Antigravity CLI)", "Agent Platform", "PASS", get_version("agy --version") or "Available", agy_bin, "", False))
+    else:
+        results.append(DoctorResult("agy (Antigravity CLI)", "Agent Platform", "WARN", "", "Not in PATH", "Install agy CLI globally if needed", False))
+
+    agents_dir = os.path.join(WORKSPACE_ROOT, ".agents")
+    agents_md = os.path.join(WORKSPACE_ROOT, "AGENTS.md")
+    hooks_file = os.path.join(agents_dir, "hooks.json")
+    skills_dir = os.path.join(agents_dir, "skills")
+    subagents_dir = os.path.join(agents_dir, "agents")
+
+    # Check AGENTS.md
+    if os.path.exists(agents_md):
+        size = os.path.getsize(agents_md)
+        results.append(DoctorResult("AGENTS.md", "Agent Platform", "PASS", f"{size} bytes", agents_md, "", True))
+    else:
+        results.append(DoctorResult("AGENTS.md", "Agent Platform", "FAIL", "", "Missing root AGENTS.md", "Create /workspaces/codespaces-blank/AGENTS.md", True))
+
+    # Check hooks.json
+    if os.path.exists(hooks_file):
+        try:
+            with open(hooks_file) as f:
+                hooks_data = json.load(f)
+            hook_count = len(hooks_data)
+            results.append(DoctorResult("hooks.json", "Agent Platform", "PASS", f"{hook_count} hook groups", hooks_file, "", True))
+        except Exception as e:
+            results.append(DoctorResult("hooks.json", "Agent Platform", "FAIL", "", f"Invalid JSON: {e}", "Fix syntax in .agents/hooks.json", True))
+    else:
+        results.append(DoctorResult("hooks.json", "Agent Platform", "FAIL", "", "Missing .agents/hooks.json", "Create .agents/hooks.json", True))
+
+    # Check Skills
+    if os.path.exists(skills_dir):
+        skills = [s for s in os.listdir(skills_dir) if os.path.isdir(os.path.join(skills_dir, s))]
+        status = "PASS" if len(skills) >= 15 else "WARN"
+        results.append(DoctorResult("Domain Skills", "Agent Platform", status, f"{len(skills)} skills", f"Loaded from {skills_dir}", "Author required skills in .agents/skills/", True))
+    else:
+        results.append(DoctorResult("Domain Skills", "Agent Platform", "FAIL", "", "Missing .agents/skills", "Create .agents/skills directory", True))
+
+    # Check Subagents
+    if os.path.exists(subagents_dir):
+        subagents = [a for a in os.listdir(subagents_dir) if os.path.isdir(os.path.join(subagents_dir, a))]
+        status = "PASS" if len(subagents) >= 9 else "WARN"
+        results.append(DoctorResult("Custom Subagents", "Agent Platform", status, f"{len(subagents)} subagents", f"Loaded from {subagents_dir}", "Author subagents in .agents/agents/", True))
+    else:
+        results.append(DoctorResult("Custom Subagents", "Agent Platform", "FAIL", "", "Missing .agents/agents", "Create .agents/agents directory", True))
+
+    # Check MCP
+    mcp_file = os.path.join(agents_dir, "mcp_config.json")
+    if os.path.exists(mcp_file):
+        try:
+            with open(mcp_file) as f:
+                mcp_data = json.load(f)
+            servers = list(mcp_data.get("mcpServers", {}).keys())
+            results.append(DoctorResult("MCP Configuration", "MCP", "PASS", f"{len(servers)} servers ({', '.join(servers[:4])})", mcp_file, "", True))
+        except Exception as e:
+            results.append(DoctorResult("MCP Configuration", "MCP", "FAIL", "", f"Invalid JSON: {e}", "Fix .agents/mcp_config.json", True))
+    else:
+        results.append(DoctorResult("MCP Configuration", "MCP", "FAIL", "", "Missing .agents/mcp_config.json", "Create .agents/mcp_config.json", True))
+
+    # Ghidra check
+    ghidra_home = os.environ.get("GHIDRA_HOME", "/opt/ghidra")
+    ghidra_headless = os.path.join(ghidra_home, "support/analyzeHeadless")
+    if os.path.exists(ghidra_headless):
+        results.append(DoctorResult("Ghidra Headless", "Binary Analysis", "PASS", "Installed", ghidra_headless, "", False))
+    else:
+        results.append(DoctorResult("Ghidra Headless", "Binary Analysis", "UNAVAILABLE", "", "Not found in GHIDRA_HOME", "Install Ghidra headless analyzer", False))
+
+    # Scapy check
+    code, text = run_cmd('python3 -c "import scapy; print(scapy.__version__)"')
+    if code == 0 and text:
+        results.append(DoctorResult("Scapy (Python)", "Network Analysis", "PASS", f"v{text}", "Python Scapy library", "", False))
+    else:
+        results.append(DoctorResult("Scapy (Python)", "Network Analysis", "UNAVAILABLE", "", "Not installed", "pip install scapy", False))
+
+    # Playwright check
+    pw_ver = get_version("npx --no-install playwright --version") or get_version("npx playwright --version")
+    if pw_ver and "not found" not in pw_ver:
+        results.append(DoctorResult("playwright", "Web & Frontend", "PASS", pw_ver, "Playwright available", "", False))
+    else:
+        results.append(DoctorResult("playwright", "Web & Frontend", "UNAVAILABLE", "", "Not found", "npm install -g playwright", False))
+
+    return results
+
+def main():
+    print(f"\n{BOLD}{CYAN}=============================================================================={RESET}")
+    print(f"{BOLD}{CYAN}      ANTIGRAVITY WORKSTATION ENVIRONMENT DOCTOR (agy-env-doctor)             {RESET}")
+    print(f"{BOLD}{CYAN}=============================================================================={RESET}\n")
+
+    results = run_all_checks()
+
+    # Render Results by Category
+    categories = {}
+    for r in results:
+        categories.setdefault(r.category, []).append(r)
+
+    print(f"{'CATEGORY':<20} | {'COMPONENT / TOOL':<25} | {'STATUS':<12} | {'VERSION / INFO'}")
+    print("-" * 88)
+
+    pass_count = 0
+    warn_count = 0
+    fail_count = 0
+    unavail_count = 0
+
+    remediations = []
+
+    for cat, items in categories.items():
+        for item in items:
+            if item.status == "PASS":
+                status_str = f"{GREEN}PASS{RESET}"
+                pass_count += 1
+            elif item.status == "WARN":
+                status_str = f"{YELLOW}WARN{RESET}"
+                warn_count += 1
+                if item.remediation:
+                    remediations.append((item.name, item.remediation))
+            elif item.status == "FAIL":
+                status_str = f"{RED}FAIL{RESET}"
+                fail_count += 1
+                if item.remediation:
+                    remediations.append((item.name, item.remediation))
+            else:
+                status_str = f"{BLUE}UNAVAILABLE{RESET}"
+                unavail_count += 1
+
+            ver_display = item.version or item.details
+            print(f"{cat:<20} | {item.name:<25} | {status_str:<21} | {ver_display[:35]}")
+
+    print("-" * 88)
+    print(f"\n{BOLD}Diagnostic Summary:{RESET} {GREEN}{pass_count} Passed{RESET}, {YELLOW}{warn_count} Warnings{RESET}, {BLUE}{unavail_count} Optional/Unavailable{RESET}, {RED}{fail_count} Failed{RESET}")
+
+    if remediations:
+        print(f"\n{BOLD}{YELLOW}Remediation Suggestions:{RESET}")
+        for name, rem in remediations:
+            print(f"  - {BOLD}{name}{RESET}: {rem}")
+
+    print("")
+    if fail_count > 0:
+        print(f"{RED}{BOLD}[!] Workstation has required component failures.{RESET}\n")
+        sys.exit(1)
+    else:
+        print(f"{GREEN}{BOLD}[OK] All required workstation components are operational.{RESET}\n")
+        sys.exit(0)
+
+if __name__ == "__main__":
+    main()

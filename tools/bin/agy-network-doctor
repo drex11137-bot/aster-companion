@@ -1,0 +1,317 @@
+#!/usr/bin/env python3
+"""
+==============================================================================
+ANTIGRAVITY WORKSTATION - NETWORK DOCTOR (agy-network-doctor)
+Unified Diagnostic CLI for Network Analysis, Packet Forensics & Scapy Toolchain
+Conforms to Antigravity Engineering Workstation Standards
+==============================================================================
+"""
+
+import sys
+import os
+import shutil
+import subprocess
+import json
+import argparse
+import tempfile
+import logging
+from typing import Dict, List, Any, Optional
+
+# Suppress scapy warnings before importing scapy modules
+os.environ["SCAPY_USE_PCAPDUMP"] = "1"
+logging.getLogger("scapy.runtime").setLevel(logging.ERROR)
+logging.getLogger("scapy.loading").setLevel(logging.ERROR)
+
+# ANSI Color Codes
+GREEN = "\033[92m"
+YELLOW = "\033[93m"
+RED = "\033[91m"
+BLUE = "\033[94m"
+CYAN = "\033[96m"
+BOLD = "\033[1m"
+RESET = "\033[0m"
+
+WORKSPACE_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "../.."))
+DEFAULT_FIXTURE = os.path.join(WORKSPACE_ROOT, "fixtures/network/sample.pcap")
+
+class CheckResult:
+    def __init__(self, name: str, category: str, status: str, version: str = "", details: str = "", remediation: str = "", required: bool = True):
+        self.name = name
+        self.category = category
+        self.status = status  # PASS, WARN, FAIL, UNAVAILABLE
+        self.version = version
+        self.details = details
+        self.remediation = remediation
+        self.required = required
+
+    def to_dict(self) -> Dict[str, Any]:
+        return {
+            "name": self.name,
+            "category": self.category,
+            "status": self.status,
+            "version": self.version,
+            "details": self.details,
+            "remediation": self.remediation,
+            "required": self.required
+        }
+
+def run_cmd(cmd: str, timeout: int = 10) -> tuple[int, str]:
+    try:
+        res = subprocess.run(cmd, shell=True, capture_output=True, text=True, timeout=timeout)
+        combined = (res.stdout + "\n" + res.stderr).strip()
+        return res.returncode, combined
+    except subprocess.TimeoutExpired:
+        return -1, "Timeout expired"
+    except Exception as e:
+        return -1, str(e)
+
+def extract_clean_version(raw_output: str) -> str:
+    if not raw_output:
+        return "Installed"
+    lines = [l.strip() for l in raw_output.splitlines() if l.strip()]
+    if not lines:
+        return "Installed"
+    first = lines[0]
+    if " (Git" in first:
+        return first.split(" (Git")[0].strip()
+    if " (packaged" in first:
+        return first.split(" (packaged")[0].strip()
+    if " (https://" in first:
+        return first.split(" (https://")[0].strip()
+    return first[:45]
+
+def check_binary(name: str, version_cmd: str, required: bool = True, category: str = "Toolchain Binaries", remediation: str = "") -> CheckResult:
+    bin_path = shutil.which(name)
+    if not bin_path:
+        status = "FAIL" if required else "UNAVAILABLE"
+        rem = remediation or f"Install {name} using system package manager (e.g. apt-get install wireshark / tshark / tcpdump / nmap)."
+        return CheckResult(name, category, status, "", "Binary not found in PATH", rem, required)
+    
+    code, output = run_cmd(version_cmd)
+    version = extract_clean_version(output)
+    return CheckResult(name, category, "PASS", version, bin_path, "", required)
+
+def check_scapy() -> CheckResult:
+    try:
+        import scapy
+        from scapy import config
+        config.conf.verb = 0
+        version = getattr(scapy, "__version__", "Installed")
+        from scapy.all import IP, TCP, Ether, Raw
+        # Test basic packet construction with explicit MACs to avoid routing ARP lookups
+        pkt = Ether(src="02:00:00:00:00:01", dst="02:00:00:00:00:02") / IP(src="10.0.0.1", dst="10.0.0.2") / TCP(sport=80, dport=80) / Raw(b"test")
+        if len(pkt) > 0:
+            return CheckResult("scapy (Python)", "Libraries", "PASS", f"v{version}", "Packet crafting verified", "", True)
+        return CheckResult("scapy (Python)", "Libraries", "PASS", f"v{version}", "Scapy loaded", "", True)
+    except ImportError:
+        return CheckResult("scapy (Python)", "Libraries", "FAIL", "", "Scapy module not found", "pip install scapy", True)
+    except Exception as e:
+        return CheckResult("scapy (Python)", "Libraries", "FAIL", "", f"Error: {e}", "Reinstall scapy", True)
+
+def test_capinfos_inspection(fixture_path: str) -> CheckResult:
+    if not os.path.exists(fixture_path):
+        return CheckResult("capinfos (Metadata Inspection)", "Functional Tests", "WARN", "", f"Fixture not found: {fixture_path}", "Run generate_sample_pcap.py to create fixture", False)
+    
+    code, output = run_cmd(f"capinfos '{fixture_path}'")
+    if code != 0:
+        return CheckResult("capinfos (Metadata Inspection)", "Functional Tests", "FAIL", "", f"capinfos execution failed (exit code {code})", "Verify libpcap/wireshark installation", True)
+    
+    packet_count = "unknown"
+    for line in output.splitlines():
+        if "Number of packets:" in line or "Number of packets =" in line:
+            packet_count = line.split(":")[-1].split("=")[-1].strip()
+            break
+    
+    return CheckResult("capinfos (Metadata Inspection)", "Functional Tests", "PASS", f"{packet_count} packets analyzed", f"Metadata parsed from {os.path.basename(fixture_path)}", "", True)
+
+def test_tshark_protocol_hierarchy(fixture_path: str) -> CheckResult:
+    if not os.path.exists(fixture_path):
+        return CheckResult("tshark (Protocol Hierarchy)", "Functional Tests", "WARN", "", f"Fixture not found: {fixture_path}", "Generate fixture PCAP", False)
+    
+    code, output = run_cmd(f"tshark -r '{fixture_path}' -q -z io,phs")
+    if code != 0:
+        return CheckResult("tshark (Protocol Hierarchy)", "Functional Tests", "FAIL", "", f"tshark hierarchy analysis failed (exit code {code})", "Verify tshark permissions", True)
+    
+    if "Protocol Hierarchy Statistics" in output and ("eth" in output or "ip" in output):
+        return CheckResult("tshark (Protocol Hierarchy)", "Functional Tests", "PASS", "Hierarchy statistics operational", "Successfully decoded protocol tree", "", True)
+    else:
+        return CheckResult("tshark (Protocol Hierarchy)", "Functional Tests", "WARN", "Output incomplete", output[:50], "", False)
+
+def test_tshark_field_filters(fixture_path: str) -> CheckResult:
+    if not os.path.exists(fixture_path):
+        return CheckResult("tshark (Field Dissection)", "Functional Tests", "WARN", "", f"Fixture not found: {fixture_path}", "Generate fixture PCAP", False)
+    
+    dns_cmd = f"tshark -r '{fixture_path}' -Y 'dns' -T fields -e dns.qry.name"
+    code, output = run_cmd(dns_cmd)
+    if code != 0:
+        return CheckResult("tshark (Field Dissection)", "Functional Tests", "FAIL", "", f"DNS filter extraction failed: {output[:50]}", "Check tshark syntax", True)
+    
+    dns_queries = [line.strip() for line in output.splitlines() if line.strip()]
+    
+    http_cmd = f"tshark -r '{fixture_path}' -Y 'http' -T fields -e http.request.method -e http.host"
+    code_h, output_h = run_cmd(http_cmd)
+    http_items = [line.strip() for line in output_h.splitlines() if line.strip()]
+    
+    summary = f"DNS: {len(dns_queries)} queries, HTTP: {len(http_items)} events"
+    return CheckResult("tshark (Field Dissection)", "Functional Tests", "PASS", summary, "Dissection of DNS/HTTP fields verified", "", True)
+
+def test_editcap_mergecap_pipeline(fixture_path: str) -> CheckResult:
+    if not os.path.exists(fixture_path):
+        return CheckResult("editcap & mergecap Pipeline", "Functional Tests", "WARN", "", f"Fixture not found: {fixture_path}", "Generate fixture PCAP", False)
+    
+    with tempfile.TemporaryDirectory() as tmpdir:
+        tmp_edit = os.path.join(tmpdir, "edit.pcap")
+        tmp_merge = os.path.join(tmpdir, "merged.pcap")
+        
+        # Test editcap
+        code_e, out_e = run_cmd(f"editcap -F pcap '{fixture_path}' '{tmp_edit}'")
+        if code_e != 0:
+            return CheckResult("editcap & mergecap Pipeline", "Functional Tests", "FAIL", "", f"editcap failed: {out_e[:50]}", "Verify editcap installation", True)
+        
+        # Test mergecap
+        code_m, out_m = run_cmd(f"mergecap -w '{tmp_merge}' '{fixture_path}' '{tmp_edit}'")
+        if code_m != 0:
+            return CheckResult("editcap & mergecap Pipeline", "Functional Tests", "FAIL", "", f"mergecap failed: {out_m[:50]}", "Verify mergecap installation", True)
+        
+        if os.path.exists(tmp_merge) and os.path.getsize(tmp_merge) > 0:
+            return CheckResult("editcap & mergecap Pipeline", "Functional Tests", "PASS", "Slicing & merging operational", "Verified editcap/mergecap PCAP transformation", "", True)
+        else:
+            return CheckResult("editcap & mergecap Pipeline", "Functional Tests", "FAIL", "", "Merged PCAP output is empty", "", True)
+
+def test_scapy_craft_and_parse() -> CheckResult:
+    try:
+        from scapy import config
+        config.conf.verb = 0
+        from scapy.all import Ether, IP, TCP, Raw, wrpcap, rdpcap
+        with tempfile.TemporaryDirectory() as tmpdir:
+            test_pcap = os.path.join(tmpdir, "scapy_test.pcap")
+            pkt1 = Ether(src="02:00:00:00:00:01", dst="02:00:00:00:00:02") / IP(src="10.0.0.1", dst="10.0.0.2") / TCP(sport=12345, dport=80, flags="S") / Raw(load=b"SYN_TEST")
+            pkt2 = Ether(src="02:00:00:00:00:02", dst="02:00:00:00:00:01") / IP(src="10.0.0.2", dst="10.0.0.1") / TCP(sport=80, dport=12345, flags="SA") / Raw(load=b"SYNACK_TEST")
+            wrpcap(test_pcap, [pkt1, pkt2])
+            
+            read_pkts = rdpcap(test_pcap)
+            if len(read_pkts) == 2 and read_pkts[0][IP].src == "10.0.0.1" and read_pkts[1][TCP].flags == "SA":
+                return CheckResult("Scapy (Craft & Parse)", "Functional Tests", "PASS", "2 packets round-tripped", "Synthesized and validated TCP handshake packets", "", True)
+            else:
+                return CheckResult("Scapy (Craft & Parse)", "Functional Tests", "FAIL", "", "Packet verification mismatch", "Check scapy installation", True)
+    except Exception as e:
+        return CheckResult("Scapy (Craft & Parse)", "Functional Tests", "FAIL", "", f"Exception: {e}", "Check scapy installation", True)
+
+def run_all_checks(fixture_path: str = DEFAULT_FIXTURE, quick: bool = False) -> List[CheckResult]:
+    results = []
+    
+    # 1. Binary checks
+    tools = [
+        ("tshark", "tshark -v", True, "Wireshark packet dissector CLI"),
+        ("tcpdump", "tcpdump --version", True, "Packet capture & filter tool"),
+        ("capinfos", "capinfos -v", True, "PCAP/PCAPNG metadata & statistical analyzer"),
+        ("editcap", "editcap -v", True, "Packet capture editor & converter"),
+        ("mergecap", "mergecap -v", True, "Packet capture file merger"),
+        ("nmap", "nmap --version", False, "Network scanner & security prober")
+    ]
+    
+    for name, vcmd, req, desc in tools:
+        results.append(check_binary(name, vcmd, req, "Toolchain Binaries", f"Install {name}"))
+    
+    # 2. Python Scapy library
+    results.append(check_scapy())
+    
+    # 3. Functional tests (unless quick mode)
+    if not quick:
+        results.append(test_scapy_craft_and_parse())
+        results.append(test_capinfos_inspection(fixture_path))
+        results.append(test_tshark_protocol_hierarchy(fixture_path))
+        results.append(test_tshark_field_filters(fixture_path))
+        results.append(test_editcap_mergecap_pipeline(fixture_path))
+        
+    return results
+
+def main():
+    parser = argparse.ArgumentParser(
+        description="Antigravity Workstation Network Analysis & Forensics Doctor",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog="""Examples:
+  agy-network-doctor
+  agy-network-doctor --json
+  agy-network-doctor --fixture fixtures/network/sample.pcap
+  agy-network-doctor --quick
+"""
+    )
+    parser.add_argument("--json", action="store_true", help="Output results in JSON format")
+    parser.add_argument("--fixture", default=DEFAULT_FIXTURE, help=f"Path to test PCAP fixture (default: {DEFAULT_FIXTURE})")
+    parser.add_argument("--quick", action="store_true", help="Skip functional PCAP parsing and run binary checks only")
+    args = parser.parse_args()
+    
+    results = run_all_checks(fixture_path=args.fixture, quick=args.quick)
+    
+    if args.json:
+        out = {
+            "total": len(results),
+            "passed": sum(1 for r in results if r.status == "PASS"),
+            "warned": sum(1 for r in results if r.status == "WARN"),
+            "failed": sum(1 for r in results if r.status == "FAIL"),
+            "unavailable": sum(1 for r in results if r.status == "UNAVAILABLE"),
+            "fixture": args.fixture if not args.quick else None,
+            "results": [r.to_dict() for r in results]
+        }
+        print(json.dumps(out, indent=2))
+        sys.exit(1 if out["failed"] > 0 else 0)
+    
+    # Console Output
+    print(f"\n{BOLD}{CYAN}=============================================================================={RESET}")
+    print(f"{BOLD}{CYAN}      ANTIGRAVITY NETWORK FORENSICS DOCTOR (agy-network-doctor)               {RESET}")
+    print(f"{BOLD}{CYAN}=============================================================================={RESET}\n")
+    
+    categories: Dict[str, List[CheckResult]] = {}
+    for r in results:
+        categories.setdefault(r.category, []).append(r)
+        
+    print(f"{'CATEGORY':<22} | {'COMPONENT / TEST':<32} | {'STATUS':<12} | {'VERSION / DETAILS'}")
+    print("-" * 92)
+    
+    pass_count = 0
+    warn_count = 0
+    fail_count = 0
+    unavail_count = 0
+    remediations = []
+    
+    for cat, items in categories.items():
+        for item in items:
+            if item.status == "PASS":
+                status_str = f"{GREEN}PASS{RESET}"
+                pass_count += 1
+            elif item.status == "WARN":
+                status_str = f"{YELLOW}WARN{RESET}"
+                warn_count += 1
+                if item.remediation:
+                    remediations.append((item.name, item.remediation))
+            elif item.status == "FAIL":
+                status_str = f"{RED}FAIL{RESET}"
+                fail_count += 1
+                if item.remediation:
+                    remediations.append((item.name, item.remediation))
+            else:
+                status_str = f"{BLUE}UNAVAILABLE{RESET}"
+                unavail_count += 1
+                
+            info = item.version if item.version else item.details
+            print(f"{cat:<22} | {item.name:<32} | {status_str:<21} | {info[:35]}")
+            
+    print("-" * 92)
+    print(f"\n{BOLD}Diagnostic Summary:{RESET} {GREEN}{pass_count} Passed{RESET}, {YELLOW}{warn_count} Warnings{RESET}, {BLUE}{unavail_count} Unavailable{RESET}, {RED}{fail_count} Failed{RESET}")
+    
+    if remediations:
+        print(f"\n{BOLD}{YELLOW}Remediation Suggestions:{RESET}")
+        for name, rem in remediations:
+            print(f"  - {BOLD}{name}{RESET}: {rem}")
+            
+    print("")
+    if fail_count > 0:
+        print(f"{RED}{BOLD}[!] Network forensics toolchain has failures.{RESET}\n")
+        sys.exit(1)
+    else:
+        print(f"{GREEN}{BOLD}[OK] All network analysis and forensics components are fully operational.{RESET}\n")
+        sys.exit(0)
+
+if __name__ == "__main__":
+    main()

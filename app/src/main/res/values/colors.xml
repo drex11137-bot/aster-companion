@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Aster Companion Theme Palette (Dark Aesthetic with Warm Amber Glow) -->
+    <color name="aster_background">#0B0C10</color>
+    <color name="aster_surface">#16181F</color>
+    <color name="aster_surface_elevated">#1E222D</color>
+    <color name="aster_surface_border">#2A2F3D</color>
+    <color name="aster_amber">#F5A623</color>
+    <color name="aster_amber_primary">#E59843</color>
+    <color name="aster_amber_glow">#FFB74D</color>
+    <color name="aster_text_primary">#F3F4F6</color>
+    <color name="aster_text_secondary">#9CA3AF</color>
+    <color name="aster_online_green">#4CD964</color>
+
+    <!-- Legacy styles preserved for backward compatibility -->
+    <color name="gauge_ground">#0B0C10</color>
+    <color name="gauge_surface">#16181F</color>
+    <color name="gauge_surface_elevated">#1E222D</color>
+    <color name="gauge_outline">#2A2F3D</color>
+    <color name="gauge_ink_primary">#F3F4F6</color>
+    <color name="gauge_ink_secondary">#9CA3AF</color>
+    <color name="gauge_accent">#F5A623</color>
+    <color name="gauge_signal_ok">#4CD964</color>
+    <color name="gauge_signal_warn">#F5A623</color>
+    <color name="gauge_signal_critical">#EF4444</color>
+    <color name="gauge_signal_power">#3B82F6</color>
+</resources>

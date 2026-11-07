@@ -1,0 +1,106 @@
+# Memory safety configuration
+# Never commit session logs as they can be noisy and contain temporary information
+.agents/memory/sessions/
+
+# Never commit local scratch files
+scratch/
+.scratch/
+.agents/scratch/
+
+# Never commit memory backups
+.agents/backups/
+
+# Ignore local tool outputs and secrets that might contain credentials
+.env
+.env.*
+*.pem
+*.key
+credentials.json
+secrets.txt
+secret*.json
+
+# Dependencies & Package Managers
+node_modules/
+.pnpm-store/
+.npm/
+.yarn/
+.yarn/cache/
+.yarn/build-state.yml
+.yarn/install-state.gz
+
+# Python & Caches
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+.venv/
+venv/
+ENV/
+env/
+*.egg-info/
+dist/
+build/
+*.egg
+
+# C / C++ / Native Build Artifacts
+*.o
+*.obj
+*.a
+*.lib
+*.dylib
+*.dll
+*.exe
+*.out
+*.app
+CMakeFiles/
+CMakeCache.txt
+CMakeScripts/
+cmake_install.cmake
+Makefile
+compile_commands.json
+
+# WebAssembly
+*.wasm.map
+
+# Android & Gradle
+.gradle/
+app/build/
+local.properties
+captures/
+*.apk
+!distribution/*.apk
+*.ap_
+*.aab
+*.dex
+*.class
+*.hprof
+*.keystore
+*.jks
+*.idsig
+
+# Memory Substrate & Locks
+.agents/memory/inbox/
+.agents/memory/.memsearch/
+.agents/memory/*.lock
+*.lock
+
+# Temporary & Editor files
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+.tmp/
+tmp/
+*.log
+
+# Allow fixtures and config files explicitly
+!fixtures/**
+
+# Ghidra test outputs
+ghidra_output_*/

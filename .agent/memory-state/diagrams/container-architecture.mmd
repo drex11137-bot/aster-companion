@@ -1,0 +1,39 @@
+C4Container
+    title Antigravity Memory OS - C4 L2 Container Architecture Diagram
+    
+    Person(developer, "Software Engineer / AI Pair", "Instructs tasks and inspects memory")
+    
+    System_Boundary(agy_runtime, "Antigravity Engineering Runtime Boundary") {
+        Container(agy_cli, "Antigravity CLI (agy)", "TypeScript / Node.js 24", "Main interactive prompt loop, subagent orchestrator, and tool dispatcher.")
+        
+        Container(hooks_container, "Lifecycle Hooks Subsystem", "Python 3.12 / scripts/hooks/*.py", "Intercepts PreInvocation, PreToolUse (secret scanner), PostToolUse (telemetry & noise filter), and Stop events.")
+        
+        Container(candidate_container, "Experience Capture & Candidate Bus", "Python 3.12 / candidate_bus.py", "Staging inbox (.agents/memory/inbox/candidates.jsonl) with noise filtering and SHA-256 deduplication.")
+        
+        Container(compiler_reconciler, "Memory Compiler & Reconciler", "Python 3.12 / memory_compiler.py, memory_reconciler.py", "5-stage admission gate, bitemporal ledger tracking, atomic replacement, and contradiction resolution.")
+        
+        ContainerDb(canonical_store, "Canonical Markdown Storage", "Filesystem / Markdown (.md)", "Authoritative repository state: CURRENT.md, DECISIONS.md, GOTCHAS.md, ARCHITECTURE.md, PROCEDURES.md, sessions/*.md.")
+        
+        Container(index_wal, "Index Queue & WAL Processor", "Python 3.12 / memory_index_queue.py", "Asynchronous mutation WAL (index_queue.jsonl) with single-writer lease lock and auto-repair queue worker.")
+        
+        ContainerDb(memsearch_container, "MemSearch Retrieval Substrate", "Milvus Lite + ONNX / .venv-memsearch", "Derived disposable vector database (~/.memsearch/milvus.db or .agents/memory/.memsearch/) with CPU ONNX all-MiniLM-L6-v2 embeddings (384-d) and BM25 index.")
+        
+        Container(retrieval_router, "Search, Routing & Context Compiler", "Python 3.12 / query_router.py, search_memory.py, context_compiler.py", "Query intent routing, hybrid search (RRF fusion), MMR evidence reranking, and L1/L2/L3 progressive context budgeting.")
+        
+        Container(telemetry_health, "Telemetry & Health Doctor", "Python 3.12 / memory_doctor.py, learning_loop.py", "Evaluates 6 diagnostic dimensions (agy-memory-doctor), applies half-life decay, access reinforcement, and MRR/NDCG logging.")
+    }
+    
+    Rel(developer, agy_cli, "CLI commands & conversational turns")
+    Rel(agy_cli, hooks_container, "Triggers hook scripts via stdin/stdout JSON protocol")
+    Rel(hooks_container, candidate_container, "Emits captured tool output and gotchas into CandidateBus")
+    Rel(candidate_container, compiler_reconciler, "Presents staged candidates for 5-gate admission evaluation")
+    Rel(compiler_reconciler, canonical_store, "Commits verified records atomically using <file>.lock advisory locking")
+    Rel(compiler_reconciler, index_wal, "Enqueues mutation events (UPSERT / DELETE) into WAL queue")
+    Rel(index_wal, memsearch_container, "Single-writer worker updates embeddings and BM25 index")
+    Rel(agy_cli, retrieval_router, "Requests contextual memory via query or session startup")
+    Rel(retrieval_router, memsearch_container, "Queries dense vector embeddings and BM25 lexical matches")
+    Rel(retrieval_router, canonical_store, "Resolves full Markdown content for high-scoring candidates")
+    Rel(retrieval_router, agy_cli, "Returns compiled, budget-capped, trust-certified context blocks")
+    Rel(telemetry_health, canonical_store, "Audits structural health and file budgets (<30L CURRENT.md)")
+    Rel(telemetry_health, memsearch_container, "Checks index sync, detects drift, and triggers rebuilds")
+    Rel(agy_cli, telemetry_health, "Logs retrieval relevance feedback into retrieval_ledger.jsonl")
